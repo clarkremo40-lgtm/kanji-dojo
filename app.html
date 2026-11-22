@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <script>
-var KD_BUILD=4,KD_VER="1.2.1",KD_NATIVE=3;
+var KD_BUILD=6,KD_VER="1.3.1",KD_NATIVE=4;
 (function(){try{if(window.__KD_SWAP)return;var ls=localStorage;
  if(location.href.indexOf("file:///android_asset")===0)ls.setItem("kd_native",String(KD_NATIVE));
  var b=+(ls.getItem("kd_build")||0),h=ls.getItem("kd_html");
@@ -36,7 +36,7 @@ button{font-family:inherit;border:0;cursor:pointer;color:inherit;background:none
 header{display:flex;align-items:center;gap:10px;padding:14px 18px 8px}
 .logo{display:flex;align-items:center;gap:8px;font-weight:900;font-size:18px;letter-spacing:.5px}
 .hanko{width:34px;height:34px;border-radius:9px;background:var(--shu);display:grid;place-items:center;font-family:"Shippori Mincho B1";font-size:20px;color:#fff;transform:rotate(-6deg);box-shadow:0 4px 14px rgba(232,69,44,.45)}
-.xpchip{margin-left:auto;display:flex;align-items:center;gap:8px;background:var(--ink2);border:1px solid var(--line);padding:6px 12px 6px 8px;border-radius:99px;font-size:13px;font-weight:700}
+.xpchip{display:flex;align-items:center;gap:8px;background:var(--ink2);border:1px solid var(--line);padding:6px 12px 6px 8px;border-radius:99px;font-size:13px;font-weight:700}
 .xpchip .lv{background:var(--gold);color:var(--ink);border-radius:99px;padding:2px 8px;font-weight:900}
 .flame{color:#ff9a3c}
 main{flex:1;overflow-y:auto;overflow-x:hidden;padding:4px 16px 130px;scroll-behavior:smooth}
@@ -222,6 +222,11 @@ select{font-family:inherit;font-size:15px;font-weight:700;background:var(--ink3)
 #upd.on{display:flex}
 #upd .box{width:100%;max-width:480px;background:linear-gradient(180deg,#2a2160,#120e27);border-radius:28px 28px 0 0;padding:24px 20px 30px;border-top:1px solid var(--line);animation:sheetUp .45s cubic-bezier(.2,.9,.2,1)}
 #upd ul{margin:10px 0 16px 18px;line-height:1.6;font-size:14px}
+
+#updChk{position:fixed;inset:0;z-index:95;display:none;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:radial-gradient(circle at 50% 40%,#2b2160,#0e0b1f 65%)}
+#updChk.on{display:flex}
+.spin{width:40px;height:40px;border-radius:50%;border:4px solid rgba(255,255,255,.15);border-top-color:var(--shu);animation:spin 0.9s linear infinite}
+#hUpd.busy{animation:spin 0.9s linear infinite}
 </style>
 </head>
 <body>
@@ -230,7 +235,7 @@ select{font-family:inherit;font-size:15px;font-weight:700;background:var(--ink3)
 <div id="app">
   <header>
     <div class="logo"><div class="hanko">道</div>Kanji Dojo</div>
-    <div class="xpchip"><span class="flame">🔥<span id="hStreak">0</span></span><span class="lv" id="hLv">N5</span><span id="hXp">0 XP</span></div>
+    <div class="xpchip" style="margin-left:auto"><span class="flame">🔥<span id="hStreak">0</span></span><span class="lv" id="hLv">N5</span><span id="hXp">0 XP</span></div><button id="hUpd" title="Check for updates" style="flex:none;width:38px;height:38px;border-radius:50%;background:var(--ink2);border:1px solid var(--line);font-size:17px">🔄</button>
   </header>
 
   <main id="main">
@@ -398,6 +403,7 @@ select{font-family:inherit;font-size:15px;font-weight:700;background:var(--ink3)
   <div style="flex:1"></div>
   <button class="btn sm" id="slEmerg" style="margin:18px auto 0;opacity:.7">🚨 Emergency: use phone for 5 min</button>
 </div>
+<div id="updChk"><div class="hanko" style="width:72px;height:72px;font-size:42px;border-radius:20px">道</div><div style="font-weight:900;font-size:18px">Kanji Dojo</div><div class="spin"></div><div class="tiny muted">Checking for updates…</div></div>
 <div id="upd"><div class="box">
   <div class="row"><div class="hanko" style="width:52px;height:52px;font-size:30px;border-radius:14px">新</div><div class="grow"><div class="tag">UPDATE AVAILABLE</div><div style="font-size:22px;font-weight:900;margin-top:4px" id="updTitle">Kanji Dojo</div></div></div>
   <ul id="updNotes"></ul>
@@ -503,7 +509,12 @@ N4:`会|かい・あ|meet
 理|り|reason, logic
 色|しょく・いろ|color
 世|せ・よ|world, generation
-牛|ぎゅう・うし|cow`,
+牛|ぎゅう・うし|cow
+文|ぶん・ふみ|writing, sentence
+字|じ・あざ|character, letter
+送|そう・おく|send
+借|しゃく・か|borrow
+貸|たい・か|lend`,
 N3:`感|かん|feeling
 想|そう|idea, concept
 情|じょう・なさ|emotion, sympathy
@@ -631,7 +642,7 @@ N1:[["社長___、そんなことは許されない。",["といえども","と�
 ["言う___ことだが、遅刻はだめだ。",["までもない","べからず","に足る","を経て"],"It goes without saying, but lateness is not OK. — 〜までもない."],
 ["雨が降ろう___降るまいが、試合は行う。",["が","で","を","に"],"Rain or not, the match will go on. — 〜ようが〜まいが = whether or not."]]
 };
-const SENSEI=["✨ Update installed! 10 new N5 kanji were added: 名 女 男 子 外 国 語 長 高 安","Ganbatte! Every kanji you learn is a key to a new door 🔑","Tip: say the reading out loud. Your mouth remembers too!","Ninja tip: slash fast for combos ⚡","Try writing it without the guide for double XP ✍️","A little every day beats a lot once a week. Mainichi!","The alarm is your sensei in the morning. No cheating 😼","N1 is a mountain. You climb it one step at a time 🗻"];
+const SENSEI=["✨ v1.3.1 is here! 5 new N4 kanji: 文 字 送 借 貸","Ganbatte! Every kanji you learn is a key to a new door 🔑","Tip: say the reading out loud. Your mouth remembers too!","Ninja tip: slash fast for combos ⚡","Try writing it without the guide for double XP ✍️","A little every day beats a lot once a week. Mainichi!","The alarm is your sensei in the morning. No cheating 😼","N1 is a mountain. You climb it one step at a time 🗻"];
 
 /* ================= STATE ================= */
 const DEF={xp:0,streak:0,lastDay:"",days:{},ks:{},gBest:{},hi:0,alarm:{t:"06:30",on:false,lv:0,clears:0,fired:""},lockOpen:true,sound:true,lv:"N5",wIdx:0,alarmsDone:0,writes:0,quizzes:0,unlocks:0};
@@ -1014,12 +1025,15 @@ const UPD_REPO="clarkremo40-lgtm/kanji-dojo";
 const UPD_BASES=["https://raw.githubusercontent.com/"+UPD_REPO+"/main/","https://raw.githubusercontent.com/"+UPD_REPO+"/master/","https://cdn.jsdelivr.net/gh/"+UPD_REPO+"@main/"];
 function nativeBuild(){try{return +(localStorage.getItem("kd_native")||KD_NATIVE)}catch(e){return KD_NATIVE}}
 async function fetchText(path){let last;for(const b of UPD_BASES){try{const r=await fetch(b+path+(path.indexOf("?")<0?"?t=":"&t=")+Date.now(),{cache:"no-store"});if(r.ok)return{text:await r.text(),base:b};last=r.status}catch(e){last=e}}throw new Error("offline "+last)}
-async function checkUpdate(manual){if(!IS_APK&&!manual)return;
+let updBusy=false;
+async function checkUpdate(manual){if(updBusy)return null;updBusy=true;$("#hUpd").classList.add("busy");
  try{const {text,base}=await fetchText("version.json");const v=JSON.parse(text);
-  if(v.native&&v.native.build>nativeBuild()){showUpd("app",v,base);return}
-  if(v.build>KD_BUILD&&(!v.minNative||nativeBuild()>=v.minNative)){showUpd("content",v,base);return}
-  if(manual)toast("✅ You have the latest version ("+KD_VER+")")}
- catch(e){if(manual)toast("Couldn't check for updates. Are you online?")}}
+  if(v.native&&v.native.build>nativeBuild()){showUpd("app",v,base);return"app"}
+  if(v.build>KD_BUILD&&(!v.minNative||nativeBuild()>=v.minNative)){showUpd("content",v,base);return"content"}
+  if(manual)toast("✅ You're up to date! v"+KD_VER);return"none"}
+ catch(e){if(manual)toast("Couldn't reach the update server. Check your internet. ("+String(e.message||e).slice(0,40)+")");return"error"}
+ finally{updBusy=false;$("#hUpd").classList.remove("busy")}}
+$("#hUpd").onclick=()=>{sfx.pop();checkUpdate(true)};
 function showUpd(kind,v,base){if(GATE)return;const u=$("#upd");u.classList.add("on");
  $("#updTitle").textContent=(kind==="app"?"New app version ":"Version ")+(kind==="app"?v.native.version:v.version);
  $("#updNotes").innerHTML=(v.notes||[]).map(n=>"<li>"+String(n).replace(/</g,"&lt;")+"</li>").join("");
@@ -1040,7 +1054,10 @@ function afterBoot(){try{localStorage.removeItem("kd_boot");const seen=+(localSt
   localStorage.setItem("kd_seen",String(KD_BUILD));
   if(localStorage.getItem("kd_rollback")){localStorage.removeItem("kd_rollback");setTimeout(()=>toast("The last update had a problem, so we kept the previous version."),1500)}}catch(e){}
  $("#verTxt").textContent="v"+KD_VER+" · build "+KD_BUILD+" · app "+nativeBuild();
- if(IS_APK&&!GATE){setTimeout(()=>checkUpdate(false),2500);setInterval(()=>checkUpdate(false),30*60*1000)}}
+ if(IS_APK&&!GATE){const sp=$("#updChk");sp.classList.add("on");
+  Promise.race([checkUpdate(false),new Promise(r=>setTimeout(()=>r("timeout"),6000))]).then(()=>sp.classList.remove("on"));
+  setInterval(()=>checkUpdate(false),20*60*1000);
+  document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")checkUpdate(false)})}}
 
 function renderAll(){renderHeader();renderHome();renderAlarm();renderProg()}
 renderAll();tick();renderSL();

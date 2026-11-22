@@ -1,17 +1,16 @@
 {
-  "build": 4,
-  "version": "1.2.1",
+  "build": 6,
+  "version": "1.3.1",
   "file": "app.html",
-  "size": 100813,
-  "minNative": 3,
+  "size": 102290,
+  "minNative": 4,
   "notes": [
-    "10 new N5 kanji: 名 女 男 子 外 国 語 長 高 安",
-    "Shows a ✨ 'Updated' celebration after updating",
-    "This update was installed without reinstalling the app"
+    "5 new N4 kanji: 文 字 送 借 貸",
+    "Update test: this installed without reinstalling the app 🎉"
   ],
   "native": {
-    "build": 3,
-    "version": "1.2",
+    "build": 4,
+    "version": "1.3",
     "url": "https://github.com/clarkremo40-lgtm/kanji-dojo/raw/main/KanjiDojo.apk"
   }
 }
