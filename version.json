@@ -1,13 +1,14 @@
 {
-  "build": 8,
-  "version": "1.4",
+  "build": 9,
+  "version": "1.4.1",
   "file": "app.html",
-  "size": 107603,
+  "size": 118123,
   "minNative": 5,
   "notes": [
-    "📱 Lock screen quiz now turns itself back on after you restart your phone",
-    "Big lock screen quiz switch on the Learn screen, with setup steps",
-    "Includes everything from v1.3.2 (20 new kanji, 20 new grammar questions)"
+    "🚃 Kanji Rush remade: run on train roofs with ramps, power-ups (🧲 magnet, 👟 super jump, 🛡️ shield) and a score multiplier",
+    "⏸ The runner now STOPS at the kanji gates. Take your time, pick, then tap GO!",
+    "👹 Watch out: stumble twice and the Oni catches you",
+    "☀️ New sunny Tokyo look with sakura trees and power lines"
   ],
   "native": {
     "build": 5,
