@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <script>
-var KD_BUILD=15,KD_VER="1.7",KD_NATIVE=6;
+var KD_BUILD=16,KD_VER="1.7.1",KD_NATIVE=6;
 (function(){try{if(window.__KD_SWAP)return;var ls=localStorage;
  if(location.href.indexOf("file:///android_asset")===0)ls.setItem("kd_native",String(KD_NATIVE));
  var b=+(ls.getItem("kd_build")||0),h=ls.getItem("kd_html");
@@ -159,7 +159,7 @@ input[type=time]{font-family:inherit;font-size:40px;font-weight:900;background:v
 .node.done{background:var(--jade);color:var(--ink);border-color:var(--jade)}
 .node.cur{background:var(--shu);color:#fff;border-color:var(--gold);box-shadow:0 0 0 6px rgba(232,69,44,.25);animation:pulse 1.6s infinite}
 @keyframes pulse{50%{box-shadow:0 0 0 12px rgba(232,69,44,0)}}
-#ring{position:fixed;inset:0;z-index:55;display:none;flex-direction:column;padding:20px 18px;background:radial-gradient(circle at 50% 0%,#ff4d2e,#7a1030 55%,#1a0718);overflow-y:auto}
+#ring{position:fixed;inset:0;z-index:59;display:none;flex-direction:column;padding:20px 18px;background:radial-gradient(circle at 50% 0%,#ff4d2e,#7a1030 55%,#1a0718);overflow-y:auto}
 #ring.on{display:flex;animation:flash 1s infinite alternate}
 @keyframes flash{to{background-position:0 0;filter:saturate(1.3) brightness(1.08)}}
 #ring .wake{text-align:center;font-family:"Shippori Mincho B1";font-size:54px;animation:wob .5s infinite alternate}
@@ -782,7 +782,8 @@ const SENSEI=["Ganbatte! Every kanji you learn is a key to a new door 🔑","Tip
 const DEF={xp:0,streak:0,lastDay:"",days:{},ks:{},gBest:{},hi:0,alarm:{t:"06:30",on:false,lv:0,clears:0,fired:""},lockOpen:true,sound:true,lv:"N5",wIdx:0,alarmsDone:0,writes:0,quizzes:0,unlocks:0};
 let S;
 try{S=Object.assign({},DEF,JSON.parse(localStorage.getItem("kanjiDojo")||"{}"));S.alarm=Object.assign({},DEF.alarm,S.alarm||{})}catch(e){S=JSON.parse(JSON.stringify(DEF))}
-function save(){try{localStorage.setItem("kanjiDojo",JSON.stringify(S))}catch(e){}}
+function loadS(){try{const n=Object.assign({},DEF,JSON.parse(localStorage.getItem("kanjiDojo")||"{}"));n.alarm=Object.assign({},DEF.alarm,n.alarm||{});return n}catch(e){return null}}
+function save(){if(window.__KD_ASLEEP)return;try{localStorage.setItem("kanjiDojo",JSON.stringify(S))}catch(e){}}
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const rnd=a=>a[Math.floor(Math.random()*a.length)];
 const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
@@ -834,8 +835,8 @@ function renderHome(){levelChips($("#levels"),S.lv,l=>{S.lv=l;S.wIdx=0;save();re
 $$(".tile").forEach(t=>t.onclick=()=>{sfx.pop();const a=t.dataset.act;if(a==="flash")openFlash();if(a==="quiz")openQuiz();if(a==="lock")showLock();if(a==="game")go("game")});
 
 /* sheet */
-function openSheet(html){$("#sheetBody").innerHTML=html;$("#sheet").classList.add("on")}
-function closeSheet(){$("#sheet").classList.remove("on");renderHome()}
+let SHEET=0;function openSheet(html){SHEET++;$("#sheetBody").innerHTML=html;$("#sheet").classList.add("on")}
+function closeSheet(){SHEET++;$("#sheet").classList.remove("on");renderHome()}
 $("#sheetX").onclick=closeSheet;$("#sheet").onclick=e=>{if(e.target.id==="sheet")closeSheet()};
 
 /* flashcards */
@@ -843,14 +844,14 @@ function openFlash(){let deck=shuffle(K[S.lv]),i=0,known=0;
  openSheet(`<h2><small>FLASHCARDS · ${S.lv}</small>単語カード</h2><div class="bar"><div id="fcBar"></div></div><div class="fc" id="fc"><div class="inner"><div class="face front"><div class="c" id="fcC"></div><div class="tiny" style="margin-top:14px;opacity:.5">Tap to flip</div></div><div class="face back"><div style="font-size:30px;font-weight:900" id="fcM"></div><div style="font-size:22px;margin-top:10px" id="fcR"></div><div class="tag" style="margin-top:16px;color:#fff">${S.lv}</div></div></div></div><div class="row"><button class="btn grow" id="fcAgain">😵 Again</button><button class="btn jade grow" id="fcKnow">😎 Got it</button></div><p class="tiny muted" id="fcN" style="text-align:center;margin-top:10px"></p>`);
  const fc=$("#fc");fc.onclick=()=>{fc.classList.toggle("flip");sfx.pop()};
  function show(){if(i>=deck.length){$("#sheetBody").innerHTML=`<div class="result"><div style="font-size:60px">🎴</div><div class="score">${known}/${deck.length}</div><p class="muted">cards known on first look</p><br><button class="btn shu full" id="fcDone">Finish · +${known*3} XP</button></div>`;addXP(known*3);$("#fcDone").onclick=closeSheet;if(known>deck.length*.7){stamp("優秀");confetti()}return}
-  const k=deck[i];fc.classList.remove("flip");setTimeout(()=>{$("#fcC").textContent=k.c;$("#fcM").textContent=k.m;$("#fcR").textContent=k.r},150);$("#fcBar").style.width=(i/deck.length*100)+"%";$("#fcN").textContent=`${i+1} / ${deck.length}`}
+  const k=deck[i];fc.classList.remove("flip");setTimeout(()=>{if(!$("#fcC"))return;$("#fcC").textContent=k.c;$("#fcM").textContent=k.m;$("#fcR").textContent=k.r},150);$("#fcBar").style.width=(i/deck.length*100)+"%";$("#fcN").textContent=`${i+1} / ${deck.length}`}
  $("#fcKnow").onclick=()=>{known++;markK(deck[i].c,true);sfx.ok();i++;show()};
  $("#fcAgain").onclick=()=>{deck.push(deck[i]);sfx.no();i++;show()};show()}
 
 /* quick quiz */
 function openQuiz(){let n=0,ok=0;const N=10;
  openSheet(`<h2><small>QUICK QUIZ · ${S.lv}</small>小テスト</h2><div class="bar"><div id="qzBar"></div></div><div id="qz" class="qwrap"></div>`);
- function next(){if(n>=N){const xp=ok*5;S.quizzes++;addXP(xp);$("#sheetBody").innerHTML=`<div class="result"><div style="font-size:60px">${ok>=8?"🏯":ok>=5?"⛩️":"🍙"}</div><div class="score">${ok}/${N}</div><p class="muted">${ok>=8?"Subarashii! Amazing!":ok>=5?"Ii ne! Keep it up!":"Daijoubu, try again!"}</p><br><button class="btn shu full" id="qzA">Again · got +${xp} XP</button><br><br><button class="btn full" id="qzX">Close</button></div>`;$("#qzA").onclick=openQuiz;$("#qzX").onclick=closeSheet;if(ok>=8){stamp("合格");confetti();sfx.win()}return}
+ const my=SHEET;function next(){if(my!==SHEET||!$("#qz"))return;if(n>=N){const xp=ok*5;S.quizzes++;addXP(xp);$("#sheetBody").innerHTML=`<div class="result"><div style="font-size:60px">${ok>=8?"🏯":ok>=5?"⛩️":"🍙"}</div><div class="score">${ok}/${N}</div><p class="muted">${ok>=8?"Subarashii! Amazing!":ok>=5?"Ii ne! Keep it up!":"Daijoubu, try again!"}</p><br><button class="btn shu full" id="qzA">Again · got +${xp} XP</button><br><br><button class="btn full" id="qzX">Close</button></div>`;$("#qzA").onclick=openQuiz;$("#qzX").onclick=closeSheet;if(ok>=8){stamp("合格");confetti();sfx.win()}return}
   $("#qzBar").style.width=(n/N*100)+"%";renderQ($("#qz"),kanjiQ(S.lv),r=>{if(r)ok++;n++;setTimeout(next,850)})}next()}
 
 /* ================= LOCK SCREEN ================= */
@@ -858,7 +859,8 @@ function lockClock(){const d=new Date();$("#lTime").textContent=String(d.getHour
 const IS_APK=location.href.indexOf("file:///android_asset")===0;
 const GATE=location.hash==="#gate";
 function native(cmd){try{const f=document.createElement("iframe");f.style.display="none";f.src="kanjidojo://"+cmd;document.body.appendChild(f);setTimeout(()=>f.remove(),1500)}catch(e){}}
-function gateDone(){native("done");setTimeout(()=>{try{location.href="kanjidojo://done"}catch(e){}},900)}
+function sleepPage(){window.__KD_ASLEEP=true;try{for(let i=1;i<20000;i++){clearInterval(i);clearTimeout(i)}}catch(e){}try{musStop()}catch(e){}try{AC&&AC.close()}catch(e){}}
+function gateDone(){native("done");setTimeout(()=>{try{location.href="kanjidojo://done"}catch(e){}},900);setTimeout(sleepPage,1600)}
 let lockN=0;const LOCK_NEED=3;
 function lockDots(){$$("#lDots i").forEach((d,i)=>d.classList.toggle("on",i<lockN))}
 function showLock(){const L=$("#lock");L.classList.remove("out");L.classList.add("on");lockN=0;lockDots();$("#lQ").classList.remove("on");$("#lNotif").style.display="";$("#lSwipe").style.display="";$("#lIcon").textContent="🔒";$("#lWm").textContent=rnd(K[S.lv]).c;lockClock();if(GATE){$("#lEmerg").style.display="block";setTimeout(lockAsk,350)}}
@@ -1529,11 +1531,11 @@ let wake=null;async function keepAwake(){try{if(navigator.wakeLock&&S.alarm.on&&
 function startRing(){if(ringing)return;ringing=true;rState={n:0,miss:0,lv:LEVELS[S.alarm.lv]};$("#ring").classList.add("on");$("#rLv").textContent=rState.lv;alarmSound();ringTimer=setInterval(()=>{alarmSound();buzz([400,200,400])},1200);ringNext()}
 function ringNext(){$("#rCount").textContent=rState.n+" / 20";$("#rMiss").textContent=rState.miss;$("#rBar").style.width=(rState.n/20*100)+"%";if(rState.n>=20)return stopRing();
  renderQ($("#rQ"),kanjiQ(rState.lv),ok=>{if(ok){rState.n++;setTimeout(ringNext,450)}else{rState.miss++;$("#rMiss").textContent=rState.miss;setTimeout(ringNext,900)}})}
-function stopRing(){clearInterval(ringTimer);ringing=false;$("#ring").classList.remove("on");const a=S.alarm;S.alarmsDone++;let msg="おはよう！ Good morning! +40 XP";
+function stopRing(){clearInterval(ringTimer);ringTimer=null;ringing=false;try{navigator.vibrate&&navigator.vibrate(0)}catch(e){}$("#ring").classList.remove("on");const a=S.alarm;S.alarmsDone++;let msg="おはよう！ Good morning! +40 XP";
  if(rState.miss<=4){a.clears++;if(a.clears>=3&&a.lv<4){a.lv++;a.clears=0;msg="🎊 Alarm level up! Now "+LEVELS[a.lv];setTimeout(()=>confetti(90),300)}}else msg="Good morning! "+rState.miss+" mistakes, so this one doesn't count as a clear.";
  addXP(40);save();renderAlarm();stamp("起床");sfx.win();toast(msg)}
 function tick(){const d=new Date(),hh=String(d.getHours()).padStart(2,"0"),mm=String(d.getMinutes()).padStart(2,"0");$("#aClock").innerHTML=`${hh}:${mm}<small>:${String(d.getSeconds()).padStart(2,"0")}</small>`;if($("#lock").classList.contains("on"))lockClock();
- const a=S.alarm,key=today()+" "+a.t;if(a.on&&hh+":"+mm===a.t&&a.fired!==key){a.fired=key;save();startRing()}}
+ if(GATE||STUDY||window.__KD_ASLEEP)return;const a=S.alarm,key=today()+" "+a.t;const [ah,am]=a.t.split(":").map(Number);const at=new Date();at.setHours(ah,am,0,0);const late=d-at;if(a.on&&late>=0&&late<15*60000&&a.fired!==key){const fresh=loadS();if(fresh&&fresh.alarm.fired===key){S.alarm.fired=key;return}a.fired=key;save();startRing()}}
 setInterval(tick,1000);
 
 /* ================= PROGRESS ================= */
@@ -1551,7 +1553,7 @@ function renderPL(){$("#plCard").style.display=IS_APK?"block":"none";$("#plSwitc
 $("#sPhone").onclick=()=>setPhoneLock(!S.phoneLock);
 $("#plSwitch").onclick=()=>setPhoneLock(!S.phoneLock);
 $("#sSound").onclick=()=>{S.sound=!S.sound;save();renderProg()};
-$("#sReset").onclick=e=>{const b=e.target;if(b.dataset.c){S=JSON.parse(JSON.stringify(DEF));save();renderAll();toast("Progress reset");b.dataset.c="";b.textContent="Reset"}else{b.dataset.c=1;b.textContent="Tap again to confirm";setTimeout(()=>{b.dataset.c="";b.textContent="Reset"},3000)}};
+$("#sReset").onclick=e=>{const b=e.target;if(b.dataset.c){const keep={lockOpen:S.lockOpen,sound:S.sound,music:S.music,phoneLock:S.phoneLock,study:S.study,lv:S.lv,alarm:Object.assign({},DEF.alarm,{t:S.alarm.t,on:S.alarm.on,fired:S.alarm.fired})};S=Object.assign(JSON.parse(JSON.stringify(DEF)),keep);save();renderAll();toast("Progress reset");b.dataset.c="";b.textContent="Reset"}else{b.dataset.c=1;b.textContent="Tap again to confirm";setTimeout(()=>{b.dataset.c="";b.textContent="Reset"},3000)}};
 
 /* ================= NAV ================= */
 function go(v){$$("nav button").forEach(b=>b.classList.toggle("on",b.dataset.v===v));$$(".view").forEach(s=>s.classList.toggle("on",s.id==="v-"+v));$("#main").scrollTop=0;
@@ -1603,7 +1605,7 @@ setInterval(()=>{if($("#v-alarm").classList.contains("on"))renderSL()},30000);
 function openSL(preview){if(slActive)return;slActive=true;slState={n:0,miss:0,lv:S.lv,preview:!!preview};$("#lock").classList.remove("on");$("#slock").classList.add("on");$("#slLvTag").textContent=slState.lv;$("#slEmerg").textContent=preview?"✕ Close preview":"🚨 Emergency: use phone for 5 min";buzz([200,100,200]);sfx.win();slNext()}
 function slNext(){$("#slCount").textContent=slState.n+" / 20";$("#slMiss").textContent=slState.miss;$("#slBar").style.width=(slState.n/20*100)+"%";if(slState.n>=20)return slDone();
  renderQ($("#slQ"),kanjiQ(slState.lv),ok=>{if(ok){slState.n++;setTimeout(slNext,450)}else{slState.miss++;setTimeout(slNext,900)}})}
-function studyCmd(cmd){native(cmd);setTimeout(()=>{try{location.href="kanjidojo://"+cmd}catch(e){}},900)}
+function studyCmd(cmd){native(cmd);setTimeout(()=>{try{location.href="kanjidojo://"+cmd}catch(e){}},900);setTimeout(sleepPage,1600)}
 function slDone(){S.slocks=(S.slocks||0)+1;addXP(30);stamp("解放");sfx.win();
  if(STUDY){const c=slCfg();c.next=Date.now()+c.iv*60000;save();setTimeout(()=>studyCmd("studydone"),800);return}
  slActive=false;$("#slock").classList.remove("on");confetti();toast("🔓 Done! +30 XP · 20 kanji reviewed")}
@@ -1624,7 +1626,7 @@ async function checkUpdate(manual){if(updBusy)return null;updBusy=true;$("#hUpd"
  catch(e){if(manual)toast("Couldn't reach the update server. Check your internet. ("+String(e.message||e).slice(0,40)+")");return"error"}
  finally{updBusy=false;$("#hUpd").classList.remove("busy")}}
 $("#hUpd").onclick=()=>{sfx.pop();checkUpdate(true)};
-function showUpd(kind,v,base){if(GATE)return;const u=$("#upd");u.classList.add("on");
+function showUpd(kind,v,base){if(GATE||STUDY||ringing)return;const u=$("#upd");u.classList.add("on");
  $("#updTitle").textContent=(kind==="app"?"New app version ":"Version ")+(kind==="app"?v.native.version:v.version);
  $("#updNotes").innerHTML=(v.notes||[]).map(n=>"<li>"+String(n).replace(/</g,"&lt;")+"</li>").join("");
  $("#updLater").style.display=kind==="app"?"block":"none";
@@ -1649,6 +1651,8 @@ function afterBoot(){try{localStorage.removeItem("kd_boot");const seen=+(localSt
   setInterval(()=>checkUpdate(false),20*60*1000);
   document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")checkUpdate(false)})}}
 
+function syncS(){if(GATE||STUDY||ringing||window.__KD_ASLEEP)return;const n=loadS();if(!n)return;S=n;try{renderHeader();if($("#v-home").classList.contains("on"))renderHome();if($("#v-prog").classList.contains("on"))renderProg();if($("#v-alarm").classList.contains("on")){renderAlarm();renderSL()}renderPL()}catch(e){}}
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")syncS()});addEventListener("focus",syncS);addEventListener("storage",e=>{if(e.key==="kanjiDojo")syncS()});
 function renderAll(){renderPL();renderHeader();renderHome();renderAlarm();renderProg()}
 renderAll();tick();renderSL();
 afterBoot();

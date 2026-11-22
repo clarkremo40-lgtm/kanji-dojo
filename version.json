@@ -1,14 +1,15 @@
 {
-  "build": 15,
-  "version": "1.7",
+  "build": 16,
+  "version": "1.7.1",
   "file": "app.html",
-  "size": 184062,
+  "size": 185636,
   "minNative": 6,
   "notes": [
-    "🌈 Brand-new jolly look: candy-sky background with floating clouds, chunky bouncy buttons, a candy nav bar and an animated cat sensei who blinks and waves",
-    "🏙️ Livelier city: 3D balconies, striped shop awnings, glowing red lanterns, nobori flags, vertical kanji signboards and rooftop billboards",
-    "🚧 New barriers: A-frame barricades with a 止 sign and blinking lights, plus ROLL gates with party pennants",
-    "🛤️🚃 Includes the new rails, power-line gantries and multi-car trains"
+    "⏰ Alarm fixed: it now stops for good after you answer the 20 kanji (a hidden copy of the app could keep ringing before)",
+    "⏰ The alarm still rings even if your phone checks a few minutes late, and stays above every other screen",
+    "🔄 No update pop-up while the alarm is ringing",
+    "💾 XP earned on the lock screen and in Study Lock is never overwritten",
+    "🧹 Fixed small Quick Quiz and Flashcards glitches; Reset progress keeps your settings"
   ],
   "native": {
     "build": 6,
