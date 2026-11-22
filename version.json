@@ -1,12 +1,13 @@
 {
-  "build": 13,
-  "version": "1.6.2",
+  "build": 14,
+  "version": "1.6.3",
   "file": "app.html",
-  "size": 167980,
+  "size": 172436,
   "minNative": 6,
   "notes": [
-    "Removed the on-screen arrow buttons in Kanji Rush, so they no longer cover the GO button. Swipe to play: ← → lanes, ↑ jump, ↓ roll, tap to jump",
-    "The Oni chaser now runs further back so he doesn't cover the runner"
+    "🔇 Background music now stops when you leave the app or turn off the screen, and comes back when you return to the game",
+    "🛤️ New track: rust-brown steel rails with clips on every sleeper, cable troughs, signal beacons and overhead power-line gantries",
+    "🚃 New trains: multiple cars with gangways, rounded roofs, slanted cab fronts with LED display and lights, pantographs, AC units and passengers in the windows"
   ],
   "native": {
     "build": 6,
