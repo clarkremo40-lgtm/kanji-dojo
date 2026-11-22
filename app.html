@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <script>
-var KD_BUILD=16,KD_VER="1.7.1",KD_NATIVE=6;
+var KD_BUILD=17,KD_VER="1.7.2",KD_NATIVE=6;
 (function(){try{if(window.__KD_SWAP)return;var ls=localStorage;
  if(location.href.indexOf("file:///android_asset")===0)ls.setItem("kd_native",String(KD_NATIVE));
  var b=+(ls.getItem("kd_build")||0),h=ls.getItem("kd_html");
@@ -414,7 +414,7 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
       <h2><small>KANJI ALARM</small>目覚まし</h2>
       <div class="card" style="text-align:center">
         <div class="clock" id="aClock">00:00<small>:00</small></div>
-        <div class="muted tiny" style="margin-top:6px">To turn it off you must answer <b>20 kanji</b> correctly</div>
+        <div class="muted tiny" style="margin-top:6px">To turn it off you must answer <b>5 kanji</b> correctly</div>
       </div>
       <div class="card">
         <div class="row" style="margin-bottom:12px"><div class="grow"><b>Wake-up time</b><div class="tiny muted" id="aStatus">Off</div></div><button class="switch" id="aSwitch"></button></div>
@@ -422,12 +422,12 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
       </div>
       <div class="card">
         <b>Alarm level path</b>
-        <div class="tiny muted">Starts at N5. Finish 3 alarms with 4 or fewer mistakes to move up a level, all the way to N1.</div>
+        <div class="tiny muted">Starts at N5. Finish 3 alarms with 1 or fewer mistakes to move up a level, all the way to N1.</div>
         <div class="path" id="aPath"></div>
         <div class="tiny" id="aClears" style="text-align:center;margin-top:8px"></div>
       </div>
       <div class="card" id="slCard" style="border-color:rgba(122,168,255,.35)">
-        <div class="row"><div class="grow"><b>📵 Study Lock</b><div class="tiny muted" id="slStatus">Every hour, 20 kanji questions pop up over any app. Other apps stay blocked until you finish.</div></div><button class="switch" id="slSwitch"></button></div>
+        <div class="row"><div class="grow"><b>📵 Study Lock</b><div class="tiny muted" id="slStatus">Every hour, 5 kanji questions pop up over any app. Other apps stay blocked until you finish.</div></div><button class="switch" id="slSwitch"></button></div>
         <div class="row" style="margin-top:12px"><span class="tiny muted grow">Pop up every</span><select id="slInterval"><option value="30">30 min</option><option value="60" selected>1 hour</option><option value="90">1.5 hours</option><option value="120">2 hours</option></select></div>
         <div class="tiny muted" style="margin-top:10px">Questions use your current level: <b id="slLv">N5</b> (change it on the Learn tab)</div>
         <div id="slPerms" style="margin-top:12px;display:flex;flex-direction:column;gap:8px"></div>
@@ -450,7 +450,7 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
       <div class="card"><b>Best grammar scores</b><div id="pGram" style="margin-top:8px"></div></div>
       <div class="card">
         <b>Settings</b>
-        <div class="set"><div><div style="font-weight:700">Lock screen when app opens</div><div class="tiny muted">Answer a question to get in</div></div><button class="switch" id="sLock"></button></div>
+        
         <div class="set" id="phoneSet" style="display:none"><div><div style="font-weight:700">📱 Phone lock screen quiz</div><div class="tiny muted">3 kanji before your phone's PIN, every time the screen turns on</div></div><button class="switch" id="sPhone"></button></div>
         <div class="tiny" id="phoneHelp" style="display:none;line-height:1.55;padding:4px 0 10px;color:var(--gold)">Allow <b>"Display over other apps"</b> on the screen that opens. On Xiaomi/Redmi/POCO also go to <b>App info → Other permissions</b> and allow <b>"Show on Lock screen"</b> and <b>"Display pop-up windows while running in the background"</b>.</div>
         <div class="set"><div><div style="font-weight:700">Sound effects</div></div><button class="switch" id="sSound"></button></div>
@@ -474,8 +474,8 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
 
 <div id="ring">
   <div class="wake">起きて！</div>
-  <div style="text-align:center;font-weight:900;font-size:15px;margin:2px 0 10px">WAKE UP · Answer 20 kanji to stop the alarm</div>
-  <div class="row" style="font-weight:900;margin-bottom:8px"><span id="rCount">0 / 20</span><span class="grow"></span><span id="rLv" class="tag" style="color:#fff">N5</span><span>❌ <span id="rMiss">0</span></span></div>
+  <div style="text-align:center;font-weight:900;font-size:15px;margin:2px 0 10px">WAKE UP · Answer 5 kanji to stop the alarm</div>
+  <div class="row" style="font-weight:900;margin-bottom:8px"><span id="rCount">0 / 5</span><span class="grow"></span><span id="rLv" class="tag" style="color:#fff">N5</span><span>❌ <span id="rMiss">0</span></span></div>
   <div class="bar"><div id="rBar" style="width:0"></div></div>
   <div id="rQ" class="qwrap" style="margin-top:6px"></div>
 </div>
@@ -495,8 +495,8 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
 </div>
 
 <div id="slock">
-  <div class="shead"><div class="k">勉強の時間</div><div style="font-weight:900;margin:4px 0 2px">STUDY TIME · Answer 20 to unlock your phone</div><div class="tiny" style="opacity:.75">Other apps are blocked until you finish</div></div>
-  <div class="row" style="font-weight:900;margin:14px 0 8px"><span id="slCount">0 / 20</span><span class="grow"></span><span id="slLvTag" class="tag" style="color:#fff">N5</span><span>❌ <span id="slMiss">0</span></span></div>
+  <div class="shead"><div class="k">勉強の時間</div><div style="font-weight:900;margin:4px 0 2px">STUDY TIME · Answer 5 to unlock your phone</div><div class="tiny" style="opacity:.75">Other apps are blocked until you finish</div></div>
+  <div class="row" style="font-weight:900;margin:14px 0 8px"><span id="slCount">0 / 5</span><span class="grow"></span><span id="slLvTag" class="tag" style="color:#fff">N5</span><span>❌ <span id="slMiss">0</span></span></div>
   <div class="bar"><div id="slBar" style="width:0"></div></div>
   <div id="slQ" class="qwrap" style="margin-top:6px"></div>
   <div style="flex:1"></div>
@@ -779,7 +779,7 @@ GRAM.N1.push(["彼の行動は理解に___。",["苦しむ","かたくない","�
 const SENSEI=["Ganbatte! Every kanji you learn is a key to a new door 🔑","Tip: say the reading out loud. Your mouth remembers too!","Ninja tip: slash fast for combos ⚡","Try writing it without the guide for double XP ✍️","A little every day beats a lot once a week. Mainichi!","The alarm is your sensei in the morning. No cheating 😼","N1 is a mountain. You climb it one step at a time 🗻"];
 
 /* ================= STATE ================= */
-const DEF={xp:0,streak:0,lastDay:"",days:{},ks:{},gBest:{},hi:0,alarm:{t:"06:30",on:false,lv:0,clears:0,fired:""},lockOpen:true,sound:true,lv:"N5",wIdx:0,alarmsDone:0,writes:0,quizzes:0,unlocks:0};
+const DEF={xp:0,streak:0,lastDay:"",days:{},ks:{},gBest:{},hi:0,alarm:{t:"06:30",on:false,lv:0,clears:0,fired:""},lockOpen:false,sound:true,lv:"N5",wIdx:0,alarmsDone:0,writes:0,quizzes:0,unlocks:0};
 let S;
 try{S=Object.assign({},DEF,JSON.parse(localStorage.getItem("kanjiDojo")||"{}"));S.alarm=Object.assign({},DEF.alarm,S.alarm||{})}catch(e){S=JSON.parse(JSON.stringify(DEF))}
 function loadS(){try{const n=Object.assign({},DEF,JSON.parse(localStorage.getItem("kanjiDojo")||"{}"));n.alarm=Object.assign({},DEF.alarm,n.alarm||{});return n}catch(e){return null}}
@@ -1529,10 +1529,10 @@ $("#aTest").onclick=()=>{ac();startRing()};
 function alarmSound(){const a=ac();if(!a)return;[0,.18,.36].forEach(w=>{tone(988,.14,"square",.22,w);tone(1319,.14,"square",.12,w+.07)})}
 let wake=null;async function keepAwake(){try{if(navigator.wakeLock&&S.alarm.on&&!wake)wake=await navigator.wakeLock.request("screen")}catch(e){}}
 function startRing(){if(ringing)return;ringing=true;rState={n:0,miss:0,lv:LEVELS[S.alarm.lv]};$("#ring").classList.add("on");$("#rLv").textContent=rState.lv;alarmSound();ringTimer=setInterval(()=>{alarmSound();buzz([400,200,400])},1200);ringNext()}
-function ringNext(){$("#rCount").textContent=rState.n+" / 20";$("#rMiss").textContent=rState.miss;$("#rBar").style.width=(rState.n/20*100)+"%";if(rState.n>=20)return stopRing();
+function ringNext(){$("#rCount").textContent=rState.n+" / 5";$("#rMiss").textContent=rState.miss;$("#rBar").style.width=(rState.n/5*100)+"%";if(rState.n>=5)return stopRing();
  renderQ($("#rQ"),kanjiQ(rState.lv),ok=>{if(ok){rState.n++;setTimeout(ringNext,450)}else{rState.miss++;$("#rMiss").textContent=rState.miss;setTimeout(ringNext,900)}})}
 function stopRing(){clearInterval(ringTimer);ringTimer=null;ringing=false;try{navigator.vibrate&&navigator.vibrate(0)}catch(e){}$("#ring").classList.remove("on");const a=S.alarm;S.alarmsDone++;let msg="おはよう！ Good morning! +40 XP";
- if(rState.miss<=4){a.clears++;if(a.clears>=3&&a.lv<4){a.lv++;a.clears=0;msg="🎊 Alarm level up! Now "+LEVELS[a.lv];setTimeout(()=>confetti(90),300)}}else msg="Good morning! "+rState.miss+" mistakes, so this one doesn't count as a clear.";
+ if(rState.miss<=1){a.clears++;if(a.clears>=3&&a.lv<4){a.lv++;a.clears=0;msg="🎊 Alarm level up! Now "+LEVELS[a.lv];setTimeout(()=>confetti(90),300)}}else msg="Good morning! "+rState.miss+" mistakes, so this one doesn't count as a clear (1 or fewer needed).";
  addXP(40);save();renderAlarm();stamp("起床");sfx.win();toast(msg)}
 function tick(){const d=new Date(),hh=String(d.getHours()).padStart(2,"0"),mm=String(d.getMinutes()).padStart(2,"0");$("#aClock").innerHTML=`${hh}:${mm}<small>:${String(d.getSeconds()).padStart(2,"0")}</small>`;if($("#lock").classList.contains("on"))lockClock();
  if(GATE||STUDY||window.__KD_ASLEEP)return;const a=S.alarm,key=today()+" "+a.t;const [ah,am]=a.t.split(":").map(Number);const at=new Date();at.setHours(ah,am,0,0);const late=d-at;if(a.on&&late>=0&&late<15*60000&&a.fired!==key){const fresh=loadS();if(fresh&&fresh.alarm.fired===key){S.alarm.fired=key;return}a.fired=key;save();startRing()}}
@@ -1546,8 +1546,8 @@ function renderProg(){const r=rankOf(S.xp),cur=RANKS[r][0],nxt=RANKS[r+1];$("#pR
  let h="";for(let i=13;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const k=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");const v=S.days[k]||0;const a=v?Math.min(1,.25+v/30):0;h+=`<div title="${k}: ${v}" style="${v?`background:rgba(232,69,44,${a})`:""}"></div>`}$("#pHeat").innerHTML=h;
  $("#pLevels").innerHTML=LEVELS.map(l=>{const m=mastered(l),t=K[l].length;return`<div class="lvrow"><div class="row"><span>${l}</span><span class="muted">${m}/${t}</span></div><div class="bar"><div style="width:${m/t*100}%"></div></div></div>`}).join("");
  $("#pGram").innerHTML=LEVELS.map(l=>{const b=S.gBest[l];return`<div class="row" style="justify-content:space-between;padding:5px 0;font-size:14px"><b>${l}</b><span class="${b==null?"muted":""}">${b==null?"not taken":b+" / "+GRAM[l].length}</span></div>`}).join("");
- $("#sLock").classList.toggle("on",S.lockOpen);$("#sPhone").classList.toggle("on",!!S.phoneLock);$("#phoneSet").style.display=IS_APK?"flex":"none";$("#phoneHelp").style.display=IS_APK&&S.phoneLock?"block":"none";$("#sSound").classList.toggle("on",S.sound)}
-$("#sLock").onclick=()=>{S.lockOpen=!S.lockOpen;save();renderProg()};
+ $("#sPhone").classList.toggle("on",!!S.phoneLock);$("#phoneSet").style.display=IS_APK?"flex":"none";$("#phoneHelp").style.display=IS_APK&&S.phoneLock?"block":"none";$("#sSound").classList.toggle("on",S.sound)}
+
 function setPhoneLock(on){S.phoneLock=on;save();native(on?"lockon":"lockoff");toast(on?"📱 Lock screen quiz on! Turn your screen off and on to try it":"Lock screen quiz off");renderPL();renderProg()}
 function renderPL(){$("#plCard").style.display=IS_APK?"block":"none";$("#plSwitch").classList.toggle("on",!!S.phoneLock);$("#plHelp").style.display=S.phoneLock?"block":"none"}
 $("#sPhone").onclick=()=>setPhoneLock(!S.phoneLock);
@@ -1573,7 +1573,7 @@ async function nativeSchedule(){if(!LN)return;try{
   await LN.cancel({notifications:[{id:1},{id:2},{id:3}]});
   if(S.alarm.on){const[h,m]=S.alarm.t.split(":").map(Number);
    // main alarm + two reminders 1 and 2 minutes later in case you sleep through it
-   const list=[0,1,2].map(i=>{const mm=(m+i)%60,hh=(h+Math.floor((m+i)/60))%24;return{id:1+i,title:i?"起きて！ Still sleeping? 😼":"起きて！ Wake up! ⏰",body:"Open Kanji Dojo and answer 20 kanji to stop the alarm",channelId:"kanji-alarm",schedule:{on:{hour:hh,minute:mm},allowWhileIdle:true,repeats:true},extra:{alarm:1}}});
+   const list=[0,1,2].map(i=>{const mm=(m+i)%60,hh=(h+Math.floor((m+i)/60))%24;return{id:1+i,title:i?"起きて！ Still sleeping? 😼":"起きて！ Wake up! ⏰",body:"Open Kanji Dojo and answer 5 kanji to stop the alarm",channelId:"kanji-alarm",schedule:{on:{hour:hh,minute:mm},allowWhileIdle:true,repeats:true},extra:{alarm:1}}});
    await LN.schedule({notifications:list})}
  }catch(e){console.log("schedule fail",e)}}
 function missedAlarmCheck(){const a=S.alarm;if(!a.on)return;const[h,m]=a.t.split(":").map(Number);const d=new Date(),at=new Date();at.setHours(h,m,0,0);const diff=(d-at)/60000;const key=today()+" "+a.t;
@@ -1582,7 +1582,7 @@ if(LN){LN.addListener("localNotificationActionPerformed",()=>{if(!ringing){S.ala
  document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")missedAlarmCheck()})}
 const _sw=$("#aSwitch").onclick,_tc=$("#aTime").onchange;
 $("#aSwitch").onclick=()=>{_sw();nativeSchedule()};$("#aTime").onchange=e=>{_tc(e);nativeSchedule()};
-if(NATIVE){const p=$("#v-alarm p.tiny");if(p)p.textContent="The alarm rings even when the app is closed: you'll get an alarm notification, and tapping it opens the 20-kanji challenge. If you open the app within 30 minutes of the alarm without answering, the challenge starts automatically."}
+if(NATIVE){const p=$("#v-alarm p.tiny");if(p)p.textContent="The alarm rings even when the app is closed: you'll get an alarm notification, and tapping it opens the 5-kanji challenge. If you open the app within 30 minutes of the alarm without answering, the challenge starts automatically."}
 
 
 /* ================= STUDY LOCK ================= */
@@ -1591,9 +1591,9 @@ let slActive=false,slState=null;
 function slCfg(){if(!S.study)S.study={on:false,iv:60,next:0};return S.study}
 function slLabel(){return $("#slInterval").selectedOptions[0]?$("#slInterval").selectedOptions[0].text:"1 hour"}
 function renderSL(){const c=slCfg();$("#slSwitch").classList.toggle("on",!!c.on);$("#slInterval").value=String(c.iv);$("#slLv").textContent=S.lv;const st=$("#slStatus");
- if(!IS_APK)st.textContent="In the Android app, 20 kanji pop up over any app every "+slLabel()+". Tap the button below to preview it here.";
+ if(!IS_APK)st.textContent="In the Android app, 5 kanji pop up over any app every "+slLabel()+". Tap the button below to preview it here.";
  else if(c.on){const m=Math.round((c.next-Date.now())/60000);st.textContent=m>0?"On · next quiz in about "+m+" min":"On · the quiz will pop up any moment"}
- else st.textContent="Off · turn on and the countdown starts. Every "+slLabel()+", 20 kanji pop up over any app.";
+ else st.textContent="Off · turn on and the countdown starts. Every "+slLabel()+", 5 kanji pop up over any app.";
  $("#slPerms").innerHTML=IS_APK?'<div class="tiny" style="line-height:1.6;background:#fff6db;border-radius:12px;padding:10px 12px"><b style="color:#b07400">Needed so it can pop up over other apps:</b><br>1. Allow <b>"Display over other apps"</b> <button class="btn sm gold" id="slPerm" style="padding:4px 10px;margin-left:4px">Open</button><br>2. Xiaomi / Redmi / POCO: <b>App info → Other permissions</b> → allow <b>"Display pop-up windows while running in the background"</b>, and turn on <b>Autostart</b>.</div>':"";
  const pb=$("#slPerm");if(pb)pb.onclick=()=>native("perm");
  $("#slTest").textContent=IS_APK?"⏱ Test: pop up over apps in 1 minute":"Preview Study Lock"}
@@ -1603,12 +1603,12 @@ $("#slInterval").onchange=()=>{const c=slCfg();c.iv=+$("#slInterval").value;if(c
 $("#slTest").onclick=()=>{if(IS_APK){native("studytest");toast("⏱ Now leave Kanji Dojo and open any app. The quiz pops up in about 1 minute.")}else openSL(true)};
 setInterval(()=>{if($("#v-alarm").classList.contains("on"))renderSL()},30000);
 function openSL(preview){if(slActive)return;slActive=true;slState={n:0,miss:0,lv:S.lv,preview:!!preview};$("#lock").classList.remove("on");$("#slock").classList.add("on");$("#slLvTag").textContent=slState.lv;$("#slEmerg").textContent=preview?"✕ Close preview":"🚨 Emergency: use phone for 5 min";buzz([200,100,200]);sfx.win();slNext()}
-function slNext(){$("#slCount").textContent=slState.n+" / 20";$("#slMiss").textContent=slState.miss;$("#slBar").style.width=(slState.n/20*100)+"%";if(slState.n>=20)return slDone();
+function slNext(){$("#slCount").textContent=slState.n+" / 5";$("#slMiss").textContent=slState.miss;$("#slBar").style.width=(slState.n/5*100)+"%";if(slState.n>=5)return slDone();
  renderQ($("#slQ"),kanjiQ(slState.lv),ok=>{if(ok){slState.n++;setTimeout(slNext,450)}else{slState.miss++;setTimeout(slNext,900)}})}
 function studyCmd(cmd){native(cmd);setTimeout(()=>{try{location.href="kanjidojo://"+cmd}catch(e){}},900);setTimeout(sleepPage,1600)}
-function slDone(){S.slocks=(S.slocks||0)+1;addXP(30);stamp("解放");sfx.win();
+function slDone(){S.slocks=(S.slocks||0)+1;addXP(15);stamp("解放");sfx.win();
  if(STUDY){const c=slCfg();c.next=Date.now()+c.iv*60000;save();setTimeout(()=>studyCmd("studydone"),800);return}
- slActive=false;$("#slock").classList.remove("on");confetti();toast("🔓 Done! +30 XP · 20 kanji reviewed")}
+ slActive=false;$("#slock").classList.remove("on");confetti();toast("🔓 Done! +15 XP · 5 kanji reviewed")}
 $("#slEmerg").onclick=()=>{if(slState&&slState.preview){slActive=false;$("#slock").classList.remove("on");return}
  const b=$("#slEmerg");if(!b.dataset.c){b.dataset.c=1;b.textContent="Tap again: 5 min pass, then the quiz returns";setTimeout(()=>{b.dataset.c="";if(slActive)b.textContent="🚨 Emergency: use phone for 5 min"},3000);return}
  b.dataset.c="";const c=slCfg();c.next=Date.now()+5*60000;save();studyCmd("studypause")};
@@ -1658,7 +1658,7 @@ renderAll();tick();renderSL();
 afterBoot();
 if(STUDY){$("#app").style.display="none";openSL(false)}
 else if(GATE){$("#app").style.display="none";showLock()}
-else{if(S.lockOpen)showLock();if(IS_APK&&S.phoneLock)setTimeout(()=>native("lockstart"),1200)}
+else{if(IS_APK&&S.phoneLock)setTimeout(()=>native("lockstart"),1200)}
 
 if(LN){nativeSchedule();missedAlarmCheck()}
 </script>

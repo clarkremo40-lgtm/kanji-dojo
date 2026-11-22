@@ -1,15 +1,13 @@
 {
-  "build": 16,
-  "version": "1.7.1",
+  "build": 17,
+  "version": "1.7.2",
   "file": "app.html",
-  "size": 185636,
+  "size": 185305,
   "minNative": 6,
   "notes": [
-    "⏰ Alarm fixed: it now stops for good after you answer the 20 kanji (a hidden copy of the app could keep ringing before)",
-    "⏰ The alarm still rings even if your phone checks a few minutes late, and stays above every other screen",
-    "🔄 No update pop-up while the alarm is ringing",
-    "💾 XP earned on the lock screen and in Study Lock is never overwritten",
-    "🧹 Fixed small Quick Quiz and Flashcards glitches; Reset progress keeps your settings"
+    "⏰ Alarm: answer 5 kanji instead of 20 to turn it off (level up: 3 alarms with 1 or fewer mistakes)",
+    "📵 Study Lock: 5 kanji instead of 20",
+    "🚪 No more 3-question lock when you open the app. It goes straight to the home screen (the phone lock screen quiz still works)"
   ],
   "native": {
     "build": 6,
