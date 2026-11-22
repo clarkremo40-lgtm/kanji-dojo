@@ -1,12 +1,13 @@
 {
-  "build": 6,
-  "version": "1.3.1",
+  "build": 7,
+  "version": "1.3.2",
   "file": "app.html",
-  "size": 102290,
+  "size": 106091,
   "minNative": 4,
   "notes": [
-    "5 new N4 kanji: 文 字 送 借 貸",
-    "Update test: this installed without reinstalling the app 🎉"
+    "20 new grammar questions (4 per level, N5 to N1)",
+    "20 new kanji across N4, N3, N2 and N1",
+    "Grammar tests now have 12 questions per level"
   ],
   "native": {
     "build": 4,

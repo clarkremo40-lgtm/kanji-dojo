@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <script>
-var KD_BUILD=6,KD_VER="1.3.1",KD_NATIVE=4;
+var KD_BUILD=7,KD_VER="1.3.2",KD_NATIVE=4;
 (function(){try{if(window.__KD_SWAP)return;var ls=localStorage;
  if(location.href.indexOf("file:///android_asset")===0)ls.setItem("kd_native",String(KD_NATIVE));
  var b=+(ls.getItem("kd_build")||0),h=ls.getItem("kd_html");
@@ -546,7 +546,12 @@ N3:`感|かん|feeling
 恋|れん・こい|romantic love
 星|せい・ほし|star
 宇|う|eaves, universe
-宙|ちゅう|mid-air, space`,
+宙|ちゅう|mid-air, space
+優|ゆう・やさ|gentle, superior
+決|けつ・き|decide
+晴|せい・は|clear weather
+準|じゅん|standard, semi-
+備|び・そな|prepare`,
 N2:`概|がい|general, approximate
 傾|けい・かたむ|lean, tilt
 継|けい・つ|inherit, continue
@@ -571,7 +576,12 @@ N2:`概|がい|general, approximate
 謝|しゃ・あやま|apologize, thank
 豊|ほう・ゆた|abundant
 穏|おん・おだ|calm, peaceful
-撮|さつ・と|take a photo`,
+撮|さつ・と|take a photo
+柱|ちゅう・はしら|pillar
+召|しょう・め|summon, eat (polite)
+憲|けん|constitution
+励|れい・はげ|encourage
+輸|ゆ|transport`,
 N1:`曖|あい|unclear
 昧|まい|dark, foolish
 慄|りつ|shiver, fear
@@ -596,7 +606,12 @@ N1:`曖|あい|unclear
 賄|わい・まかな|bribe, provide
 浸|しん・ひた|soak, immerse
 摯|し|sincere
-弔|ちょう・とむら|mourn`};
+弔|ちょう・とむら|mourn
+傲|ごう|arrogant
+詐|さ|deceive
+窮|きゅう・きわ|extreme, distress
+斡|あつ|mediate
+旋|せん|rotate, revolve`};
 const LEVELS=["N5","N4","N3","N2","N1"];
 const K={};LEVELS.forEach(l=>K[l]=RAW[l].trim().split("\n").map(s=>{const[c,r,m]=s.split("|");return{c,r,m,l}}));
 
@@ -642,7 +657,27 @@ N1:[["社長___、そんなことは許されない。",["といえども","と�
 ["言う___ことだが、遅刻はだめだ。",["までもない","べからず","に足る","を経て"],"It goes without saying, but lateness is not OK. — 〜までもない."],
 ["雨が降ろう___降るまいが、試合は行う。",["が","で","を","に"],"Rain or not, the match will go on. — 〜ようが〜まいが = whether or not."]]
 };
-const SENSEI=["✨ v1.3.1 is here! 5 new N4 kanji: 文 字 送 借 貸","Ganbatte! Every kanji you learn is a key to a new door 🔑","Tip: say the reading out loud. Your mouth remembers too!","Ninja tip: slash fast for combos ⚡","Try writing it without the guide for double XP ✍️","A little every day beats a lot once a week. Mainichi!","The alarm is your sensei in the morning. No cheating 😼","N1 is a mountain. You climb it one step at a time 🗻"];
+GRAM.N5.push(["机の上___猫がいます。",["に","で","を","へ"],"There is a cat on the desk. — に marks where something exists."],
+["駅まで歩い___行きます。",["て","で","た","に"],"I'll walk to the station. — て-form shows how you go."],
+["冷たい水を飲み___です。",["たい","ほしい","たく","ます"],"I want to drink cold water. — verb stem + たい = want to."],
+["昨日、映画を見___。",["ました","ます","ましょう","ません"],"I watched a movie yesterday. — past polite 〜ました."]);
+GRAM.N4.push(["雨が降っ___、試合は中止です。",["たら","ても","ながら","たり"],"If it rains, the match is cancelled. — 〜たら = if/when."],
+["このケーキは甘___ます。",["すぎ","そう","らしく","ように"],"This cake is too sweet. — stem + すぎる = too much."],
+["日本語を勉強する___に、日本に来ました。",["ため","よう","こと","の"],"I came to Japan to study Japanese. — 〜ために = in order to."],
+["音楽を聞き___勉強します。",["ながら","たり","ても","ので"],"I study while listening to music. — 〜ながら = while."]);
+GRAM.N3.push(["彼はもうすぐ来る___だ。",["はず","わけ","もの","こと"],"He should be coming soon. — 〜はずだ = expected to."],
+["宿題をした___、遊びに行った。",["あとで","まえに","うちに","ながら"],"After doing my homework, I went out to play. — 〜たあとで = after."],
+["日本に来た___、まだ富士山を見ていない。",["のに","ので","から","ために"],"Even though I came to Japan, I haven't seen Mt. Fuji yet. — 〜のに = despite."],
+["この本は子ども___書かれた。",["向けに","ばかりに","だけに","までに"],"This book was written for children. — 〜向けに = aimed at."]);
+GRAM.N2.push(["彼の話___、事故は夜に起きたそうだ。",["によると","にとって","について","に対して"],"According to him, the accident happened at night. — 〜によると = according to."],
+["忙しい___、毎日運動している。",["ながらも","からには","ばかりに","うえで"],"Although busy, I exercise every day. — 〜ながらも = although."],
+["社長の許可を得た___、計画を進める。",["うえで","ものの","くせに","わりに"],"After getting the president's approval, we'll proceed. — 〜たうえで = after (doing first)."],
+["彼女は今にも泣き___顔をしていた。",["そうな","ような","らしい","みたいな"],"She looked like she would cry at any moment. — stem + そうな = looks about to."]);
+GRAM.N1.push(["彼の行動は理解に___。",["苦しむ","かたくない","極まりない","禁じ得ない"],"His behavior is hard to understand. — 理解に苦しむ = can't make sense of."],
+["その知らせには驚き___。",["を禁じ得ない","にかたくない","極まりない","までもない"],"I can't help being surprised by the news. — 〜を禁じ得ない = can't help feeling."],
+["彼女の努力は称賛に___。",["値する","苦しむ","至る","即する"],"Her effort deserves praise. — 〜に値する = worthy of."],
+["事態は最悪の結果に___。",["至った","即した","際した","先立った"],"The situation led to the worst outcome. — 〜に至る = reach, lead to."]);
+const SENSEI=["✨ v1.3.2: 20 new kanji and 20 new grammar questions!","Ganbatte! Every kanji you learn is a key to a new door 🔑","Tip: say the reading out loud. Your mouth remembers too!","Ninja tip: slash fast for combos ⚡","Try writing it without the guide for double XP ✍️","A little every day beats a lot once a week. Mainichi!","The alarm is your sensei in the morning. No cheating 😼","N1 is a mountain. You climb it one step at a time 🗻"];
 
 /* ================= STATE ================= */
 const DEF={xp:0,streak:0,lastDay:"",days:{},ks:{},gBest:{},hi:0,alarm:{t:"06:30",on:false,lv:0,clears:0,fired:""},lockOpen:true,sound:true,lv:"N5",wIdx:0,alarmsDone:0,writes:0,quizzes:0,unlocks:0};
