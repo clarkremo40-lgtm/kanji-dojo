@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <script>
-var KD_BUILD=12,KD_VER="1.6.1",KD_NATIVE=6;
+var KD_BUILD=13,KD_VER="1.6.2",KD_NATIVE=6;
 (function(){try{if(window.__KD_SWAP)return;var ls=localStorage;
  if(location.href.indexOf("file:///android_asset")===0)ls.setItem("kd_native",String(KD_NATIVE));
  var b=+(ls.getItem("kd_build")||0),h=ls.getItem("kd_html");
@@ -230,7 +230,7 @@ select{font-family:inherit;font-size:15px;font-weight:700;background:var(--ink3)
 
 #v-game.fs .runwrap{position:fixed;inset:0;height:100%;min-height:0;border-radius:0;z-index:85;border:0}
 #v-game.fs .ctrls{position:fixed;left:10px;right:10px;bottom:12px;z-index:86;margin:0;opacity:.85}
-#v-game.fs #rChoose{bottom:80px}
+#v-game.fs #rChoose{bottom:30px}
 </style>
 </head>
 <body>
@@ -327,7 +327,7 @@ select{font-family:inherit;font-size:15px;font-weight:700;background:var(--ink3)
           <button class="btn shu" id="rGo">Start 走れ！</button>
         </div>
       </div>
-      <div class="ctrls"><button data-a="L">◀</button><button data-a="U">▲</button><button data-a="D">▼</button><button data-a="R">▶</button></div>
+      <div class="tiny muted" style="text-align:center;margin-top:10px">Swipe ← → to change lanes · ↑ jump · ↓ roll · tap to jump</div>
     </section>
 
     <!-- ALARM -->
@@ -1154,7 +1154,7 @@ function drawPlayer3D(){const t=RUN.t||0;if(RUN.inv>0&&RUN.mode==="run"&&Math.fl
  for(const [sx,s] of[[-1,arm],[1,-arm]]){const sw=idle?0.05:-s*0.9;const Ms=M4.chain(Mt,M4.T(sx*0.25,0.18,0),M4.RZ(sx*(idle?0.12:0.25)),M4.RX(sw));e3Draw(W3.uarm,Ms);e3Draw(W3.farm,M4.chain(Ms,M4.T(0,-0.2,0),M4.RX(idle?0.1:-1.1)))}
  const look=idle?Math.sin(t*1.6)*0.35:0;e3Draw(W3.head,M4.chain(Mt,M4.T(0,0.48,0),M4.RY(look)));
  for(const sx of[-1,1]){const fl=idle?0.3:1;e3Draw(W3.scarf,M4.chain(Mt,M4.T(sx*0.06,0.22,0.12),M4.RY(sx*0.5*fl),M4.RX(-0.2-Math.sin(t*14+sx)*0.35*fl)))}}
-function drawOni3D(){const t=RUN.t||0,back=Math.max(0,1-RUN.chase)*4;const z=1.6+back,x=RUN.ox;const bob=Math.abs(Math.sin(t*12))*0.06;
+function drawOni3D(){const t=RUN.t||0,back=Math.max(0,1-RUN.chase)*4;const z=2.4+back,x=RUN.ox;const bob=Math.abs(Math.sin(t*12))*0.06;
  const M0=M4.chain(M4.T(x,bob,z),M4.S(1.05));e3Draw(W3.oni,M0);const s=Math.sin(t*12);
  e3Draw(W3.oleg,M4.chain(M0,M4.T(-0.13,0.42,0),M4.RX(s*0.7)));e3Draw(W3.oleg,M4.chain(M0,M4.T(0.13,0.42,0),M4.RX(-s*0.7)));
  e3Draw(W3.club,M4.chain(M0,M4.T(0.34,0.85,0),M4.RX(-1.4+Math.sin(t*10)*0.6)))}
@@ -1236,7 +1236,7 @@ function runLoop(now){if(!RUN.on)return;const dt=Math.min(0.033,(now-RUN.last)/1
  const tgt=RUN.mode==="run"?1:0;RUN.mul+=(tgt-RUN.mul)*Math.min(1,dt*(tgt?2.5:6));if(!tgt&&RUN.mul<0.02)RUN.mul=0;
  if(RUN.mode==="run")RUN.base=Math.min(30,RUN.base+dt*0.18);
  const mv=RUN.base*RUN.mul*dt;RUN.dist+=mv;if(RUN.mode==="run")RUN.score+=mv*0.5*RUN.combo;
- RUN.x+=(RUN.lane-RUN.x)*Math.min(1,dt*13);RUN.ox+=(RUN.x-0.55*(RUN.x>=0?1:-1)-RUN.ox)*Math.min(1,dt*3);
+ RUN.x+=(RUN.lane-RUN.x)*Math.min(1,dt*13);RUN.ox+=(RUN.x-0.8*(RUN.x>=0?1:-1)-RUN.ox)*Math.min(1,dt*3);
  for(const o of RUN.objs){o.z-=mv+(o.mv&&RUN.mode==="run"?o.mv*dt:0)}
  if(RUN.mag>0&&RUN.mode==="run")for(const o of RUN.objs){if(o.t==="coin"&&!o.hit&&o.z<13&&o.z>-0.5){o.fx=(o.fx===undefined?o.lane:o.fx);o.fx+=(RUN.x-o.fx)*Math.min(1,dt*7);o.h+=(RUN.h+0.5-o.h)*Math.min(1,dt*7);o.z-=dt*12}}
  while(RUN.nextZ-RUN.dist<75){spawn(RUN.nextZ-RUN.dist);RUN.nextZ+=12+Math.random()*8}
@@ -1388,7 +1388,7 @@ addEventListener("resize",()=>{if(RUN.on)runSize()});
 $("#rGo").onclick=runStart;$("#rGoBtn").onclick=runGo;
 function runPreview(){runSize();ensure3D();CAMX=0;CAMY=0;Object.assign(RUN,{mode:"idle",x:0,lane:0,h:0,g:0,vy:0,slide:0,dist:0,base:13,mul:0,t:0.3,chase:0,ox:-0.6,combo:1,objs:[{t:"torii",lane:0,z:34},{t:"coin",lane:0,z:7,h:0.5},{t:"coin",lane:0,z:8.5,h:0.5},{t:"coin",lane:0,z:10,h:0.5},{t:"train",lane:-1,z:12,L:10,c:TRAIN_COLS[0],ramp:true,num:231},{t:"train",lane:1,z:20,L:8,c:TRAIN_COLS[3],num:777},{t:"low",lane:0,z:16}],parts:[],inv:0,shake:0,flash:0,msgT:0});runDraw()}
 
-$$('.ctrls button').forEach(b=>b.onclick=()=>act(b.dataset.a));
+
 function setFs(on){const v=$("#v-game");v.classList.toggle("fs",on);$("#rFs").textContent=on?"✕":"⛶";try{if(on&&document.documentElement.requestFullscreen)document.documentElement.requestFullscreen().catch(()=>{});else if(!on&&document.fullscreenElement)document.exitFullscreen().catch(()=>{})}catch(e){}
  setTimeout(()=>{runSize();if(!RUN.on)runPreview();else runDraw()},60)}
 function musBtn(){$("#rMus").style.opacity=S.music===false?0.45:1;$("#rMus").textContent=S.music===false?"🔇":"🎵"}musBtn();

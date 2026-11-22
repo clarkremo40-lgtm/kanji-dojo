@@ -1,15 +1,12 @@
 {
-  "build": 12,
-  "version": "1.6.1",
+  "build": 13,
+  "version": "1.6.2",
   "file": "app.html",
-  "size": 168053,
+  "size": 167980,
   "minNative": 6,
   "notes": [
-    "🎵 Chill lo-fi background music in Kanji Rush (tap 🎵 to turn it off)",
-    "🔊 New sound effects: coin chimes that rise in pitch, whooshes for jump/roll/lane change, crashes, Oni growl, fanfare for correct kanji",
-    "🪙 Big shiny spinning gold coins with glow",
-    "🚧 Red-and-white striped barricades with blinking warning lights, plus overhead ROLL signs",
-    "🎨 Colorful graffiti art on the trains and brighter, sunnier colors"
+    "Removed the on-screen arrow buttons in Kanji Rush, so they no longer cover the GO button. Swipe to play: ← → lanes, ↑ jump, ↓ roll, tap to jump",
+    "The Oni chaser now runs further back so he doesn't cover the runner"
   ],
   "native": {
     "build": 6,
