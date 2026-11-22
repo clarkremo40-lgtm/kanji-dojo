@@ -1,14 +1,13 @@
 {
-  "build": 9,
-  "version": "1.4.1",
+  "build": 10,
+  "version": "1.5",
   "file": "app.html",
-  "size": 118123,
+  "size": 142694,
   "minNative": 5,
   "notes": [
-    "🚃 Kanji Rush remade: run on train roofs with ramps, power-ups (🧲 magnet, 👟 super jump, 🛡️ shield) and a score multiplier",
-    "⏸ The runner now STOPS at the kanji gates. Take your time, pick, then tap GO!",
-    "👹 Watch out: stumble twice and the Oni catches you",
-    "☀️ New sunny Tokyo look with sakura trees and power lines"
+    "🎮 Kanji Rush is now real 3D! New 3D ninja cat, trains, ramps, cherry trees, torii gates and Tokyo streets",
+    "⏸ Still stops at every kanji gate so you can take your time",
+    "📱 Works offline: the 3D engine is built into the app"
   ],
   "native": {
     "build": 5,
