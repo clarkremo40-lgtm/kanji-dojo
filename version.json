@@ -1,17 +1,17 @@
 {
-  "build": 10,
-  "version": "1.5",
+  "build": 11,
+  "version": "1.6",
   "file": "app.html",
-  "size": 142694,
-  "minNative": 5,
+  "size": 157814,
+  "minNative": 6,
   "notes": [
-    "🎮 Kanji Rush is now real 3D! New 3D ninja cat, trains, ramps, cherry trees, torii gates and Tokyo streets",
-    "⏸ Still stops at every kanji gate so you can take your time",
-    "📱 Works offline: the 3D engine is built into the app"
+    "📵 Study Lock fixed: turning it on starts the countdown (no quiz right away). After 1 hour, 20 kanji pop up over whatever app you're using, and the quiz returns if you leave before finishing",
+    "🏙️ Realistic 3D graphics: stainless E235-style trains with LED displays, gravel track beds, steel rails, tiled Tokyo apartments, shops, vending machines and power lines",
+    "⛶ Fullscreen button in Kanji Rush"
   ],
   "native": {
-    "build": 5,
-    "version": "1.4",
+    "build": 6,
+    "version": "1.6",
     "url": "https://github.com/clarkremo40-lgtm/kanji-dojo/raw/main/KanjiDojo.apk"
   }
 }
