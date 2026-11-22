@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <script>
-var KD_BUILD=7,KD_VER="1.3.2",KD_NATIVE=4;
+var KD_BUILD=8,KD_VER="1.4",KD_NATIVE=5;
 (function(){try{if(window.__KD_SWAP)return;var ls=localStorage;
  if(location.href.indexOf("file:///android_asset")===0)ls.setItem("kd_native",String(KD_NATIVE));
  var b=+(ls.getItem("kd_build")||0),h=ls.getItem("kd_html");
@@ -258,6 +258,16 @@ select{font-family:inherit;font-size:15px;font-weight:700;background:var(--ink3)
         <button class="tile t2" data-act="quiz"><b>Quick Quiz</b><span>10 questions · +XP</span><div class="k">試</div></button>
         <button class="tile t3" data-act="lock"><b>Lock Screen</b><span>Answer to unlock</span><div class="k">鍵</div></button>
         <button class="tile t4" data-act="game"><b>Kanji Rush</b><span>Runner game</span><div class="k">走</div></button>
+      </div>
+      <div class="card" id="plCard" style="display:none;background:linear-gradient(135deg,#3a1f5c,#5a1e3a);border:1px solid rgba(232,69,44,.45)">
+        <div class="row"><div style="font-size:34px">📱</div><div class="grow"><b style="font-size:16px">Phone lock screen quiz</b><div class="tiny" style="opacity:.85;line-height:1.45">Answer 3 kanji before your phone's passcode, every time you turn the screen on</div></div><button class="switch" id="plSwitch"></button></div>
+        <div class="tiny" id="plHelp" style="display:none;margin-top:12px;line-height:1.6;background:rgba(0,0,0,.25);border-radius:14px;padding:10px 12px">
+          <b style="color:var(--gold)">Setup (one time):</b><br>
+          1. On the screen that opens, allow <b>"Display over other apps"</b> for Kanji Dojo, then come back.<br>
+          2. Xiaomi / Redmi / POCO: <b>Settings → Apps → Kanji Dojo → Other permissions</b> → allow <b>"Show on Lock screen"</b> and <b>"Display pop-up windows while running in the background"</b>. Also turn on <b>Autostart</b>.<br>
+          3. Turn your screen off and on to try it. 🔒<br>
+          <span style="opacity:.75">After a full restart, Android asks for your passcode once first. After that, every screen-on shows the quiz.</span>
+        </div>
       </div>
       <div class="card">
         <div class="row"><div class="grow"><b>Level mastery</b><div class="tiny muted" id="homeMastTxt"></div></div><div class="wbig" id="homeMastPct" style="font-family:Zen Maru Gothic;font-weight:900;font-size:28px">0%</div></div>
@@ -677,7 +687,7 @@ GRAM.N1.push(["彼の行動は理解に___。",["苦しむ","かたくない","�
 ["その知らせには驚き___。",["を禁じ得ない","にかたくない","極まりない","までもない"],"I can't help being surprised by the news. — 〜を禁じ得ない = can't help feeling."],
 ["彼女の努力は称賛に___。",["値する","苦しむ","至る","即する"],"Her effort deserves praise. — 〜に値する = worthy of."],
 ["事態は最悪の結果に___。",["至った","即した","際した","先立った"],"The situation led to the worst outcome. — 〜に至る = reach, lead to."]);
-const SENSEI=["✨ v1.3.2: 20 new kanji and 20 new grammar questions!","Ganbatte! Every kanji you learn is a key to a new door 🔑","Tip: say the reading out loud. Your mouth remembers too!","Ninja tip: slash fast for combos ⚡","Try writing it without the guide for double XP ✍️","A little every day beats a lot once a week. Mainichi!","The alarm is your sensei in the morning. No cheating 😼","N1 is a mountain. You climb it one step at a time 🗻"];
+const SENSEI=["Ganbatte! Every kanji you learn is a key to a new door 🔑","Tip: say the reading out loud. Your mouth remembers too!","Ninja tip: slash fast for combos ⚡","Try writing it without the guide for double XP ✍️","A little every day beats a lot once a week. Mainichi!","The alarm is your sensei in the morning. No cheating 😼","N1 is a mountain. You climb it one step at a time 🗻"];
 
 /* ================= STATE ================= */
 const DEF={xp:0,streak:0,lastDay:"",days:{},ks:{},gBest:{},hi:0,alarm:{t:"06:30",on:false,lv:0,clears:0,fired:""},lockOpen:true,sound:true,lv:"N5",wIdx:0,alarmsDone:0,writes:0,quizzes:0,unlocks:0};
@@ -994,7 +1004,10 @@ function renderProg(){const r=rankOf(S.xp),cur=RANKS[r][0],nxt=RANKS[r+1];$("#pR
  $("#pGram").innerHTML=LEVELS.map(l=>{const b=S.gBest[l];return`<div class="row" style="justify-content:space-between;padding:5px 0;font-size:14px"><b>${l}</b><span class="${b==null?"muted":""}">${b==null?"not taken":b+" / "+GRAM[l].length}</span></div>`}).join("");
  $("#sLock").classList.toggle("on",S.lockOpen);$("#sPhone").classList.toggle("on",!!S.phoneLock);$("#phoneSet").style.display=IS_APK?"flex":"none";$("#phoneHelp").style.display=IS_APK&&S.phoneLock?"block":"none";$("#sSound").classList.toggle("on",S.sound)}
 $("#sLock").onclick=()=>{S.lockOpen=!S.lockOpen;save();renderProg()};
-$("#sPhone").onclick=()=>{S.phoneLock=!S.phoneLock;save();native(S.phoneLock?"lockon":"lockoff");toast(S.phoneLock?"📱 Lock screen quiz on! Turn your screen off and on to try it":"Lock screen quiz off");renderProg()};
+function setPhoneLock(on){S.phoneLock=on;save();native(on?"lockon":"lockoff");toast(on?"📱 Lock screen quiz on! Turn your screen off and on to try it":"Lock screen quiz off");renderPL();renderProg()}
+function renderPL(){$("#plCard").style.display=IS_APK?"block":"none";$("#plSwitch").classList.toggle("on",!!S.phoneLock);$("#plHelp").style.display=S.phoneLock?"block":"none"}
+$("#sPhone").onclick=()=>setPhoneLock(!S.phoneLock);
+$("#plSwitch").onclick=()=>setPhoneLock(!S.phoneLock);
 $("#sSound").onclick=()=>{S.sound=!S.sound;save();renderProg()};
 $("#sReset").onclick=e=>{const b=e.target;if(b.dataset.c){S=JSON.parse(JSON.stringify(DEF));save();renderAll();toast("Progress reset");b.dataset.c="";b.textContent="Reset"}else{b.dataset.c=1;b.textContent="Tap again to confirm";setTimeout(()=>{b.dataset.c="";b.textContent="Reset"},3000)}};
 
@@ -1094,7 +1107,7 @@ function afterBoot(){try{localStorage.removeItem("kd_boot");const seen=+(localSt
   setInterval(()=>checkUpdate(false),20*60*1000);
   document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")checkUpdate(false)})}}
 
-function renderAll(){renderHeader();renderHome();renderAlarm();renderProg()}
+function renderAll(){renderPL();renderHeader();renderHome();renderAlarm();renderProg()}
 renderAll();tick();renderSL();
 afterBoot();
 if(GATE){$("#app").style.display="none";showLock()}
