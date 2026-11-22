@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+var KD_BUILD=4,KD_VER="1.2.1",KD_NATIVE=3;
+(function(){try{if(window.__KD_SWAP)return;var ls=localStorage;
+ if(location.href.indexOf("file:///android_asset")===0)ls.setItem("kd_native",String(KD_NATIVE));
+ var b=+(ls.getItem("kd_build")||0),h=ls.getItem("kd_html");
+ if(h&&b>KD_BUILD){
+  if(ls.getItem("kd_boot")==="pending"){ls.removeItem("kd_html");ls.removeItem("kd_build");ls.removeItem("kd_boot");ls.setItem("kd_rollback",String(b));return}
+  ls.setItem("kd_boot","pending");window.__KD_SWAP=1;document.write(h+'<plaintext style="display:none">')}
+}catch(e){}})();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0e0b1f">
+<title>Kanji Dojo 漢字道場</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@600&family=Shippori+Mincho+B1:wght@700;800&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0e0b1f;--ink2:#1a1535;--ink3:#26204a;--line:rgba(255,255,255,.09);
+  --paper:#f4ecdc;--paper2:#e8dcc4;--shu:#e8452c;--shu2:#ff6a4d;--gold:#f0c14b;
+  --sakura:#ffb7c5;--jade:#3ec7a0;--sky:#7aa8ff;--muted:#a49dc4;
+  --r:22px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0}
+html,body{-webkit-text-size-adjust:100%;text-size-adjust:100%;height:100%;background:var(--ink);color:#fff;font-family:"Zen Maru Gothic",system-ui,sans-serif;overflow:hidden;overscroll-behavior:none}
+button{font-family:inherit;border:0;cursor:pointer;color:inherit;background:none}
+.mincho{font-family:"Shippori Mincho B1",serif}
+#sakura{position:fixed;inset:0;pointer-events:none;z-index:0}
+#app{position:relative;z-index:1;height:100%;max-width:480px;margin:0 auto;display:flex;flex-direction:column}
+header{display:flex;align-items:center;gap:10px;padding:14px 18px 8px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:900;font-size:18px;letter-spacing:.5px}
+.hanko{width:34px;height:34px;border-radius:9px;background:var(--shu);display:grid;place-items:center;font-family:"Shippori Mincho B1";font-size:20px;color:#fff;transform:rotate(-6deg);box-shadow:0 4px 14px rgba(232,69,44,.45)}
+.xpchip{margin-left:auto;display:flex;align-items:center;gap:8px;background:var(--ink2);border:1px solid var(--line);padding:6px 12px 6px 8px;border-radius:99px;font-size:13px;font-weight:700}
+.xpchip .lv{background:var(--gold);color:var(--ink);border-radius:99px;padding:2px 8px;font-weight:900}
+.flame{color:#ff9a3c}
+main{flex:1;overflow-y:auto;overflow-x:hidden;padding:4px 16px 130px;scroll-behavior:smooth}
+main::-webkit-scrollbar{display:none}
+.view{display:none;animation:viewIn .45s cubic-bezier(.2,.8,.2,1)}
+.view.on{display:block}
+@keyframes viewIn{from{opacity:0;transform:translateY(18px) scale(.98);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+h2{font-size:22px;font-weight:900;margin:10px 2px 4px}
+h2 small{display:block;font-size:12px;color:var(--muted);font-weight:500;letter-spacing:2px}
+.card{background:linear-gradient(160deg,var(--ink2),#15112c);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin:12px 0;position:relative;overflow:hidden}
+.paper{background:var(--paper);color:#2a2238;border:0}
+.row{display:flex;gap:10px;align-items:center}
+.grow{flex:1}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 18px;border-radius:16px;font-weight:900;font-size:15px;background:var(--ink3);border:1px solid var(--line);transition:transform .12s}
+.btn:active{transform:scale(.95)}
+.btn.shu{background:linear-gradient(135deg,var(--shu2),var(--shu));border:0;box-shadow:0 8px 22px rgba(232,69,44,.35)}
+.btn.gold{background:var(--gold);color:var(--ink);border:0}
+.btn.jade{background:var(--jade);color:var(--ink);border:0}
+.btn.full{width:100%}
+.btn.sm{padding:9px 13px;font-size:13px;border-radius:12px}
+.muted{color:var(--muted)}
+.tiny{font-size:12px}
+/* level chips */
+.levels{display:flex;gap:8px;margin:10px 0;overflow-x:auto}
+.lvchip{flex:1;min-width:56px;padding:10px 0;border-radius:14px;background:var(--ink2);border:1px solid var(--line);font-weight:900;font-size:15px;position:relative;transition:.2s}
+.lvchip.on{background:var(--paper);color:var(--ink);transform:translateY(-3px);box-shadow:0 8px 18px rgba(0,0,0,.35)}
+.lvchip .lockic{position:absolute;top:-6px;right:-4px;font-size:11px}
+/* hero */
+.hero{padding:20px 16px;min-height:200px;display:grid;grid-template-columns:minmax(0,40%) minmax(0,1fr);align-items:center;gap:14px;background:radial-gradient(circle at 80% 20%,rgba(232,69,44,.35),transparent 55%),radial-gradient(circle at 10% 90%,rgba(122,168,255,.25),transparent 50%),linear-gradient(160deg,#211a46,#120e27)}
+.hero .big{font-family:"Shippori Mincho B1";font-size:min(104px,24vw);line-height:1;position:relative;text-shadow:0 0 40px rgba(255,183,197,.35);animation:breathe 5s ease-in-out infinite}
+@keyframes breathe{50%{transform:translateY(-6px) rotate(-2deg);text-shadow:0 0 60px rgba(255,106,77,.55)}}
+.hero .ring{position:absolute;inset:-14px;border-radius:50%;border:2px dashed rgba(240,193,75,.5);animation:spin 18s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.tag{display:inline-block;font-size:11px;font-weight:900;letter-spacing:2px;padding:4px 9px;border-radius:99px;background:rgba(255,255,255,.08);color:var(--gold)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{border-radius:20px;padding:14px;min-height:104px;min-width:0;display:flex;flex-direction:column;justify-content:space-between;text-align:left;position:relative;overflow:hidden;transition:transform .15s}
+.tile:active{transform:scale(.96)}
+.tile b{font-size:16px;font-weight:900}
+.tile span{font-size:12px;opacity:.8}
+.tile .k{pointer-events:none;position:absolute;right:-6px;bottom:-22px;font-family:"Shippori Mincho B1";font-size:84px;opacity:.2}
+.t1{background:linear-gradient(135deg,#ff7a59,#e8452c)}
+.t2{background:linear-gradient(135deg,#5a7dff,#3b3fbf)}
+.t3{background:linear-gradient(135deg,#3ec7a0,#178f77);color:#06231c}
+.t4{background:linear-gradient(135deg,#f0c14b,#d68a1e);color:#2b1a00}
+/* nav */
+nav{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;width:calc(100% - 24px);max-width:456px;z-index:5;display:flex;background:rgba(26,21,53,.82);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--line);border-radius:26px;padding:7px;box-shadow:0 14px 40px rgba(0,0,0,.5)}
+nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 0;border-radius:18px;font-size:10px;font-weight:700;color:var(--muted);transition:.25s}
+nav button i{font-style:normal;font-family:"Shippori Mincho B1";font-size:21px;line-height:1.1}
+nav button.on{background:var(--paper);color:var(--ink)}
+nav button.on i{color:var(--shu)}
+/* quiz */
+.qwrap{text-align:center}
+.qprompt{font-family:"Shippori Mincho B1";font-size:92px;line-height:1.15;margin:8px 0 2px}
+.qprompt.txt{font-family:"Zen Maru Gothic";font-size:28px;font-weight:900;margin:24px 0 12px}
+.qprompt.sent{font-family:"Zen Maru Gothic";font-size:22px;font-weight:700;line-height:1.6;margin:18px 0 8px}
+.qprompt .blank{display:inline-block;min-width:64px;border-bottom:3px solid var(--shu);color:var(--shu2)}
+.qhint{font-size:13px;color:var(--muted);margin-bottom:14px}
+.opts{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+.opt{padding:12px 8px;border-radius:16px;background:var(--ink3);border:1px solid var(--line);font-weight:700;font-size:15px;line-height:1.25;min-height:58px;overflow-wrap:anywhere;min-width:0;transition:transform .12s,background .2s}
+.opt.kj{font-family:"Shippori Mincho B1";font-size:34px;padding:8px}
+.opt:active{transform:scale(.95)}
+.opt.ok{background:var(--jade);color:var(--ink);animation:pop .35s}
+.opt.no{background:var(--shu);animation:shake .4s}
+@keyframes pop{50%{transform:scale(1.08)}}
+@keyframes shake{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+.bar{height:8px;border-radius:9px;background:rgba(255,255,255,.08);overflow:hidden}
+.bar>div{height:100%;border-radius:9px;background:linear-gradient(90deg,var(--sakura),var(--shu2));transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.expl{margin-top:12px;font-size:13px;color:var(--muted);min-height:20px}
+/* sheet */
+#sheet{position:fixed;inset:0;z-index:20;display:none;background:rgba(6,4,16,.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+#sheet.on{display:block}
+#sheet .panel{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:480px;max-height:94%;overflow-y:auto;background:linear-gradient(180deg,#221b47,#110d26);border-radius:30px 30px 0 0;padding:16px 18px 30px;border-top:1px solid var(--line);animation:sheetUp .4s cubic-bezier(.2,.9,.2,1)}
+@keyframes sheetUp{from{transform:translate(-50%,100%)}}
+.grab{width:46px;height:5px;border-radius:9px;background:rgba(255,255,255,.2);margin:0 auto 10px}
+.x{position:absolute;right:14px;top:12px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.07);font-size:18px}
+/* flashcard */
+.fc{perspective:1200px;height:330px;margin:14px 0}
+.fc .inner{position:relative;width:100%;height:100%;transition:transform .7s cubic-bezier(.3,1.4,.4,1);transform-style:preserve-3d}
+.fc.flip .inner{transform:rotateY(180deg)}
+.fc .face{position:absolute;inset:0;border-radius:28px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px}
+.fc .front{background:var(--paper);color:var(--ink);box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.fc .front::before{content:"";position:absolute;inset:12px;border:2px solid rgba(232,69,44,.25);border-radius:20px}
+.fc .back{background:linear-gradient(150deg,#e8452c,#8f1f3c);transform:rotateY(180deg)}
+.fc .front .c{font-family:"Shippori Mincho B1";font-size:150px;line-height:1}
+/* writing */
+.pad{position:relative;width:100%;aspect-ratio:1;border-radius:24px;overflow:hidden;background:var(--paper);box-shadow:inset 0 0 0 3px rgba(232,69,44,.35),0 18px 40px rgba(0,0,0,.35);touch-action:none}
+.pad canvas{position:absolute;inset:0;width:100%;height:100%}
+.wbig{font-family:"Shippori Mincho B1";font-size:44px;line-height:1}
+/* stamp */
+#stamp{position:fixed;left:50%;top:42%;z-index:60;pointer-events:none;transform:translate(-50%,-50%) scale(3) rotate(-18deg);opacity:0;border:6px solid var(--shu);color:var(--shu);border-radius:18px;padding:6px 18px;font-family:"Shippori Mincho B1";font-size:64px;font-weight:800;background:rgba(244,236,220,.92);box-shadow:0 10px 40px rgba(0,0,0,.4)}
+#stamp.go{animation:stampIn 1.4s cubic-bezier(.2,1.4,.4,1) forwards}
+@keyframes stampIn{0%{opacity:0;transform:translate(-50%,-50%) scale(3) rotate(-18deg)}18%{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(-12deg)}80%{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(-12deg)}100%{opacity:0;transform:translate(-50%,-60%) scale(.9) rotate(-12deg)}}
+#toast{position:fixed;left:50%;top:16px;transform:translate(-50%,-120px);z-index:70;background:var(--paper);color:var(--ink);font-weight:900;padding:12px 18px;border-radius:16px;transition:transform .45s cubic-bezier(.2,1.3,.4,1);box-shadow:0 10px 30px rgba(0,0,0,.4);max-width:90%;text-align:center}
+#toast.on{transform:translate(-50%,0)}
+.conf{position:fixed;z-index:65;width:9px;height:14px;pointer-events:none;border-radius:2px}
+/* game */
+.arena{position:relative;height:56vh;min-height:360px;border-radius:26px;overflow:hidden;background:linear-gradient(180deg,#0b1a3a 0%,#2a1846 60%,#4a1a3a 100%);border:1px solid var(--line);touch-action:manipulation}
+.arena .moon{position:absolute;right:24px;top:22px;width:58px;height:58px;border-radius:50%;background:#fff3d6;box-shadow:0 0 40px #ffe3a0}
+.arena .city{position:absolute;left:0;right:0;bottom:0;height:64px;background:linear-gradient(transparent,rgba(0,0,0,.6)),repeating-linear-gradient(90deg,#120c22 0 26px,#1a1030 26px 38px,#0d081a 38px 60px);clip-path:polygon(0 40%,8% 40%,8% 10%,16% 10%,16% 50%,25% 50%,25% 0,31% 0,31% 35%,42% 35%,42% 15%,50% 15%,50% 45%,60% 45%,60% 5%,68% 5%,68% 30%,78% 30%,78% 12%,86% 12%,86% 40%,100% 40%,100% 100%,0 100%)}
+.fall{position:absolute;width:62px;height:62px;border-radius:16px;display:grid;place-items:center;font-family:"Shippori Mincho B1";font-size:38px;background:var(--paper);color:var(--ink);box-shadow:0 6px 0 #c9b998,0 10px 20px rgba(0,0,0,.4);transition:box-shadow .2s}
+.fall.target{background:#fff;box-shadow:0 0 0 4px var(--gold),0 0 30px var(--gold);color:var(--shu)}
+.fall.slash{animation:slash .45s forwards}
+@keyframes slash{to{transform:scale(1.6) rotate(25deg);opacity:0;filter:blur(3px)}}
+.ghud{position:absolute;left:12px;right:12px;top:10px;display:flex;justify-content:space-between;font-weight:900;z-index:3}
+.combo{position:absolute;left:50%;top:40%;transform:translate(-50%,-50%);font-size:40px;font-weight:900;color:var(--gold);opacity:0;pointer-events:none;text-shadow:0 4px 0 #8a5a00}
+.combo.go{animation:comboPop .7s}
+@keyframes comboPop{0%{opacity:0;transform:translate(-50%,-30%) scale(.5)}30%{opacity:1;transform:translate(-50%,-50%) scale(1.2)}100%{opacity:0;transform:translate(-50%,-90%) scale(1)}}
+.gover{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:rgba(10,6,24,.75);backdrop-filter:blur(4px);z-index:4;text-align:center;padding:20px}
+/* alarm */
+.clock{font-size:76px;font-weight:900;letter-spacing:-2px;text-align:center;line-height:1;font-variant-numeric:tabular-nums}
+.clock small{font-size:28px;color:var(--muted)}
+.switch{width:58px;height:34px;border-radius:99px;background:var(--ink3);position:relative;transition:.25s;border:1px solid var(--line);flex:none}
+.switch::after{content:"";position:absolute;left:3px;top:3px;width:26px;height:26px;border-radius:50%;background:#fff;transition:.25s cubic-bezier(.3,1.5,.5,1)}
+.switch.on{background:var(--jade)}
+.switch.on::after{left:27px}
+input[type=time]{font-family:inherit;font-size:40px;font-weight:900;background:var(--ink3);color:#fff;border:1px solid var(--line);border-radius:18px;padding:8px 14px;width:100%;text-align:center;color-scheme:dark}
+.path{display:flex;align-items:center;justify-content:space-between;margin:14px 4px 6px;position:relative}
+.path::before{content:"";position:absolute;left:18px;right:18px;top:50%;height:3px;background:var(--ink3);z-index:0}
+.node{position:relative;z-index:1;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:13px;background:var(--ink3);border:2px solid var(--line);color:var(--muted)}
+.node.done{background:var(--jade);color:var(--ink);border-color:var(--jade)}
+.node.cur{background:var(--shu);color:#fff;border-color:var(--gold);box-shadow:0 0 0 6px rgba(232,69,44,.25);animation:pulse 1.6s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 12px rgba(232,69,44,0)}}
+#ring{position:fixed;inset:0;z-index:55;display:none;flex-direction:column;padding:20px 18px;background:radial-gradient(circle at 50% 0%,#ff4d2e,#7a1030 55%,#1a0718);overflow-y:auto}
+#ring.on{display:flex;animation:flash 1s infinite alternate}
+@keyframes flash{to{background-position:0 0;filter:saturate(1.3) brightness(1.08)}}
+#ring .wake{text-align:center;font-family:"Shippori Mincho B1";font-size:54px;animation:wob .5s infinite alternate}
+@keyframes wob{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}
+/* lockscreen */
+#lock{position:fixed;inset:0;z-index:50;display:none;flex-direction:column;align-items:center;overflow:hidden;background:radial-gradient(120% 80% at 50% 0%,#3b2c7a 0%,#160f33 55%,#07050f 100%);transition:transform .7s cubic-bezier(.7,0,.3,1),opacity .7s}
+#lock.on{display:flex}
+#lock.out{transform:translateY(-105%);opacity:.6}
+#lock .wm{position:absolute;font-family:"Shippori Mincho B1";font-size:120vw;line-height:1;color:rgba(255,255,255,.04);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+#lock .lt{margin-top:9vh;text-align:center;position:relative}
+#lock .lt .t{font-size:92px;font-weight:900;letter-spacing:-3px;line-height:1;font-variant-numeric:tabular-nums;text-shadow:0 8px 40px rgba(0,0,0,.4)}
+#lock .lt .d{font-size:17px;font-weight:700;opacity:.85;margin-bottom:6px}
+.notif{margin-top:26px;width:calc(100% - 36px);max-width:420px;background:rgba(255,255,255,.13);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:22px;padding:13px 14px;display:flex;gap:12px;align-items:center;position:relative;animation:notifIn .8s .3s both cubic-bezier(.2,1.3,.4,1)}
+@keyframes notifIn{from{opacity:0;transform:translateY(-20px) scale(.9)}}
+.lockq{width:calc(100% - 36px);max-width:420px;margin-top:16px;background:rgba(255,255,255,.1);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-radius:26px;padding:16px;display:none;position:relative}
+.lockq.on{display:block;animation:notifIn .5s both}
+.lockq .opt{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.12)}
+.swipe{position:absolute;bottom:34px;left:0;right:0;text-align:center;font-weight:700;font-size:14px;opacity:.85}
+.swipe .hb{width:134px;height:5px;border-radius:9px;background:#fff;margin:12px auto 0;animation:hint 1.8s infinite}
+@keyframes hint{50%{transform:translateY(-10px)}}
+.lockic2{font-size:22px;margin-top:20px;transition:.4s}
+/* progress */
+.stat{background:var(--ink2);border:1px solid var(--line);border-radius:18px;padding:14px}
+.stat b{display:block;font-size:26px;font-weight:900}
+.stat span{font-size:12px;color:var(--muted)}
+.heat{display:grid;grid-template-columns:repeat(14,1fr);gap:4px;margin-top:8px}
+.heat div{aspect-ratio:1;border-radius:4px;background:rgba(255,255,255,.06)}
+.lvrow{margin:10px 0}
+.lvrow .row{justify-content:space-between;font-size:13px;font-weight:700;margin-bottom:5px}
+.set{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.set:last-child{border:0}
+.ringsvg{transform:rotate(-90deg)}
+.result{text-align:center;padding:8px 0}
+.result .score{font-size:64px;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--shu2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sensei{display:flex;gap:10px;align-items:flex-start;margin:10px 0}
+.sensei .face{flex:none;width:44px;height:44px;border-radius:50%;background:var(--paper);display:grid;place-items:center;font-size:26px}
+.sensei .bub{background:var(--paper);color:var(--ink);border-radius:4px 18px 18px 18px;padding:10px 13px;font-size:14px;font-weight:700;line-height:1.45}
+
+/* study lock */
+#slock{position:fixed;inset:0;z-index:58;display:none;flex-direction:column;padding:22px 18px;overflow-y:auto;background:radial-gradient(120% 70% at 50% 0%,#2b6b8f 0%,#16224a 50%,#07050f 100%)}
+#slock.on{display:flex;animation:viewIn .5s}
+#slock .shead{text-align:center}
+#slock .shead .k{font-family:"Shippori Mincho B1";font-size:46px;line-height:1.1}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:99px;background:rgba(255,255,255,.08);font-size:12px;font-weight:700}
+.chip.ok{background:rgba(62,199,160,.18);color:var(--jade)}.chip.bad{background:rgba(232,69,44,.18);color:var(--shu2)}
+select{font-family:inherit;font-size:15px;font-weight:700;background:var(--ink3);color:#fff;border:1px solid var(--line);border-radius:12px;padding:9px 10px}
+
+.runwrap{position:relative;height:min(64vh,600px);min-height:380px;border-radius:26px;overflow:hidden;touch-action:none;background:#1b1442;border:1px solid var(--line)}
+#run{display:block;touch-action:none}
+.rhud{position:absolute;top:10px;left:12px;right:12px;display:flex;justify-content:space-between;align-items:center;font-weight:900;z-index:2;pointer-events:none;text-shadow:0 2px 4px #0009;font-size:15px}
+#rq{display:none;position:absolute;top:44px;left:50%;transform:translateX(-50%);background:rgba(14,11,31,.8);padding:6px 16px 8px;border-radius:14px;font-weight:900;font-size:19px;white-space:nowrap;border:2px solid var(--gold);z-index:2;pointer-events:none;max-width:92%;overflow:hidden;text-overflow:ellipsis;box-shadow:0 0 20px rgba(240,193,75,.35)}
+#rq span{font-size:10px;color:var(--gold);letter-spacing:3px;display:block;text-align:center}
+.ctrls{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
+.ctrls button{padding:12px 0;border-radius:14px;background:var(--ink3);border:1px solid var(--line);font-size:18px;font-weight:900}
+.dots{display:flex;gap:10px;justify-content:center;margin-top:18px}
+.dots i{width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,.2);transition:.3s}
+.dots i.on{background:var(--jade);box-shadow:0 0 12px var(--jade);transform:scale(1.2)}
+
+#upd{position:fixed;inset:0;z-index:90;display:none;align-items:flex-end;justify-content:center;background:rgba(6,4,16,.7);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+#upd.on{display:flex}
+#upd .box{width:100%;max-width:480px;background:linear-gradient(180deg,#2a2160,#120e27);border-radius:28px 28px 0 0;padding:24px 20px 30px;border-top:1px solid var(--line);animation:sheetUp .45s cubic-bezier(.2,.9,.2,1)}
+#upd ul{margin:10px 0 16px 18px;line-height:1.6;font-size:14px}
+</style>
+</head>
+<body>
+<canvas id="sakura"></canvas>
+
+<div id="app">
+  <header>
+    <div class="logo"><div class="hanko">道</div>Kanji Dojo</div>
+    <div class="xpchip"><span class="flame">🔥<span id="hStreak">0</span></span><span class="lv" id="hLv">N5</span><span id="hXp">0 XP</span></div>
+  </header>
+
+  <main id="main">
+    <!-- HOME -->
+    <section class="view on" id="v-home">
+      <div class="card hero">
+        <div style="position:relative;width:100%;aspect-ratio:1;display:grid;place-items:center;max-width:140px"><div class="ring"></div><div class="big" id="kotd">日</div></div>
+        <div style="min-width:0;overflow-wrap:anywhere">
+          <span class="tag">今日の漢字</span>
+          <div style="font-size:19px;font-weight:900;margin-top:10px;line-height:1.25" id="kotdM">day, sun</div>
+          <div class="muted" style="font-size:15px;margin-top:2px" id="kotdR">にち・ひ</div>
+          <div class="tiny muted" style="margin-top:10px" id="kotdL">JLPT N5</div>
+        </div>
+      </div>
+      <div class="sensei"><div class="face">🐱</div><div class="bub" id="senseiTalk">Okaeri! Ready to train?</div></div>
+      <h2><small>CHOOSE YOUR LEVEL</small>レベル</h2>
+      <div class="levels" id="levels"></div>
+      <div class="grid2">
+        <button class="tile t1" data-act="flash"><b>Flashcards</b><span>Flip &amp; memorize</span><div class="k">札</div></button>
+        <button class="tile t2" data-act="quiz"><b>Quick Quiz</b><span>10 questions · +XP</span><div class="k">試</div></button>
+        <button class="tile t3" data-act="lock"><b>Lock Screen</b><span>Answer to unlock</span><div class="k">鍵</div></button>
+        <button class="tile t4" data-act="game"><b>Kanji Rush</b><span>Runner game</span><div class="k">走</div></button>
+      </div>
+      <div class="card">
+        <div class="row"><div class="grow"><b>Level mastery</b><div class="tiny muted" id="homeMastTxt"></div></div><div class="wbig" id="homeMastPct" style="font-family:Zen Maru Gothic;font-weight:900;font-size:28px">0%</div></div>
+        <div class="bar" style="margin-top:10px"><div id="homeMastBar" style="width:0"></div></div>
+      </div>
+    </section>
+
+    <!-- WRITE -->
+    <section class="view" id="v-write">
+      <h2><small>KANJI WRITING</small>書く練習</h2>
+      <div class="card" style="padding:12px 14px">
+        <div class="row">
+          <button class="btn sm" id="wPrev">◀</button>
+          <div class="grow" style="text-align:center"><div class="wbig" id="wChar">日</div><div class="tiny muted" id="wInfo">day · にち</div></div>
+          <button class="btn sm" id="wNext">▶</button>
+        </div>
+      </div>
+      <div class="pad" id="pad"><canvas id="cGuide"></canvas><canvas id="cInk"></canvas></div>
+      <div class="row" style="margin-top:12px">
+        <button class="btn sm" id="wGuide">👁 Guide: on</button>
+        <button class="btn sm" id="wUndo">↶ Undo</button>
+        <button class="btn sm" id="wClear">✕ Clear</button>
+        <button class="btn sm shu grow" id="wCheck">Check 判定</button>
+      </div>
+      <div class="card" id="wResult" style="display:none"></div>
+      <p class="tiny muted" style="margin:8px 4px">Tip: trace with the guide first, then turn the guide off and write it from memory for double XP.</p>
+    </section>
+
+    <!-- GRAMMAR -->
+    <section class="view" id="v-gram">
+      <h2><small>GRAMMAR TEST</small>文法テスト</h2>
+      <div class="levels" id="gLevels"></div>
+      <div class="card" id="gBox"></div>
+    </section>
+
+    <!-- GAME -->
+    <section class="view" id="v-game">
+      <h2><small>RUNNER GAME</small>漢字ラッシュ Kanji Rush</h2>
+      <div class="runwrap" id="runWrap">
+        <canvas id="run"></canvas>
+        <div class="rhud"><span id="rHearts">❤️❤️❤️</span><span>⭐ <span id="rScore">0</span></span><span>🪙 <span id="rCoins">0</span></span><span>🏆 <span id="rBest">0</span></span></div>
+        <div id="rq"></div>
+        <div class="gover" id="rStart">
+          <div style="font-size:50px">🐱‍👤</div>
+          <div style="font-size:24px;font-weight:900">Kanji Rush</div>
+          <div class="muted" style="max-width:270px;line-height:1.5">Run the Tokyo rails! Swipe ← → to change lanes, ↑ to jump, ↓ to slide. When a question appears, run through the gate with the right kanji.</div>
+          <button class="btn shu" id="rGo">Start 走れ！</button>
+        </div>
+      </div>
+      <div class="ctrls"><button data-a="L">◀</button><button data-a="U">▲</button><button data-a="D">▼</button><button data-a="R">▶</button></div>
+    </section>
+
+    <!-- ALARM -->
+    <section class="view" id="v-alarm">
+      <h2><small>KANJI ALARM</small>目覚まし</h2>
+      <div class="card" style="text-align:center">
+        <div class="clock" id="aClock">00:00<small>:00</small></div>
+        <div class="muted tiny" style="margin-top:6px">To turn it off you must answer <b style="color:#fff">20 kanji</b> correctly</div>
+      </div>
+      <div class="card">
+        <div class="row" style="margin-bottom:12px"><div class="grow"><b>Wake-up time</b><div class="tiny muted" id="aStatus">Off</div></div><button class="switch" id="aSwitch"></button></div>
+        <input type="time" id="aTime" value="06:30">
+      </div>
+      <div class="card">
+        <b>Alarm level path</b>
+        <div class="tiny muted">Starts at N5. Finish 3 alarms with 4 or fewer mistakes to move up a level, all the way to N1.</div>
+        <div class="path" id="aPath"></div>
+        <div class="tiny" id="aClears" style="text-align:center;margin-top:8px"></div>
+      </div>
+      <div class="card" id="slCard" style="border-color:rgba(122,168,255,.35)">
+        <div class="row"><div class="grow"><b>📵 Study Lock</b><div class="tiny muted" id="slStatus">Every hour, 20 kanji questions pop up over any app. Other apps stay blocked until you finish.</div></div><button class="switch" id="slSwitch"></button></div>
+        <div class="row" style="margin-top:12px"><span class="tiny muted grow">Pop up every</span><select id="slInterval"><option value="30">30 min</option><option value="60" selected>1 hour</option><option value="90">1.5 hours</option><option value="120">2 hours</option></select></div>
+        <div class="tiny muted" style="margin-top:10px">Questions use your current level: <b style="color:#fff" id="slLv">N5</b> (change it on the Learn tab)</div>
+        <div id="slPerms" style="margin-top:12px;display:flex;flex-direction:column;gap:8px"></div>
+        <button class="btn full" id="slTest" style="margin-top:12px">Try Study Lock now</button>
+      </div>
+      <button class="btn shu full" id="aTest">🔔 Test the alarm now</button>
+      <p class="tiny muted" style="margin:12px 4px;line-height:1.6">The alarm rings only while this app is open. Before sleeping, leave it open on the Alarm tab with the screen on and the phone charging. Tap anywhere once so sound is allowed.</p>
+    </section>
+
+    <!-- PROGRESS -->
+    <section class="view" id="v-prog">
+      <h2><small>YOUR JOURNEY</small>進歩</h2>
+      <div class="card" style="display:flex;align-items:center;gap:16px">
+        <svg width="96" height="96" class="ringsvg"><circle cx="48" cy="48" r="40" stroke="rgba(255,255,255,.08)" stroke-width="10" fill="none"/><circle id="pRing" cx="48" cy="48" r="40" stroke="url(#gr)" stroke-width="10" fill="none" stroke-linecap="round" stroke-dasharray="251" stroke-dashoffset="251" style="transition:stroke-dashoffset 1s"/><defs><linearGradient id="gr"><stop offset="0" stop-color="#ffb7c5"/><stop offset="1" stop-color="#e8452c"/></linearGradient></defs></svg>
+        <div class="grow"><div class="tag" id="pRank">見習い</div><div style="font-size:24px;font-weight:900;margin-top:6px" id="pXp">0 XP</div><div class="tiny muted" id="pNext"></div></div>
+      </div>
+      <div class="grid2" id="pStats"></div>
+      <div class="card"><b>Last 14 days</b><div class="heat" id="pHeat"></div></div>
+      <div class="card"><b>Kanji mastered by level</b><div class="tiny muted">A kanji counts as mastered after you get it right 3 times</div><div id="pLevels"></div></div>
+      <div class="card"><b>Best grammar scores</b><div id="pGram" style="margin-top:8px"></div></div>
+      <div class="card">
+        <b>Settings</b>
+        <div class="set"><div><div style="font-weight:700">Lock screen when app opens</div><div class="tiny muted">Answer a question to get in</div></div><button class="switch" id="sLock"></button></div>
+        <div class="set" id="phoneSet" style="display:none"><div><div style="font-weight:700">📱 Phone lock screen quiz</div><div class="tiny muted">3 kanji before your phone's PIN, every time the screen turns on</div></div><button class="switch" id="sPhone"></button></div>
+        <div class="tiny" id="phoneHelp" style="display:none;line-height:1.55;padding:4px 0 10px;color:var(--gold)">Allow <b>"Display over other apps"</b> on the screen that opens. On Xiaomi/Redmi/POCO also go to <b>App info → Other permissions</b> and allow <b>"Show on Lock screen"</b> and <b>"Display pop-up windows while running in the background"</b>.</div>
+        <div class="set"><div><div style="font-weight:700">Sound effects</div></div><button class="switch" id="sSound"></button></div>
+        <div class="set"><div><div style="font-weight:700">App version</div><div class="tiny muted" id="verTxt"></div></div><button class="btn sm" id="sUpd">Check for updates</button></div>
+        <div class="set"><div><div style="font-weight:700">Reset all progress</div></div><button class="btn sm" id="sReset">Reset</button></div>
+      </div>
+    </section>
+  </main>
+
+  <nav id="nav">
+    <button data-v="home" class="on"><i>学</i>Learn</button>
+    <button data-v="write"><i>書</i>Write</button>
+    <button data-v="gram"><i>文</i>Grammar</button>
+    <button data-v="game"><i>遊</i>Game</button>
+    <button data-v="alarm"><i>鳴</i>Alarm</button>
+    <button data-v="prog"><i>進</i>Progress</button>
+  </nav>
+</div>
+
+<div id="sheet"><div class="panel"><div class="grab"></div><button class="x" id="sheetX">✕</button><div id="sheetBody"></div></div></div>
+
+<div id="ring">
+  <div class="wake">起きて！</div>
+  <div style="text-align:center;font-weight:900;font-size:15px;margin:2px 0 10px">WAKE UP · Answer 20 kanji to stop the alarm</div>
+  <div class="row" style="font-weight:900;margin-bottom:8px"><span id="rCount">0 / 20</span><span class="grow"></span><span id="rLv" class="tag" style="color:#fff">N5</span><span>❌ <span id="rMiss">0</span></span></div>
+  <div class="bar"><div id="rBar" style="width:0"></div></div>
+  <div id="rQ" class="qwrap" style="margin-top:6px"></div>
+</div>
+
+<div id="lock">
+  <div class="wm" id="lWm">鍵</div>
+  <div class="lockic2" id="lIcon">🔒</div>
+  <div class="lt"><div class="d" id="lDate"></div><div class="t" id="lTime">12:00</div></div>
+  <div class="notif" id="lNotif">
+    <div class="hanko" style="flex:none">道</div>
+    <div class="grow"><div style="font-weight:900;font-size:14px">Kanji Dojo <span class="tiny" style="opacity:.6;font-weight:500">now</span></div><div style="font-size:13px;opacity:.9">Answer 3 kanji questions to unlock 🔑</div></div>
+  </div>
+  <div class="dots" id="lDots"><i></i><i></i><i></i></div>
+  <div class="lockq" id="lQ"></div>
+  <button class="btn sm" id="lEmerg" style="display:none;position:absolute;bottom:90px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.12);border:0">🚨 Emergency</button>
+  <div class="swipe" id="lSwipe">Swipe up or tap to answer<div class="hb"></div></div>
+</div>
+
+<div id="slock">
+  <div class="shead"><div class="k">勉強の時間</div><div style="font-weight:900;margin:4px 0 2px">STUDY TIME · Answer 20 to unlock your phone</div><div class="tiny" style="opacity:.75">Other apps are blocked until you finish</div></div>
+  <div class="row" style="font-weight:900;margin:14px 0 8px"><span id="slCount">0 / 20</span><span class="grow"></span><span id="slLvTag" class="tag" style="color:#fff">N5</span><span>❌ <span id="slMiss">0</span></span></div>
+  <div class="bar"><div id="slBar" style="width:0"></div></div>
+  <div id="slQ" class="qwrap" style="margin-top:6px"></div>
+  <div style="flex:1"></div>
+  <button class="btn sm" id="slEmerg" style="margin:18px auto 0;opacity:.7">🚨 Emergency: use phone for 5 min</button>
+</div>
+<div id="upd"><div class="box">
+  <div class="row"><div class="hanko" style="width:52px;height:52px;font-size:30px;border-radius:14px">新</div><div class="grow"><div class="tag">UPDATE AVAILABLE</div><div style="font-size:22px;font-weight:900;margin-top:4px" id="updTitle">Kanji Dojo</div></div></div>
+  <ul id="updNotes"></ul>
+  <div class="bar" id="updBarW" style="display:none;margin-bottom:12px"><div id="updBar" style="width:0"></div></div>
+  <button class="btn shu full" id="updGo">Update now</button>
+  <div class="tiny muted" id="updMsg" style="text-align:center;margin-top:10px"></div>
+  <button class="btn full" id="updLater" style="display:none;margin-top:8px">Later</button>
+</div></div>
+<div id="stamp">合格</div>
+<div id="toast"></div>
+
+<script>
+/* ================= DATA ================= */
+const RAW={
+N5:`日|にち・ひ|day, sun
+月|げつ・つき|month, moon
+火|か・ひ|fire
+水|すい・みず|water
+木|もく・き|tree
+金|きん・かね|gold, money
+土|ど・つち|soil, earth
+山|さん・やま|mountain
+川|せん・かわ|river
+人|じん・ひと|person
+口|こう・くち|mouth
+目|もく・め|eye
+耳|じ・みみ|ear
+手|しゅ・て|hand
+足|そく・あし|foot, leg
+上|じょう・うえ|up, above
+下|か・した|down, below
+中|ちゅう・なか|middle, inside
+大|だい・おお|big
+小|しょう・ちい|small
+三|さん・みっ|three
+六|ろく・むっ|six
+九|きゅう・ここの|nine
+百|ひゃく|hundred
+千|せん|thousand
+万|まん|ten thousand
+円|えん|yen, circle
+年|ねん・とし|year
+先|せん・さき|ahead, previous
+生|せい・い|life, birth
+学|がく・まな|study
+校|こう|school
+友|ゆう・とも|friend
+雨|う・あめ|rain
+電|でん|electricity
+車|しゃ・くるま|car, vehicle
+食|しょく・た|eat, food
+飲|いん・の|drink
+見|けん・み|see, look
+行|こう・い|go
+来|らい・く|come
+白|はく・しろ|white
+何|か・なに|what
+休|きゅう・やす|rest
+話|わ・はな|talk, story
+天|てん|heaven, sky
+名|めい・な|name
+女|じょ・おんな|woman
+男|だん・おとこ|man
+子|し・こ|child
+外|がい・そと|outside
+国|こく・くに|country
+語|ご・かた|language, word
+長|ちょう・なが|long, chief
+高|こう・たか|tall, expensive
+安|あん・やす|cheap, peaceful`,
+N4:`会|かい・あ|meet
+社|しゃ|company, shrine
+自|じ・みずか|oneself
+分|ぶん・わ|part, minute
+早|そう・はや|early, fast
+新|しん・あたら|new
+古|こ・ふる|old
+強|きょう・つよ|strong
+弱|じゃく・よわ|weak
+思|し・おも|think
+知|ち・し|know
+教|きょう・おし|teach
+習|しゅう・なら|learn
+春|しゅん・はる|spring
+夏|か・なつ|summer
+秋|しゅう・あき|autumn
+冬|とう・ふゆ|winter
+朝|ちょう・あさ|morning
+夜|や・よる|night
+家|か・いえ|house, home
+店|てん・みせ|shop, store
+町|ちょう・まち|town
+海|かい・うみ|sea
+空|くう・そら|sky, empty
+走|そう・はし|run
+歩|ほ・ある|walk
+洋|よう|Western, ocean
+病|びょう・やまい|illness
+医|い|medicine, doctor
+映|えい・うつ|reflect, project
+画|が・かく|picture, stroke
+料|りょう|fee, materials
+理|り|reason, logic
+色|しょく・いろ|color
+世|せ・よ|world, generation
+牛|ぎゅう・うし|cow`,
+N3:`感|かん|feeling
+想|そう|idea, concept
+情|じょう・なさ|emotion, sympathy
+政|せい・まつりごと|politics
+経|けい・へ|pass through
+済|さい・す|settle, finish
+判|はん|judgment, seal
+断|だん・ことわ|refuse, cut off
+際|さい・きわ|occasion, edge
+違|い・ちが|differ
+戦|せん・たたか|war, fight
+争|そう・あらそ|conflict, dispute
+役|やく|role, service
+危|き・あぶ|dangerous
+届|とど|deliver, reach
+願|がん・ねが|wish, request
+許|きょ・ゆる|permit, forgive
+夢|む・ゆめ|dream
+認|にん・みと|recognize, approve
+種|しゅ・たね|seed, kind
+責|せき・せ|blame, duty
+任|にん・まか|entrust, duty
+庭|てい・にわ|garden
+喜|き・よろこ|rejoice
+泣|きゅう・な|cry
+笑|しょう・わら|laugh
+疲|ひ・つか|tired
+痛|つう・いた|pain
+恋|れん・こい|romantic love
+星|せい・ほし|star
+宇|う|eaves, universe
+宙|ちゅう|mid-air, space`,
+N2:`概|がい|general, approximate
+傾|けい・かたむ|lean, tilt
+継|けい・つ|inherit, continue
+刻|こく・きざ|engrave, moment
+患|かん・わずら|patient, suffer
+縮|しゅく・ちぢ|shrink
+微|び|slight, delicate
+柔|じゅう・やわ|soft, gentle
+濃|のう・こ|dense, thick
+沈|ちん・しず|sink
+劇|げき|drama
+鋭|えい・するど|sharp
+揺|よう・ゆ|shake, sway
+臓|ぞう|internal organ
+稼|か・かせ|earn
+粘|ねん・ねば|sticky
+獲|かく・え|seize, obtain
+掘|くつ・ほ|dig
+祈|き・いの|pray
+腕|わん・うで|arm, skill
+嫁|か・よめ|bride
+謝|しゃ・あやま|apologize, thank
+豊|ほう・ゆた|abundant
+穏|おん・おだ|calm, peaceful
+撮|さつ・と|take a photo`,
+N1:`曖|あい|unclear
+昧|まい|dark, foolish
+慄|りつ|shiver, fear
+憂|ゆう・うれ|melancholy, grief
+拐|かい|kidnap
+遜|そん|humble
+慶|けい|congratulate
+嘲|ちょう・あざけ|ridicule
+諮|し・はか|consult
+赴|ふ・おもむ|proceed to
+斬|ざん・き|slash, behead
+拙|せつ・つたな|clumsy, unskilled
+錯|さく|confused, mixed
+蔑|べつ・さげす|despise
+翻|ほん・ひるがえ|flip, translate
+擁|よう|embrace, support
+頻|ひん|frequent
+措|そ|set aside, measure
+漠|ばく|vague, desert
+粛|しゅく|solemn, strict
+閲|えつ|inspect, review
+賄|わい・まかな|bribe, provide
+浸|しん・ひた|soak, immerse
+摯|し|sincere
+弔|ちょう・とむら|mourn`};
+const LEVELS=["N5","N4","N3","N2","N1"];
+const K={};LEVELS.forEach(l=>K[l]=RAW[l].trim().split("\n").map(s=>{const[c,r,m]=s.split("|");return{c,r,m,l}}));
+
+const GRAM={
+N5:[["私___学生です。",["は","を","に","で"],"I am a student. — は marks the topic."],
+["毎朝パン___食べます。",["を","が","へ","と"],"I eat bread every morning. — を marks the object."],
+["学校___行きます。",["へ","を","で","の"],"I go to school. — へ shows direction."],
+["図書館___勉強します。",["で","に","を","が"],"I study at the library. — で marks where an action happens."],
+["これは私___本です。",["の","な","に","が"],"This is my book. — の shows possession."],
+["昨日はとても寒___。",["かったです","いでした","いだった","くです"],"Yesterday was very cold. — past of い-adjectives: 〜かったです."],
+["一緒に映画を見___。",["ませんか","ましたか","ないでか","ませんでした"],"Won't you watch a movie with me? — 〜ませんか is an invitation."],
+["日本語が好き___、毎日勉強します。",["なので","だので","ので","から"],"I like Japanese, so I study every day. — な-adjective + なので."]],
+N4:[["窓を開け___もいいですか。",["て","た","る","ない"],"May I open the window? — 〜てもいいですか asks permission."],
+["日本に行った___があります。",["こと","もの","ところ","の"],"I have been to Japan. — 〜たことがある = experience."],
+["薬を飲ま___ければなりません。",["な","ず","ない","なく"],"I must take medicine. — 〜なければなりません = must."],
+["先生に褒め___ました。",["られ","させ","され","て"],"I was praised by the teacher. — passive 〜られる."],
+["明日は雨が降る___しれません。",["かも","かな","だろう","そう"],"It might rain tomorrow. — 〜かもしれない = might."],
+["子どもに野菜を食べ___ました。",["させ","られ","され","て"],"I made the child eat vegetables. — causative 〜させる."],
+["空が暗いですね。雨が降り___です。",["そう","よう","らしい","みたい"],"It looks like it's going to rain. — verb stem + そう = looks like."],
+["寝る___に歯をみがきます。",["前","後","間","中"],"I brush my teeth before sleeping. — dictionary form + 前に."]],
+N3:[["健康の___毎日走っています。",["ために","ように","せいで","おかげで"],"I run every day for my health. — 〜のために = for the sake of."],
+["電車が遅れた___、遅刻した。",["せいで","おかげで","くせに","わりに"],"I was late because the train was delayed. — せいで = because of (bad result)."],
+["窓を開けた___寝てしまった。",["まま","ながら","ばかり","うちに"],"I fell asleep with the window open. — 〜たまま = left as is."],
+["日本語が話せる___なりました。",["ように","ことに","ために","そうに"],"I became able to speak Japanese. — 〜ようになる = come to be able."],
+["値段の___品質がいい。",["わりに","せいで","ために","おかげで"],"The quality is good for the price. — 〜わりに = considering."],
+["彼は医者___、料理も上手だ。",["だけでなく","しか","ばかりか","こそ"],"He's not only a doctor but also a good cook. — 〜だけでなく = not only."],
+["若い___、いろいろな経験をしたほうがいい。",["うちに","まま","とたん","ばかり"],"While you're young, get lots of experience. — 〜うちに = while still."],
+["家を出た___、雨が降り出した。",["とたん","うちに","まま","ながら"],"The moment I left home, it started raining. — 〜たとたん = the moment."]],
+N2:[["努力した___、合格できた。",["からこそ","からには","ものの","くせに"],"Precisely because I worked hard, I passed. — 〜からこそ."],
+["約束した___、守らなければならない。",["からには","ものの","わりに","せいで"],"Since you promised, you must keep it. — 〜からには = now that."],
+["雨___、試合は行われた。",["にもかかわらず","によって","に応じて","にとって"],"Despite the rain, the match was held. — 〜にもかかわらず."],
+["年をとる___、体力が落ちる。",["につれて","にとって","に対して","に反して"],"As you age, stamina drops. — 〜につれて = as ~ changes."],
+["子ども___、この問題は難しい。",["にとって","について","によって","に対して"],"For children, this problem is hard. — 〜にとって = for, from the view of."],
+["薬を飲んだ___、まだ熱が下がらない。",["ものの","からには","ばかりに","うえに"],"Although I took medicine, the fever hasn't gone down. — 〜ものの."],
+["彼女は歌が上手な___、ダンスもうまい。",["うえに","ものの","くせに","わりに"],"On top of being a good singer, she dances well. — 〜うえに."],
+["一言言った___、彼を怒らせてしまった。",["ばかりに","からには","うえに","ものの"],"Just because I said one word, I made him angry. — 〜たばかりに."]],
+N1:[["社長___、そんなことは許されない。",["といえども","ともなると","にしては","なりに"],"Even the president is not allowed that. — 〜といえども = even though."],
+["彼は家に帰る___、寝てしまった。",["なり","ものの","とはいえ","ゆえ"],"As soon as he got home, he fell asleep. — 〜なり = as soon as."],
+["涙___話を聞いた。",["ながらに","ばかりに","ものの","ゆえに"],"I listened in tears. — 涙ながらに = with tears."],
+["一流のプロ___、練習量も違う。",["ともなると","といえども","なりに","ながらに"],"Once you're a top pro, the practice volume is different. — 〜ともなると."],
+["彼の態度は失礼___。",["極まりない","までもない","にかたくない","に足る"],"His attitude is extremely rude. — 〜極まりない = utterly."],
+["彼女の苦労は想像___。",["にかたくない","極まりない","までもない","を経て"],"Her hardship is easy to imagine. — 〜にかたくない."],
+["言う___ことだが、遅刻はだめだ。",["までもない","べからず","に足る","を経て"],"It goes without saying, but lateness is not OK. — 〜までもない."],
+["雨が降ろう___降るまいが、試合は行う。",["が","で","を","に"],"Rain or not, the match will go on. — 〜ようが〜まいが = whether or not."]]
+};
+const SENSEI=["✨ Update installed! 10 new N5 kanji were added: 名 女 男 子 外 国 語 長 高 安","Ganbatte! Every kanji you learn is a key to a new door 🔑","Tip: say the reading out loud. Your mouth remembers too!","Ninja tip: slash fast for combos ⚡","Try writing it without the guide for double XP ✍️","A little every day beats a lot once a week. Mainichi!","The alarm is your sensei in the morning. No cheating 😼","N1 is a mountain. You climb it one step at a time 🗻"];
+
+/* ================= STATE ================= */
+const DEF={xp:0,streak:0,lastDay:"",days:{},ks:{},gBest:{},hi:0,alarm:{t:"06:30",on:false,lv:0,clears:0,fired:""},lockOpen:true,sound:true,lv:"N5",wIdx:0,alarmsDone:0,writes:0,quizzes:0,unlocks:0};
+let S;
+try{S=Object.assign({},DEF,JSON.parse(localStorage.getItem("kanjiDojo")||"{}"));S.alarm=Object.assign({},DEF.alarm,S.alarm||{})}catch(e){S=JSON.parse(JSON.stringify(DEF))}
+function save(){try{localStorage.setItem("kanjiDojo",JSON.stringify(S))}catch(e){}}
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const rnd=a=>a[Math.floor(Math.random()*a.length)];
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const today=()=>{const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
+function activity(n=1){const t=today();if(S.lastDay!==t){const y=new Date();y.setDate(y.getDate()-1);const ys=y.getFullYear()+"-"+String(y.getMonth()+1).padStart(2,"0")+"-"+String(y.getDate()).padStart(2,"0");S.streak=S.lastDay===ys?S.streak+1:1;S.lastDay=t}S.days[t]=(S.days[t]||0)+n}
+const RANKS=[[0,"見習い Apprentice"],[200,"白帯 White Belt"],[600,"黄帯 Yellow Belt"],[1200,"緑帯 Green Belt"],[2500,"青帯 Blue Belt"],[4500,"茶帯 Brown Belt"],[7500,"黒帯 Black Belt"],[12000,"先生 Sensei"],[20000,"名人 Grandmaster"]];
+function rankOf(x){let r=0;RANKS.forEach((k,i)=>{if(x>=k[0])r=i});return r}
+function addXP(n){const before=rankOf(S.xp);S.xp+=n;activity(1);save();renderHeader();if(rankOf(S.xp)>before){setTimeout(()=>{toast("🎉 Rank up! "+RANKS[rankOf(S.xp)][1]);confetti()},600)}}
+function markK(c,ok){const s=S.ks[c]||(S.ks[c]={c:0,w:0});ok?s.c++:s.w++;save()}
+const mastered=l=>K[l].filter(k=>(S.ks[k.c]||{}).c>=3).length;
+
+/* ================= FX ================= */
+let AC=null;
+function ac(){if(!AC){try{AC=new(window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(AC&&AC.state==="suspended")AC.resume();return AC}
+document.addEventListener("pointerdown",ac,{once:false,passive:true});
+function tone(f,d=.12,type="sine",v=.15,when=0){const a=ac();if(!a||!S.sound&&!ringing)return;const o=a.createOscillator(),g=a.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(v,a.currentTime+when);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+when+d);o.connect(g).connect(a.destination);o.start(a.currentTime+when);o.stop(a.currentTime+when+d+.02)}
+const sfx={ok(){tone(880,.1,"triangle");tone(1320,.18,"triangle",.12,.08)},no(){tone(180,.25,"sawtooth",.08)},pop(){tone(660,.06,"square",.05)},win(){[523,659,784,1047].forEach((f,i)=>tone(f,.25,"triangle",.13,i*.1))}};
+function buzz(p){try{navigator.vibrate&&navigator.vibrate(p)}catch(e){}}
+function stamp(t="合格"){const s=$("#stamp");s.textContent=t;s.classList.remove("go");void s.offsetWidth;s.classList.add("go")}
+let tT;function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("on");clearTimeout(tT);tT=setTimeout(()=>e.classList.remove("on"),2600)}
+function confetti(n=60){const cols=["#e8452c","#f0c14b","#ffb7c5","#3ec7a0","#7aa8ff","#fff"];for(let i=0;i<n;i++){const d=document.createElement("div");d.className="conf";d.style.background=rnd(cols);d.style.left=(50+(Math.random()-.5)*20)+"vw";d.style.top="40vh";document.body.appendChild(d);const dx=(Math.random()-.5)*700,dy=-Math.random()*500-150,r=Math.random()*720;d.animate([{transform:"translate(0,0) rotate(0)",opacity:1},{transform:`translate(${dx*.6}px,${dy}px) rotate(${r/2}deg)`,opacity:1,offset:.45},{transform:`translate(${dx}px,${dy+900}px) rotate(${r}deg)`,opacity:0}],{duration:1800+Math.random()*900,easing:"cubic-bezier(.2,.6,.4,1)"}).onfinish=()=>d.remove()}}
+
+/* sakura */
+(function(){const c=$("#sakura"),x=c.getContext("2d");let W,H,P=[];function rs(){W=c.width=innerWidth*devicePixelRatio;H=c.height=innerHeight*devicePixelRatio}rs();addEventListener("resize",rs);for(let i=0;i<22;i++)P.push({x:Math.random()*W,y:Math.random()*H,s:(6+Math.random()*8)*devicePixelRatio,v:.4+Math.random()*.8,a:Math.random()*6,w:.01+Math.random()*.02});
+function f(){x.clearRect(0,0,W,H);P.forEach(p=>{p.y+=p.v*devicePixelRatio;p.x+=Math.sin(p.a+=p.w)*.8*devicePixelRatio;if(p.y>H+20){p.y=-20;p.x=Math.random()*W}x.save();x.translate(p.x,p.y);x.rotate(p.a);x.globalAlpha=.55;x.fillStyle="#ffb7c5";x.beginPath();x.moveTo(0,0);x.bezierCurveTo(p.s,-p.s,p.s*1.6,p.s*.4,0,p.s);x.bezierCurveTo(-p.s*1.6,p.s*.4,-p.s,-p.s,0,0);x.fill();x.restore()});requestAnimationFrame(f)}f()})();
+
+/* ================= QUESTIONS ================= */
+function kanjiQ(level,force){const pool=K[level];const k=rnd(pool);const type=force||rnd(["meaning","meaning","reading","kanji"]);const others=shuffle(pool.filter(o=>o.c!==k.c)).slice(0,3);
+ if(type==="meaning")return{k,type,prompt:k.c,hint:"What does this kanji mean?",ans:k.m,opts:shuffle([k.m,...others.map(o=>o.m)])};
+ if(type==="reading")return{k,type,prompt:k.c,hint:"How do you read it?",ans:k.r,opts:shuffle([k.r,...others.map(o=>o.r)])};
+ return{k,type,prompt:k.m,txt:true,hint:"Which kanji means this?",ans:k.c,kj:true,opts:shuffle([k.c,...others.map(o=>o.c)])}}
+function renderQ(el,q,cb,opts={}){
+ el.innerHTML=`<div class="qprompt ${q.sent?"sent":q.txt?"txt":""}">${q.sent?q.prompt.replace("___",'<span class="blank">？</span>'):q.prompt}</div><div class="qhint">${q.hint||""}</div><div class="opts"></div><div class="expl"></div>`;
+ const box=el.querySelector(".opts");let done=false;
+ q.opts.forEach(o=>{const b=document.createElement("button");b.className="opt"+(q.kj?" kj":"");b.textContent=o;b.onclick=()=>{if(done)return;const ok=o===q.ans;
+  if(ok){done=true;b.classList.add("ok");sfx.ok();buzz(20)}else{b.classList.add("no");sfx.no();buzz([60,40,60]);if(!opts.retry){done=true;[...box.children].find(x=>x.textContent===q.ans).classList.add("ok")}}
+  if(q.k)markK(q.k.c,ok);
+  if(q.expl&&(ok||!opts.retry))el.querySelector(".expl").textContent=q.expl;
+  cb(ok,b)};box.appendChild(b)})}
+
+/* ================= HEADER / HOME ================= */
+function renderHeader(){$("#hStreak").textContent=S.streak;$("#hLv").textContent=S.lv;$("#hXp").textContent=S.xp+" XP"}
+function levelChips(el,cur,onPick){el.innerHTML="";LEVELS.forEach(l=>{const b=document.createElement("button");b.className="lvchip"+(l===cur?" on":"");b.textContent=l;b.onclick=()=>{sfx.pop();onPick(l)};el.appendChild(b)})}
+function renderHome(){levelChips($("#levels"),S.lv,l=>{S.lv=l;S.wIdx=0;save();renderHome();renderHeader();renderWrite()});
+ const all=LEVELS.flatMap(l=>K[l]);const d=new Date();const k=all[(d.getFullYear()*372+d.getMonth()*31+d.getDate())%all.length];
+ $("#kotd").textContent=k.c;$("#kotdM").textContent=k.m;$("#kotdR").textContent=k.r;$("#kotdL").textContent="JLPT "+k.l;
+ const m=mastered(S.lv),t=K[S.lv].length;$("#homeMastTxt").textContent=`${S.lv}: ${m} of ${t} kanji mastered`;$("#homeMastPct").textContent=Math.round(m/t*100)+"%";$("#homeMastBar").style.width=(m/t*100)+"%";
+ $("#senseiTalk").textContent=rnd(SENSEI)}
+$$(".tile").forEach(t=>t.onclick=()=>{sfx.pop();const a=t.dataset.act;if(a==="flash")openFlash();if(a==="quiz")openQuiz();if(a==="lock")showLock();if(a==="game")go("game")});
+
+/* sheet */
+function openSheet(html){$("#sheetBody").innerHTML=html;$("#sheet").classList.add("on")}
+function closeSheet(){$("#sheet").classList.remove("on");renderHome()}
+$("#sheetX").onclick=closeSheet;$("#sheet").onclick=e=>{if(e.target.id==="sheet")closeSheet()};
+
+/* flashcards */
+function openFlash(){let deck=shuffle(K[S.lv]),i=0,known=0;
+ openSheet(`<h2><small>FLASHCARDS · ${S.lv}</small>単語カード</h2><div class="bar"><div id="fcBar"></div></div><div class="fc" id="fc"><div class="inner"><div class="face front"><div class="c" id="fcC"></div><div class="tiny" style="margin-top:14px;opacity:.5">Tap to flip</div></div><div class="face back"><div style="font-size:30px;font-weight:900" id="fcM"></div><div style="font-size:22px;margin-top:10px" id="fcR"></div><div class="tag" style="margin-top:16px;color:#fff">${S.lv}</div></div></div></div><div class="row"><button class="btn grow" id="fcAgain">😵 Again</button><button class="btn jade grow" id="fcKnow">😎 Got it</button></div><p class="tiny muted" id="fcN" style="text-align:center;margin-top:10px"></p>`);
+ const fc=$("#fc");fc.onclick=()=>{fc.classList.toggle("flip");sfx.pop()};
+ function show(){if(i>=deck.length){$("#sheetBody").innerHTML=`<div class="result"><div style="font-size:60px">🎴</div><div class="score">${known}/${deck.length}</div><p class="muted">cards known on first look</p><br><button class="btn shu full" id="fcDone">Finish · +${known*3} XP</button></div>`;addXP(known*3);$("#fcDone").onclick=closeSheet;if(known>deck.length*.7){stamp("優秀");confetti()}return}
+  const k=deck[i];fc.classList.remove("flip");setTimeout(()=>{$("#fcC").textContent=k.c;$("#fcM").textContent=k.m;$("#fcR").textContent=k.r},150);$("#fcBar").style.width=(i/deck.length*100)+"%";$("#fcN").textContent=`${i+1} / ${deck.length}`}
+ $("#fcKnow").onclick=()=>{known++;markK(deck[i].c,true);sfx.ok();i++;show()};
+ $("#fcAgain").onclick=()=>{deck.push(deck[i]);sfx.no();i++;show()};show()}
+
+/* quick quiz */
+function openQuiz(){let n=0,ok=0;const N=10;
+ openSheet(`<h2><small>QUICK QUIZ · ${S.lv}</small>小テスト</h2><div class="bar"><div id="qzBar"></div></div><div id="qz" class="qwrap"></div>`);
+ function next(){if(n>=N){const xp=ok*5;S.quizzes++;addXP(xp);$("#sheetBody").innerHTML=`<div class="result"><div style="font-size:60px">${ok>=8?"🏯":ok>=5?"⛩️":"🍙"}</div><div class="score">${ok}/${N}</div><p class="muted">${ok>=8?"Subarashii! Amazing!":ok>=5?"Ii ne! Keep it up!":"Daijoubu, try again!"}</p><br><button class="btn shu full" id="qzA">Again · got +${xp} XP</button><br><br><button class="btn full" id="qzX">Close</button></div>`;$("#qzA").onclick=openQuiz;$("#qzX").onclick=closeSheet;if(ok>=8){stamp("合格");confetti();sfx.win()}return}
+  $("#qzBar").style.width=(n/N*100)+"%";renderQ($("#qz"),kanjiQ(S.lv),r=>{if(r)ok++;n++;setTimeout(next,850)})}next()}
+
+/* ================= LOCK SCREEN ================= */
+function lockClock(){const d=new Date();$("#lTime").textContent=String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");$("#lDate").textContent=`${d.getMonth()+1}月${d.getDate()}日 (${"日月火水木金土"[d.getDay()]}) · ${d.toLocaleDateString("en",{weekday:"long"})}`}
+const IS_APK=location.href.indexOf("file:///android_asset")===0;
+const GATE=location.hash==="#gate";
+function native(cmd){try{const f=document.createElement("iframe");f.style.display="none";f.src="kanjidojo://"+cmd;document.body.appendChild(f);setTimeout(()=>f.remove(),1500)}catch(e){}}
+function gateDone(){native("done");setTimeout(()=>{try{location.href="kanjidojo://done"}catch(e){}},900)}
+let lockN=0;const LOCK_NEED=3;
+function lockDots(){$$("#lDots i").forEach((d,i)=>d.classList.toggle("on",i<lockN))}
+function showLock(){const L=$("#lock");L.classList.remove("out");L.classList.add("on");lockN=0;lockDots();$("#lQ").classList.remove("on");$("#lNotif").style.display="";$("#lSwipe").style.display="";$("#lIcon").textContent="🔒";$("#lWm").textContent=rnd(K[S.lv]).c;lockClock();if(GATE){$("#lEmerg").style.display="block";setTimeout(lockAsk,350)}}
+function lockAsk(){if($("#lQ").classList.contains("on"))return;$("#lSwipe").style.display="none";$("#lNotif").style.display="none";const el=$("#lQ");el.classList.add("on");
+ const q=kanjiQ(S.lv);renderQ(el,q,ok=>{if(ok){lockN++;lockDots();if(lockN>=LOCK_NEED){unlockNow(true);return}setTimeout(()=>{el.classList.remove("on");lockAsk()},650)}else{setTimeout(()=>{el.classList.remove("on");lockAsk()},1100)}})}
+function unlockNow(earned){$("#lIcon").textContent="🔓";if(earned){S.unlocks++;addXP(10)}
+ if(GATE){stamp("解錠");sfx.win();setTimeout(gateDone,700);return}
+ setTimeout(()=>{$("#lock").classList.add("out");sfx.win();setTimeout(()=>{$("#lock").classList.remove("on","out");toast("Unlocked! +10 XP 🔓")},700)},500)}
+$("#lEmerg").onclick=gateDone;
+(function(){const L=$("#lock");let y0=null;L.addEventListener("touchstart",e=>{y0=e.touches[0].clientY},{passive:true});L.addEventListener("touchend",e=>{if(y0!==null&&y0-e.changedTouches[0].clientY>50)lockAsk();y0=null});L.addEventListener("click",e=>{if(!e.target.closest(".lockq"))lockAsk()})})();
+
+/* ================= WRITING ================= */
+let guideOn=true,strokes=[],cur=null;const pad=$("#pad"),cG=$("#cGuide"),cI=$("#cInk");
+function wk(){const l=K[S.lv];return l[((S.wIdx%l.length)+l.length)%l.length]}
+function sizePad(){const r=pad.getBoundingClientRect(),d=devicePixelRatio||1;[cG,cI].forEach(c=>{c.width=r.width*d;c.height=r.width*d});drawGuide();redraw()}
+function drawGuide(){const x=cG.getContext("2d"),W=cG.width;x.clearRect(0,0,W,W);x.strokeStyle="rgba(232,69,44,.28)";x.lineWidth=2;x.setLineDash([10,10]);x.beginPath();x.moveTo(W/2,0);x.lineTo(W/2,W);x.moveTo(0,W/2);x.lineTo(W,W/2);x.stroke();x.setLineDash([4,12]);x.globalAlpha=.6;x.beginPath();x.moveTo(0,0);x.lineTo(W,W);x.moveTo(W,0);x.lineTo(0,W);x.stroke();x.globalAlpha=1;x.setLineDash([]);
+ if(guideOn){x.fillStyle="rgba(42,34,56,.14)";x.font=`${W*.78}px "Klee One"`;x.textAlign="center";x.textBaseline="middle";x.fillText(wk().c,W/2,W/2+W*.03)}}
+function redraw(){const x=cI.getContext("2d"),W=cI.width;x.clearRect(0,0,W,W);x.lineCap="round";x.lineJoin="round";x.strokeStyle="#1d1530";strokes.forEach(s=>{for(let i=1;i<s.length;i++){x.lineWidth=s[i].w;x.beginPath();x.moveTo(s[i-1].x,s[i-1].y);x.lineTo(s[i].x,s[i].y);x.stroke()}})}
+function pt(e){const r=cI.getBoundingClientRect(),d=cI.width/r.width;return{x:(e.clientX-r.left)*d,y:(e.clientY-r.top)*d,t:performance.now()}}
+cI.addEventListener("pointerdown",e=>{e.preventDefault();cI.setPointerCapture(e.pointerId);const p=pt(e);p.w=cI.width*.04;cur=[p];strokes.push(cur);redraw()});
+cI.addEventListener("pointermove",e=>{if(!cur)return;const p=pt(e),q=cur[cur.length-1],dist=Math.hypot(p.x-q.x,p.y-q.y);if(dist<2)return;const sp=dist/Math.max(1,p.t-q.t);p.w=Math.max(cI.width*.022,Math.min(cI.width*.05,q.w*.7+(cI.width*.05-sp*cI.width*.006)*.3));cur.push(p);const x=cI.getContext("2d");x.lineCap="round";x.strokeStyle="#1d1530";x.lineWidth=p.w;x.beginPath();x.moveTo(q.x,q.y);x.lineTo(p.x,p.y);x.stroke()});
+["pointerup","pointercancel"].forEach(ev=>cI.addEventListener(ev,()=>{if(cur&&cur.length===1)cur.push({...cur[0],x:cur[0].x+.5});cur=null;redraw()}));
+function mask(src,N,fn){const c=document.createElement("canvas");c.width=c.height=N;const x=c.getContext("2d");fn(x,src);const d=x.getImageData(0,0,N,N).data,m=new Uint8Array(N*N);for(let i=0;i<N*N;i++)m[i]=d[i*4+3]>60?1:0;return m}
+function dil(m,N,r){const o=new Uint8Array(N*N);for(let y=0;y<N;y++)for(let x=0;x<N;x++){if(!m[y*N+x])continue;for(let dy=-r;dy<=r;dy++)for(let dx=-r;dx<=r;dx++){const X=x+dx,Y=y+dy;if(X>=0&&Y>=0&&X<N&&Y<N)o[Y*N+X]=1}}return o}
+function scoreWrite(){const N=64;const U=mask(cI,N,(x,s)=>x.drawImage(s,0,0,N,N));const G=mask(null,N,x=>{x.fillStyle="#000";x.font=`${N*.78}px "Klee One"`;x.textAlign="center";x.textBaseline="middle";x.fillText(wk().c,N/2,N/2+N*.03)});
+ const Gd=dil(G,N,3),Ud=dil(U,N,3);let u=0,g=0,pu=0,rg=0;for(let i=0;i<N*N;i++){if(U[i]){u++;if(Gd[i])pu++}if(G[i]){g++;if(Ud[i])rg++}}if(!u)return 0;const P=pu/u,R=rg/g;return Math.round(100*(2*P*R/(P+R||1)))}
+function renderWrite(){const k=wk();$("#wChar").textContent=k.c;$("#wInfo").textContent=`${k.m} · ${k.r} · ${S.lv}`;strokes=[];$("#wResult").style.display="none";drawGuide();redraw()}
+$("#wPrev").onclick=()=>{S.wIdx--;save();sfx.pop();renderWrite()};$("#wNext").onclick=()=>{S.wIdx++;save();sfx.pop();renderWrite()};
+$("#wGuide").onclick=()=>{guideOn=!guideOn;$("#wGuide").textContent="👁 Guide: "+(guideOn?"on":"off");drawGuide()};
+$("#wUndo").onclick=()=>{strokes.pop();redraw()};$("#wClear").onclick=()=>{strokes=[];redraw()};
+$("#wCheck").onclick=()=>{if(!strokes.length){toast("Write the kanji first ✍️");return}const sc=scoreWrite();const k=wk();const pass=sc>=55;let xp=pass?(guideOn?8:16):2;
+ if(pass){markK(k.c,true);S.writes++;stamp(sc>=80?"花丸":"合格");sfx.win();if(sc>=80)confetti(40)}else sfx.no();addXP(xp);
+ const r=$("#wResult");r.style.display="block";r.innerHTML=`<div class="row"><div style="font-size:44px;font-weight:900;color:${pass?"var(--jade)":"var(--shu2)"}">${sc}</div><div class="grow"><b>${sc>=80?"Beautiful! 花丸 💮":pass?"Good, you passed! ✅":"Almost. Try again 💪"}</b><div class="tiny muted">${guideOn?"Traced with the guide":"Written from memory · double XP"} · +${xp} XP</div></div>${pass?'<button class="btn sm jade" id="wGo">Next ▶</button>':""}</div>`;
+ const g=$("#wGo");if(g)g.onclick=()=>{S.wIdx++;save();renderWrite()}};
+document.fonts&&document.fonts.load('40px "Klee One"',"日").then(()=>drawGuide()).catch(()=>{});
+
+/* ================= GRAMMAR ================= */
+let gLv="N5";
+function renderGram(){levelChips($("#gLevels"),gLv,l=>{gLv=l;renderGram()});const b=S.gBest[gLv];
+ $("#gBox").innerHTML=`<div style="text-align:center;padding:10px 0"><div class="mincho" style="font-size:80px;line-height:1">文</div><div style="font-size:20px;font-weight:900;margin-top:8px">${gLv} Grammar Test</div><p class="muted tiny" style="margin:6px 0 16px">${GRAM[gLv].length} fill-in-the-blank questions · explanations after each answer</p>${b!=null?`<div class="tag">BEST ${b}/${GRAM[gLv].length}</div><br><br>`:""}<button class="btn shu full" id="gStartB">Start test 開始</button></div>`;$("#gStartB").onclick=runGram}
+function runGram(){const qs=shuffle(GRAM[gLv]);let i=0,ok=0;const box=$("#gBox");
+ function nx(){if(i>=qs.length){const prev=S.gBest[gLv]||0;if(ok>prev)S.gBest[gLv]=ok;addXP(ok*6);const pct=ok/qs.length;box.innerHTML=`<div class="result"><div style="font-size:56px">${pct>=.8?"🏆":pct>=.5?"📜":"🍵"}</div><div class="score">${ok}/${qs.length}</div><p class="muted">${pct>=.8?"Perfect grammar ninja!":pct>=.5?"Solid! Review the ones you missed.":"Grammar takes time. Mou ichido!"}</p><p class="tiny muted">+${ok*6} XP${ok>prev?" · NEW BEST!":""}</p><br><button class="btn shu full" id="gR">Retry</button></div>`;$("#gR").onclick=runGram;if(pct>=.8){stamp("合格");confetti();sfx.win()}return}
+  const [s,o,e]=qs[i];box.innerHTML=`<div class="row tiny muted" style="justify-content:space-between"><span>Question ${i+1}/${qs.length}</span><span>${gLv}</span></div><div class="bar" style="margin:8px 0"><div style="width:${i/qs.length*100}%"></div></div><div id="gq" class="qwrap"></div>`;
+  renderQ($("#gq"),{sent:true,prompt:s,hint:"Choose the best word for the blank",ans:o[0],opts:shuffle(o),expl:"💡 "+e},r=>{if(r)ok++;const n=document.createElement("button");n.className="btn full";n.style.marginTop="12px";n.textContent=i+1<qs.length?"Next →":"See result";n.onclick=()=>{i++;nx()};$("#gq").appendChild(n)})}nx()}
+
+/* ================= KANJI RUSH (3-lane runner) ================= */
+const RUN={on:false};
+const rc=$("#run"),rx=rc.getContext("2d");
+let RW=0,RH=0,DPR=1;
+function runSize(){const w=$("#runWrap");DPR=Math.min(2,devicePixelRatio||1);RW=w.clientWidth;RH=w.clientHeight;rc.width=RW*DPR;rc.height=RH*DPR;rc.style.width=RW+"px";rc.style.height=RH+"px";rx.setTransform(DPR,0,0,DPR,0,0)}
+const F=4.2;
+function P(x,z,h){const s=F/(Math.max(z,-F*0.8)+F);const HY=RH*0.30,GY=RH*0.90,LW=RW*0.30;return{x:RW/2+x*LW*s,y:HY+(GY-HY)*s-(h||0)*LW*0.95*s,s:s*LW}}
+function hash(n){const x=Math.sin(n*127.1+311.7)*43758.5453;return x-Math.floor(x)}
+function poly(pts,fill){rx.beginPath();rx.moveTo(pts[0].x,pts[0].y);for(let i=1;i<pts.length;i++)rx.lineTo(pts[i].x,pts[i].y);rx.closePath();rx.fillStyle=fill;rx.fill()}
+function rrect(x,y,w,h,r){rx.beginPath();rx.moveTo(x+r,y);rx.arcTo(x+w,y,x+w,y+h,r);rx.arcTo(x+w,y+h,x,y+h,r);rx.arcTo(x,y+h,x,y,r);rx.arcTo(x,y,x+w,y,r);rx.closePath()}
+const TRAIN_COLS=[["#3b82c4","#2a5d93"],["#3ec7a0","#22876c"],["#f0a13b","#c0761d"],["#e8452c","#a82b18"]];
+const BLD=["#2a2150","#33285f","#3d2a55","#22294f","#402a4a"];
+const NEON=["#ff5ea8","#5ef1ff","#ffe45e","#a3ff5e","#ff8a5e"];
+const SIGNS="東京駅寿司本屋夢道光雨空茶店";
+
+function runStart(){runSize();Object.assign(RUN,{on:true,over:false,lane:0,x:0,y:0,vy:0,slide:0,dist:0,speed:13,hearts:3,score:0,coins:0,combo:0,inv:0,t:0,objs:[],nextZ:30,gateAt:70,q:null,parts:[],shake:0,flash:0,lv:S.lv,msg:null,msgT:0});
+ $("#rStart").style.display="none";runHud();RUN.last=performance.now();requestAnimationFrame(runLoop)}
+function runHud(){$("#rHearts").textContent="❤️".repeat(Math.max(0,RUN.hearts))+"🖤".repeat(3-Math.max(0,RUN.hearts));$("#rScore").textContent=Math.floor(RUN.score);$("#rCoins").textContent=RUN.coins;$("#rBest").textContent=S.hi||0;
+ const q=$("#rq");if(RUN.q&&!RUN.q.done){q.style.display="block";q.innerHTML=`<span>FIND</span>「${RUN.q.k.m}」`}else q.style.display="none"}
+function spawn(z){const free=[0,1,2].map(i=>i-1);
+ if(z>=RUN.gateAt-10&&z<=RUN.gateAt+12)return;
+ const r=Math.random(),lane=Math.floor(Math.random()*3)-1;
+ if(r<0.38){const L=5+Math.random()*5;RUN.objs.push({t:"train",lane,z,L,c:TRAIN_COLS[Math.floor(Math.random()*4)],mv:Math.random()<0.3?4:0});
+   if(Math.random()<0.35){const l2=[-1,0,1].filter(v=>v!==lane)[Math.floor(Math.random()*2)];RUN.objs.push({t:"train",lane:l2,z:z+2,L:6,c:TRAIN_COLS[Math.floor(Math.random()*4)],mv:0})}}
+ else if(r<0.6)RUN.objs.push({t:"low",lane,z});
+ else if(r<0.78)RUN.objs.push({t:"high",lane,z});
+ const cl=free.filter(l=>!RUN.objs.some(o=>o.lane===l&&Math.abs(o.z-z)<8&&o.t!=="coin"));
+ if(cl.length){const l=cl[Math.floor(Math.random()*cl.length)];for(let i=0;i<6;i++)RUN.objs.push({t:"coin",lane:l,z:z+i*1.6,h:0.45})}}
+function spawnGate(){const pool=K[RUN.lv];const k=rnd(pool);const others=shuffle(pool.filter(o=>o.c!==k.c)).slice(0,2);const opts=shuffle([k,...others]);
+ RUN.q={k,done:false};opts.forEach((o,i)=>RUN.objs.push({t:"gate",lane:i-1,z:RUN.gateAt-RUN.dist+0,k:o,ok:o.c===k.c}));
+ RUN.objs.push({t:"torii",lane:0,z:RUN.gateAt-RUN.dist+6});runHud()}
+function burst(x,y,col,n){for(let i=0;i<n;i++)RUN.parts.push({x,y,vx:(Math.random()-.5)*260,vy:-Math.random()*260-60,life:0.7+Math.random()*0.4,c:col,r:2+Math.random()*3})}
+function say(t,c){RUN.msg={t,c};RUN.msgT=1.1}
+function hurt(why){if(RUN.inv>0)return;RUN.hearts--;RUN.inv=1.6;RUN.shake=0.4;RUN.combo=0;sfx.no();buzz([80,40,80]);say(why,"#ff6a4d");runHud();if(RUN.hearts<=0)runOver()}
+function runOver(){RUN.on=false;RUN.over=true;const sc=Math.floor(RUN.score);const nh=sc>(S.hi||0);if(nh)S.hi=sc;const xp=Math.round(sc/40)+RUN.coins;addXP(xp);
+ const s=$("#rStart");s.style.display="flex";s.innerHTML=`<div style="font-size:48px">${nh?"🏆":"💫"}</div><div style="font-size:24px;font-weight:900">${nh?"NEW BEST!":"Game over"}</div><div style="font-size:52px;font-weight:900;color:var(--gold);line-height:1">${sc}</div><div class="muted tiny">🪙 ${RUN.coins} coins · +${xp} XP · ${RUN.lv}</div><button class="btn shu" id="rGo">Run again もう一回</button>`;$("#rGo").onclick=runStart;if(nh){confetti();sfx.win()}runHud()}
+function act(a){if(!RUN.on)return;
+ if(a==="L"&&RUN.lane>-1){RUN.lane--;sfx.pop()}
+ if(a==="R"&&RUN.lane<1){RUN.lane++;sfx.pop()}
+ if(a==="U"&&RUN.y<=0.01){RUN.vy=7.6;RUN.slide=0;tone(520,.12,"triangle",.08)}
+ if(a==="D"){RUN.slide=0.75;if(RUN.y>0)RUN.vy=-14;tone(300,.1,"triangle",.07)}}
+(function(){let sx=0,sy=0,st=0;rc.addEventListener("pointerdown",e=>{sx=e.clientX;sy=e.clientY;st=performance.now();e.preventDefault()});
+ rc.addEventListener("pointerup",e=>{const dx=e.clientX-sx,dy=e.clientY-sy;if(Math.abs(dx)<22&&Math.abs(dy)<22){act("U");return}if(Math.abs(dx)>Math.abs(dy))act(dx>0?"R":"L");else act(dy>0?"D":"U")});
+ addEventListener("keydown",e=>{if(!$("#v-game").classList.contains("on"))return;const m={ArrowLeft:"L",ArrowRight:"R",ArrowUp:"U",ArrowDown:"D"," ":"U"}[e.key];if(m){act(m);e.preventDefault()}})})();
+
+function runLoop(now){if(!RUN.on)return;let dt=Math.min(0.033,(now-RUN.last)/1000);RUN.last=now;RUN.t+=dt;
+ RUN.speed=Math.min(30,13+RUN.t*0.22);const mv=RUN.speed*dt;RUN.dist+=mv;RUN.score+=mv*0.6;
+ RUN.x+=(RUN.lane-RUN.x)*Math.min(1,dt*14);
+ RUN.vy-=24*dt;RUN.y=Math.max(0,RUN.y+RUN.vy*dt);if(RUN.y===0)RUN.vy=0;
+ RUN.slide=Math.max(0,RUN.slide-dt);RUN.inv=Math.max(0,RUN.inv-dt);RUN.shake=Math.max(0,RUN.shake-dt);RUN.msgT=Math.max(0,RUN.msgT-dt);RUN.flash=Math.max(0,RUN.flash-dt);
+ RUN.objs.forEach(o=>{o.z-=mv+(o.mv||0)*dt});
+ while(RUN.nextZ-RUN.dist<70){spawn(RUN.nextZ-RUN.dist);RUN.nextZ+=11+Math.random()*7}
+ if(!RUN.q&&RUN.gateAt-RUN.dist<70)spawnGate();
+ if(RUN.q&&RUN.q.done&&RUN.gateAt-RUN.dist<-5){RUN.q=null;RUN.gateAt=RUN.dist+110+Math.random()*40;runHud()}
+ if(Math.floor(RUN.dist/10)%20===0&&!RUN.objs.some(o=>o.t==="torii"&&o.z>40))RUN.objs.push({t:"torii",lane:0,z:69});
+ const pl=Math.round(RUN.x);
+ for(const o of RUN.objs){if(o.hit)continue;
+  if(o.t==="coin"&&Math.abs(o.z)<0.6&&o.lane===pl&&RUN.y<1.3){o.hit=1;RUN.coins++;RUN.score+=10;const p=P(o.lane,0,0.5);burst(p.x,p.y,"#ffd84a",6);tone(1320+Math.random()*200,.06,"square",.04);runHud()}
+  else if(o.t==="train"&&o.lane===pl&&o.z<0.5&&o.z+o.L>-0.3){o.hit=1;hurt("ドン! Train!")}
+  else if(o.t==="low"&&o.lane===pl&&Math.abs(o.z)<0.5){if(RUN.y<0.55){o.hit=1;hurt("Jump! ↑")}}
+  else if(o.t==="high"&&o.lane===pl&&Math.abs(o.z)<0.5){if(RUN.slide<=0){o.hit=1;hurt("Slide! ↓")}}
+  else if(o.t==="gate"&&o.z<0&&!RUN.q.done){RUN.q.done=true;const mine=RUN.objs.find(g=>g.t==="gate"&&g.lane===pl&&g.z<1&&g.z>-2);
+   RUN.objs.filter(g=>g.t==="gate").forEach(g=>g.hit=1);
+   if(mine&&mine.ok){RUN.combo++;const b=100*RUN.combo;RUN.score+=b;RUN.flash=0.5;say(`正解! +${b}`,"#3ec7a0");sfx.win();markK(RUN.q.k.c,true);burst(RW/2,RH*0.55,"#3ec7a0",24);burst(RW/2,RH*0.55,"#ffd84a",16)}
+   else{markK(RUN.q.k.c,false);hurt(`${RUN.q.k.c} = ${RUN.q.k.m}`)}runHud()}}
+ RUN.objs=RUN.objs.filter(o=>o.z+(o.L||0)>-3);
+ RUN.parts.forEach(p=>{p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=600*dt;p.life-=dt});RUN.parts=RUN.parts.filter(p=>p.life>0);
+ if(RUN.y===0&&RUN.slide<=0&&Math.random()<0.5){const p=P(RUN.x,0,0);RUN.parts.push({x:p.x+(Math.random()-.5)*16,y:p.y,vx:(Math.random()-.5)*40,vy:-30-Math.random()*40,life:0.35,c:"rgba(220,200,255,.5)",r:3})}
+ runDraw();if(RUN.on)requestAnimationFrame(runLoop)}
+
+function runDraw(){const W=RW,H=RH;rx.save();if(RUN.shake>0)rx.translate((Math.random()-.5)*14*RUN.shake,(Math.random()-.5)*14*RUN.shake);
+ // sky
+ const g=rx.createLinearGradient(0,0,0,H*0.32);g.addColorStop(0,"#1b1442");g.addColorStop(0.6,"#5a2a6b");g.addColorStop(1,"#ff8a5e");rx.fillStyle=g;rx.fillRect(-20,-20,W+40,H*0.32+20);
+ rx.fillStyle="#ffe7b0";rx.beginPath();rx.arc(W*0.78,H*0.12,H*0.045,0,7);rx.fill();
+ rx.fillStyle="rgba(255,255,255,.8)";for(let i=0;i<14;i++){rx.fillRect(hash(i)*W,hash(i+9)*H*0.18,1.5,1.5)}
+ // fuji
+ const fx=W*0.3-(RUN.dist*0.5%W*0.0),fy=H*0.30;rx.fillStyle="#3a2a66";rx.beginPath();rx.moveTo(fx-W*0.35,fy);rx.lineTo(fx-W*0.07,fy-H*0.13);rx.lineTo(fx+W*0.07,fy-H*0.13);rx.lineTo(fx+W*0.35,fy);rx.fill();
+ rx.fillStyle="#f4ecdc";rx.beginPath();rx.moveTo(fx-W*0.07,fy-H*0.13);rx.lineTo(fx+W*0.07,fy-H*0.13);rx.lineTo(fx+W*0.12,fy-H*0.09);rx.lineTo(fx+W*0.04,fy-H*0.1);rx.lineTo(fx,fy-H*0.085);rx.lineTo(fx-W*0.05,fy-H*0.1);rx.lineTo(fx-W*0.12,fy-H*0.09);rx.fill();
+ // far skyline
+ rx.fillStyle="#241a48";const off=(RUN.dist*2)%40;for(let i=-1;i<W/40+2;i++){const h=H*(0.03+hash(i+Math.floor(RUN.dist*2/40))*0.06);rx.fillRect(i*40-off,H*0.30-h,34,h)}
+ // ground
+ poly([P(-3.2,70),P(3.2,70),P(3.2,-1.5),P(-3.2,-1.5)],"#2b2240");
+ poly([P(-1.6,70),P(1.6,70),P(1.6,-1.5),P(-1.6,-1.5)],"#3a3050");
+ // sleepers
+ const sp=1.3,o2=RUN.dist%sp;for(let i=Math.ceil(70/sp);i>=0;i--){const z=i*sp-o2;if(z<-1.2)continue;for(let l=-1;l<=1;l++){const a=P(l-0.42,z),b=P(l+0.42,z),c=P(l+0.42,z+0.3),d=P(l-0.42,z+0.3);poly([a,b,c,d],z<25?"#5a4636":"#4a3a40")}}
+ // rails
+ rx.strokeStyle="#c9c3d9";rx.lineWidth=2;for(let l=-1;l<=1;l++)for(const s of[-0.3,0.3]){const a=P(l+s,70),b=P(l+s,-1.4);rx.beginPath();rx.moveTo(a.x,a.y);rx.lineTo(b.x,b.y);rx.stroke()}
+ // side buildings
+ const seg=7,first=Math.floor(RUN.dist/seg);for(let k=first+10;k>=first;k--){const z=k*seg-RUN.dist;if(z<-2)continue;for(const side of[-1,1]){const hh=2.5+hash(k*3+side)*4.5,xa=side*1.9,xb=side*4.5;const col=BLD[Math.floor(hash(k+side*7)*BLD.length)];
+   poly([P(xa,z,0),P(xa,z+seg-1,0),P(xa,z+seg-1,hh),P(xa,z,hh)],col);
+   poly([P(xa,z,0),P(xb,z,0),P(xb,z,hh),P(xa,z,hh)],shade(col));
+   for(let wy=0.6;wy<hh-0.4;wy+=0.8)for(let wz=0.6;wz<seg-1.6;wz+=1.1){if(hash(k*31+wy*7+wz*13+side)<0.45)continue;const a=P(xa,z+wz,wy),b=P(xa,z+wz+0.5,wy+0.45);rx.fillStyle="rgba(255,214,120,.55)";rx.fillRect(Math.min(a.x,b.x),b.y,Math.abs(b.x-a.x)+1,a.y-b.y)}
+   if(hash(k*5+side)>0.45&&z>1){const p=P(xa,z+seg/2-0.5,hh*0.7),nc=NEON[Math.floor(hash(k*11+side)*NEON.length)];rx.save();rx.font=`900 ${Math.max(8,p.s*0.5)}px "Shippori Mincho B1",serif`;rx.fillStyle=nc;rx.shadowColor=nc;rx.shadowBlur=12;rx.textAlign="center";rx.fillText(SIGNS[Math.floor(hash(k*13+side)*SIGNS.length)],p.x+side*-p.s*0.12,p.y);rx.restore()}}}
+ // objects far->near, with player in between
+ const objs=RUN.objs.slice().sort((a,b)=>b.z-a.z);let pd=false;
+ for(const o of objs){if(!pd&&o.z<0.2){drawPlayer();pd=true}drawObj(o)}
+ if(!pd)drawPlayer();
+ RUN.parts.forEach(p=>{rx.globalAlpha=Math.max(0,p.life*1.4);rx.fillStyle=p.c;rx.beginPath();rx.arc(p.x,p.y,p.r,0,7);rx.fill()});rx.globalAlpha=1;
+ if(RUN.speed>20){rx.strokeStyle="rgba(255,255,255,.12)";rx.lineWidth=1.5;for(let i=0;i<8;i++){const a=hash(i+Math.floor(RUN.t*20))*Math.PI*2,r1=H*0.25,r2=H*0.6;rx.beginPath();rx.moveTo(W/2+Math.cos(a)*r1,H*0.45+Math.sin(a)*r1);rx.lineTo(W/2+Math.cos(a)*r2,H*0.45+Math.sin(a)*r2);rx.stroke()}}
+ if(RUN.flash>0){rx.fillStyle=`rgba(62,199,160,${RUN.flash*0.4})`;rx.fillRect(0,0,W,H)}
+ if(RUN.msgT>0&&RUN.msg){rx.save();rx.globalAlpha=Math.min(1,RUN.msgT*2);rx.font=`900 ${Math.round(W*0.075)}px "Zen Maru Gothic",sans-serif`;rx.textAlign="center";rx.lineWidth=6;rx.strokeStyle="rgba(0,0,0,.5)";const y=H*0.42-(1.1-RUN.msgT)*30;rx.strokeText(RUN.msg.t,W/2,y);rx.fillStyle=RUN.msg.c;rx.fillText(RUN.msg.t,W/2,y);rx.restore()}
+ rx.restore()}
+function shade(c){const n=parseInt(c.slice(1),16);const r=(n>>16)*0.7|0,g=((n>>8)&255)*0.7|0,b=(n&255)*0.7|0;return`rgb(${r},${g},${b})`}
+
+function drawObj(o){if(o.hit&&o.t!=="train"&&o.t!=="gate")return;const l=o.lane;
+ if(o.t==="coin"){const p=P(l,o.z,o.h+Math.sin(RUN.t*4+o.z)*0.06);const r=p.s*0.13,sx=Math.abs(Math.cos(RUN.t*5+o.z));rx.save();rx.translate(p.x,p.y);rx.scale(Math.max(0.15,sx),1);rx.fillStyle="#b8860b";rx.beginPath();rx.arc(0,0,r,0,7);rx.fill();rx.fillStyle="#ffd84a";rx.beginPath();rx.arc(0,0,r*0.82,0,7);rx.fill();if(r>6){rx.fillStyle="#b8860b";rx.font=`900 ${r}px sans-serif`;rx.textAlign="center";rx.textBaseline="middle";rx.fillText("円",0,1)}rx.restore();return}
+ if(o.t==="train"){const z0=Math.max(o.z,-0.3),z1=o.z+o.L,w=0.42,h=1.55;if(z1<-0.3)return;const[c1,c2]=o.c;
+  if(o.z>1.5)poly([P(l-w,z0,h),P(l+w,z0,h),P(l+w,z1,h),P(l-w,z1,h)],"#cfd6e6");
+  if(l!==0){const xs=l<0?l+w:l-w;poly([P(xs,z0,0),P(xs,z1,0),P(xs,z1,h),P(xs,z0,h)],c2);for(let wz=z0+0.8;wz<z1-0.5;wz+=1.3){poly([P(xs,wz,0.8),P(xs,wz+0.8,0.8),P(xs,wz+0.8,1.25),P(xs,wz,1.25)],"#9fd8ff")}}
+  if(o.z>-0.3){const a=P(l-w,o.z,0),b=P(l+w,o.z,h);rx.fillStyle=c1;rrect(a.x,b.y,b.x-a.x,a.y-b.y,(b.x-a.x)*0.12);rx.fill();
+   rx.fillStyle="#bfe8ff";rrect(a.x+(b.x-a.x)*0.12,b.y+(a.y-b.y)*0.12,(b.x-a.x)*0.76,(a.y-b.y)*0.3,4);rx.fill();
+   rx.fillStyle="#fff";rx.fillRect(a.x,b.y+(a.y-b.y)*0.55,b.x-a.x,(a.y-b.y)*0.07);
+   rx.fillStyle="#fff7c2";rx.shadowColor="#fff7c2";rx.shadowBlur=14;[0.22,0.78].forEach(f=>{rx.beginPath();rx.arc(a.x+(b.x-a.x)*f,b.y+(a.y-b.y)*0.78,(b.x-a.x)*0.07,0,7);rx.fill()});rx.shadowBlur=0}
+  return}
+ if(o.t==="low"){const a=P(l-0.45,o.z,0),b=P(l+0.45,o.z,0.55),pw=(b.x-a.x);rx.fillStyle="#555";rx.fillRect(a.x+pw*0.05,b.y,pw*0.07,a.y-b.y);rx.fillRect(b.x-pw*0.12,b.y,pw*0.07,a.y-b.y);
+  const bh=(a.y-b.y)*0.42;rx.save();rrect(a.x,b.y,pw,bh,3);rx.clip();for(let i=-2;i<12;i++){rx.fillStyle=i%2?"#111":"#ffd23f";rx.beginPath();rx.moveTo(a.x+i*pw/8,b.y);rx.lineTo(a.x+(i+1)*pw/8,b.y);rx.lineTo(a.x+(i)*pw/8,b.y+bh);rx.lineTo(a.x+(i-1)*pw/8,b.y+bh);rx.fill()}rx.restore();return}
+ if(o.t==="high"){const a=P(l-0.45,o.z,0),b=P(l+0.45,o.z,1.5),c=P(l,o.z,0.95),pw=b.x-a.x;rx.fillStyle="#666";rx.fillRect(a.x,b.y,pw*0.07,a.y-b.y);rx.fillRect(b.x-pw*0.07,b.y,pw*0.07,a.y-b.y);
+  rx.fillStyle="#e8452c";rrect(a.x,b.y,pw,c.y-b.y,4);rx.fill();rx.fillStyle="#fff";rx.font=`900 ${Math.max(7,(c.y-b.y)*0.55)}px "Zen Maru Gothic",sans-serif`;rx.textAlign="center";rx.textBaseline="middle";rx.fillText("↓ 頭上注意",a.x+pw/2,b.y+(c.y-b.y)/2);return}
+ if(o.t==="torii"){const lp=P(-1.75,o.z,0),rp=P(1.75,o.z,0),top=P(0,o.z,2.6),pw=Math.max(2,lp.s*0.12);rx.fillStyle="#d8432a";rx.fillRect(lp.x-pw/2,top.y,pw,lp.y-top.y);rx.fillRect(rp.x-pw/2,top.y,pw,rp.y-top.y);
+  const t1=P(-2.1,o.z,2.75),t2=P(2.1,o.z,2.75);rx.fillStyle="#1a1020";rx.fillRect(t1.x,t1.y-pw*0.6,t2.x-t1.x,pw*0.8);rx.fillStyle="#d8432a";rx.fillRect(t1.x+pw,t1.y+pw*0.3,t2.x-t1.x-2*pw,pw*0.6);
+  const b1=P(-1.9,o.z,2.25);rx.fillRect(b1.x,b1.y,(rp.x-lp.x)*1.08,pw*0.5);return}
+ if(o.t==="gate"){const z=o.z;if(z<-1.5)return;const a=P(l-0.44,z,0),b=P(l+0.44,z,1.75),pw=b.x-a.x,post=pw*0.09;
+  const col=o.hit?(o.ok?"#3ec7a0":"#666"):"#f0c14b";rx.save();if(o.hit)rx.globalAlpha=0.6;rx.fillStyle=col;rx.shadowColor=col;rx.shadowBlur=o.hit?0:18;rx.fillRect(a.x,b.y,post,a.y-b.y);rx.fillRect(b.x-post,b.y,post,a.y-b.y);rx.fillRect(a.x-post*0.5,b.y-post,pw+post,post*1.2);rx.shadowBlur=0;
+  const ps=pw*0.66,cx=a.x+pw/2,cy=b.y+(a.y-b.y)*0.36;rx.fillStyle="#fffaf0";rrect(cx-ps/2,cy-ps/2,ps,ps,ps*0.18);rx.fill();rx.strokeStyle=col;rx.lineWidth=Math.max(1,ps*0.05);rx.stroke();
+  rx.fillStyle=o.hit&&o.ok?"#178f77":"#1d1530";rx.font=`800 ${ps*0.72}px "Shippori Mincho B1",serif`;rx.textAlign="center";rx.textBaseline="middle";rx.fillText(o.k.c,cx,cy+ps*0.04);
+  rx.fillStyle="rgba(240,193,75,.10)";rx.fillRect(a.x+post,b.y+(a.y-b.y)*0.62,pw-2*post,(a.y-b.y)*0.38);rx.restore();return}}
+
+function drawPlayer(){const p=P(RUN.x,0,0),u=p.s*0.95,t=RUN.t*RUN.speed*0.55,y=RUN.y*u,sl=RUN.slide>0;
+ if(RUN.inv>0&&Math.floor(RUN.inv*12)%2)return;
+ rx.save();rx.fillStyle="rgba(0,0,0,.35)";rx.beginPath();rx.ellipse(p.x,p.y,u*0.32*(1-Math.min(.5,RUN.y*0.2)),u*0.08,0,0,7);rx.fill();
+ rx.translate(p.x,p.y-y);rx.rotate((RUN.lane-RUN.x)*0.25);
+ if(sl){rx.scale(1.15,0.55)}
+ const air=RUN.y>0.05,sw=air?0.5:Math.sin(t),sw2=air?-0.4:Math.sin(t+Math.PI),bob=air?0:Math.abs(Math.sin(t))*u*0.04;
+ rx.translate(0,-bob);
+ // scarf tails
+ rx.strokeStyle="#e8452c";rx.lineCap="round";rx.lineWidth=u*0.07;for(const s of[-1,1]){rx.beginPath();rx.moveTo(s*u*0.06,-u*0.92);rx.bezierCurveTo(s*u*0.25,-u*1.0+Math.sin(RUN.t*14+s)*u*0.08,s*u*0.42,-u*0.85+Math.sin(RUN.t*14+s+1)*u*0.1,s*u*0.55,-u*0.95+Math.sin(RUN.t*14+s+2)*u*0.12);rx.stroke()}
+ // legs
+ const leg=(dx,a)=>{rx.save();rx.translate(dx,-u*0.42);rx.rotate(a*0.6);rx.fillStyle="#1f1a3a";rrect(-u*0.075,0,u*0.15,u*0.34,u*0.06);rx.fill();rx.fillStyle="#f4ecdc";rrect(-u*0.09,u*0.3,u*0.18,u*0.1,u*0.04);rx.fill();rx.fillStyle="#e8452c";rx.fillRect(-u*0.09,u*0.3,u*0.18,u*0.025);rx.restore()};
+ leg(-u*0.1,sw);leg(u*0.1,sw2);
+ // body
+ rx.fillStyle="#2c3570";rrect(-u*0.22,-u*0.9,u*0.44,u*0.52,u*0.14);rx.fill();
+ rx.fillStyle="#232a5c";rrect(-u*0.15,-u*0.78,u*0.3,u*0.26,u*0.08);rx.fill();
+ rx.fillStyle="#f0c14b";rx.font=`900 ${u*0.18}px "Shippori Mincho B1",serif`;rx.textAlign="center";rx.textBaseline="middle";rx.fillText("道",0,-u*0.65);
+ // arms
+ const arm=(dx,a)=>{rx.save();rx.translate(dx,-u*0.84);rx.rotate(-a*0.8+(dx>0?-0.15:0.15));rx.fillStyle="#2c3570";rrect(-u*0.06,0,u*0.12,u*0.32,u*0.06);rx.fill();rx.fillStyle="#ffd9b8";rx.beginPath();rx.arc(0,u*0.33,u*0.06,0,7);rx.fill();rx.restore()};
+ arm(-u*0.25,sw2);arm(u*0.25,sw);
+ // head (from behind): hood + cat ears + headband
+ rx.fillStyle="#1a1530";rx.beginPath();rx.arc(0,-u*1.12,u*0.27,0,7);rx.fill();
+ for(const s of[-1,1]){rx.beginPath();rx.moveTo(s*u*0.12,-u*1.32);rx.lineTo(s*u*0.26,-u*1.5+Math.sin(RUN.t*6)*u*0.015);rx.lineTo(s*u*0.27,-u*1.22);rx.fill();rx.fillStyle="#ff9eb5";rx.beginPath();rx.moveTo(s*u*0.15,-u*1.31);rx.lineTo(s*u*0.24,-u*1.43);rx.lineTo(s*u*0.245,-u*1.27);rx.fill();rx.fillStyle="#1a1530"}
+ rx.fillStyle="#e8452c";rx.fillRect(-u*0.27,-u*1.16,u*0.54,u*0.08);
+ rx.strokeStyle="#e8452c";rx.lineWidth=u*0.05;rx.beginPath();rx.moveTo(u*0.05,-u*1.12);rx.quadraticCurveTo(u*0.2,-u*1.05+Math.sin(RUN.t*16)*u*0.05,u*0.34,-u*1.08+Math.sin(RUN.t*16+1)*u*0.07);rx.stroke();
+ rx.fillStyle="#e8452c";rx.fillRect(-u*0.14,-u*0.95,u*0.28,u*0.07);
+ rx.restore()}
+addEventListener("resize",()=>{if(RUN.on)runSize()});
+$("#rGo").onclick=runStart;
+function runPreview(){runSize();Object.assign(RUN,{x:0,lane:0,y:0,slide:0,dist:0,speed:13,t:0.3,objs:[{t:"torii",lane:0,z:30},{t:"coin",lane:0,z:8,h:0.45},{t:"coin",lane:0,z:10,h:0.45},{t:"train",lane:-1,z:14,L:8,c:TRAIN_COLS[0]},{t:"low",lane:1,z:18}],parts:[],inv:0,shake:0,flash:0,msgT:0});runDraw()}
+
+$$('.ctrls button').forEach(b=>b.onclick=()=>act(b.dataset.a));
+
+/* ================= ALARM ================= */
+let ringing=false,ringTimer=null,rState=null;
+function renderAlarm(){const a=S.alarm;$("#aTime").value=a.t;$("#aSwitch").classList.toggle("on",a.on);$("#aStatus").textContent=a.on?"On · rings at "+a.t:"Off";
+ $("#aPath").innerHTML=LEVELS.map((l,i)=>`<div class="node ${i<a.lv?"done":i===a.lv?"cur":""}">${i<a.lv?"✓":l}</div>`).join("");
+ $("#aClears").innerHTML=a.lv>=4&&a.clears>=3?"🏯 You've mastered the N1 alarm!":`Current: <b>${LEVELS[a.lv]}</b> · clears ${"●".repeat(a.clears)}${"○".repeat(3-a.clears)}`}
+$("#aSwitch").onclick=()=>{S.alarm.on=!S.alarm.on;S.alarm.fired="";save();ac();renderAlarm();toast(S.alarm.on?"⏰ Alarm set for "+S.alarm.t:"Alarm off")};
+$("#aTime").onchange=e=>{S.alarm.t=e.target.value;S.alarm.fired="";save();renderAlarm()};
+$("#aTest").onclick=()=>{ac();startRing()};
+function alarmSound(){const a=ac();if(!a)return;[0,.18,.36].forEach(w=>{tone(988,.14,"square",.22,w);tone(1319,.14,"square",.12,w+.07)})}
+let wake=null;async function keepAwake(){try{if(navigator.wakeLock&&S.alarm.on&&!wake)wake=await navigator.wakeLock.request("screen")}catch(e){}}
+function startRing(){if(ringing)return;ringing=true;rState={n:0,miss:0,lv:LEVELS[S.alarm.lv]};$("#ring").classList.add("on");$("#rLv").textContent=rState.lv;alarmSound();ringTimer=setInterval(()=>{alarmSound();buzz([400,200,400])},1200);ringNext()}
+function ringNext(){$("#rCount").textContent=rState.n+" / 20";$("#rMiss").textContent=rState.miss;$("#rBar").style.width=(rState.n/20*100)+"%";if(rState.n>=20)return stopRing();
+ renderQ($("#rQ"),kanjiQ(rState.lv),ok=>{if(ok){rState.n++;setTimeout(ringNext,450)}else{rState.miss++;$("#rMiss").textContent=rState.miss;setTimeout(ringNext,900)}})}
+function stopRing(){clearInterval(ringTimer);ringing=false;$("#ring").classList.remove("on");const a=S.alarm;S.alarmsDone++;let msg="おはよう！ Good morning! +40 XP";
+ if(rState.miss<=4){a.clears++;if(a.clears>=3&&a.lv<4){a.lv++;a.clears=0;msg="🎊 Alarm level up! Now "+LEVELS[a.lv];setTimeout(()=>confetti(90),300)}}else msg="Good morning! "+rState.miss+" mistakes, so this one doesn't count as a clear.";
+ addXP(40);save();renderAlarm();stamp("起床");sfx.win();toast(msg)}
+function tick(){const d=new Date(),hh=String(d.getHours()).padStart(2,"0"),mm=String(d.getMinutes()).padStart(2,"0");$("#aClock").innerHTML=`${hh}:${mm}<small>:${String(d.getSeconds()).padStart(2,"0")}</small>`;if($("#lock").classList.contains("on"))lockClock();
+ const a=S.alarm,key=today()+" "+a.t;if(a.on&&hh+":"+mm===a.t&&a.fired!==key){a.fired=key;save();startRing()}}
+setInterval(tick,1000);
+
+/* ================= PROGRESS ================= */
+function renderProg(){const r=rankOf(S.xp),cur=RANKS[r][0],nxt=RANKS[r+1];$("#pRank").textContent=RANKS[r][1];$("#pXp").textContent=S.xp+" XP";$("#pNext").textContent=nxt?`${nxt[0]-S.xp} XP to ${nxt[1]}`:"Max rank reached 👑";
+ const pct=nxt?(S.xp-cur)/(nxt[0]-cur):1;$("#pRing").style.strokeDashoffset=251*(1-pct);
+ const tot=LEVELS.reduce((s,l)=>s+mastered(l),0),allc=Object.values(S.ks).reduce((s,v)=>s+v.c,0),allw=Object.values(S.ks).reduce((s,v)=>s+v.w,0);
+ $("#pStats").innerHTML=[["🔥 "+S.streak,"day streak"],[tot,"kanji mastered"],[(allc+allw?Math.round(allc/(allc+allw)*100):0)+"%","accuracy"],[S.hi,"Kanji Rush best"],[S.alarmsDone,"alarms beaten"],[S.writes,"kanji written"],[S.slocks||0,"study locks passed"],[S.unlocks,"lock screen unlocks"]].map(([b,s])=>`<div class="stat"><b>${b}</b><span>${s}</span></div>`).join("");
+ let h="";for(let i=13;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const k=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");const v=S.days[k]||0;const a=v?Math.min(1,.25+v/30):0;h+=`<div title="${k}: ${v}" style="${v?`background:rgba(232,69,44,${a})`:""}"></div>`}$("#pHeat").innerHTML=h;
+ $("#pLevels").innerHTML=LEVELS.map(l=>{const m=mastered(l),t=K[l].length;return`<div class="lvrow"><div class="row"><span>${l}</span><span class="muted">${m}/${t}</span></div><div class="bar"><div style="width:${m/t*100}%"></div></div></div>`}).join("");
+ $("#pGram").innerHTML=LEVELS.map(l=>{const b=S.gBest[l];return`<div class="row" style="justify-content:space-between;padding:5px 0;font-size:14px"><b>${l}</b><span class="${b==null?"muted":""}">${b==null?"not taken":b+" / "+GRAM[l].length}</span></div>`}).join("");
+ $("#sLock").classList.toggle("on",S.lockOpen);$("#sPhone").classList.toggle("on",!!S.phoneLock);$("#phoneSet").style.display=IS_APK?"flex":"none";$("#phoneHelp").style.display=IS_APK&&S.phoneLock?"block":"none";$("#sSound").classList.toggle("on",S.sound)}
+$("#sLock").onclick=()=>{S.lockOpen=!S.lockOpen;save();renderProg()};
+$("#sPhone").onclick=()=>{S.phoneLock=!S.phoneLock;save();native(S.phoneLock?"lockon":"lockoff");toast(S.phoneLock?"📱 Lock screen quiz on! Turn your screen off and on to try it":"Lock screen quiz off");renderProg()};
+$("#sSound").onclick=()=>{S.sound=!S.sound;save();renderProg()};
+$("#sReset").onclick=e=>{const b=e.target;if(b.dataset.c){S=JSON.parse(JSON.stringify(DEF));save();renderAll();toast("Progress reset");b.dataset.c="";b.textContent="Reset"}else{b.dataset.c=1;b.textContent="Tap again to confirm";setTimeout(()=>{b.dataset.c="";b.textContent="Reset"},3000)}};
+
+/* ================= NAV ================= */
+function go(v){$$("nav button").forEach(b=>b.classList.toggle("on",b.dataset.v===v));$$(".view").forEach(s=>s.classList.toggle("on",s.id==="v-"+v));$("#main").scrollTop=0;
+ if(v==="home")renderHome();if(v==="write")requestAnimationFrame(()=>{sizePad();renderWrite()});if(v==="gram")renderGram();if(v==="alarm"){renderAlarm();keepAwake()}if(v==="prog")renderProg();if(v==="game"){requestAnimationFrame(()=>{if(!RUN.on)runPreview()})}
+ if(v!=="game"&&RUN.on){RUN.on=false;const st=$("#rStart");st.style.display="flex";st.innerHTML=`<div style="font-size:50px">⏸</div><div style="font-size:24px;font-weight:900">Paused</div><button class="btn shu" id="rGo">Run again</button>`;$("#rGo").onclick=runStart}}
+$$("nav button").forEach(b=>b.onclick=()=>{sfx.pop();go(b.dataset.v)});
+addEventListener("resize",()=>{if($("#v-write").classList.contains("on"))sizePad()});
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"){wake=null;if($("#v-alarm").classList.contains("on"))keepAwake()}});
+
+/* ================= NATIVE (Android / iOS app) ================= */
+const NATIVE=!!(window.Capacitor&&window.Capacitor.isNativePlatform&&window.Capacitor.isNativePlatform());
+const LN=NATIVE&&window.Capacitor.Plugins?window.Capacitor.Plugins.LocalNotifications:null;
+async function nativeSchedule(){if(!LN)return;try{
+  const p=await LN.requestPermissions();if(p.display!=="granted"){toast("Allow notifications so the alarm can ring");return}
+  try{await LN.createChannel({id:"kanji-alarm",name:"Kanji Alarm",description:"Wake-up alarm",importance:5,visibility:1,vibration:true})}catch(e){}
+  await LN.cancel({notifications:[{id:1},{id:2},{id:3}]});
+  if(S.alarm.on){const[h,m]=S.alarm.t.split(":").map(Number);
+   // main alarm + two reminders 1 and 2 minutes later in case you sleep through it
+   const list=[0,1,2].map(i=>{const mm=(m+i)%60,hh=(h+Math.floor((m+i)/60))%24;return{id:1+i,title:i?"起きて！ Still sleeping? 😼":"起きて！ Wake up! ⏰",body:"Open Kanji Dojo and answer 20 kanji to stop the alarm",channelId:"kanji-alarm",schedule:{on:{hour:hh,minute:mm},allowWhileIdle:true,repeats:true},extra:{alarm:1}}});
+   await LN.schedule({notifications:list})}
+ }catch(e){console.log("schedule fail",e)}}
+function missedAlarmCheck(){const a=S.alarm;if(!a.on)return;const[h,m]=a.t.split(":").map(Number);const d=new Date(),at=new Date();at.setHours(h,m,0,0);const diff=(d-at)/60000;const key=today()+" "+a.t;
+ if(diff>=0&&diff<=30&&a.fired!==key){a.fired=key;save();startRing()}}
+if(LN){LN.addListener("localNotificationActionPerformed",()=>{if(!ringing){S.alarm.fired=today()+" "+S.alarm.t;save();$("#lock").classList.remove("on");startRing()}});
+ document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")missedAlarmCheck()})}
+const _sw=$("#aSwitch").onclick,_tc=$("#aTime").onchange;
+$("#aSwitch").onclick=()=>{_sw();nativeSchedule()};$("#aTime").onchange=e=>{_tc(e);nativeSchedule()};
+if(NATIVE){const p=$("#v-alarm p.tiny");if(p)p.textContent="The alarm rings even when the app is closed: you'll get an alarm notification, and tapping it opens the 20-kanji challenge. If you open the app within 30 minutes of the alarm without answering, the challenge starts automatically."}
+
+
+/* ================= STUDY LOCK ================= */
+const IS_ANDROID=NATIVE&&window.Capacitor.getPlatform&&window.Capacitor.getPlatform()==="android";
+const QL=IS_ANDROID?(window.Capacitor.registerPlugin?window.Capacitor.registerPlugin("QuizLock"):window.Capacitor.Plugins.QuizLock):null;
+let slActive=false,slState=null,slInfo={enabled:false,interval:60,locked:false,overlay:false,battery:false,pauseUntil:0};
+async function slRefresh(){if(!QL){renderSL();return}try{slInfo=await QL.status()}catch(e){}renderSL();
+ if(slInfo.enabled&&slInfo.locked&&Date.now()>slInfo.pauseUntil&&!slActive&&!ringing)openSL()}
+function renderSL(){$("#slSwitch").classList.toggle("on",!!slInfo.enabled);$("#slInterval").value=String(slInfo.interval||60);$("#slLv").textContent=S.lv;
+ const st=$("#slStatus");if(!QL)st.textContent="Popping up over other apps needs the full Android build (from GitHub). In this version you can still use it as an hourly quiz while the app is open. Tap Try to preview.";
+ else if(slInfo.enabled){const m=Math.max(1,Math.round((slInfo.nextInMs||0)/60000));st.textContent=slInfo.locked?"Quiz waiting! Answer 20 questions.":"On · next quiz in about "+m+" min"}
+ else st.textContent="Every hour, 20 kanji questions pop up over any app. Other apps stay blocked until you finish.";
+ const pe=$("#slPerms");pe.innerHTML="";if(!QL)return;
+ const row=(ok,txt,fix,fn)=>{const d=document.createElement("div");d.className="row";d.innerHTML=`<span class="chip ${ok?"ok":"bad"}">${ok?"✓":"!"} ${txt}</span><span class="grow"></span>`;if(!ok){const b=document.createElement("button");b.className="btn sm gold";b.textContent=fix;b.onclick=fn;d.appendChild(b)}pe.appendChild(d)};
+ row(slInfo.overlay,"Display over other apps","Allow",()=>QL.openOverlaySettings().catch(()=>{}));
+ row(slInfo.battery,"Not stopped by battery saver","Allow",()=>QL.openBatterySettings().catch(()=>{}))}
+$("#slSwitch").onclick=async()=>{const want=!slInfo.enabled;if(!QL){toast("Study Lock needs the Android app. Here's a preview!");openSL(true);return}
+ if(want&&!slInfo.overlay){toast("First allow 'Display over other apps' for Kanji Dojo");QL.openOverlaySettings().catch(()=>{});return}
+ try{if(want&&LN){try{await LN.requestPermissions()}catch(e){}}slInfo=await QL.configure({enabled:want,interval:+$("#slInterval").value});toast(want?"📵 Study Lock on! First quiz in "+$("#slInterval").selectedOptions[0].text:"Study Lock off")}catch(e){toast(e.message||"Finish the quiz first")}renderSL()};
+$("#slInterval").onchange=async()=>{if(QL&&slInfo.enabled){try{slInfo=await QL.configure({enabled:true,interval:+$("#slInterval").value})}catch(e){}}else slInfo.interval=+$("#slInterval").value;renderSL()};
+$("#slTest").onclick=async()=>{if(QL&&slInfo.enabled){try{await QL.lockNow()}catch(e){}}openSL(!(QL&&slInfo.enabled))};
+function openSL(preview){if(slActive)return;slActive=true;slState={n:0,miss:0,lv:S.lv,preview:!!preview};$("#lock").classList.remove("on");$("#slock").classList.add("on");$("#slLvTag").textContent=slState.lv;$("#slEmerg").textContent=preview?"✕ Close preview":"🚨 Emergency: use phone for 5 min";buzz([200,100,200]);sfx.win();slNext()}
+function slNext(){$("#slCount").textContent=slState.n+" / 20";$("#slMiss").textContent=slState.miss;$("#slBar").style.width=(slState.n/20*100)+"%";if(slState.n>=20)return slDone();
+ renderQ($("#slQ"),kanjiQ(slState.lv),ok=>{if(ok){slState.n++;setTimeout(slNext,450)}else{slState.miss++;setTimeout(slNext,900)}})}
+async function slDone(){if(QL&&!slState.preview){try{await QL.unlock()}catch(e){}}slActive=false;$("#slock").classList.remove("on");S.slocks=(S.slocks||0)+1;addXP(30);stamp("解放");confetti();toast("🔓 Phone unlocked! +30 XP · 20 kanji reviewed");slRefresh()}
+$("#slEmerg").onclick=async()=>{if(slState&&slState.preview){slActive=false;$("#slock").classList.remove("on");return}
+ const b=$("#slEmerg");if(!b.dataset.c){b.dataset.c=1;b.textContent="Tap again: 5 min pass, then the quiz returns";setTimeout(()=>{b.dataset.c="";if(slActive)b.textContent="🚨 Emergency: use phone for 5 min"},3000);return}
+ b.dataset.c="";try{const r=await QL.emergency();slInfo.pauseUntil=r.pauseUntil}catch(e){}slActive=false;$("#slock").classList.remove("on");toast("5 minutes. The quiz comes back after that")};
+if(QL){setInterval(slRefresh,2500);document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")slRefresh()})}
+
+/* ================= UPDATES ================= */
+const UPD_REPO="clarkremo40-lgtm/kanji-dojo";
+const UPD_BASES=["https://raw.githubusercontent.com/"+UPD_REPO+"/main/","https://raw.githubusercontent.com/"+UPD_REPO+"/master/","https://cdn.jsdelivr.net/gh/"+UPD_REPO+"@main/"];
+function nativeBuild(){try{return +(localStorage.getItem("kd_native")||KD_NATIVE)}catch(e){return KD_NATIVE}}
+async function fetchText(path){let last;for(const b of UPD_BASES){try{const r=await fetch(b+path+(path.indexOf("?")<0?"?t=":"&t=")+Date.now(),{cache:"no-store"});if(r.ok)return{text:await r.text(),base:b};last=r.status}catch(e){last=e}}throw new Error("offline "+last)}
+async function checkUpdate(manual){if(!IS_APK&&!manual)return;
+ try{const {text,base}=await fetchText("version.json");const v=JSON.parse(text);
+  if(v.native&&v.native.build>nativeBuild()){showUpd("app",v,base);return}
+  if(v.build>KD_BUILD&&(!v.minNative||nativeBuild()>=v.minNative)){showUpd("content",v,base);return}
+  if(manual)toast("✅ You have the latest version ("+KD_VER+")")}
+ catch(e){if(manual)toast("Couldn't check for updates. Are you online?")}}
+function showUpd(kind,v,base){if(GATE)return;const u=$("#upd");u.classList.add("on");
+ $("#updTitle").textContent=(kind==="app"?"New app version ":"Version ")+(kind==="app"?v.native.version:v.version);
+ $("#updNotes").innerHTML=(v.notes||[]).map(n=>"<li>"+String(n).replace(/</g,"&lt;")+"</li>").join("");
+ $("#updLater").style.display=kind==="app"?"block":"none";
+ const go=$("#updGo"),msg=$("#updMsg");go.disabled=false;
+ if(kind==="app"){go.textContent="⬇ Download new app version";msg.textContent="This update changes the app itself, so it installs over your current app. Your progress stays.";
+  go.onclick=()=>{native("open/"+v.native.url);msg.textContent="The download opened in your browser. Tap the file when it finishes, then Install."}}
+ else{go.textContent="Update now · "+Math.max(1,Math.round((v.size||100000)/1024))+" KB";msg.textContent="Only the changed part downloads. Your progress stays.";
+  go.onclick=async()=>{go.disabled=true;go.textContent="Downloading…";$("#updBarW").style.display="block";let p=0;const t=setInterval(()=>{p=Math.min(90,p+7);$("#updBar").style.width=p+"%"},120);
+   try{const {text}=await fetchText(v.file||"app.html");if(text.indexOf("KD_BUILD="+v.build+",")<0)throw new Error("bad file");
+    localStorage.setItem("kd_html",text);localStorage.setItem("kd_build",String(v.build));localStorage.removeItem("kd_rollback");
+    clearInterval(t);$("#updBar").style.width="100%";go.textContent="✓ Installed! Restarting…";sfx.win();setTimeout(()=>location.reload(),900)}
+   catch(e){clearInterval(t);go.disabled=false;go.textContent="Try again";msg.textContent="Download failed. Check your internet and try again."}}}
+ $("#updLater").onclick=()=>u.classList.remove("on")}
+$("#sUpd").onclick=()=>checkUpdate(true);
+function afterBoot(){try{localStorage.removeItem("kd_boot");const seen=+(localStorage.getItem("kd_seen")||0);
+  if(IS_APK&&seen&&seen<KD_BUILD){setTimeout(()=>{toast("✨ Updated to v"+KD_VER+"!");confetti(70)},900)}
+  localStorage.setItem("kd_seen",String(KD_BUILD));
+  if(localStorage.getItem("kd_rollback")){localStorage.removeItem("kd_rollback");setTimeout(()=>toast("The last update had a problem, so we kept the previous version."),1500)}}catch(e){}
+ $("#verTxt").textContent="v"+KD_VER+" · build "+KD_BUILD+" · app "+nativeBuild();
+ if(IS_APK&&!GATE){setTimeout(()=>checkUpdate(false),2500);setInterval(()=>checkUpdate(false),30*60*1000)}}
+
+function renderAll(){renderHeader();renderHome();renderAlarm();renderProg()}
+renderAll();tick();renderSL();
+afterBoot();
+if(GATE){$("#app").style.display="none";showLock()}
+else{if(S.lockOpen)showLock();if(IS_APK&&S.phoneLock)setTimeout(()=>native("lockstart"),1200)}
+if(QL)slRefresh();
+if(LN){nativeSchedule();missedAlarmCheck()}
+</script>
+</body>
+</html>
