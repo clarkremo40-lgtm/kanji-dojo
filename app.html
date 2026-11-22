@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <script>
-var KD_BUILD=14,KD_VER="1.6.3",KD_NATIVE=6;
+var KD_BUILD=15,KD_VER="1.7",KD_NATIVE=6;
 (function(){try{if(window.__KD_SWAP)return;var ls=localStorage;
  if(location.href.indexOf("file:///android_asset")===0)ls.setItem("kd_native",String(KD_NATIVE));
  var b=+(ls.getItem("kd_build")||0),h=ls.getItem("kd_html");
@@ -231,10 +231,81 @@ select{font-family:inherit;font-size:15px;font-weight:700;background:var(--ink3)
 #v-game.fs .runwrap{position:fixed;inset:0;height:100%;min-height:0;border-radius:0;z-index:85;border:0}
 #v-game.fs .ctrls{position:fixed;left:10px;right:10px;bottom:12px;z-index:86;margin:0;opacity:.85}
 #v-game.fs #rChoose{bottom:30px}
+
+/* ===== JOLLY CANDY-SKY THEME ===== */
+:root{--ink:#2d2147;--ink2:#ffffff;--ink3:#f4effd;--line:rgba(120,90,180,.16);--muted:#8a7fae;--paper:#fff7ea}
+html,body{color:#2d2147;background:linear-gradient(165deg,#ffd9ec 0%,#e6f0ff 45%,#dff7ef 75%,#fff4cf 100%) fixed}
+#skyfx{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+#skyfx .sun{position:absolute;right:-40px;top:-40px;width:170px;height:170px;border-radius:50%;background:radial-gradient(circle,#fff6b8 0 40%,rgba(255,236,150,.5) 55%,rgba(255,236,150,0) 70%);animation:sunp 6s ease-in-out infinite}
+@keyframes sunp{50%{transform:scale(1.08)}}
+#skyfx .cl{position:absolute;height:34px;border-radius:40px;background:#fff;opacity:.85;filter:drop-shadow(0 6px 8px rgba(120,140,200,.15));animation:drift linear infinite}
+#skyfx .cl::before,#skyfx .cl::after{content:"";position:absolute;background:#fff;border-radius:50%}
+#skyfx .cl::before{width:46px;height:46px;left:16px;top:-22px}#skyfx .cl::after{width:34px;height:34px;left:50px;top:-14px}
+@keyframes drift{from{transform:translateX(-160px)}to{transform:translateX(110vw)}}
+header .logo{color:#2d2147;text-shadow:0 2px 0 #fff}
+.xpchip{background:#fff;border:0;box-shadow:0 4px 0 rgba(150,120,210,.25),0 8px 18px rgba(150,120,210,.18)}
+#hUpd{background:#fff!important;border:0!important;box-shadow:0 4px 0 rgba(150,120,210,.25)}
+h2{color:#3a2a63}h2 small{color:#ff5fa2;font-weight:900}
+.card{background:#fff;border:0;border-radius:26px;box-shadow:0 7px 0 rgba(160,130,220,.18),0 14px 30px rgba(160,130,220,.16)}
+.hero{color:#fff;background:linear-gradient(135deg,#ff6fa8 0%,#ff9966 52%,#ffcf5c 100%)!important;box-shadow:0 8px 0 #e2557f,0 18px 34px rgba(255,111,168,.35)}
+.hero .ring{border-color:rgba(255,255,255,.75)}
+.hero .big{text-shadow:0 6px 0 rgba(170,40,90,.35),0 0 30px rgba(255,255,255,.6)}
+.hero .tag{background:rgba(255,255,255,.3);color:#fff}
+.hero .muted{color:rgba(255,255,255,.88)}
+.tag{background:#fff1c7;color:#b07400}
+.btn{background:#fff;border:2px solid #e9e1fb;color:#3a2a63;box-shadow:0 5px 0 #d9cff3;transition:transform .1s,box-shadow .1s}
+.btn:active{transform:translateY(4px) scale(.98);box-shadow:0 1px 0 #d9cff3}
+.btn.shu{background:linear-gradient(135deg,#ff7a8a,#ff4d6d);color:#fff;border:0;box-shadow:0 6px 0 #c9304c,0 12px 22px rgba(255,77,109,.35)}
+.btn.shu:active{box-shadow:0 2px 0 #c9304c}
+.btn.gold{box-shadow:0 5px 0 #c99a1f}.btn.jade{box-shadow:0 5px 0 #1f9b78}
+.lvchip{background:#fff;border:0;color:#3a2a63;box-shadow:0 5px 0 #e3dbf6}
+.lvchip.on{background:linear-gradient(135deg,#7b6cff,#b46bff);color:#fff;box-shadow:0 5px 0 #5a46d6,0 10px 18px rgba(123,108,255,.35)}
+.tile{box-shadow:0 7px 0 rgba(0,0,0,.14),0 14px 24px rgba(0,0,0,.12)}
+.tile:active{transform:translateY(5px) scale(.97);box-shadow:0 2px 0 rgba(0,0,0,.14)}
+.t1{background:linear-gradient(135deg,#ff8a8a,#ff4f79)}.t2{background:linear-gradient(135deg,#7fa7ff,#6a5cff)}.t3{background:linear-gradient(135deg,#5ee3b6,#21b889)}.t4{background:linear-gradient(135deg,#ffd76a,#ffa63d)}
+.tile .k{opacity:.25}
+.opt{background:#fff;border:2px solid #ece5fb;color:#3a2a63;box-shadow:0 5px 0 #ddd3f5}
+.opt:active{transform:translateY(4px);box-shadow:0 1px 0 #ddd3f5}
+.opt.ok{background:#34d399;color:#fff;border-color:#34d399;box-shadow:0 5px 0 #1f9b78}.opt.no{background:#ff5d73;color:#fff;border-color:#ff5d73;box-shadow:0 5px 0 #c9304c}
+.qhint,.expl{color:#8a7fae}
+nav{background:rgba(255,255,255,.88);border:0;box-shadow:0 8px 0 rgba(160,130,220,.18),0 16px 34px rgba(120,90,180,.22)}
+nav button{color:#9b90bd}nav button i{transition:transform .3s cubic-bezier(.3,1.8,.5,1)}
+nav button.on{background:linear-gradient(135deg,#ff7eb3,#ffa45c);color:#fff;box-shadow:0 4px 0 #e2557f}
+nav button.on i{color:#fff;transform:translateY(-3px) scale(1.15) rotate(-6deg)}
+.stat{background:#fff;border:0;box-shadow:0 5px 0 #ece5fb}
+.stat b{color:#6a5cff}
+.switch{background:#e7e1f5;border:0}.switch.on{background:#34d399}
+input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1fb;color-scheme:light}
+.chip{background:#f3eefc}
+.bar{background:#efe9fb}
+.path::before{background:#e9e1fb}.node{background:#fff;border-color:#e9e1fb;color:#9b90bd}
+#sheet .panel{background:linear-gradient(180deg,#fffaf3,#fff0f7);color:#2d2147}
+#sheet .x{background:#f3eefc}
+.fc .back{color:#fff}
+#upd .box{background:linear-gradient(180deg,#ffffff,#fff3f9);color:#2d2147}
+#lock,#ring,#slock,#updChk,.gover,#rq,#rChoose>div{color:#fff}
+#plCard,#dlCard{color:#fff}
+.sensei .bub{background:#fff;color:#3a2a63;box-shadow:0 5px 0 #ece5fb;position:relative}
+.sensei .bub::before{content:"";position:absolute;left:-8px;top:14px;border:8px solid transparent;border-right-color:#fff;border-left:0}
+.sensei .face{background:none;width:64px;height:64px;font-size:0}
+.sensei svg{width:64px;height:64px;overflow:visible}
+.catBob{animation:catBob 2.4s ease-in-out infinite;transform-origin:50% 90%}
+@keyframes catBob{50%{transform:translateY(-3px) rotate(-3deg)}}
+.catEye{animation:blink 4s infinite;transform-origin:center;transform-box:fill-box}
+@keyframes blink{0%,46%,50%,100%{transform:scaleY(1)}48%{transform:scaleY(.1)}}
+.catPaw{animation:wave 1.6s ease-in-out infinite;transform-origin:20% 90%;transform-box:fill-box}
+@keyframes wave{0%,60%,100%{transform:rotate(0)}15%,45%{transform:rotate(-24deg)}30%{transform:rotate(8deg)}}
+.pad{box-shadow:inset 0 0 0 3px rgba(255,111,168,.35),0 10px 0 rgba(160,130,220,.18),0 18px 34px rgba(160,130,220,.2)}
+.runwrap{box-shadow:0 8px 0 rgba(120,90,180,.25),0 16px 34px rgba(120,90,180,.25);border:0}
+#v-game.fs .runwrap{box-shadow:none}
+.heat div{background:#f1ebfb}
+#lock .opt{color:#fff}
+.lockq .opt{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.2);box-shadow:none;color:#fff}
 </style>
 </head>
 <body>
 <canvas id="sakura"></canvas>
+<div id="skyfx"><div class="sun"></div><div class="cl" style="top:12%;width:90px;animation-duration:48s;animation-delay:-10s"></div><div class="cl" style="top:34%;width:120px;animation-duration:64s;animation-delay:-35s;opacity:.7"></div><div class="cl" style="top:63%;width:80px;animation-duration:55s;animation-delay:-22s;opacity:.6"></div><div class="cl" style="top:86%;width:110px;animation-duration:70s;animation-delay:-50s;opacity:.55"></div></div>
 
 <div id="app">
   <header>
@@ -254,7 +325,15 @@ select{font-family:inherit;font-size:15px;font-weight:700;background:var(--ink3)
           <div class="tiny muted" style="margin-top:10px" id="kotdL">JLPT N5</div>
         </div>
       </div>
-      <div class="sensei"><div class="face">🐱</div><div class="bub" id="senseiTalk">Okaeri! Ready to train?</div></div>
+      <div class="sensei"><div class="face"><svg viewBox="0 0 64 64" class="catBob"><ellipse cx="32" cy="60" rx="18" ry="3" fill="rgba(120,90,180,.18)"/>
+<path d="M14 22 L18 4 L28 16 Z M50 22 L46 4 L36 16 Z" fill="#2b59c3"/><path d="M17 18 L19 9 L25 16 Z M47 18 L45 9 L39 16 Z" fill="#ff9eb5"/>
+<circle cx="32" cy="32" r="22" fill="#2b59c3"/><ellipse cx="32" cy="37" rx="16" ry="13" fill="#ffe3c7"/>
+<rect x="10" y="20" width="44" height="7" rx="3" fill="#ff4d6d"/><path d="M52 23 q8 -2 10 4 q-6 0 -10 -1z" fill="#ff4d6d"/>
+<ellipse class="catEye" cx="25" cy="35" rx="3" ry="3.6" fill="#2d2147"/><ellipse class="catEye" cx="39" cy="35" rx="3" ry="3.6" fill="#2d2147"/>
+<circle cx="26" cy="33.8" r="1" fill="#fff"/><circle cx="40" cy="33.8" r="1" fill="#fff"/>
+<ellipse cx="20" cy="41" rx="3" ry="1.8" fill="#ffb3c6"/><ellipse cx="44" cy="41" rx="3" ry="1.8" fill="#ffb3c6"/>
+<path d="M29 41 q3 3 6 0" stroke="#2d2147" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M31 39 l1 1 l1 -1z" fill="#ff6f91"/>
+<g class="catPaw"><ellipse cx="55" cy="44" rx="5" ry="6" fill="#2b59c3"/><ellipse cx="55" cy="45" rx="3" ry="3.2" fill="#ffe3c7"/></g></svg></div><div class="bub" id="senseiTalk">Okaeri! Ready to train?</div></div>
       <h2><small>CHOOSE YOUR LEVEL</small>レベル</h2>
       <div class="levels" id="levels"></div>
       <div class="grid2">
@@ -335,7 +414,7 @@ select{font-family:inherit;font-size:15px;font-weight:700;background:var(--ink3)
       <h2><small>KANJI ALARM</small>目覚まし</h2>
       <div class="card" style="text-align:center">
         <div class="clock" id="aClock">00:00<small>:00</small></div>
-        <div class="muted tiny" style="margin-top:6px">To turn it off you must answer <b style="color:#fff">20 kanji</b> correctly</div>
+        <div class="muted tiny" style="margin-top:6px">To turn it off you must answer <b>20 kanji</b> correctly</div>
       </div>
       <div class="card">
         <div class="row" style="margin-bottom:12px"><div class="grow"><b>Wake-up time</b><div class="tiny muted" id="aStatus">Off</div></div><button class="switch" id="aSwitch"></button></div>
@@ -350,7 +429,7 @@ select{font-family:inherit;font-size:15px;font-weight:700;background:var(--ink3)
       <div class="card" id="slCard" style="border-color:rgba(122,168,255,.35)">
         <div class="row"><div class="grow"><b>📵 Study Lock</b><div class="tiny muted" id="slStatus">Every hour, 20 kanji questions pop up over any app. Other apps stay blocked until you finish.</div></div><button class="switch" id="slSwitch"></button></div>
         <div class="row" style="margin-top:12px"><span class="tiny muted grow">Pop up every</span><select id="slInterval"><option value="30">30 min</option><option value="60" selected>1 hour</option><option value="90">1.5 hours</option><option value="120">2 hours</option></select></div>
-        <div class="tiny muted" style="margin-top:10px">Questions use your current level: <b style="color:#fff" id="slLv">N5</b> (change it on the Learn tab)</div>
+        <div class="tiny muted" style="margin-top:10px">Questions use your current level: <b id="slLv">N5</b> (change it on the Learn tab)</div>
         <div id="slPerms" style="margin-top:12px;display:flex;flex-direction:column;gap:8px"></div>
         <button class="btn full" id="slTest" style="margin-top:12px">Try Study Lock now</button>
       </div>
@@ -1052,7 +1131,7 @@ function w3Build(){const gl=E3.gl;
  for(let k=0;k<10;k++){const sd=k%2?1:-1,z=-H3(k*7+1)*20;m.cone(sd*(1.55+H3(k)*0.2),0.06,z,0.06,0.14,"#5d9b3a",6);m.cone(sd*(1.6+H3(k)*0.2),0.06,z-0.1,0.05,0.11,"#6fae45",6)}
  W3.trackx=m.build(gl);
  // scenery chunks
- W3.scen=[0,1,2,3].map(vi=>{let seed=vi*97+5;const R=()=>H3(seed++);const base=new MB(),fac=[0,1,2,3,4].map(()=>new MB()),shop=[0,1,2,3,4,5].map(()=>new MB()),wall=new MB(),fence=new MB(),vend=[new MB(),new MB()],conc=new MB();
+ W3.scen=[0,1,2,3].map(vi=>{let seed=vi*97+5;const R=()=>H3(seed++);const glow=new MB(),signs=new MB(),base=new MB(),fac=[0,1,2,3,4].map(()=>new MB()),shop=[0,1,2,3,4,5].map(()=>new MB()),wall=new MB(),fence=new MB(),vend=[new MB(),new MB()],conc=new MB();
   for(const sd of[-1,1]){
    const wx0=sd<0?-2.1:1.95,wx1=sd<0?-1.95:2.1;wall.box(wx0,0,-40,wx1,0.85,0,"#ffffff",null,{r:[0,0,20,0.85],l:[0,0,20,0.85],t:[0,0,0.1,20]});
    const fx=sd*2.02;fence.quad([fx,0.85,0],[fx,0.85,-40],[fx,1.75,-40],[fx,1.75,0],[-sd,0,0],[1,1,1],[0,0,40,1]);
@@ -1063,13 +1142,27 @@ function w3Build(){const gl=E3.gl;
     if(R()>0.4){base.cyl((X0+X1)/2,h,(z0+z1)/2,0.45,0.9,"#d4d8dd",12);base.cyl((X0+X1)/2,h+0.9,(z0+z1)/2,0.47,0.06,"#9aa0a8",12)}
     for(let k=0;k<2;k++)if(R()>0.4)base.box(X0+0.3+R()*(X1-X0-1),h,z1+0.4+R()*(len-1.5),X0+0.9+R()*(X1-X0-1),h+0.45,z1+0.9+R()*(len-1.5),"#e9eaec");
     if(hasShop){shop[shopSt].box(X0,0,z1,X1,yb,z0,"#ffffff",{t:"#666"},{r:[0,0,len/3,1],l:[0,0,len/3,1],f:[0,0,(X1-X0)/3,1]});base.box(sd<0?X1:X0-0.6,2.25,z1+0.1,sd<0?X1+0.6:X0,2.35,z0-0.1,"#5b6270")}
+    {const xi=sd<0?X1:X0,out=-sd,cols=["#e8452c","#2f80ed","#27ae60","#f2994a","#9b51e0","#d81b60"];
+     if(st!==1&&h-yb>2.5)for(let fy=yb+2.2;fy<h-0.6;fy+=3){const bx1=xi+out*0.38,lo=Math.min(xi,bx1),hi=Math.max(xi,bx1);base.box(lo,fy,z1+0.35,hi,fy+0.09,z0-0.35,"#ecebe6",{d:"#b9b8b3"});
+      base.box(bx1-0.03,fy+0.09,z1+0.35,bx1+0.03,fy+0.78,z0-0.35,"#8fb3cf",{t:"#f4f4f2"});base.box(bx1-0.035,fy+0.76,z1+0.33,bx1+0.035,fy+0.82,z0-0.33,"#f4f4f2");
+      for(const ez of[z1+0.36,z0-0.36])base.box(lo,fy+0.09,ez-0.03,hi,fy+0.8,ez+0.03,"#e2e2de");
+      if(R()>0.35){const az=z1+0.6+R()*(len-1.8);base.box(xi+out*0.06-0.001,fy+0.09,az,xi+out*0.33,fy+0.42,az+0.42,"#f2f2ef",{f:"#d8d8d4"})}}
+     if(hasShop){const c=cols[shopSt];const n=Math.max(3,Math.round(len/0.6));for(let i=0;i<n;i++){const za=z0-0.15-i*(len-0.3)/n,zb=za-(len-0.3)/n;const col=hexc(i%2?"#ffffff":c);base.quad([xi,2.45,za],[xi,2.45,zb],[xi+out*0.75,2.05,zb],[xi+out*0.75,2.05,za],[out*0.4,0.9,0],col);base.quad([xi+out*0.75,2.05,za],[xi+out*0.75,2.05,zb],[xi+out*0.75,1.9,zb],[xi+out*0.75,1.9,za],[out,0,0],col)}
+      if(R()>0.35)for(const lz of[z0-0.7,z1+0.7]){const lx=xi+out*0.5;glow.sph(lx,1.62,lz,0.16,"#ff3b2f",1,1.3,1,12);base.box(lx-0.09,1.82,lz-0.09,lx+0.09,1.87,lz+0.09,"#1d1d1d");base.box(lx-0.09,1.37,lz-0.09,lx+0.09,1.42,lz+0.09,"#1d1d1d");base.box(lx-0.005,1.87,lz-0.005,lx+0.005,2.05,lz+0.005,"#1d1d1d")}
+      if(R()>0.45){const fz=z0-0.3,fx=xi+out*1.05,fc=cols[(shopSt+2)%6];base.cyl(fx,0,fz,0.025,2.0,"#e6e6e6",6);base.quad([fx,0.5,fz+0.02],[fx,0.5,fz-0.38],[fx,1.95,fz-0.38],[fx,1.95,fz+0.02],[out,0,0],hexc(fc));base.quad([fx+out*0.005,1.6,fz+0.02],[fx+out*0.005,1.6,fz-0.38],[fx+out*0.005,1.7,fz-0.38],[fx+out*0.005,1.7,fz+0.02],[out,0,0],hexc("#ffffff"))}}
+     if(h>5&&R()>0.4){const vx=xi+out*0.45,vz=z0-0.2,ci=(R()*8)|0;base.box(xi,yb+1.0,vz-0.05,vx+out*0.0,yb+1.05,vz+0.05,"#555");
+      base.box(Math.min(vx-0.27,vx+0.27),yb+0.9,vz-0.06,Math.max(vx-0.27,vx+0.27),yb+3.1,vz+0.06,"#1d1d22");for(let k=0;k<3;k++){const c2=(ci+k*3)%8,yy=yb+2.38-k*0.7;signs.quad([vx-0.24,yy,vz+0.065],[vx+0.24,yy,vz+0.065],[vx+0.24,yy+0.66,vz+0.065],[vx-0.24,yy+0.66,vz+0.065],[0,0,1],[1,1,1],[c2/8,0.5,(c2+1)/8,1])}}
+     if(R()>0.5){const bz=z0-0.25,cx=(X0+X1)/2,ci=(R()*8)|0,bw=Math.min(1.7,(X1-X0)*0.45);for(const px of[cx-bw*0.6,cx+bw*0.6])base.box(px-0.04,h+0.25,bz-0.3,px+0.04,h+1.0,bz-0.22,"#4a4d55");
+      base.box(cx-bw-0.08,h+0.95,bz-0.08,cx+bw+0.08,h+0.95+bw*2+0.16,bz,"#2b2d33");signs.quad([cx-bw,h+1.03,bz+0.005],[cx+bw,h+1.03,bz+0.005],[cx+bw,h+1.03+bw*2,bz+0.005],[cx-bw,h+1.03+bw*2,bz+0.005],[0,0,1],[1,1,1],[ci/8,0.5,(ci+1)/8,1])}
+     if(R()>0.5){const ax=X0+0.4+R()*(X1-X0-0.8),az=(z0+z1)/2;base.cyl(ax,h+0.25,az,0.02,1.4,"#9aa0a8",6);base.box(ax-0.3,h+1.3,az-0.01,ax+0.3,h+1.32,az+0.01,"#9aa0a8")}
+     for(const rz of[z0-0.02,z1+0.02])base.box(X0,h+0.25,rz-0.02,X1,h+0.5,rz+0.02,"#c9ccd1");}
     if(R()>0.55){const vz=z0-0.5-R()*(len-2),vx=sd*2.55;vend[R()>0.5?1:0].box(vx-0.32,0,vz-0.38,vx+0.32,1.55,vz,"#ffffff",{t:"#ddd",d:"#ddd"},{f:[0,0,1,1],r:[0,0,1,1],l:[0,0,1,1]})}
     z+=len}
    for(let k=0;k<4;k++){const pz=-k*10-2,px=sd*2.35;conc.cyl(px,0,pz,0.09,4.2,"#ffffff",10,0.07);base.box(px-0.55,3.75,pz-0.04,px+0.55,3.83,pz+0.04,"#4a4d55");for(const ix of[-0.45,0,0.45])base.cyl(px+ix,3.83,pz,0.035,0.09,"#f2f2f2",6);base.box(px-0.25,3.2,pz-0.14,px+0.25,3.55,pz+0.14,"#8a8f99")}
    for(const ix of[-0.45,0,0.45])base.box(sd*2.35+ix-0.01,3.9,-40,sd*2.35+ix+0.01,3.915,0,"#25262c");
    for(let k=0;k<3;k++){if(R()<0.4)continue;const tz=-k*13-6-R()*4,tx=sd*(2.6+R()*0.25);base.cyl(tx,0,tz,0.09,1.6,"#6b4228",8,0.06);const pinks=["#ffc2d6","#ffadc8","#ffd6e4","#f99bbd"];
     [[0,2.1,0,0.85],[-0.55,1.8,0.25,0.62],[0.55,1.85,-0.2,0.66],[0,2.55,-0.3,0.6],[0.25,2.0,0.55,0.58],[-0.3,2.4,0.4,0.5]].forEach(([dx,dy,dz,r])=>base.sph(tx+dx,dy,tz+dz,r,pinks[(R()*4)|0],1,0.82,1,10))}}
-  return{base:base.build(gl),fac:fac.map(b=>b.p.length?b.build(gl):null),shop:shop.map(b=>b.p.length?b.build(gl):null),wall:wall.build(gl),fence:fence.build(gl),vend:vend.map(b=>b.p.length?b.build(gl):null),conc:conc.build(gl)}});
+  return{glow:glow.p.length?glow.build(gl):null,signs:signs.p.length?signs.build(gl):null,base:base.build(gl),fac:fac.map(b=>b.p.length?b.build(gl):null),shop:shop.map(b=>b.p.length?b.build(gl):null),wall:wall.build(gl),fence:fence.build(gl),vend:vend.map(b=>b.p.length?b.build(gl):null),conc:conc.build(gl)}});
  m=new MB();for(let i=0;i<70;i++){const sd=i%2?1:-1,x=sd*(14+H3(i)*45),z=-30-H3(i+50)*130,h=8+H3(i+9)*40,w=4+H3(i+3)*8;m.box(x-w/2,0,z-w/2,x+w/2,h,z+w/2,["#c4d0e6","#d3dbec","#b7c4de","#e0e6f2","#aebcd8"][i%5])}W3.skyline=m.build(gl);
  // trains: textured sides + front + details
  W3.train={};TRAIN_LENS.forEach(L=>{const b=new MB(),f=new MB(),d=new MB(),e=new MB(),w=0.43,H=1.55,y0=0.26;const n=Math.max(1,Math.round(L/5)),cl=L/n,gap=0.22;
@@ -1094,12 +1187,18 @@ function w3Build(){const gl=E3.gl;
  for(let k=1;k<6;k++){const z=1.9-k*0.32,y=1.55*(k*0.32/1.9);m.box(-rw,y-0.005,z-0.05,rw,y+0.03,z+0.05,"#1d1d1d")}W3.ramp=m.build(gl);
  W3.cloudQ=(()=>{const q=new MB();q.quad([-1,-0.5,0],[1,-0.5,0],[1,0.5,0],[-1,0.5,0],[0,0,1],[1,1,1],[0,0,1,1]);return q.build(gl)})();
  // barriers
- m=new MB();for(const sx of[-0.38,0.38]){m.box(sx-0.05,0,-0.05,sx+0.05,0.7,0.05,"#3a3f48");m.box(sx-0.14,0,-0.18,sx+0.14,0.05,0.18,"#2a2d33")}W3.lowPost=m.build(gl);
- m=new MB();for(const[y0,y1] of[[0.5,0.68],[0.26,0.42]])m.box(-0.48,y0,-0.04,0.48,y1,0.04,"#ffffff",null,{f:[0,0,3,1],b:[0,0,3,1]});W3.lowBoard=m.build(gl);
- m=new MB();m.sph(0,0,0,0.055,"#ffffff",1,1,1,10);W3.lamp=m.build(gl);
- m=new MB();for(const sx of[-0.44,0.44]){m.box(sx-0.05,0,-0.05,sx+0.05,1.75,0.05,"#3a3f48");m.box(sx-0.14,0,-0.18,sx+0.14,0.05,0.18,"#2a2d33")}W3.highPost=m.build(gl);
- m=new MB();m.box(-0.5,1.35,-0.05,0.5,1.62,0.05,"#ffffff",null,{f:[0,0,3,1],b:[0,0,3,1]});W3.highBoard=m.build(gl);
- m=new MB();m.quad([-0.34,1.12,0.06],[0.34,1.12,0.06],[0.34,1.32,0.06],[-0.34,1.32,0.06],[0,0,1],[1,1,1],[0,0,1,1]);m.box(-0.36,1.1,0.02,0.36,1.34,0.055,"#111");W3.highSign=m.build(gl);
+ m=new MB();for(const sx of[-0.4,0.4]){for(const dz of[-1,1]){m.tf=M4.chain(M4.T(sx,0,dz*0.2),M4.RX(dz*0.32));m.box(-0.04,0,-0.035,0.04,0.78,0.035,"#f0f0f0",{f:"#d8d8d8"});m.tf=null}m.box(sx-0.1,0,-0.3,sx+0.1,0.07,0.3,"#ff7a1a",{t:"#ff9440"})}
+  m.box(-0.08,0.02,-0.12,0.08,0.12,0.12,"#c9a46a");m.box(-0.36,0.02,-0.1,-0.2,0.1,0.1,"#c9a46a");m.box(0.2,0.02,-0.1,0.36,0.1,0.1,"#c9a46a");W3.lowPost=m.build(gl);
+ m=new MB();for(const[y0,y1] of[[0.5,0.76],[0.2,0.42]])m.box(-0.5,y0,-0.06,0.5,y1,0.06,"#ffffff",{t:"#e6e6e6",d:"#cccccc"},{f:[0,0,3.2,1],b:[0,0,3.2,1]});
+  m.cyl(0,0.62,0.07,0.15,0.03,"#e8202a",20);W3.lowBoard=m.build(gl);
+ m=new MB();m.tf=M4.RX(Math.PI/2);m.cyl(0,0.095,0,0.12,0.01,"#ffffff",20);m.tf=null;W3.lowStop=m.build(gl);
+ W3.stopTex=e3Tex((x,w,h)=>{x.fillStyle="#e8202a";x.beginPath();x.arc(64,64,62,0,7);x.fill();x.strokeStyle="#fff";x.lineWidth=8;x.beginPath();x.arc(64,64,54,0,7);x.stroke();x.fillStyle="#fff";x.font='900 74px "Shippori Mincho B1",serif';x.textAlign="center";x.textBaseline="middle";x.fillText("止",64,70)});
+ m=new MB();m.sph(0,0,0,0.075,"#ffffff",1,1,1,12);W3.lamp=m.build(gl);
+ m=new MB();for(const sx of[-0.46,0.46]){for(let k=0;k<9;k++)m.box(sx-0.055,k*0.2,-0.055,sx+0.055,k*0.2+0.2,0.055,k%2?"#1d1d1d":"#ffd400");m.box(sx-0.15,0,-0.2,sx+0.15,0.06,0.2,"#2a2d33")}W3.highPost=m.build(gl);
+ m=new MB();m.box(-0.56,1.42,-0.07,0.56,1.78,0.07,"#ffffff",{t:"#dcdcdc",d:"#bbbbbb"},{f:[0,0,3.4,1],b:[0,0,3.4,1]});
+  const pc=["#ff3fa4","#ffd400","#1ab2ff","#7cff4f","#ff7a00","#b76bff"];for(let i=0;i<9;i++){const x0=-0.5+i*0.111,x1=x0+0.1;m.quad([x0,1.42,0.075],[x1,1.42,0.075],[(x0+x1)/2,1.24,0.075],[(x0+x1)/2,1.24,0.075],[0,0,1],hexc(pc[i%6]));m.quad([x0,1.42,-0.075],[x1,1.42,-0.075],[(x0+x1)/2,1.24,-0.075],[(x0+x1)/2,1.24,-0.075],[0,0,-1],hexc(pc[i%6]))}
+  W3.highBoard=m.build(gl);
+ m=new MB();m.quad([-0.42,1.83,0.06],[0.42,1.83,0.06],[0.42,2.13,0.06],[-0.42,2.13,0.06],[0,0,1],[1,1,1],[0,0,1,1]);m.box(-0.45,1.8,0.0,0.45,2.16,0.055,"#111");W3.highSign=m.build(gl);
  // coin, pow, shadow, gate, torii
  m=new MB();m.tf=M4.RX(Math.PI/2);m.capUV=true;m.cyl(0,-0.05,0,0.25,0.1,"#ffb000",24);m.capUV=false;m.cyl(0,-0.055,0,0.255,0.11,"#e08a00",24,0.255);W3.coin=m.build(gl);
  m=new MB();m.sph(0,0,0,0.26,"#ffffff",1,1,1,14);W3.orb=m.build(gl);
@@ -1145,12 +1244,12 @@ function draw3D(){const gl=E3.gl,c=$("#run3d");if(c.width!==Math.round(RW*DPR)||
  e3Draw(W3.skyline,M4.T(0,0,0),{});
  const off=d%20;for(let i=-1;i<6;i++){const M=M4.T(0,0,-(i*20-off));e3Draw(W3.grass,M,{tex:W3.T.grass});e3Draw(W3.bed,M,{tex:W3.T.ballast});e3Draw(W3.sleep,M,{tex:W3.T.concrete,spec:0.15});e3Draw(W3.rails,M,{spec:1.1,shin:70});e3Draw(W3.trackx,M,{spec:0.35,shin:30})}
  const off2=d%40,base=Math.floor(d/40);const fences=[];for(let i=-1;i<3;i++){const S=W3.scen[Math.floor(H3(base+i)*4)],M=M4.T(0,0,-(i*40-off2));
-  e3Draw(S.base,M,{spec:0.15});e3Draw(S.wall,M,{tex:W3.T.wall});e3Draw(S.conc,M,{tex:W3.T.concrete});S.fac.forEach((f,k)=>f&&e3Draw(f,M,{tex:W3.T.facade[k],spec:0.25,shin:40}));S.shop.forEach((f,k)=>f&&e3Draw(f,M,{tex:W3.T.shop[k],spec:0.2}));S.vend.forEach((f,k)=>f&&e3Draw(f,M,{tex:W3.T.vend[k],spec:0.4}));fences.push([S.fence,M])}
+  e3Draw(S.base,M,{spec:0.15});if(S.glow)e3Draw(S.glow,M,{emis:0.55,spec:0.6});if(S.signs)e3Draw(S.signs,M,{tex:W3.atlas,emis:0.65});e3Draw(S.wall,M,{tex:W3.T.wall});e3Draw(S.conc,M,{tex:W3.T.concrete});S.fac.forEach((f,k)=>f&&e3Draw(f,M,{tex:W3.T.facade[k],spec:0.25,shin:40}));S.shop.forEach((f,k)=>f&&e3Draw(f,M,{tex:W3.T.shop[k],spec:0.2}));S.vend.forEach((f,k)=>f&&e3Draw(f,M,{tex:W3.T.vend[k],spec:0.4}));fences.push([S.fence,M])}
  const trans=[];
  for(const o of RUN.objs){if(o.z>95)continue;const l=o.lane;
   if(o.t==="train"){const L=o.L,tr=W3.train[L]||W3.train[10];if(o.z+L<-4)continue;const M=M4.T(l,0,-o.z);const ci=o.ci||0;e3Draw(tr.b,M,{tex:W3.T.trainSide[ci],spec:0.8,shin:50});e3Draw(tr.f,M,{tex:W3.T.trainFront[ci],spec:0.9,shin:70});e3Draw(tr.d,M,{spec:0.5,shin:40});e3Draw(tr.e,M,{emis:1});if(o.ramp)e3Draw(W3.ramp,M,{spec:0.3});trans.push(()=>e3Draw(W3.shadow,M4.chain(M4.T(l,0.215,-o.z-L/2),M4.S(1.25,1,L+0.6)),{tex:W3.shadowTex,emis:1,alpha:0.8}))}
-  else if(o.t==="low"&&!o.hit){const M=M4.T(l,0,-o.z);e3Draw(W3.lowPost,M,{spec:0.4});e3Draw(W3.lowBoard,M,{tex:W3.T.stripes,spec:0.5,shin:30});const on=Math.sin(t*9+o.z)>0;for(const sx of[-0.38,0.38])e3Draw(W3.lamp,M4.chain(M,M4.T(sx,0.76,0)),{tint:on?[1,0.55,0.05]:[0.45,0.2,0.05],emis:on?1:0.3})}
-  else if(o.t==="high"&&!o.hit){const M=M4.T(l,0,-o.z);e3Draw(W3.highPost,M,{spec:0.4});e3Draw(W3.highBoard,M,{tex:W3.T.stripes,spec:0.5,shin:30});e3Draw(W3.highSign,M,{tex:W3.T.sign,emis:0.25});const on=Math.sin(t*9+o.z)>0;for(const sx of[-0.44,0.44])e3Draw(W3.lamp,M4.chain(M,M4.T(sx,1.8,0)),{tint:on?[1,0.55,0.05]:[0.45,0.2,0.05],emis:on?1:0.3})}
+  else if(o.t==="low"&&!o.hit){const M=M4.T(l,0,-o.z);e3Draw(W3.lowPost,M,{spec:0.4});e3Draw(W3.lowBoard,M,{tex:W3.T.stripes,spec:0.6,shin:30});e3Draw(W3.lowStop,M4.chain(M,M4.T(0,0.62,0)),{tex:W3.stopTex,emis:0.35});const on=Math.sin(t*9+o.z)>0;[-0.42,0,0.42].forEach((sx,i)=>e3Draw(W3.lamp,M4.chain(M,M4.T(sx,0.86,0)),{tint:(on^(i===1))?[1,0.6,0.05]:[0.45,0.22,0.05],emis:(on^(i===1))?1:0.3}))}
+  else if(o.t==="high"&&!o.hit){const M=M4.T(l,0,-o.z);e3Draw(W3.highPost,M,{spec:0.5,shin:30});e3Draw(W3.highBoard,M,{tex:W3.T.stripes,spec:0.6,shin:30});e3Draw(W3.highSign,M,{tex:W3.T.sign,emis:0.5});const on=Math.sin(t*9+o.z)>0;for(const sx of[-0.46,0.46])e3Draw(W3.lamp,M4.chain(M,M4.T(sx,1.86,0)),{tint:on?[1,0.6,0.05]:[0.45,0.22,0.05],emis:on?1:0.3})}
   else if(o.t==="coin"&&!o.hit){const x=o.fx!==undefined?o.fx:l,y=o.h+Math.sin(t*4+o.z)*0.06;e3Draw(W3.coin,M4.chain(M4.T(x,y,-o.z),M4.RY(t*6+o.z*0.7)),{tex:W3.T.coin,emis:0.38,spec:1.6,shin:28});if(o.z<40)trans.push(()=>e3Draw(W3.card,M4.chain(M4.T(x,y,-o.z+0.15),M4.S(0.95)),{tex:W3.T.sun,tint:[1,0.82,0.25],emis:1,alpha:0.55}))}
   else if(o.t==="pow"&&!o.hit){const y=o.h+Math.sin(t*3)*0.1;e3Draw(W3.orb,M4.T(l,y,-o.z),{tint:hexc({mag:"#ff5a5a",jump:"#3ec7ff",shield:"#7be36b"}[o.kind]),emis:0.45});trans.push(()=>e3Draw(W3.card,M4.chain(M4.T(l,y,-o.z+0.3),M4.S(0.45)),{tex:W3.icons[o.kind],emis:1,alpha:1}))}
   else if(o.t==="torii")e3Draw(W3.torii,M4.T(0,0,-o.z),{});
@@ -1493,7 +1592,7 @@ function renderSL(){const c=slCfg();$("#slSwitch").classList.toggle("on",!!c.on)
  if(!IS_APK)st.textContent="In the Android app, 20 kanji pop up over any app every "+slLabel()+". Tap the button below to preview it here.";
  else if(c.on){const m=Math.round((c.next-Date.now())/60000);st.textContent=m>0?"On · next quiz in about "+m+" min":"On · the quiz will pop up any moment"}
  else st.textContent="Off · turn on and the countdown starts. Every "+slLabel()+", 20 kanji pop up over any app.";
- $("#slPerms").innerHTML=IS_APK?'<div class="tiny" style="line-height:1.6;background:rgba(0,0,0,.22);border-radius:12px;padding:10px 12px"><b style="color:var(--gold)">Needed so it can pop up over other apps:</b><br>1. Allow <b>"Display over other apps"</b> <button class="btn sm gold" id="slPerm" style="padding:4px 10px;margin-left:4px">Open</button><br>2. Xiaomi / Redmi / POCO: <b>App info → Other permissions</b> → allow <b>"Display pop-up windows while running in the background"</b>, and turn on <b>Autostart</b>.</div>':"";
+ $("#slPerms").innerHTML=IS_APK?'<div class="tiny" style="line-height:1.6;background:#fff6db;border-radius:12px;padding:10px 12px"><b style="color:#b07400">Needed so it can pop up over other apps:</b><br>1. Allow <b>"Display over other apps"</b> <button class="btn sm gold" id="slPerm" style="padding:4px 10px;margin-left:4px">Open</button><br>2. Xiaomi / Redmi / POCO: <b>App info → Other permissions</b> → allow <b>"Display pop-up windows while running in the background"</b>, and turn on <b>Autostart</b>.</div>':"";
  const pb=$("#slPerm");if(pb)pb.onclick=()=>native("perm");
  $("#slTest").textContent=IS_APK?"⏱ Test: pop up over apps in 1 minute":"Preview Study Lock"}
 $("#slSwitch").onclick=()=>{const c=slCfg();if(!IS_APK){toast("Study Lock pops up over other apps in the Android app. Tap Preview to try it here.");return}

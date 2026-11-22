@@ -1,13 +1,14 @@
 {
-  "build": 14,
-  "version": "1.6.3",
+  "build": 15,
+  "version": "1.7",
   "file": "app.html",
-  "size": 172436,
+  "size": 184062,
   "minNative": 6,
   "notes": [
-    "🔇 Background music now stops when you leave the app or turn off the screen, and comes back when you return to the game",
-    "🛤️ New track: rust-brown steel rails with clips on every sleeper, cable troughs, signal beacons and overhead power-line gantries",
-    "🚃 New trains: multiple cars with gangways, rounded roofs, slanted cab fronts with LED display and lights, pantographs, AC units and passengers in the windows"
+    "🌈 Brand-new jolly look: candy-sky background with floating clouds, chunky bouncy buttons, a candy nav bar and an animated cat sensei who blinks and waves",
+    "🏙️ Livelier city: 3D balconies, striped shop awnings, glowing red lanterns, nobori flags, vertical kanji signboards and rooftop billboards",
+    "🚧 New barriers: A-frame barricades with a 止 sign and blinking lights, plus ROLL gates with party pennants",
+    "🛤️🚃 Includes the new rails, power-line gantries and multi-car trains"
   ],
   "native": {
     "build": 6,
