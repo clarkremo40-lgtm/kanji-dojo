@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <script>
-var KD_BUILD=17,KD_VER="1.7.2",KD_NATIVE=6;
+var KD_BUILD=18,KD_VER="1.8",KD_NATIVE=6;
 (function(){try{if(window.__KD_SWAP)return;var ls=localStorage;
  if(location.href.indexOf("file:///android_asset")===0)ls.setItem("kd_native",String(KD_NATIVE));
  var b=+(ls.getItem("kd_build")||0),h=ls.getItem("kd_html");
@@ -231,6 +231,71 @@ select{font-family:inherit;font-size:15px;font-weight:700;background:var(--ink3)
 #v-game.fs .runwrap{position:fixed;inset:0;height:100%;min-height:0;border-radius:0;z-index:85;border:0}
 #v-game.fs .ctrls{position:fixed;left:10px;right:10px;bottom:12px;z-index:86;margin:0;opacity:.85}
 #v-game.fs #rChoose{bottom:30px}
+
+
+
+.lvup{position:relative;padding-top:6px;overflow:hidden}
+.lvup-rays{position:absolute;left:50%;top:70px;width:520px;height:520px;margin:-260px;background:repeating-conic-gradient(rgba(255,200,80,.18) 0 10deg,transparent 10deg 20deg);animation:spin 14s linear infinite;pointer-events:none}
+.lvup-badges{position:relative;display:flex;align-items:center;justify-content:center;gap:14px;margin-top:18px}
+.lvup-badges span{display:grid;place-items:center;width:78px;height:78px;border-radius:24px;font-size:28px;font-weight:900;color:#fff}
+.lvup-badges .b1{background:linear-gradient(135deg,#b7aedd,#8a7fae);transform:rotate(-8deg) scale(.9);opacity:.8}
+.lvup-badges .b2{background:linear-gradient(135deg,#7b6cff,#ff6fa8);box-shadow:0 8px 0 #5a46d6,0 0 34px rgba(255,111,168,.6);animation:lvPop .9s cubic-bezier(.2,1.8,.4,1) both .2s}
+.lvup-badges .arr{width:auto;height:auto;color:#ff6fa8;font-size:30px;animation:arrMove 1s ease-in-out infinite}
+@keyframes lvPop{from{transform:scale(0) rotate(-40deg)}to{transform:scale(1.08) rotate(6deg)}}
+@keyframes arrMove{50%{transform:translateX(6px)}}
+.lvup-stamp{position:absolute;right:18px;top:8px;border:4px solid #e8202a;color:#e8202a;border-radius:12px;padding:2px 10px;font-family:"Shippori Mincho B1";font-weight:800;font-size:26px;transform:rotate(14deg);animation:stampHit2 .6s cubic-bezier(.2,1.6,.4,1) both .6s}
+@keyframes stampHit2{from{transform:scale(2.5) rotate(30deg);opacity:0}to{transform:scale(1) rotate(14deg);opacity:1}}
+
+/* ===== GORGEOUS LOCK SCREEN ===== */
+#lock{background:#120b2e!important}
+#lock .aur{position:absolute;inset:-20%;pointer-events:none;filter:blur(55px) saturate(1.3);opacity:.85}
+#lock .aur i{position:absolute;width:75vmax;height:75vmax;border-radius:50%;mix-blend-mode:screen;animation:aur 16s ease-in-out infinite alternate}
+#lock .aur .a1{background:radial-gradient(circle,#ff4fa3 0,rgba(255,79,163,0) 62%);left:-25%;top:-10%}
+#lock .aur .a2{background:radial-gradient(circle,#31c8ff 0,rgba(49,200,255,0) 62%);right:-30%;top:15%;animation-duration:20s;animation-delay:-6s}
+#lock .aur .a3{background:radial-gradient(circle,#8a5cff 0,rgba(138,92,255,0) 62%);left:5%;bottom:-35%;animation-duration:24s;animation-delay:-12s}
+@keyframes aur{0%{transform:translate(0,0) scale(1)}50%{transform:translate(12vw,8vh) scale(1.15)}100%{transform:translate(-8vw,-6vh) scale(.92)}}
+#lock .lfloat{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+#lock .lfloat span{position:absolute;bottom:-60px;font-family:"Shippori Mincho B1";color:rgba(255,255,255,.14);animation:rise linear infinite;text-shadow:0 0 12px rgba(255,255,255,.25)}
+@keyframes rise{from{transform:translateY(0) rotate(0)}to{transform:translateY(-120vh) rotate(25deg)}}
+#lock .wm{color:rgba(255,255,255,.035)}
+#lock .lockic2{margin-top:calc(16px + env(safe-area-inset-top,0px));width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);box-shadow:0 0 0 6px rgba(255,255,255,.05),0 0 30px rgba(255,111,168,.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);position:relative;z-index:2;animation:lkPulse 2.6s ease-in-out infinite}
+@keyframes lkPulse{50%{box-shadow:0 0 0 10px rgba(255,255,255,.03),0 0 42px rgba(255,111,168,.7)}}
+#lock .lockic2 .shk{transition:transform .5s cubic-bezier(.3,1.8,.5,1);transform-origin:30px 22px}
+#lock .lockic2.open .shk{transform:translateY(-6px) rotate(28deg)}
+#lock .lockic2.open{animation:none;box-shadow:0 0 0 10px rgba(52,211,153,.12),0 0 50px rgba(52,211,153,.8);border-color:rgba(52,211,153,.8)}
+#lock .lt{margin-top:3vh;z-index:2}
+#lock .lt .d{display:inline-block;padding:6px 14px;border-radius:99px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-size:14px;opacity:1;margin-bottom:8px}
+#lock .lt .t{font-size:min(104px,27vw);letter-spacing:-4px;background:linear-gradient(180deg,#ffffff 30%,#ffd1ea 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 6px 24px rgba(255,111,168,.45));text-shadow:none}
+#lock .notif{z-index:2;background:linear-gradient(rgba(255,255,255,.14),rgba(255,255,255,.08)) padding-box,linear-gradient(120deg,rgba(255,255,255,.55),rgba(255,111,168,.6),rgba(49,200,255,.6)) border-box;border:1.5px solid transparent;box-shadow:0 12px 40px rgba(0,0,0,.25)}
+#lock .lcat{flex:none;width:46px;height:46px;animation:catBob 2.4s ease-in-out infinite}#lock .lcat svg{width:46px;height:46px}
+#lock .dots{z-index:2;gap:14px;margin-top:18px}
+#lock .dots i{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.08);border:2px dashed rgba(255,255,255,.35);display:grid;place-items:center;transition:.3s;box-shadow:none;transform:none}
+#lock .dots i b{font-family:"Shippori Mincho B1";font-size:20px;color:#fff;transform:scale(0) rotate(-30deg);transition:transform .45s cubic-bezier(.2,1.8,.4,1)}
+#lock .dots i.on{background:radial-gradient(circle at 35% 30%,#ff6b6b,#e8202a);border:2px solid #fff;box-shadow:0 0 0 4px rgba(232,32,42,.25),0 0 24px rgba(255,80,80,.7);transform:rotate(-10deg);animation:stampHit .45s cubic-bezier(.2,1.6,.4,1)}
+#lock .dots i.on b{transform:scale(1) rotate(0)}
+@keyframes stampHit{0%{transform:scale(2.2) rotate(-25deg);opacity:0}60%{transform:scale(.9) rotate(-8deg);opacity:1}100%{transform:scale(1) rotate(-10deg)}}
+#lock .lockq{z-index:2;margin-top:18px;padding:18px 16px 16px;border-radius:30px;background:linear-gradient(rgba(255,255,255,.13),rgba(255,255,255,.06)) padding-box,linear-gradient(140deg,rgba(255,255,255,.6),rgba(255,111,168,.55),rgba(138,92,255,.55),rgba(49,200,255,.6)) border-box;border:1.5px solid transparent;box-shadow:0 20px 60px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.25)}
+#lock .lockq{text-align:center}
+#lock .lockq.on{animation:qIn .55s both cubic-bezier(.2,1.3,.4,1)}
+@keyframes qIn{from{opacity:0;transform:translateY(30px) scale(.94) rotateX(18deg)}}
+#lock .lockq .qprompt{color:#fff;text-shadow:0 4px 24px rgba(255,111,168,.55)}
+#lock .lockq .qhint{color:rgba(255,255,255,.75)}
+#lock .lockq .opt{background:rgba(255,255,255,.14);border:1.5px solid rgba(255,255,255,.22);color:#fff;border-radius:18px;box-shadow:0 4px 0 rgba(0,0,0,.18);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+#lock .lockq .opt:active{transform:translateY(3px) scale(.97);box-shadow:0 1px 0 rgba(0,0,0,.18)}
+#lock .lockq .opt.ok{background:linear-gradient(135deg,#4ff0b0,#21b889);border-color:#bfffe6;box-shadow:0 0 24px rgba(79,240,176,.7)}
+#lock .lockq .opt.no{background:linear-gradient(135deg,#ff7a8a,#ff3b5c);border-color:#ffd0d6}
+#lock #lEmerg{position:absolute;bottom:calc(96px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:rgba(255,255,255,.12)!important;border:1px solid rgba(255,255,255,.22)!important;color:#fff;box-shadow:none;z-index:3}
+#lock .swipe{z-index:2;bottom:calc(30px + env(safe-area-inset-bottom,0px));opacity:1}
+#lock .swipe .chev{display:flex;flex-direction:column;align-items:center;line-height:.55;font-size:20px;margin-bottom:10px}
+#lock .swipe .chev span{animation:chev 1.6s infinite;opacity:.2}
+#lock .swipe .chev span:nth-child(1){animation-delay:.4s}#lock .swipe .chev span:nth-child(2){animation-delay:.2s}
+@keyframes chev{0%,100%{opacity:.15}30%{opacity:1}}
+#lock .swipe .pill{display:inline-block;padding:11px 22px;border-radius:99px;font-weight:900;font-size:14px;background:linear-gradient(135deg,rgba(255,111,168,.85),rgba(138,92,255,.85));box-shadow:0 8px 30px rgba(255,111,168,.45),inset 0 1px 0 rgba(255,255,255,.4);animation:pillGlow 2.2s ease-in-out infinite}
+@keyframes pillGlow{50%{transform:translateY(-4px);box-shadow:0 14px 40px rgba(255,111,168,.65),inset 0 1px 0 rgba(255,255,255,.4)}}
+#lock .lburst{position:absolute;left:50%;top:40%;width:20px;height:20px;margin:-10px;border-radius:50%;pointer-events:none;z-index:4}
+#lock .lburst.go{animation:burst .9s ease-out forwards}
+@keyframes burst{0%{box-shadow:0 0 0 0 rgba(255,255,255,.9),0 0 0 0 rgba(255,111,168,.8)}100%{box-shadow:0 0 0 70vmax rgba(255,255,255,0),0 0 0 45vmax rgba(255,111,168,0)}}
+#lock.out{transform:translateY(-105%) scale(.96);opacity:0}
 
 /* ===== JOLLY CANDY-SKY THEME ===== */
 :root{--ink:#2d2147;--ink2:#ffffff;--ink3:#f4effd;--line:rgba(120,90,180,.16);--muted:#8a7fae;--paper:#fff7ea}
@@ -481,18 +546,22 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
 </div>
 
 <div id="lock">
+  <div class="aur"><i class="a1"></i><i class="a2"></i><i class="a3"></i></div>
+  <div class="lfloat" id="lFloat"></div>
   <div class="wm" id="lWm">鍵</div>
-  <div class="lockic2" id="lIcon">🔒</div>
+  <div class="lockic2" id="lIcon"><svg viewBox="0 0 40 48" width="28" height="34"><defs><linearGradient id="lkG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe27a"/><stop offset="1" stop-color="#ff6fa8"/></linearGradient></defs><path class="shk" d="M10 22 V14 a10 10 0 0 1 20 0 V22" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/><rect x="4" y="21" width="32" height="25" rx="8" fill="url(#lkG)"/><circle cx="20" cy="31.5" r="4" fill="#2d2147"/><rect x="18.5" y="32" width="3" height="7.5" rx="1.5" fill="#2d2147"/></svg></div>
   <div class="lt"><div class="d" id="lDate"></div><div class="t" id="lTime">12:00</div></div>
   <div class="notif" id="lNotif">
-    <div class="hanko" style="flex:none">道</div>
-    <div class="grow"><div style="font-weight:900;font-size:14px">Kanji Dojo <span class="tiny" style="opacity:.6;font-weight:500">now</span></div><div style="font-size:13px;opacity:.9">Answer 3 kanji questions to unlock 🔑</div></div>
+    <div class="lcat"><svg viewBox="0 0 64 64"><path d="M14 22 L18 4 L28 16 Z M50 22 L46 4 L36 16 Z" fill="#2b59c3"/><path d="M17 18 L19 9 L25 16 Z M47 18 L45 9 L39 16 Z" fill="#ff9eb5"/><circle cx="32" cy="32" r="22" fill="#2b59c3"/><ellipse cx="32" cy="37" rx="16" ry="13" fill="#ffe3c7"/><rect x="10" y="20" width="44" height="7" rx="3" fill="#ff4d6d"/><ellipse class="catEye" cx="25" cy="35" rx="3" ry="3.6" fill="#2d2147"/><ellipse class="catEye" cx="39" cy="35" rx="3" ry="3.6" fill="#2d2147"/><circle cx="26" cy="33.8" r="1" fill="#fff"/><circle cx="40" cy="33.8" r="1" fill="#fff"/><ellipse cx="20" cy="41" rx="3" ry="1.8" fill="#ffb3c6"/><ellipse cx="44" cy="41" rx="3" ry="1.8" fill="#ffb3c6"/><path d="M29 41 q3 3 6 0" stroke="#2d2147" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg></div>
+    <div class="grow"><div style="font-weight:900;font-size:14px">Kanji Dojo <span class="tiny" style="opacity:.6;font-weight:500">· now</span></div><div style="font-size:13px;opacity:.92">Answer 3 kanji to unlock 🔑 Ganbatte!</div></div>
   </div>
-  <div class="dots" id="lDots"><i></i><i></i><i></i></div>
+  <div class="dots" id="lDots"><i><b>合</b></i><i><b>格</b></i><i><b>!</b></i></div>
   <div class="lockq" id="lQ"></div>
-  <button class="btn sm" id="lEmerg" style="display:none;position:absolute;bottom:90px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.12);border:0">🚨 Emergency</button>
-  <div class="swipe" id="lSwipe">Swipe up or tap to answer<div class="hb"></div></div>
+  <button class="btn sm" id="lEmerg" style="display:none">🚨 Emergency</button>
+  <div class="swipe" id="lSwipe"><div class="chev"><span>︿</span><span>︿</span><span>︿</span></div><div class="pill">Swipe up or tap to start</div></div>
+  <div class="lburst" id="lBurst"></div>
 </div>
+
 
 <div id="slock">
   <div class="shead"><div class="k">勉強の時間</div><div style="font-weight:900;margin:4px 0 2px">STUDY TIME · Answer 5 to unlock your phone</div><div class="tiny" style="opacity:.75">Other apps are blocked until you finish</div></div>
@@ -792,7 +861,15 @@ function activity(n=1){const t=today();if(S.lastDay!==t){const y=new Date();y.se
 const RANKS=[[0,"見習い Apprentice"],[200,"白帯 White Belt"],[600,"黄帯 Yellow Belt"],[1200,"緑帯 Green Belt"],[2500,"青帯 Blue Belt"],[4500,"茶帯 Brown Belt"],[7500,"黒帯 Black Belt"],[12000,"先生 Sensei"],[20000,"名人 Grandmaster"]];
 function rankOf(x){let r=0;RANKS.forEach((k,i)=>{if(x>=k[0])r=i});return r}
 function addXP(n){const before=rankOf(S.xp);S.xp+=n;activity(1);save();renderHeader();if(rankOf(S.xp)>before){setTimeout(()=>{toast("🎉 Rank up! "+RANKS[rankOf(S.xp)][1]);confetti()},600)}}
-function markK(c,ok){const s=S.ks[c]||(S.ks[c]={c:0,w:0});ok?s.c++:s.w++;save()}
+function markK(c,ok){const s=S.ks[c]||(S.ks[c]={c:0,w:0});ok?s.c++:s.w++;save();try{checkLevelUp()}catch(e){}}
+const LV_UP=0.8;let PENDING=null;
+function checkLevelUp(){if(PENDING||(typeof GATE!=="undefined"&&(GATE||STUDY)))return;const i=LEVELS.indexOf(S.lv);if(i<0||i>=LEVELS.length-1)return;const l=S.lv;if((S.autoLv||{})[l])return;if(mastered(l)/K[l].length>=LV_UP)PENDING={from:l,to:LEVELS[i+1]}}
+function showPending(){if(!PENDING||GATE||STUDY||ringing||slActive||RUN.on||$("#sheet").classList.contains("on")||$("#lock").classList.contains("on"))return;
+ const p=PENDING;PENDING=null;S.autoLv=S.autoLv||{};S.autoLv[p.from]=true;S.lv=p.to;S.wIdx=0;save();renderHeader();renderHome();try{renderWrite()}catch(e){}
+ openSheet(`<div class="lvup"><div class="lvup-rays"></div><div class="lvup-badges"><span class="b1">${p.from}</span><span class="arr">➜</span><span class="b2">${p.to}</span></div><div class="lvup-stamp">昇級</div><h2 style="text-align:center;margin-top:6px"><small>LEVEL UP!</small>${p.from} クリア！</h2><p style="text-align:center;line-height:1.55;margin:6px 4px 16px">You've mastered ${Math.round(LV_UP*100)}% of the ${p.from} kanji. Sugoi! 🎉<br>Your lessons, quizzes, game, lock screen and Study Lock now use <b>${p.to}</b>.</p><button class="btn shu full" id="lvGo">Let's go ${p.to}! 🚀</button><button class="btn full" id="lvStay" style="margin-top:10px">Stay on ${p.from} a bit longer</button></div>`);
+ confetti(110);sfx.win();stamp("昇級");buzz([60,40,60,40,120]);
+ $("#lvGo").onclick=()=>closeSheet();$("#lvStay").onclick=()=>{S.lv=p.from;S.wIdx=0;save();closeSheet();renderHeader();toast("OK! Staying on "+p.from+". Change level anytime on Learn.")}}
+setInterval(()=>{try{showPending()}catch(e){}},1500);
 const mastered=l=>K[l].filter(k=>(S.ks[k.c]||{}).c>=3).length;
 
 /* ================= FX ================= */
@@ -830,7 +907,7 @@ function levelChips(el,cur,onPick){el.innerHTML="";LEVELS.forEach(l=>{const b=do
 function renderHome(){levelChips($("#levels"),S.lv,l=>{S.lv=l;S.wIdx=0;save();renderHome();renderHeader();renderWrite()});
  const all=LEVELS.flatMap(l=>K[l]);const d=new Date();const k=all[(d.getFullYear()*372+d.getMonth()*31+d.getDate())%all.length];
  $("#kotd").textContent=k.c;$("#kotdM").textContent=k.m;$("#kotdR").textContent=k.r;$("#kotdL").textContent="JLPT "+k.l;
- const m=mastered(S.lv),t=K[S.lv].length;$("#homeMastTxt").textContent=`${S.lv}: ${m} of ${t} kanji mastered`;$("#homeMastPct").textContent=Math.round(m/t*100)+"%";$("#homeMastBar").style.width=(m/t*100)+"%";
+ const m=mastered(S.lv),t=K[S.lv].length;{const i=LEVELS.indexOf(S.lv),need=Math.ceil(t*LV_UP);$("#homeMastTxt").textContent=i<LEVELS.length-1?`${S.lv}: ${m}/${t} mastered · reach ${need} to move up to ${LEVELS[i+1]} automatically`:`${S.lv}: ${m} of ${t} kanji mastered · top level!`}$("#homeMastPct").textContent=Math.round(m/t*100)+"%";$("#homeMastBar").style.width=(m/t*100)+"%";
  $("#senseiTalk").textContent=rnd(SENSEI)}
 $$(".tile").forEach(t=>t.onclick=()=>{sfx.pop();const a=t.dataset.act;if(a==="flash")openFlash();if(a==="quiz")openQuiz();if(a==="lock")showLock();if(a==="game")go("game")});
 
@@ -863,10 +940,10 @@ function sleepPage(){window.__KD_ASLEEP=true;try{for(let i=1;i<20000;i++){clearI
 function gateDone(){native("done");setTimeout(()=>{try{location.href="kanjidojo://done"}catch(e){}},900);setTimeout(sleepPage,1600)}
 let lockN=0;const LOCK_NEED=3;
 function lockDots(){$$("#lDots i").forEach((d,i)=>d.classList.toggle("on",i<lockN))}
-function showLock(){const L=$("#lock");L.classList.remove("out");L.classList.add("on");lockN=0;lockDots();$("#lQ").classList.remove("on");$("#lNotif").style.display="";$("#lSwipe").style.display="";$("#lIcon").textContent="🔒";$("#lWm").textContent=rnd(K[S.lv]).c;lockClock();if(GATE){$("#lEmerg").style.display="block";setTimeout(lockAsk,350)}}
+function showLock(){const L=$("#lock");L.classList.remove("out");L.classList.add("on");lockN=0;lockDots();$("#lQ").classList.remove("on");$("#lNotif").style.display="";$("#lSwipe").style.display="";$("#lIcon").classList.remove("open");$("#lWm").textContent=rnd(K[S.lv]).c;{const f=$("#lFloat");if(!f.children.length){const ks=K[S.lv].map(k=>k.c);for(let i=0;i<18;i++){const sp=document.createElement("span");sp.textContent=rnd(ks);sp.style.left=(Math.random()*100)+"%";sp.style.fontSize=(18+Math.random()*44)+"px";sp.style.animationDuration=(12+Math.random()*16)+"s";sp.style.animationDelay=(-Math.random()*20)+"s";f.appendChild(sp)}}}lockClock();if(GATE){$("#lEmerg").style.display="block";setTimeout(lockAsk,350)}}
 function lockAsk(){if($("#lQ").classList.contains("on"))return;$("#lSwipe").style.display="none";$("#lNotif").style.display="none";const el=$("#lQ");el.classList.add("on");
  const q=kanjiQ(S.lv);renderQ(el,q,ok=>{if(ok){lockN++;lockDots();if(lockN>=LOCK_NEED){unlockNow(true);return}setTimeout(()=>{el.classList.remove("on");lockAsk()},650)}else{setTimeout(()=>{el.classList.remove("on");lockAsk()},1100)}})}
-function unlockNow(earned){$("#lIcon").textContent="🔓";if(earned){S.unlocks++;addXP(10)}
+function unlockNow(earned){$("#lIcon").classList.add("open");{const bu=$("#lBurst");bu.classList.remove("go");void bu.offsetWidth;bu.classList.add("go")}confetti(70);buzz([30,40,60]);if(earned){S.unlocks++;addXP(10)}
  if(GATE){stamp("解錠");sfx.win();setTimeout(gateDone,700);return}
  setTimeout(()=>{$("#lock").classList.add("out");sfx.win();setTimeout(()=>{$("#lock").classList.remove("on","out");toast("Unlocked! +10 XP 🔓")},700)},500)}
 $("#lEmerg").onclick=gateDone;
@@ -1651,11 +1728,11 @@ function afterBoot(){try{localStorage.removeItem("kd_boot");const seen=+(localSt
   setInterval(()=>checkUpdate(false),20*60*1000);
   document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")checkUpdate(false)})}}
 
-function syncS(){if(GATE||STUDY||ringing||window.__KD_ASLEEP)return;const n=loadS();if(!n)return;S=n;try{renderHeader();if($("#v-home").classList.contains("on"))renderHome();if($("#v-prog").classList.contains("on"))renderProg();if($("#v-alarm").classList.contains("on")){renderAlarm();renderSL()}renderPL()}catch(e){}}
+function syncS(){if(GATE||STUDY||ringing||window.__KD_ASLEEP)return;const n=loadS();if(!n)return;S=n;try{checkLevelUp();renderHeader();if($("#v-home").classList.contains("on"))renderHome();if($("#v-prog").classList.contains("on"))renderProg();if($("#v-alarm").classList.contains("on")){renderAlarm();renderSL()}renderPL()}catch(e){}}
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")syncS()});addEventListener("focus",syncS);addEventListener("storage",e=>{if(e.key==="kanjiDojo")syncS()});
 function renderAll(){renderPL();renderHeader();renderHome();renderAlarm();renderProg()}
 renderAll();tick();renderSL();
-afterBoot();
+checkLevelUp();afterBoot();
 if(STUDY){$("#app").style.display="none";openSL(false)}
 else if(GATE){$("#app").style.display="none";showLock()}
 else{if(IS_APK&&S.phoneLock)setTimeout(()=>native("lockstart"),1200)}
