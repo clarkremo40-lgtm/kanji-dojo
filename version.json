@@ -1,17 +1,18 @@
 {
-  "build": 19,
-  "version": "1.9",
+  "build": 20,
+  "version": "2.0",
   "file": "app.html",
-  "size": 205824,
+  "size": 219584,
   "minNative": 6,
   "notes": [
-    "📚 211 new vocabulary words (N5 to N1) mixed into every quiz, lock screen, alarm and Study Lock",
-    "⭐ Get a kanji or word right 3 times and it's mastered (★★★). The app then focuses on the ones you don't know yet",
-    "🚀 Master 80% of your level's kanji and words and the app moves you up automatically: N5 → N4 → N3 → N2 → N1"
+    "📅 Study reminders: pick a daily study time (e.g. 8:00 PM) and how long (30 min to 2 hours)",
+    "⏰ Heads-up reminders before it starts: 1 hour, 30 min, 15 min or 5 min before (choose any)",
+    "📚 1-hour study session with a countdown timer, quick links to quiz, flashcards, writing and grammar, and +60 XP when you finish",
+    "🔔 New app version 2.0: reminders arrive as phone notifications even when the app is closed"
   ],
   "native": {
-    "build": 6,
-    "version": "1.6",
+    "build": 7,
+    "version": "2.0",
     "url": "https://github.com/clarkremo40-lgtm/kanji-dojo/raw/main/KanjiDojo.apk"
   }
 }

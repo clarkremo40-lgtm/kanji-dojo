@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <script>
-var KD_BUILD=19,KD_VER="1.9",KD_NATIVE=6;
+var KD_BUILD=20,KD_VER="2.0",KD_NATIVE=7;
 (function(){try{if(window.__KD_SWAP)return;var ls=localStorage;
  if(location.href.indexOf("file:///android_asset")===0)ls.setItem("kd_native",String(KD_NATIVE));
  var b=+(ls.getItem("kd_build")||0),h=ls.getItem("kd_html");
@@ -250,6 +250,23 @@ select{font-family:inherit;font-size:15px;font-weight:700;background:var(--ink3)
 .qtag{display:inline-block;font-size:10px;font-weight:900;letter-spacing:1.5px;padding:3px 9px;border-radius:99px;background:linear-gradient(135deg,#ff6fa8,#ff9a5c);color:#fff;margin-bottom:6px}
 .qtag.vw{background:linear-gradient(135deg,#31c8ff,#7b6cff)}
 .qstar{margin-left:6px;color:#f5b800;font-size:12px;letter-spacing:1px}
+
+.sesCard{background:linear-gradient(135deg,#ff8fb8,#9b7bff 55%,#4fc3ff)!important;color:#fff;border:none!important;box-shadow:0 10px 30px rgba(155,123,255,.35)}
+.sesCard .tiny{color:#fff}.sesIco{font-size:34px;width:52px;height:52px;display:grid;place-items:center;background:rgba(255,255,255,.22);border-radius:16px;flex:none;animation:catBob 2.4s ease-in-out infinite}
+.sesCard #sesSetH{background:rgba(255,255,255,.25);color:#fff;box-shadow:none}
+.remChips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.remChips .chip{padding:8px 12px;border-radius:99px;border:1.5px solid rgba(155,123,255,.4);background:transparent;font-weight:800;font-size:13px;color:inherit;font-family:inherit}
+.remChips .chip.on{background:linear-gradient(135deg,#ff6fa8,#9b7bff);color:#fff;border-color:transparent}
+#sesPill{position:fixed;top:calc(64px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%) translateY(-140%);z-index:45;padding:8px 16px 8px 10px;border-radius:99px;background:linear-gradient(135deg,#ff6fa8,#9b7bff);color:#fff;font-weight:900;font-size:14px;box-shadow:0 8px 24px rgba(155,123,255,.5);display:flex;align-items:center;gap:8px;opacity:0;visibility:hidden;pointer-events:none;transition:transform .4s cubic-bezier(.2,1.4,.4,1),opacity .3s,visibility .3s;border:2px solid rgba(255,255,255,.6);font-family:inherit}
+#sesPill.on{transform:translateX(-50%) translateY(0);opacity:1;visibility:visible;pointer-events:auto}
+#sesPill .dot{width:10px;height:10px;border-radius:50%;background:#7dffb3;box-shadow:0 0 10px #7dffb3;animation:lkPulse 1.4s infinite}
+.sesRing{position:relative;width:220px;height:220px;margin:8px auto 4px}
+.sesRing svg{width:220px;height:220px;transform:rotate(-90deg)}
+.sesRing .tm{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+.sesRing .tm b{font-size:46px;font-weight:900;letter-spacing:-1px;display:block}
+.sesGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.sesGrid button{padding:14px 8px;border-radius:18px;border:none;font-weight:900;font-family:inherit;font-size:14px;color:#fff}
+.remPop{text-align:center}.remPop .big{font-size:72px;animation:catBob 1.6s ease-in-out infinite}
 /* ===== GORGEOUS LOCK SCREEN ===== */
 #lock{background:#120b2e!important}
 #lock .aur{position:absolute;inset:-20%;pointer-events:none;filter:blur(55px) saturate(1.3);opacity:.85}
@@ -421,6 +438,10 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
           <span style="opacity:.75">After a full restart, Android asks for your passcode once first. After that, every screen-on shows the quiz.</span>
         </div>
       </div>
+      <div class="card sesCard" id="sesHome">
+        <div class="row"><div class="sesIco">📅</div><div class="grow"><b id="sesHT">Study time</b><div class="tiny" id="sesHS" style="opacity:.9"></div></div></div>
+        <div class="row" style="margin-top:12px;gap:10px"><button class="btn shu grow" id="sesStartH">▶ Start session</button><button class="btn" id="sesSetH" style="flex:none">⚙︎</button></div>
+      </div>
       <div class="card">
         <div class="row"><div class="grow"><b>Level mastery</b><div class="tiny muted" id="homeMastTxt"></div></div><div class="wbig" id="homeMastPct" style="font-family:Zen Maru Gothic;font-weight:900;font-size:28px">0%</div></div>
         <div class="bar" style="margin-top:10px"><div id="homeMastBar" style="width:0"></div></div>
@@ -495,6 +516,15 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
         <div class="path" id="aPath"></div>
         <div class="tiny" id="aClears" style="text-align:center;margin-top:8px"></div>
       </div>
+      <div class="card" id="remCard" style="border-color:rgba(255,111,168,.4)">
+        <div class="row"><div class="grow"><b>📅 Study reminders</b><div class="tiny muted" id="remStatus">Off</div></div><button class="switch" id="remSwitch"></button></div>
+        <div class="tiny muted" style="margin:12px 0 6px;font-weight:800">Study starts at</div><input type="time" id="remTime" value="20:00">
+        <div class="row" style="margin-top:10px"><span class="tiny muted grow">Study for</span><select id="remDur"><option value="30">30 min</option><option value="60" selected>1 hour</option><option value="90">1.5 hours</option><option value="120">2 hours</option></select></div>
+        <div class="tiny muted" style="margin-top:12px;font-weight:800">Heads-up reminders before it starts</div>
+        <div class="remChips"><button class="chip" data-pre="60">1 hour before</button><button class="chip" data-pre="30">30 min before</button><button class="chip" data-pre="15">15 min before</button><button class="chip" data-pre="5">5 min before</button></div>
+        <div class="tiny" id="remNote" style="margin-top:10px;line-height:1.5;opacity:.85"></div>
+        <button class="btn full" id="remTest" style="margin-top:12px">🔔 Send a test reminder</button>
+      </div>
       <div class="card" id="slCard" style="border-color:rgba(122,168,255,.35)">
         <div class="row"><div class="grow"><b>📵 Study Lock</b><div class="tiny muted" id="slStatus">Every hour, 5 kanji questions pop up over any app. Other apps stay blocked until you finish.</div></div><button class="switch" id="slSwitch"></button></div>
         <div class="row" style="margin-top:12px"><span class="tiny muted grow">Pop up every</span><select id="slInterval"><option value="30">30 min</option><option value="60" selected>1 hour</option><option value="90">1.5 hours</option><option value="120">2 hours</option></select></div>
@@ -549,6 +579,7 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
   <div id="rQ" class="qwrap" style="margin-top:6px"></div>
 </div>
 
+<button id="sesPill"><span class="dot"></span><span id="sesPillT">60:00</span></button>
 <div id="lock">
   <div class="aur"><i class="a1"></i><i class="a2"></i><i class="a3"></i></div>
   <div class="lfloat" id="lFloat"></div>
@@ -1744,7 +1775,64 @@ function syncS(){if(GATE||STUDY||ringing||window.__KD_ASLEEP)return;const n=load
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")syncS()});addEventListener("focus",syncS);addEventListener("storage",e=>{if(e.key==="kanjiDojo")syncS()});
 function renderAll(){renderPL();renderHeader();renderHome();renderAlarm();renderProg()}
 renderAll();tick();renderSL();
+
+/* ================= STUDY REMINDERS + SESSIONS ================= */
+function remCfg(){S.rem=S.rem||{on:false,t:"20:00",dur:60,pre:[60,15],fired:{}};S.rem.fired=S.rem.fired||{};return S.rem}
+function sesCfg(){S.ses=S.ses||{start:0,dur:0,done:{},count:0,mins:0};S.ses.done=S.ses.done||{};return S.ses}
+function hm(t,off){const[h,m]=t.split(":").map(Number);let x=((h*60+m-off)%1440+1440)%1440;return String(Math.floor(x/60)).padStart(2,"0")+":"+String(x%60).padStart(2,"0")}
+function durTxt(m){return m>=60?(m%60?(m/60).toFixed(1).replace(".0","")+" hours":(m/60)+(m===60?" hour":" hours")):m+" min"}
+function remMsgs(){const r=remCfg(),d=durTxt(r.dur);const L=[];
+ r.pre.slice().sort((a,b)=>b-a).forEach(p=>L.push({id:100+p,off:p,t:p>=60?`⏰ Study starts in ${p===60?"1 hour":p/60+" hours"}`:`⏳ ${p} minutes to study time`,b:p>=60?`Your ${d} Kanji Dojo session starts at ${r.t}. Get ready! 頑張って 💪`:p>=15?`Session at ${r.t} (${d}). Grab a drink and find a quiet spot 🍵`:`Almost time! ${d} of study at ${r.t}. Let's go 🔥`}));
+ L.push({id:200,off:0,t:`📚 Study time! (${d})`,b:`Tap to start your ${d} session now. 今から勉強！`});return L}
+function secsUntil(t){const[h,m]=t.split(":").map(Number);const n=new Date(),x=new Date();x.setHours(h,m,0,0);let s=Math.round((x-n)/1000);if(s<30)s+=86400;return s}
+function remSync(){if(!IS_APK||nativeBuild()<7||GATE||STUDY)return;const r=remCfg();const all=[60,30,15,5].map(p=>100+p).concat([200]);const want=r.on?remMsgs():[];let k=0;
+ all.forEach(id=>{const m=want.find(x=>x.id===id);const q=m?`remind?id=${id}&s=${secsUntil(hm(r.t,m.off))}&t=${encodeURIComponent(m.t)}&b=${encodeURIComponent(m.b)}`:`remind?id=${id}&s=-1&t=x&b=x`;setTimeout(()=>native(q),k++*350)})}
+function renderRem(){const r=remCfg();$("#remSwitch").classList.toggle("on",r.on);$("#remTime").value=r.t;$("#remDur").value=String(r.dur);
+ $$("#remCard .chip").forEach(c=>c.classList.toggle("on",r.pre.includes(+c.dataset.pre)));
+ $("#remStatus").textContent=r.on?`On · every day ${r.t} for ${durTxt(r.dur)}`:"Off";
+ $("#remNote").innerHTML=!r.on?"Turn on to get a daily study plan with reminders before it starts.":IS_APK&&nativeBuild()>=7?`🔔 Phone notifications: ${r.pre.slice().sort((a,b)=>b-a).map(p=>hm(r.t,p)).join(", ")}${r.pre.length?", ":""}and ${r.t} (start), even when the app is closed. After restarting your phone, open Kanji Dojo once.`:IS_APK?"⚠️ Phone notifications need the new app version. Install it from the update pop-up. Until then, reminders show while the app is open.":"Reminders show while this page is open. Install the Android app to get them as phone notifications.";
+ renderSesHome()}
+$("#remSwitch").onclick=()=>{const r=remCfg();r.on=!r.on;save();renderRem();remSync();toast(r.on?`📅 Study reminders on · ${r.t}`:"Study reminders off")};
+$("#remTime").onchange=e=>{remCfg().t=e.target.value||"20:00";remCfg().fired={};save();renderRem();remSync()};
+$("#remDur").onchange=e=>{remCfg().dur=+e.target.value;save();renderRem();remSync()};
+$$("#remCard .chip").forEach(c=>c.onclick=()=>{const r=remCfg(),p=+c.dataset.pre;r.pre=r.pre.includes(p)?r.pre.filter(x=>x!==p):r.pre.concat(p);save();renderRem();remSync();sfx.pop()});
+$("#remTest").onclick=()=>{const m=remMsgs()[0];if(IS_APK&&nativeBuild()>=7){native(`remind?id=99&s=5&t=${encodeURIComponent("🔔 Test: "+m.t)}&b=${encodeURIComponent(m.b)}`);toast("🔔 Test reminder in 5 seconds. You can leave the app.")}else remPopup(m,true)};
+function remPopup(m,pre){if(GATE||STUDY)return;sfx.win();buzz([80,60,80]);
+ if(pre){openSheet(`<div class="remPop"><div class="big">⏰</div><h2 style="text-align:center"><small>STUDY REMINDER</small>${m.t}</h2><p style="line-height:1.55">${m.b}</p><button class="btn shu full" id="rpOk">OK, I'll be ready! 👍</button><button class="btn full" id="rpNow" style="margin-top:10px">Start now instead</button></div>`);$("#rpOk").onclick=closeSheet;$("#rpNow").onclick=()=>startSession()}
+ else{const r=remCfg();openSheet(`<div class="remPop"><div class="big">📚</div><h2 style="text-align:center"><small>IT'S ${r.t}</small>勉強の時間！</h2><p style="line-height:1.55">Time for your <b>${durTxt(r.dur)}</b> study session. Let's do this! 頑張ろう 🔥</p><button class="btn shu full" id="rpGo">▶ Start ${durTxt(r.dur)} session</button><button class="btn full" id="rpSn" style="margin-top:10px">😴 Snooze 10 min</button></div>`);confetti(40);
+  $("#rpGo").onclick=()=>startSession();$("#rpSn").onclick=()=>{remCfg().snooze=Date.now()+600000;save();closeSheet();toast("😴 OK, reminding you in 10 minutes")}}}
+function startSession(min){const s=sesCfg(),r=remCfg();s.start=Date.now();s.dur=(min||r.dur||60);s.warned=0;save();closeSheet();stamp("開始");sfx.win();toast(`📚 ${durTxt(s.dur)} session started. Ganbatte!`);sesTick();openSession()}
+function sesLeft(){const s=sesCfg();return s.start?s.start+s.dur*60000-Date.now():0}
+function fmtL(ms){const t=Math.max(0,Math.ceil(ms/1000));const h=Math.floor(t/3600),m=Math.floor(t%3600/60),x=t%60;return(h?h+":"+String(m).padStart(2,"0"):String(m).padStart(2,"0"))+":"+String(x).padStart(2,"0")}
+function openSession(){const s=sesCfg();if(!s.start)return;
+ openSheet(`<h2><small>STUDY SESSION · ${durTxt(s.dur)}</small>勉強中</h2><div class="sesRing"><svg viewBox="0 0 220 220"><defs><linearGradient id="sesG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff6fa8"/><stop offset=".5" stop-color="#9b7bff"/><stop offset="1" stop-color="#4fc3ff"/></linearGradient></defs><circle cx="110" cy="110" r="96" fill="none" stroke="rgba(155,123,255,.15)" stroke-width="16"/><circle id="sesArc" cx="110" cy="110" r="96" fill="none" stroke="url(#sesG)" stroke-width="16" stroke-linecap="round" stroke-dasharray="603.2" stroke-dashoffset="0"/></svg><div class="tm"><div><b id="sesT">--:--</b><span class="tiny muted">left · keep going!</span></div></div></div>
+ <p class="tiny muted" style="text-align:center">Pick something to study. The timer keeps running while you practice.</p>
+ <div class="sesGrid"><button style="background:linear-gradient(135deg,#ff6fa8,#ff9a5c)" id="sgQ">⚡ Quick quiz</button><button style="background:linear-gradient(135deg,#9b7bff,#4fc3ff)" id="sgF">🎴 Flashcards</button><button style="background:linear-gradient(135deg,#21b889,#4fc3ff)" id="sgW">✍️ Writing</button><button style="background:linear-gradient(135deg,#f5b800,#ff6fa8)" id="sgG">📖 Grammar</button></div>
+ <button class="btn full" id="sgEnd" style="margin-top:14px">End session early</button>`);
+ $("#sgQ").onclick=()=>openQuiz();$("#sgF").onclick=()=>openFlash();$("#sgW").onclick=()=>{closeSheet();go("write")};$("#sgG").onclick=()=>{closeSheet();go("gram")};
+ $("#sgEnd").onclick=()=>{const s=sesCfg(),used=Math.round((Date.now()-s.start)/60000);s.mins+=used;s.start=0;save();closeSheet();sesTick();toast(`Session ended · ${used} min studied. Otsukare! 🍵`)};sesTick()}
+function finishSession(){const s=sesCfg();s.mins+=s.dur;s.count++;s.done[today()]=true;s.start=0;save();addXP(60);
+ if(GATE||STUDY)return;openSheet(`<div class="remPop"><div class="big">🏆</div><h2 style="text-align:center"><small>SESSION COMPLETE</small>お疲れ様！</h2><p style="line-height:1.55">You studied for <b>${durTxt(s.dur)}</b>. Amazing focus! +60 XP<br>Total study sessions: <b>${s.count}</b></p><button class="btn shu full" id="sfOk">Yatta! 🎉</button></div>`);confetti(120);stamp("完了");sfx.win();$("#sfOk").onclick=closeSheet}
+function renderSesHome(){const r=remCfg(),s=sesCfg(),el=$("#sesHome");if(!el)return;
+ if(s.start){$("#sesHT").textContent="📚 Studying now";$("#sesHS").textContent=fmtL(sesLeft())+" left · tap to open";$("#sesStartH").textContent="Open session";return}
+ $("#sesHT").textContent=r.on?`Today's study: ${r.t}`:"Study session";
+ $("#sesHS").textContent=r.on?(s.done[today()]?`✅ Done today! Next: tomorrow ${r.t} · ${durTxt(r.dur)}`:`${durTxt(r.dur)} straight · reminders ${r.pre.length?r.pre.slice().sort((a,b)=>b-a).map(p=>p>=60?p/60+"h":p+"m").join(", ")+" before":"at start"}`):"Set a daily study time with reminders (Alarm tab)";
+ $("#sesStartH").textContent=`▶ Start ${durTxt(r.dur||60)} now`}
+$("#sesStartH").onclick=()=>{sesCfg().start?openSession():startSession()};$("#sesSetH").onclick=()=>{go("alarm");setTimeout(()=>{const c=$("#remCard");c&&c.scrollIntoView({behavior:"smooth",block:"center"})},200)};
+$("#sesPill").onclick=()=>openSession();
+function sesTick(){const s=sesCfg(),p=$("#sesPill");if(!s.start){p.classList.remove("on");renderSesHome();return}
+ const l=sesLeft();if(l<=0){p.classList.remove("on");finishSession();renderSesHome();return}
+ p.classList.add("on");$("#sesPillT").textContent=fmtL(l);const t=$("#sesT");if(t){t.textContent=fmtL(l);$("#sesArc").setAttribute("stroke-dashoffset",String(603.2*(1-l/(s.dur*60000))))}
+ if(!s.warned&&l<300000){s.warned=1;save();toast("🔥 5 minutes left. Finish strong!")}renderSesHome()}
+function remTick(){if(GATE||STUDY||window.__KD_ASLEEP||ringing)return;const r=remCfg();if(!r.on)return;const n=new Date(),key=today();
+ if(r.snooze&&Date.now()>=r.snooze){r.snooze=0;save();if(!sesCfg().start)remPopup(remMsgs().slice(-1)[0],false);return}
+ for(const m of remMsgs()){const[h,mm]=hm(r.t,m.off).split(":").map(Number);const at=new Date();at.setHours(h,mm,0,0);const late=n-at,fk=key+"#"+m.id;
+  if(late>=0&&late<(m.off?5:30)*60000&&!r.fired[fk]){r.fired[fk]=1;Object.keys(r.fired).forEach(k=>{if(!k.startsWith(key))delete r.fired[k]});save();
+   if(m.off){if(RUN.on||$("#sheet").classList.contains("on"))toast(m.t);else remPopup(m,true)}else if(!sesCfg().start&&!sesCfg().done[key]){if(RUN.on)toast(m.t);else remPopup(m,false)}break}}}
+setInterval(()=>{try{sesTick();remTick()}catch(e){}},1000);
+
 checkLevelUp();afterBoot();
+try{renderRem();remSync();sesTick()}catch(e){}
 if(STUDY){$("#app").style.display="none";openSL(false)}
 else if(GATE){$("#app").style.display="none";showLock()}
 else{if(IS_APK&&S.phoneLock)setTimeout(()=>native("lockstart"),1200)}
