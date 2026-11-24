@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <script>
-var KD_BUILD=24,KD_VER="2.4",KD_NATIVE=8;
+var KD_BUILD=25,KD_VER="2.5",KD_NATIVE=8;
 (function(){try{if(window.__KD_SWAP)return;var ls=localStorage;
  if(location.href.indexOf("file:///android_asset")===0)ls.setItem("kd_native",String(KD_NATIVE));
  var b=+(ls.getItem("kd_build")||0),h=ls.getItem("kd_html");
@@ -425,6 +425,20 @@ select{font-family:inherit;font-size:15px;font-weight:700;background:var(--ink3)
 .lxProg{position:relative;height:12px;border-radius:99px;background:#eee6ff;overflow:hidden;margin:4px 20px 6px}.lxProg div{height:100%;background:linear-gradient(90deg,#ff6fa8,#9b7bff);border-radius:99px;transition:width 1s}
 .lxBeltWin{position:relative;margin-top:14px;padding:14px;border-radius:20px;background:linear-gradient(135deg,#fff7c4,#ffe0ef);display:flex;flex-direction:column;align-items:center;gap:4px;animation:lvPop .8s cubic-bezier(.2,1.8,.4,1) 1.6s both}
 .gnStars{position:absolute;top:-17px;left:50%;transform:translateX(-50%);font-size:11px;color:#ffb800;letter-spacing:-1px;white-space:nowrap;font-style:normal}.gnStars span{color:#ddd5f2}
+
+.srBtn{display:none;margin:14px auto 0;border:none;border-radius:99px;padding:13px 20px;font:inherit;font-weight:900;font-size:15px;color:#fff;background:linear-gradient(135deg,#ffb800,#ff6fa8);box-shadow:0 5px 0 #c94d82,0 0 30px rgba(255,184,0,.55);animation:srPulse 1.4s ease-in-out infinite;position:relative;z-index:3}
+.srBtn.on{display:block}
+@keyframes srPulse{50%{transform:scale(1.05);box-shadow:0 5px 0 #c94d82,0 0 44px rgba(255,184,0,.85)}}
+#srs{position:fixed;inset:0;z-index:75;background:linear-gradient(160deg,#fff4d6,#ffe0ef 50%,#e6dcff);display:none;overflow:auto;padding:calc(20px + env(safe-area-inset-top,0px)) 18px calc(24px + env(safe-area-inset-bottom,0px));color:#2d2147}
+#srs.on{display:block;animation:qIn .4s both}
+.srIn{max-width:480px;margin:0 auto;text-align:center}
+.srHead b{display:block;font-size:26px;font-weight:900}.srHead span{font-size:14px;color:#6b5f94;font-weight:700}
+.srDots{display:flex;justify-content:center;gap:6px;margin:14px 0}.srDots i{width:28px;height:8px;border-radius:99px;background:#e6dcff}.srDots i.on{background:#34d399}.srDots i.now{background:#ff6fa8}
+.srCard{background:#fff;border-radius:30px;padding:20px 18px;box-shadow:0 10px 30px rgba(123,92,255,.18);animation:stepIn .45s cubic-bezier(.2,1.2,.4,1) both}
+.srC{font-family:"Shippori Mincho B1",serif;font-weight:800;font-size:110px;line-height:1.1;background:linear-gradient(135deg,#ff4f8b,#7b5cff);-webkit-background-clip:text;background-clip:text;color:transparent;margin:6px 0}.srC.long{font-size:64px}
+.srNext{margin-top:16px;position:relative;overflow:hidden}.srNext[disabled]{opacity:.6}
+.srNext[disabled] .srRing{position:absolute;left:0;top:0;bottom:0;background:rgba(255,255,255,.35);animation:srFill 3s linear forwards}
+@keyframes srFill{from{width:0}to{width:100%}}
 /* ===== GORGEOUS LOCK SCREEN ===== */
 #lock{background:#120b2e!important}
 #lock .aur{position:absolute;inset:-20%;pointer-events:none;filter:blur(55px) saturate(1.3);opacity:.85}
@@ -736,9 +750,11 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
   <div class="row" style="font-weight:900;margin-bottom:8px"><span id="rCount">0 / 5</span><span class="grow"></span><span id="rLv" class="tag" style="color:#fff">N5</span><span>❌ <span id="rMiss">0</span></span></div>
   <div class="bar"><div id="rBar" style="width:0"></div></div>
   <div id="rQ" class="qwrap" style="margin-top:6px"></div>
+  <button class="srBtn" id="rStudy">📚 Struggling? STUDY first, then try again</button>
 </div>
 
 <button id="sesPill"><span class="dot"></span><span id="sesPillT">60:00</span></button>
+<div id="srs"><div class="srIn" id="srIn"></div></div>
 <div id="peek"><div class="pk"></div></div>
 <div id="lock">
   <div class="aur"><i class="a1"></i><i class="a2"></i><i class="a3"></i></div>
@@ -752,6 +768,7 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
   </div>
   <div class="dots" id="lDots"><i><b>合</b></i><i><b>格</b></i><i><b>!</b></i></div>
   <div class="lockq" id="lQ"></div>
+  <button class="srBtn" id="lStudy">📚 Struggling? STUDY first</button>
   <button class="btn sm" id="lEmerg" style="display:none">🚨 Emergency</button>
   <div class="swipe" id="lSwipe"><div class="chev"><span>︿</span><span>︿</span><span>︿</span></div><div class="pill">Swipe up or tap to start</div></div>
   <div class="lburst" id="lBurst"></div>
@@ -763,8 +780,9 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
   <div class="row" style="font-weight:900;margin:14px 0 8px"><span id="slCount">0 / 5</span><span class="grow"></span><span id="slLvTag" class="tag" style="color:#fff">N5</span><span>❌ <span id="slMiss">0</span></span></div>
   <div class="bar"><div id="slBar" style="width:0"></div></div>
   <div id="slQ" class="qwrap" style="margin-top:6px"></div>
+  <button class="srBtn" id="slStudy">📚 Struggling? STUDY first, then try again</button>
   <div style="flex:1"></div>
-  <button class="btn sm" id="slEmerg" style="margin:18px auto 0;opacity:.7">🚨 Emergency: use phone for 5 min</button>
+  <button class="btn sm" id="slEmerg" style="margin:18px auto 0;opacity:.7">🚨 Emergency: use phone for 15 min</button>
 </div>
 <div id="updChk"><div class="hanko" style="width:72px;height:72px;font-size:42px;border-radius:20px">道</div><div style="font-weight:900;font-size:18px">Kanji Dojo</div><div class="spin"></div><div class="tiny muted">Checking for updates…</div></div>
 <div id="upd"><div class="box">
@@ -1111,7 +1129,8 @@ function f(){x.clearRect(0,0,W,H);P.forEach(p=>{p.y+=p.v*devicePixelRatio;p.x+=M
 
 /* ================= QUESTIONS ================= */
 let lastQ=[];
-function pickItem(level){const all=ITEMS(level).filter(x=>!lastQ.includes(x.id));const un=all.filter(x=>!isM(x));
+let QFORCE=[];
+function pickItem(level){{const fi=QFORCE.findIndex(x=>x.l===level);if(fi>=0){const k=QFORCE.splice(fi,1)[0];lastQ.push(k.id);if(lastQ.length>4)lastQ.shift();return k}}const all=ITEMS(level).filter(x=>!lastQ.includes(x.id));const un=all.filter(x=>!isM(x));
  /* focus on items not yet answered right 3 times; mastered ones come back sometimes for review */
  const src=un.length&&(Math.random()<0.85||un.length===all.length)?un:all;const k=rnd(src.length?src:ITEMS(level));lastQ.push(k.id);if(lastQ.length>4)lastQ.shift();return k}
 function kanjiQ(level,force){const k=pickItem(level);const pool=k.v?V[level]:K[level];const type=force||rnd(["meaning","meaning","reading","kanji"]);const others=shuffle(pool.filter(o=>o.c!==k.c)).slice(0,3);
@@ -1167,13 +1186,16 @@ function sleepPage(){window.__KD_ASLEEP=true;try{for(let i=1;i<20000;i++){clearI
 function gateDone(){native("done");setTimeout(()=>{try{location.href="kanjidojo://done"}catch(e){}},900);setTimeout(sleepPage,1600)}
 let lockN=0;const LOCK_NEED=3;
 function lockDots(){$$("#lDots i").forEach((d,i)=>d.classList.toggle("on",i<lockN))}
-function showLock(){const L=$("#lock");L.classList.remove("out");L.classList.add("on");lockN=0;lockDots();$("#lQ").classList.remove("on");$("#lNotif").style.display="";$("#lSwipe").style.display="";$("#lIcon").classList.remove("open");$("#lWm").textContent=rnd(K[S.lv]).c;{const f=$("#lFloat");if(!f.children.length){const ks=K[S.lv].map(k=>k.c);for(let i=0;i<18;i++){const sp=document.createElement("span");sp.textContent=rnd(ks);sp.style.left=(Math.random()*100)+"%";sp.style.fontSize=(18+Math.random()*44)+"px";sp.style.animationDuration=(12+Math.random()*16)+"s";sp.style.animationDelay=(-Math.random()*20)+"s";f.appendChild(sp)}}}lockClock();if(GATE){$("#lEmerg").style.display="block";setTimeout(lockAsk,350)}}
+function showLock(){LKS.sm=0;LKS.missed=[];$("#lStudy").classList.remove("on");if(GATE&&Date.now()<(+S.gatePass||0)){setTimeout(gateDone,50);return}const L=$("#lock");L.classList.remove("out");L.classList.add("on");lockN=0;lockDots();$("#lQ").classList.remove("on");$("#lNotif").style.display="";$("#lSwipe").style.display="";$("#lIcon").classList.remove("open");$("#lWm").textContent=rnd(K[S.lv]).c;{const f=$("#lFloat");if(!f.children.length){const ks=K[S.lv].map(k=>k.c);for(let i=0;i<18;i++){const sp=document.createElement("span");sp.textContent=rnd(ks);sp.style.left=(Math.random()*100)+"%";sp.style.fontSize=(18+Math.random()*44)+"px";sp.style.animationDuration=(12+Math.random()*16)+"s";sp.style.animationDelay=(-Math.random()*20)+"s";f.appendChild(sp)}}}lockClock();if(GATE){$("#lEmerg").style.display="block";setTimeout(lockAsk,350)}}
 function lockAsk(){if($("#lQ").classList.contains("on"))return;$("#lSwipe").style.display="none";$("#lNotif").style.display="none";const el=$("#lQ");el.classList.add("on");
- const q=kanjiQ(S.lv);renderQ(el,q,ok=>{if(ok){lockN++;lockDots();if(lockN>=LOCK_NEED){unlockNow(true);return}setTimeout(()=>{el.classList.remove("on");lockAsk()},650)}else{setTimeout(()=>{el.classList.remove("on");lockAsk()},2600)}})}
+ $("#lStudy").classList.toggle("on",LKS.sm>=5);const q=kanjiQ(S.lv);renderQ(el,q,ok=>{if(ok){lockN++;lockDots();if(lockN>=LOCK_NEED){unlockNow(true);return}setTimeout(()=>{el.classList.remove("on");lockAsk()},650)}else{LKS.sm++;addMissed(LKS.missed,q.k);if(LKS.sm>=5)$("#lStudy").classList.add("on");setTimeout(()=>{el.classList.remove("on");lockAsk()},2600)}})}
+const LKS={sm:0,missed:[]};
 function unlockNow(earned){$("#lIcon").classList.add("open");{const bu=$("#lBurst");bu.classList.remove("go");void bu.offsetWidth;bu.classList.add("go")}confetti(70);buzz([30,40,60]);if(earned){S.unlocks++;addXP(10)}
  if(GATE){stamp("解錠");sfx.win();setTimeout(gateDone,700);return}
  setTimeout(()=>{$("#lock").classList.add("out");sfx.win();setTimeout(()=>{$("#lock").classList.remove("on","out");toast("Unlocked! +10 XP 🔓")},700)},500)}
-$("#lEmerg").onclick=gateDone;
+$("#lEmerg").textContent="🚨 Emergency · skip quizzes 15 min";
+$("#lEmerg").onclick=()=>{const b=$("#lEmerg");if(!b.dataset.c){b.dataset.c=1;b.textContent="Tap again: no lock quiz for 15 minutes";setTimeout(()=>{b.dataset.c="";b.textContent="🚨 Emergency · skip quizzes 15 min"},3000);return}
+ b.dataset.c="";S.gatePass=Date.now()+15*60000;save();gateDone()};
 (function(){const L=$("#lock");let y0=null;L.addEventListener("touchstart",e=>{y0=e.touches[0].clientY},{passive:true});L.addEventListener("touchend",e=>{if(y0!==null&&y0-e.changedTouches[0].clientY>50)lockAsk();y0=null});L.addEventListener("click",e=>{if(!e.target.closest(".lockq"))lockAsk()})})();
 
 /* ================= WRITING ================= */
@@ -1835,9 +1857,9 @@ $("#aTime").onchange=e=>{S.alarm.t=e.target.value;S.alarm.fired="";save();render
 $("#aTest").onclick=()=>{ac();startRing()};
 function alarmSound(){const a=ac();if(!a)return;[0,.18,.36].forEach(w=>{tone(988,.14,"square",.22,w);tone(1319,.14,"square",.12,w+.07)})}
 let wake=null;async function keepAwake(){try{if(navigator.wakeLock&&S.alarm.on&&!wake)wake=await navigator.wakeLock.request("screen")}catch(e){}}
-function startRing(){if(ringing)return;ringing=true;rState={n:0,miss:0,lv:LEVELS[S.alarm.lv]};$("#ring").classList.add("on");$("#rLv").textContent=rState.lv;alarmSound();ringTimer=setInterval(()=>{alarmSound();buzz([400,200,400])},1200);ringNext()}
+function startRing(){if(ringing)return;ringing=true;rState={n:0,miss:0,sm:0,missed:[],paused:false,lv:LEVELS[S.alarm.lv]};$("#ring").classList.add("on");$("#rLv").textContent=rState.lv;alarmSound();ringTimer=setInterval(()=>{if(rState.paused)return;alarmSound();buzz([400,200,400])},1200);ringNext()}
 function ringNext(){$("#rCount").textContent=rState.n+" / 5";$("#rMiss").textContent=rState.miss;$("#rBar").style.width=(rState.n/5*100)+"%";if(rState.n>=5)return stopRing();
- renderQ($("#rQ"),kanjiQ(rState.lv),ok=>{if(ok){rState.n++;setTimeout(ringNext,450)}else{rState.miss++;$("#rMiss").textContent=rState.miss;setTimeout(ringNext,2600)}})}
+ $("#rStudy").classList.toggle("on",rState.sm>=5);const q=kanjiQ(rState.lv);renderQ($("#rQ"),q,ok=>{if(ok){rState.n++;setTimeout(ringNext,450)}else{rState.miss++;rState.sm++;addMissed(rState.missed,q.k);$("#rMiss").textContent=rState.miss;if(rState.sm>=5)$("#rStudy").classList.add("on");setTimeout(ringNext,2600)}})}
 function stopRing(){clearInterval(ringTimer);ringTimer=null;ringing=false;try{navigator.vibrate&&navigator.vibrate(0)}catch(e){}$("#ring").classList.remove("on");const a=S.alarm;S.alarmsDone++;let msg="おはよう！ Good morning! +40 XP";
  if(rState.miss<=1){a.clears++;if(a.clears>=3&&a.lv<4){a.lv++;a.clears=0;msg="🎊 Alarm level up! Now "+LEVELS[a.lv];setTimeout(()=>confetti(90),300)}}else msg="Good morning! "+rState.miss+" mistakes, so this one doesn't count as a clear (1 or fewer needed).";
  addXP(40);save();renderAlarm();stamp("起床");sfx.win();toast(msg)}
@@ -1909,16 +1931,16 @@ $("#slSwitch").onclick=()=>{const c=slCfg();if(!IS_APK){toast("Study Lock pops u
 $("#slInterval").onchange=()=>{const c=slCfg();c.iv=+$("#slInterval").value;if(c.on&&IS_APK){c.next=Date.now()+c.iv*60000;native("studyon/"+c.iv*60);toast("Countdown restarted: "+slLabel())}save();renderSL()};
 $("#slTest").onclick=()=>{if(IS_APK){native("studytest");toast("⏱ Now leave Kanji Dojo and open any app. The quiz pops up in about 1 minute.")}else openSL(true)};
 setInterval(()=>{if($("#v-alarm").classList.contains("on"))renderSL()},30000);
-function openSL(preview){if(slActive)return;slActive=true;slState={n:0,miss:0,lv:S.lv,preview:!!preview};$("#lock").classList.remove("on");$("#slock").classList.add("on");$("#slLvTag").textContent=slState.lv;$("#slEmerg").textContent=preview?"✕ Close preview":"🚨 Emergency: use phone for 5 min";buzz([200,100,200]);sfx.win();slNext()}
+function openSL(preview){if(slActive)return;slActive=true;slState={n:0,miss:0,sm:0,missed:[],lv:S.lv,preview:!!preview};$("#lock").classList.remove("on");$("#slock").classList.add("on");$("#slLvTag").textContent=slState.lv;$("#slEmerg").textContent=preview?"✕ Close preview":"🚨 Emergency: use phone for 15 min";buzz([200,100,200]);sfx.win();slNext()}
 function slNext(){$("#slCount").textContent=slState.n+" / 5";$("#slMiss").textContent=slState.miss;$("#slBar").style.width=(slState.n/5*100)+"%";if(slState.n>=5)return slDone();
- renderQ($("#slQ"),kanjiQ(slState.lv),ok=>{if(ok){slState.n++;setTimeout(slNext,450)}else{slState.miss++;setTimeout(slNext,2600)}})}
+ $("#slStudy").classList.toggle("on",slState.sm>=5);const q=kanjiQ(slState.lv);renderQ($("#slQ"),q,ok=>{if(ok){slState.n++;setTimeout(slNext,450)}else{slState.miss++;slState.sm++;addMissed(slState.missed,q.k);if(slState.sm>=5)$("#slStudy").classList.add("on");setTimeout(slNext,2600)}})}
 function studyCmd(cmd){native(cmd);setTimeout(()=>{try{location.href="kanjidojo://"+cmd}catch(e){}},900);setTimeout(sleepPage,1600)}
 function slDone(){S.slocks=(S.slocks||0)+1;addXP(15);stamp("解放");sfx.win();
- if(STUDY){const c=slCfg();c.next=Date.now()+c.iv*60000;save();setTimeout(()=>studyCmd("studydone"),800);return}
+ if(STUDY){const c=slCfg();c.next=Date.now()+c.iv*60000;const fix=c.paused15;c.paused15=0;save();if(fix)native("studyon/"+(c.iv*60));setTimeout(()=>studyCmd("studydone"),fix?1200:800);return}
  slActive=false;$("#slock").classList.remove("on");confetti();toast("🔓 Done! +15 XP · 5 kanji reviewed")}
 $("#slEmerg").onclick=()=>{if(slState&&slState.preview){slActive=false;$("#slock").classList.remove("on");return}
- const b=$("#slEmerg");if(!b.dataset.c){b.dataset.c=1;b.textContent="Tap again: 5 min pass, then the quiz returns";setTimeout(()=>{b.dataset.c="";if(slActive)b.textContent="🚨 Emergency: use phone for 5 min"},3000);return}
- b.dataset.c="";const c=slCfg();c.next=Date.now()+5*60000;save();studyCmd("studypause")};
+ const b=$("#slEmerg");if(!b.dataset.c){b.dataset.c=1;b.textContent="Tap again: 15 min pass, then the quiz returns";setTimeout(()=>{b.dataset.c="";if(slActive)b.textContent="🚨 Emergency: use phone for 15 min"},3000);return}
+ b.dataset.c="";const c=slCfg();c.next=Date.now()+15*60000;c.paused15=1;save();native("studyon/900");setTimeout(()=>studyCmd("studydone"),600)};
 /* ================= UPDATES ================= */
 const UPD_REPO="clarkremo40-lgtm/kanji-dojo";
 const UPD_BASES=["https://raw.githubusercontent.com/"+UPD_REPO+"/main/","https://raw.githubusercontent.com/"+UPD_REPO+"/master/","https://cdn.jsdelivr.net/gh/"+UPD_REPO+"@main/"];
@@ -2141,6 +2163,29 @@ function openLesson(l,i){const L=GLES[l],x=L[i];if(!x)return;const b=BELT[l];sfx
    go.disabled=false;go.classList.remove("wait");go.textContent=i+1<L.length?"Next lesson →":"🏯 Boss test";go.onclick=()=>{if(i+1<L.length)openLesson(l,i+1);else{gLv=l;openGramTest()}};
    const back=document.createElement("button");back.className="btn full";back.style.marginTop="10px";back.textContent="Back to path 🗺️";back.onclick=closeSheet;go.after(back);try{renderGram()}catch(e){}}}
  setStars();show()}
+
+
+/* ================= STUDY RESCUE: after 5 mistakes, study the missed ones, then retry ================= */
+function addMissed(arr,k){if(k&&!arr.some(x=>x.id===k.id))arr.push(k)}
+function openRescue(ctx){const st=ctx==="ring"?rState:ctx==="sl"?slState:LKS;if(!st)return;let list=st.missed.slice(-6);
+ const lv=ctx==="ring"?rState.lv:ctx==="sl"?slState.lv:S.lv;if(list.length<3)ITEMS(lv).filter(x=>!isM(x)&&!list.includes(x)).slice(0,3-list.length).forEach(x=>list.push(x));
+ if(ctx==="ring"){rState.paused=true;try{navigator.vibrate&&navigator.vibrate(0)}catch(e){}}
+ let i=0;const box=$("#srIn");$("#srs").classList.add("on");sfx.pop();
+ const draw=()=>{const k=list[i],t=trick(k),last=i===list.length-1;
+  box.innerHTML=`<div class="srHead"><b>📚 Study time!</b><span>Learn these ${list.length}, then try again. You've got this 💪</span></div>
+   <div class="srDots">${list.map((_,j)=>`<i class="${j<i?"on":j===i?"now":""}"></i>`).join("")}</div>
+   <div class="srCard" key="${i}"><div class="pkTag ${k.v?"vw":""}">${k.v?"単語 WORD":"漢字 KANJI"} · ${k.l}</div><div class="srC ${k.c.length>2?"long":""}">${esc(k.c)}</div>
+    <div class="pkR">${esc(k.r)} ${window.speechSynthesis?'<button class="pkSay" id="srSay">🔊</button>':""}</div><div class="pkM">${esc(k.m)}</div>
+    ${t?`<div class="pkTrick"><b>💡 MEMORY TRICK</b><div>${jlink(t)}</div></div>`:""}</div>
+   <button class="btn shu full srNext" id="srNext" disabled><span class="srRing"></span><span id="srNT">Read it… 3</span></button>`;
+  if(window.speechSynthesis){say(k.c);$("#srSay").onclick=()=>say(k.c)}
+  let n=3;const tick=setInterval(()=>{n--;const nt=$("#srNT");if(!nt){clearInterval(tick);return}if(n>0)nt.textContent="Read it… "+n;else{clearInterval(tick);const b=$("#srNext");b.disabled=false;nt.textContent=last?"✅ I studied! Back to the quiz":"Got it! Next →";sfx.pop()}},1000);
+  $("#srNext").onclick=()=>{if($("#srNext").disabled)return;if(!last){i++;sfx.ok();draw();return}
+   $("#srs").classList.remove("on");stamp("復習");sfx.win();st.sm=0;QFORCE=shuffle(list.slice());
+   if(ctx==="ring"){rState.paused=false;$("#rStudy").classList.remove("on");if(ringing)ringNext()}else if(ctx==="sl"){$("#slStudy").classList.remove("on");if(slActive)slNext()}else{$("#lStudy").classList.remove("on");$("#lQ").classList.remove("on");lockAsk()}
+   toast("💪 Studied! Now try again. They'll come up next")}};
+ draw()}
+$("#rStudy").onclick=()=>openRescue("ring");$("#slStudy").onclick=()=>openRescue("sl");$("#lStudy").onclick=e=>{e.stopPropagation();openRescue("lock")};
 
 /* ================= STUDY REMINDERS + SESSIONS ================= */
 function remCfg(){S.rem=S.rem||{on:false,t:"20:00",dur:60,pre:[60,15],fired:{}};S.rem.fired=S.rem.fired||{};return S.rem}

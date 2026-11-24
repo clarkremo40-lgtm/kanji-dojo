@@ -1,15 +1,14 @@
 {
-  "build": 24,
-  "version": "2.4",
+  "build": 25,
+  "version": "2.5",
   "file": "app.html",
-  "size": 420283,
+  "size": 426233,
   "minNative": 6,
   "notes": [
-    "🎮 Grammar lessons are now interactive step-by-step adventures with a progress bar and your cat coach cheering you on",
-    "🧩 Formula blocks snap together, 💡 flip the secret-trick card, 🔁 guess each form then flip to check, 🫧 tap bubbles to translate",
-    "🧱 New 'Build the sentence' game: put the blocks in the right order (with hints)",
-    "⭐ Earn up to 3 stars per lesson, big celebration at the end, stars shown on the path",
-    "🇬🇧 English translation in every Check yourself question"
+    "📚 Struggling? After 5 mistakes in the alarm, Study Lock or lock screen, a STUDY button appears",
+    "It shows the kanji and words you missed with meaning, reading, 🔊 and memory trick, then sends you back to try them again",
+    "⏰ The alarm sound pauses while you study, then comes back",
+    "🚨 Emergency is now 15 minutes (Study Lock and lock screen)"
   ],
   "native": {
     "build": 8,
