@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <script>
-var KD_BUILD=36,KD_VER="3.6",KD_NATIVE=10;
+var KD_BUILD=37,KD_VER="3.7",KD_NATIVE=11;
 (function(){try{if(window.__KD_SWAP)return;var ls=localStorage;
  if(location.href.indexOf("file:///android_asset")===0)ls.setItem("kd_native",String(KD_NATIVE));
  var b=+(ls.getItem("kd_build")||0),h=ls.getItem("kd_html");
@@ -525,6 +525,64 @@ nav .navAI:active .navAIc{transform:scale(.92)}
 .aiOff{text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px}.aiOff b{font-size:17px}.aiOff span{font-size:13.5px;line-height:1.5}
 .aiOffB{display:grid;grid-template-columns:1fr 1fr;gap:6px;width:100%;margin-top:6px}.aiOffB button{border:none;border-radius:14px;padding:10px 6px;font:inherit;font-weight:800;font-size:13px;background:linear-gradient(135deg,#fff0f6,#f1ebff);color:#5b3fa8;box-shadow:0 3px 0 #e6dcff}
 .aiCaps .aiOff{color:#2d2147;background:#fff;border-radius:20px;padding:14px;box-shadow:0 6px 18px rgba(123,92,255,.15)}
+#jt{position:fixed;inset:0;z-index:64;display:none;overflow:auto;background:linear-gradient(170deg,#fff7ef,#fdf0f7 50%,#eef4ff);color:#2d2147;padding:calc(12px + env(safe-area-inset-top,0px)) 16px calc(28px + env(safe-area-inset-bottom,0px))}
+#jt.on{display:block;animation:qIn .35s both}
+.jtX{position:sticky;top:0;float:right;z-index:3;border:none;background:#fff;border-radius:50%;width:40px;height:40px;font-size:18px;font-weight:900;color:#6b4fd8;box-shadow:0 3px 10px rgba(123,92,255,.2)}
+.jHero{position:relative;overflow:hidden;border-radius:28px;padding:22px 18px;color:#fff;background:linear-gradient(135deg,#e8202a,#ff6f61 50%,#ffb36b);box-shadow:0 14px 30px rgba(232,32,42,.3);margin:6px 0 14px}
+.jHero small{display:block;font-size:11px;letter-spacing:2px;font-weight:900;opacity:.9}.jHero b{display:block;font-size:28px;font-weight:900;margin:2px 0}.jHero span{font-size:13.5px;line-height:1.5;display:block;max-width:78%}
+.jSun{position:absolute;right:-30px;top:-30px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,#fff 0 35%,rgba(255,255,255,.25) 36% 60%,transparent 61%)}
+.jLv{display:flex;gap:8px;margin-bottom:12px}
+.jFormat{background:#fff;border-radius:20px;padding:14px;box-shadow:0 4px 0 #f0e6ee;font-size:13px}
+.jFH{font-weight:900;color:#c2185b;margin-bottom:6px;font-size:12.5px}.jFR{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px dashed #eee}.jFR i{display:block;font-style:normal;font-size:11px;color:#8a7fae}
+.jBest{margin:12px 0 0;text-align:center;font-size:14px}
+.jBig{margin-top:14px;padding:16px!important;font-size:16px!important}.jBig2{margin-top:10px}
+.jPaper{background:#fff;border-radius:6px;padding:22px 18px;box-shadow:0 10px 30px rgba(0,0,0,.08);border-top:8px solid #e8202a;margin-top:10px;text-align:center}
+.jPT{font-family:"Shippori Mincho B1",serif;font-size:20px;font-weight:800}.jPL{font-size:64px;font-weight:900;color:#e8202a;margin:6px 0}.jPaper p{font-size:14px;line-height:1.55;color:#555}
+.jSecIntro{text-align:center;padding:40px 10px}.jSecIntro b{display:block;font-family:"Shippori Mincho B1",serif;font-size:24px;margin:10px 0 4px}.jSecIntro span{display:block;color:#6b5f94;margin-bottom:22px}
+.jSecN{display:inline-block;padding:6px 14px;border-radius:99px;background:#2d2147;color:#fff;font-weight:900}
+.jTop{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:4px 48px 8px 0}.jSecT{font-size:12px;font-weight:900;color:#8a6fe8}
+.jTime{font-variant-numeric:tabular-nums;background:#2d2147;color:#fff;border-radius:12px;padding:5px 10px;font-size:15px}.jTime.low{background:#e8202a;animation:barPulse 1s infinite}
+.jMon{background:#fff;border-left:5px solid #e8202a;border-radius:10px;padding:10px 12px;margin:10px 0;font-size:13px}.jMon b{display:block;color:#e8202a;font-size:12px}.jMon span{display:block;font-size:15px;font-weight:700;margin:2px 0}.jMon i{font-size:11.5px;color:#8a7fae}
+.jPass{background:#fffdf6;border:1.5px solid #f1e3b8;border-radius:14px;padding:14px;font-size:16px;line-height:1.9;margin-bottom:10px;white-space:normal}
+.jQ{display:flex;gap:10px;align-items:flex-start;font-size:18px;line-height:1.7;margin:10px 0}.jQ u{text-decoration-thickness:2px;text-underline-offset:4px;text-decoration-color:#e8202a}
+.jNo{flex:none;width:28px;height:28px;border:2px solid #2d2147;display:grid;place-items:center;font-size:14px;font-weight:900;margin-top:3px}
+.jb{display:inline-block;min-width:40px;border-bottom:2px solid #2d2147;text-align:center}.jb.st{color:#e8202a;font-weight:900}
+.jOpts{display:grid;gap:8px}.jOpt{display:flex;align-items:center;gap:12px;text-align:left;border:2px solid #e8e1f5;border-radius:16px;padding:12px 14px;background:#fff;font:inherit;font-size:16px;color:#2d2147}
+.jOpt i{flex:none;width:28px;height:28px;border-radius:50%;border:2px solid #c9b8ff;display:grid;place-items:center;font-style:normal;font-weight:900;font-size:13px;color:#7b5cff}
+.jOpt.on{border-color:#7b5cff;background:#f4efff}.jOpt.on i{background:#7b5cff;color:#fff;border-color:#7b5cff}
+.jOpt.ok{border-color:#22b07d;background:#eafff5}.jOpt.no{border-color:#ff5a6e;background:#fff0f2}
+.jPlay{display:block;width:100%;padding:16px;border:none;border-radius:18px;font:inherit;font-size:17px;font-weight:900;color:#fff;background:linear-gradient(135deg,#31c8ff,#7b5cff);box-shadow:0 6px 18px rgba(49,200,255,.35);margin:6px 0}
+.jScript{font-size:14px;line-height:1.6;color:#6b5f94}
+.jRes{text-align:center;background:#fff;border-radius:28px;padding:22px 16px;box-shadow:0 10px 30px rgba(0,0,0,.08);position:relative;margin-top:10px}
+.jStamp{display:inline-block;font-family:"Shippori Mincho B1",serif;font-size:40px;font-weight:800;padding:2px 14px;border:5px solid currentColor;border-radius:14px;transform:rotate(-8deg);animation:stampHit2 .6s cubic-bezier(.2,1.6,.4,1) both}
+.jRes.pass .jStamp{color:#e8202a}.jRes.fail .jStamp{color:#8a7fae}.jRes small{display:block;margin-top:10px;font-size:11px;letter-spacing:2px;font-weight:900;color:#8a7fae}
+.jTot{font-size:60px;font-weight:900;line-height:1}.jTot span{font-size:22px;color:#8a7fae}
+.jSR{text-align:left;margin-top:14px;font-size:13.5px}.jBar{position:relative;height:12px;border-radius:99px;background:#eee;margin:6px 0 4px;overflow:visible}.jBar div{height:100%;border-radius:99px}.jBar .ok{background:linear-gradient(90deg,#34d399,#22b07d)}.jBar .no{background:linear-gradient(90deg,#ff8fab,#ff3b5c)}
+.jBar i{position:absolute;top:-4px;width:3px;height:20px;background:#2d2147;border-radius:2px}
+.jMsg{font-weight:800;margin-top:14px}
+.jEx{margin-top:10px;padding:12px 14px;border-radius:16px;font-size:14px;line-height:1.55}.jEx.ok{background:#eafff5;border:1.5px solid #a9efcf}.jEx.no{background:#fff3f5;border:1.5px solid #ffc2cd}.jExS{font-size:16px;margin-top:6px}
+.jRevQ{background:#fff;border-radius:18px;padding:12px;margin:10px 0;box-shadow:0 3px 0 #eee6ff}.jMonS{font-size:11px;font-weight:900;color:#e8202a}
+.jRevG{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.jRevT{border:none;border-radius:20px;padding:14px 10px;background:#fff;box-shadow:0 4px 0 #eee6ff;font-family:inherit;color:#2d2147;display:flex;flex-direction:column;align-items:center;gap:2px}
+.jRevT span{font-size:28px}.jRevT b{font-family:"Shippori Mincho B1",serif;font-size:17px}.jRevT i{font-style:normal;font-size:11.5px;color:#8a7fae}
+.jCL{display:block;width:100%;text-align:left;border:none;border-radius:18px;padding:14px;margin:8px 0;background:#fff;box-shadow:0 3px 0 #f0e2c4;font-family:inherit;color:#2d2147}.jCL b{font-size:22px;color:#c98a00;margin-right:10px}
+.jlptCard{display:flex;align-items:center;gap:12px;width:100%;border:none;font-family:inherit;color:#fff;background:linear-gradient(135deg,#e8202a,#ff6f61 55%,#ffb36b)!important;box-shadow:0 10px 26px rgba(232,32,42,.3);cursor:pointer}
+.jlptCard .jIco{width:52px;height:52px;flex:none;border-radius:16px;background:rgba(255,255,255,.22);display:grid;place-items:center;font-size:28px}.jlptCard .tiny{color:#fff;opacity:.95}
+/* certificate */
+.cert{margin:8px 0;filter:drop-shadow(0 14px 30px rgba(120,80,0,.25))}
+.cBorder{background:linear-gradient(135deg,#c9a227,#f7e7a1 25%,#b8860b 50%,#f7e7a1 75%,#c9a227);padding:8px;border-radius:6px}
+.cIn{position:relative;background:radial-gradient(circle at 50% 40%,#fffdf5,#fbf3dc);border:2px solid #b8860b;outline:1px solid #e9d9a6;outline-offset:-8px;padding:22px 18px 16px;text-align:center;color:#3a2a10;overflow:hidden}
+.cIn::before{content:"道";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:"Shippori Mincho B1",serif;font-size:260px;color:rgba(184,134,11,.06);pointer-events:none}
+.cTop{display:flex;align-items:center;justify-content:center;gap:10px}.cLogo{width:44px;height:44px}.cLogo svg{width:44px;height:44px}.cTop b{display:block;letter-spacing:4px;font-size:14px}.cTop span{display:block;font-family:"Shippori Mincho B1",serif;font-size:12px;color:#8a6a1a;text-align:left}
+.cJp{font-family:"Shippori Mincho B1",serif;font-size:40px;font-weight:800;letter-spacing:8px;margin-top:10px;color:#2a1d05}
+.cEn{font-family:Georgia,serif;font-style:italic;font-size:18px;color:#8a6a1a;margin-bottom:12px}
+.cLine{font-family:Georgia,serif;font-size:14px;line-height:1.6;color:#5a4520}
+.cName{font-family:Georgia,serif;font-size:28px;font-weight:700;margin:6px auto;padding:0 20px 4px;border-bottom:1.5px solid #b8860b;display:inline-block;color:#2a1d05}
+.cLvl{margin:12px 0}.cLvl span{display:inline-grid;place-items:center;width:84px;height:84px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff3c4,#d4a017);border:3px double #8a6a1a;font-size:30px;font-weight:900;color:#5a3e05;box-shadow:0 6px 14px rgba(140,100,0,.3)}
+.cScores{max-width:320px;margin:0 auto;font-size:12.5px}.cScores div{display:flex;justify-content:space-between;gap:10px;padding:4px 0;border-bottom:1px dotted #d8c58a}.cScores span{text-align:left}.cTot{font-weight:900;font-size:14px}
+.cFoot{display:flex;align-items:flex-end;justify-content:space-between;margin-top:16px;font-size:11px;color:#6a5426}.cFoot span{display:block}.cFoot b{display:block;font-size:12px}
+.cSig{white-space:nowrap;font-family:"Brush Script MT","Segoe Script",cursive;font-size:20px;color:#2a1d05;border-bottom:1px solid #8a6a1a;padding:0 6px}
+.cSeal{width:70px;height:70px;border-radius:50%;border:3px solid #c8102e;color:#c8102e;display:grid;place-items:center;font-family:"Shippori Mincho B1",serif;font-size:22px;font-weight:800;transform:rotate(-12deg);background:rgba(200,16,46,.06);box-shadow:inset 0 0 0 3px #fffdf5,inset 0 0 0 5px rgba(200,16,46,.6)}
+.cNote{margin-top:12px;font-size:10px;color:#9a8550;font-style:italic}
 /* ===== GORGEOUS LOCK SCREEN ===== */
 #lock{background:#120b2e!important}
 #lock .aur{position:absolute;inset:-20%;pointer-events:none;filter:blur(55px) saturate(1.3);opacity:.85}
@@ -697,6 +755,7 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
         </div>
       </div>
       <button class="card aiCard" id="aiHome"><div class="aiCi"><svg viewBox="0 0 64 64"><path d="M14 22 L18 4 L28 16 Z M50 22 L46 4 L36 16 Z" fill="#2b59c3"/><path d="M17 18 L19 9 L25 16 Z M47 18 L45 9 L39 16 Z" fill="#ff9eb5"/><circle cx="32" cy="32" r="22" fill="#2b59c3"/><ellipse cx="32" cy="37" rx="16" ry="13" fill="#ffe3c7"/><rect x="10" y="20" width="44" height="7" rx="3" fill="#ff4d6d"/><ellipse class="catEye" cx="25" cy="35" rx="3" ry="3.6" fill="#2d2147"/><ellipse class="catEye" cx="39" cy="35" rx="3" ry="3.6" fill="#2d2147"/><circle cx="26" cy="33.8" r="1" fill="#fff"/><circle cx="40" cy="33.8" r="1" fill="#fff"/><ellipse cx="20" cy="41" rx="3" ry="1.8" fill="#ffb3c6"/><ellipse cx="44" cy="41" rx="3" ry="1.8" fill="#ffb3c6"/><path d="M29 41 q3 3 6 0" stroke="#2d2147" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg></div><div class="grow" style="text-align:left"><b>Talk with Hana-sensei 🌸</b><div class="tiny">Your AI tutor: chat or real voice call · she knows your level and weak kanji</div></div><div style="font-size:22px">›</div></button>
+      <button class="card jlptCard" id="jlptHome"><div class="jIco">🎌</div><div class="grow" style="text-align:left"><b>JLPT Mock Test &amp; Review</b><div class="tiny">Real JLPT format and scoring · earn your 合格 certificate 🏅</div></div><div style="font-size:22px">›</div></button>
       <button class="card dictCard" id="dictHome"><div class="dIco">💡</div><div class="grow" style="text-align:left"><b>Kanji &amp; Word Tricks</b><div class="tiny">Easy ways to remember: 口 is a square mouth, 花 + 火 = 花火 fireworks 🎆</div></div><div style="font-size:22px">›</div></button>
       <div class="card sesCard" id="sesHome">
         <div class="row"><div class="sesIco">📅</div><div class="grow"><b id="sesHT">Study time</b><div class="tiny" id="sesHS" style="opacity:.9"></div></div></div>
@@ -885,6 +944,7 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
     </div>
   </div>
 </div>
+<div id="jt"><button class="jtX" id="jtX">✕</button><div id="jtB"></div></div>
 <div id="srs"><div class="srIn" id="srIn"></div></div>
 <div id="peek"><div class="pk"></div></div>
 <div id="lock">
@@ -2135,7 +2195,8 @@ function breakdown(w){return[...w].filter(isKj).map(ch=>({c:ch,m:kMean(ch)}))}
 function trick(it){if(!it)return"";if(!it.v)return MN[it.c]||"";if(STORY[it.c])return STORY[it.c];
  const b=breakdown(it.c).filter(x=>x.m);return b.length>1?b.map(x=>`${x.c} (${x.m.split(",")[0]})`).join(" + ")+` → ${it.m}`:b.length?`${b[0].c} means "${b[0].m.split(",")[0]}" → ${it.m}`:""}
 let peekStack=[];
-function say(t){try{if(!window.speechSynthesis)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="ja-JP";u.rate=.85;speechSynthesis.speak(u)}catch(e){}}
+function canSay(){return(IS_APK&&nativeBuild()>=11)||!!window.speechSynthesis}
+function say(t){try{if(IS_APK&&nativeBuild()>=11){native("speak?t="+encodeURIComponent(t));return}if(!window.speechSynthesis)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="ja-JP";u.rate=.85;speechSynthesis.speak(u)}catch(e){}}
 function openPeek(w,push){const it=ALLV[w]||ALLK[w];const ex=!it&&EXK[w];if(!it&&!ex)return;if(!push)peekStack=[];peekStack.push(w);sfx.pop();
  const p=$("#peek");const tr=it?trick(it):"";const cnt=it?Math.min(MASTER_N,(S.ks[it.id]||{}).c||0):-1;
  const used=!it||!it.v?Object.values(ALLV).filter(v=>v.c.includes(w)).slice(0,8):[];
@@ -2150,7 +2211,7 @@ function openPeek(w,push){const it=ALLV[w]||ALLK[w];const ex=!it&&EXK[w];if(!it&
   ${parts.length>1||(parts.length===1&&it.c.length>1)?`<div class="pkSub">Made of · tap a kanji</div><div class="pkParts">${parts.map(x=>`<button class="pkPart" data-w="${x.c}"><b>${x.c}</b><span>${esc((x.m||"?").split(",")[0])}</span></button>`).join(`<i>+</i>`)}</div>`:""}
   ${used.length?`<div class="pkSub">Used in words</div><div class="pkUsed">${used.map(v=>`<button class="pkPart" data-w="${esc(v.c)}"><b>${esc(v.c)}</b><span>${esc(v.m.split(",")[0])}</span></button>`).join("")}</div>`:""}`;
  p.classList.add("on");$("#pkX").onclick=closePeek;const bb=$("#pkB");if(bb)bb.onclick=()=>{peekStack.pop();const prev=peekStack.pop();openPeek(prev,true)};
- const sb=$("#pkSay");if(sb){if(!window.speechSynthesis)sb.remove();else sb.onclick=()=>say(it.c)}
+ const sb=$("#pkSay");if(sb){if(!canSay())sb.remove();else sb.onclick=()=>say(it.c)}
  p.querySelectorAll(".pkPart").forEach(b=>b.onclick=()=>openPeek(b.dataset.w,true))}
 function closePeek(){$("#peek").classList.remove("on");peekStack=[]}
 document.addEventListener("click",e=>{const j=e.target.closest&&e.target.closest(".jw");if(!j)return;const q=j.closest("[data-qwait]");e.stopPropagation();e.preventDefault();if(q&&q.dataset.qwait==="1"){toast("💡 Answer first, then tap to learn it");return}openPeek(j.dataset.w)},true);
@@ -2203,7 +2264,7 @@ function openLessonClassic(l,i){const L=GLES[l],x=L[i];if(!x)return;const b=BELT
   <div class="lsCard"><div class="lsH">📖 How it works</div><p>${jlink(x.ex)}</p></div>
   <div class="lsNote"><div class="lsTape"></div><div class="lsH">💡 Easy way to remember</div><p>${jlink(x.t2)}</p></div>
   ${x.c?`<div class="lsCard"><div class="lsH">🔁 Forms</div><div class="lsTbl">${x.c.map((r,k)=>`<div class="lsTr" style="--d:${k*70}ms"><span>${esc(r[0])}</span><b>${jlink(r[1])}</b></div>`).join("")}</div></div>`:""}
-  <div class="lsCard"><div class="lsH">💬 Examples <small>tap any word · 🔊 listen</small></div>${x.x.map((e,k)=>`<div class="lsEx ${k%2?"r":""}"><div class="lsAv">${k%2?"🧑":CATSVG}</div><div class="lsB"><div class="lsJ">${jlink(e[0])}</div><div class="lsEn">${esc(e[1])}</div>${window.speechSynthesis?`<button class="lsSay" data-s="${esc(e[0])}">🔊</button>`:""}</div></div>`).join("")}</div>
+  <div class="lsCard"><div class="lsH">💬 Examples <small>tap any word · 🔊 listen</small></div>${x.x.map((e,k)=>`<div class="lsEx ${k%2?"r":""}"><div class="lsAv">${k%2?"🧑":CATSVG}</div><div class="lsB"><div class="lsJ">${jlink(e[0])}</div><div class="lsEn">${esc(e[1])}</div>${canSay()?`<button class="lsSay" data-s="${esc(e[0])}">🔊</button>`:""}</div></div>`).join("")}</div>
   <div class="lsCard lsQ"><div class="lsH">✅ Check yourself</div><div id="lsQ" class="qwrap"></div></div>
   <div class="row" style="gap:10px;margin-top:6px">${i>0?'<button class="btn" id="lsPrev" style="flex:none">←</button>':""}<button class="btn shu grow" id="lsNext">${i+1<L.length?"Next lesson →":"🏯 Boss test"}</button></div></div>`);
  $$(".lsSay").forEach(s=>s.onclick=()=>say(s.dataset.s));
@@ -2264,10 +2325,10 @@ function openLesson(l,i){const L=GLES[l],x=L[i];if(!x)return;const b=BELT[l];sfx
    let seen=0;const tot=x.c.length;catSay(`Can you guess each form? Tap to check! 0/${tot}`);lock(true);
    const rev=t=>{if(!t.classList.contains("hid2")){t.classList.add("hid2");t.querySelector("b").classList.remove("hid");t.querySelector("em").textContent="✓";seen++;sfx.ok();catSay(seen<tot?`${seen}/${tot} · keep going! 👀`:"All forms unlocked! 🔓","yay");if(seen>=tot)lock(false)}};
    $$(".lxTr").forEach(t=>t.onclick=e=>{if(e.target.closest(".jw")&&t.classList.contains("hid2"))return;rev(t)});$("#lxAll").onclick=()=>$$(".lxTr").forEach((t,k)=>setTimeout(()=>rev(t),k*120))}
-  else if(s==="examples"){stage.innerHTML=`<div class="lsCard"><div class="lsH">💬 Examples <small>tap a bubble to translate · 🔊 listen</small></div>${ex.map((e,k)=>`<div class="lsEx ${k%2?"r":""}"><div class="lsAv">${k%2?"🧑":CATSVG}</div><div class="lsB lxB" data-k="${k}"><div class="lsJ">${jlink(e.j)}</div><div class="lsEn lxEn">${esc(e.en)}</div><div class="lxTap">👆 tap to translate</div>${window.speechSynthesis?`<button class="lsSay" data-s="${esc(e.j)}">🔊</button>`:""}</div></div>`).join("")}</div>`;
+  else if(s==="examples"){stage.innerHTML=`<div class="lsCard"><div class="lsH">💬 Examples <small>tap a bubble to translate · 🔊 listen</small></div>${ex.map((e,k)=>`<div class="lsEx ${k%2?"r":""}"><div class="lsAv">${k%2?"🧑":CATSVG}</div><div class="lsB lxB" data-k="${k}"><div class="lsJ">${jlink(e.j)}</div><div class="lsEn lxEn">${esc(e.en)}</div><div class="lxTap">👆 tap to translate</div>${canSay()?`<button class="lsSay" data-s="${esc(e.j)}">🔊</button>`:""}</div></div>`).join("")}</div>`;
    let seen=0;catSay("What do they mean? Guess, then tap the bubbles! 🫧");lock(true);
    $$(".lsSay").forEach(s=>s.onclick=e=>{e.stopPropagation();say(s.dataset.s)});
-   $$(".lxB").forEach(bb=>bb.onclick=e=>{if(e.target.closest(".jw")||bb.classList.contains("open"))return;bb.classList.add("open");seen++;sfx.ok();if(window.speechSynthesis)say(ex[+bb.dataset.k].j);if(seen>=ex.length){lock(false);catSay(rnd(CAT_YAY),"yay")}else catSay(`${seen}/${ex.length} · one more! 🫧`)})}
+   $$(".lxB").forEach(bb=>bb.onclick=e=>{if(e.target.closest(".jw")||bb.classList.contains("open"))return;bb.classList.add("open");seen++;sfx.ok();if(canSay())say(ex[+bb.dataset.k].j);if(seen>=ex.length){lock(false);catSay(rnd(CAT_YAY),"yay")}else catSay(`${seen}/${ex.length} · one more! 🫧`)})}
   else if(s==="build"){const tgt=bx.t,pool=shuffle(tgt.map((w,k)=>({w,k})));let ans=[];let tries=0;
    stage.innerHTML=`<div class="lsCard lxBuild"><div class="lsH">🧱 Build the sentence</div><div class="lxEnQ">“${esc(bx.en)}”</div><div class="lxAns" id="lxAns"><span class="lxPh">tap the blocks in order ⬇️</span></div><div class="lxPool" id="lxPool"></div><div class="row" style="gap:8px;margin-top:12px"><button class="lxAll" id="lxHint">💡 Hint</button><button class="lxAll" id="lxClr">↺ Clear</button></div></div>`;
    catSay("Put the blocks in the right order! 🧱");lock(true);
@@ -2276,14 +2337,14 @@ function openLesson(l,i){const L=GLES[l],x=L[i];if(!x)return;const b=BELT[l];sfx
     $$("#lxPool .lxTile").forEach(t=>t.onclick=()=>{const p=pool[+t.dataset.p];if(ans.includes(p))return;ans.push(p);sfx.pop();draw();chk()});
     $$("#lxAns .lxTile").forEach(t=>t.onclick=()=>{ans.splice(+t.dataset.a,1);draw()})};
    const chk=()=>{if(ans.length<tgt.length)return;const ok=ans.map(p=>p.w).join("")===tgt.join("");
-    if(ok){$$("#lxAns .lxTile").forEach((t,k)=>{t.classList.add("good");t.style.animationDelay=(k*.07)+"s"});sfx.ok(true);buzz(25);confetti(40);catSay(rnd(CAT_YAY),"yay");if(window.speechSynthesis)setTimeout(()=>say(bx.j),500);lock(false,"Continue →");$("#lxPool").innerHTML=`<div class="lxDoneTxt">${jlink(bx.j)}</div>`}
+    if(ok){$$("#lxAns .lxTile").forEach((t,k)=>{t.classList.add("good");t.style.animationDelay=(k*.07)+"s"});sfx.ok(true);buzz(25);confetti(40);catSay(rnd(CAT_YAY),"yay");if(canSay())setTimeout(()=>say(bx.j),500);lock(false,"Continue →");$("#lxPool").innerHTML=`<div class="lxDoneTxt">${jlink(bx.j)}</div>`}
     else{tries++;if(!lostB){lostB=true;stars=Math.max(1,stars-1);setStars()}const a=$("#lxAns");a.classList.remove("shake");void a.offsetWidth;a.classList.add("shake");sfx.no();buzz([40,30,40]);catSay(rnd(CAT_OOPS),"oops");
      setTimeout(()=>{let k=0;while(k<ans.length&&ans[k].w===tgt[k])k++;ans=ans.slice(0,k);draw()},700)}};
    $("#lxClr").onclick=()=>{ans=[];draw()};
    $("#lxHint").onclick=()=>{let k=0;while(k<ans.length&&ans[k].w===tgt[k])k++;ans=ans.slice(0,k);const p=pool.find(p=>!ans.includes(p)&&p.w===tgt[k]);if(p){ans.push(p);if(!lostB&&k===0){}sfx.pop();draw();chk();catSay("Here's a little push 👉")}};
    draw()}
   else if(s==="match"){const e=ex[0];const others=shuffle(Object.values(GLES).flat().filter(y=>y.id!==x.id).map(y=>y.x[0][1])).slice(0,2);const opts=shuffle([e.en,...others]);
-   stage.innerHTML=`<div class="lsCard"><div class="lsH">🎯 What does it mean?</div><div class="lxBig">${jlink(e.j)}</div>${window.speechSynthesis?`<button class="lxAll" id="lxSay">🔊 Listen</button>`:""}<div class="lxOpts">${opts.map(o=>`<button class="opt lxOpt">${esc(o)}</button>`).join("")}</div></div>`;
+   stage.innerHTML=`<div class="lsCard"><div class="lsH">🎯 What does it mean?</div><div class="lxBig">${jlink(e.j)}</div>${canSay()?`<button class="lxAll" id="lxSay">🔊 Listen</button>`:""}<div class="lxOpts">${opts.map(o=>`<button class="opt lxOpt">${esc(o)}</button>`).join("")}</div></div>`;
    catSay("Pick the right meaning! 🎯");lock(true);const sy=$("#lxSay");if(sy)sy.onclick=()=>say(e.j);
    $$(".lxOpt").forEach(o=>o.onclick=()=>{if(!go.disabled)return;if(o.textContent===e.en){o.classList.add("ok");sfx.ok();confetti(30);catSay(rnd(CAT_YAY),"yay");lock(false)}else{o.classList.add("no");sfx.no();buzz([40,30,40]);if(!lostB){lostB=true;stars=Math.max(1,stars-1);setStars()}catSay(rnd(CAT_OOPS),"oops")}})}
   else if(s==="check"){const q=x.q,en=QEN[x.id]||"";
@@ -2317,10 +2378,10 @@ function openRescue(ctx){const st=ctx==="ring"?rState:ctx==="sl"?slState:LKS;if(
   box.innerHTML=`<div class="srHead"><b>📚 Study time!</b><span>Learn these ${list.length}, then try again. You've got this 💪</span></div>
    <div class="srDots">${list.map((_,j)=>`<i class="${j<i?"on":j===i?"now":""}"></i>`).join("")}</div>
    <div class="srCard" key="${i}"><div class="pkTag ${k.v?"vw":""}">${k.v?"単語 WORD":"漢字 KANJI"} · ${k.l}</div><div class="srC ${k.c.length>2?"long":""}">${esc(k.c)}</div>
-    <div class="pkR">${esc(k.r)} ${window.speechSynthesis?'<button class="pkSay" id="srSay">🔊</button>':""}</div><div class="pkM">${esc(k.m)}</div>
+    <div class="pkR">${esc(k.r)} ${canSay()?'<button class="pkSay" id="srSay">🔊</button>':""}</div><div class="pkM">${esc(k.m)}</div>
     ${t?`<div class="pkTrick"><b>💡 MEMORY TRICK</b><div>${jlink(t)}</div></div>`:""}</div>
    <button class="btn shu full srNext" id="srNext" disabled><span class="srRing"></span><span id="srNT">Read it… 3</span></button>`;
-  if(window.speechSynthesis){say(k.c);$("#srSay").onclick=()=>say(k.c)}
+  if(canSay()){say(k.c);$("#srSay").onclick=()=>say(k.c)}
   let n=3;const tick=setInterval(()=>{n--;const nt=$("#srNT");if(!nt){clearInterval(tick);return}if(n>0)nt.textContent="Read it… "+n;else{clearInterval(tick);const b=$("#srNext");b.disabled=false;nt.textContent=last?"✅ I studied! Back to the quiz":"Got it! Next →";sfx.pop()}},1000);
   $("#srNext").onclick=()=>{if($("#srNext").disabled)return;if(!last){i++;sfx.ok();draw();return}
    $("#srs").classList.remove("on");stamp("復習");sfx.win();st.sm=0;QFORCE=shuffle(list.slice());
@@ -2483,7 +2544,7 @@ function aiRenderChat(){const h=aiHist(),box=$("#aiMsgs");
  box.innerHTML=(h.length?"":`<div class="aiWelcome"><div class="aiAvBig">${CATSVG}</div><b>こんにちは！ I'm Hana-sensei 🌸</b><span>Your personal Japanese tutor. I know your level (${S.lv}) and the kanji you find hard. Ask me anything, or tap a suggestion!</span>${savage()?`<span class="savNote">😈 Savage mode: may konting asar at mura, sakto lang. Ready ka na ba? 😂</span>`:""}</div>`)+
   h.map((m,i)=>`<div class="aiM ${m.r==="u"?"u":"a"}">${m.r==="a"?`<div class="aiAv">${CATSVG}</div>`:""}<div class="aiBub">${m.v?'<i class="aiVTag">🎙️ voice</i>':""}${m.r==="u"?esc(m.t):mdLite(m.t)}${m.r==="a"?`<button class="aiSay" data-i="${i}">🔊</button>`:""}</div></div>`).join("");
  $$("#aiMsgs .aiSay").forEach(b=>b.onclick=()=>aiSayMsg(b,aiHist()[+b.dataset.i].t));box.scrollTop=box.scrollHeight}
-async function aiSayMsg(b,t){b.textContent="⏳";try{await aiTTS(t);b.textContent="🔊"}catch(e){b.textContent="🔊";if(window.speechSynthesis)say(t);else toast("Couldn't play audio 😿")}}
+async function aiSayMsg(b,t){b.textContent="⏳";try{await aiTTS(t);b.textContent="🔊"}catch(e){b.textContent="🔊";if(canSay())say(t);else toast("Couldn't play audio 😿")}}
 let aiBusy=false;
 async function aiSend(text){text=(text||"").trim();if(!text||aiBusy)return;const c=aiCfg();if(!aiReady()){aiShow("setup");return}if(aiOffline()){const box=$("#aiMsgs");const d=document.createElement("div");d.className="aiM a";d.innerHTML=`<div class="aiAv">${CATSVG}</div><div class="aiBub">${aiOffHTML()}</div>`;box.appendChild(d);aiOffWire(d);box.scrollTop=box.scrollHeight;sfx.no();return}aiBusy=true;$("#aiIn").value="";
  const h=aiHist();h.push({r:"u",t:text});aiHistSave(h);aiRenderChat();const box=$("#aiMsgs");
@@ -2618,6 +2679,146 @@ function openLogin(){let mode="in";
    if(mode==="up"){S.updatedAt=Date.now();save()}await cloudSync(true)}
   catch(e){$("#acMsg").textContent="❌ "+e.message;go.disabled=false;go.textContent=mode==="in"?"Log in":"Create account"}}}
 
+const JCONT={"N5":{"read":[{"t":"わたしは まいあさ 7時に おきます。あさごはんは パンと たまごです。8時に いえを でて、でんしゃで 学校へ 行きます。学校は 9時から 3時までです。","en":"I get up at 7 every morning. Breakfast is bread and eggs. I leave home at 8 and go to school by train. School is from 9 to 3.","q":[["この人は 何で 学校へ 行きますか。","でんしゃ","バス","じてんしゃ","あるいて"],["学校は 何時に おわりますか。","3時","9時","7時","8時"]]},{"t":"田中さんへ\nきょうの ごご、山田先生が 来ます。3時に 2かいの きょうしつに 来て ください。ノートと えんぴつを もって きて ください。\nキム","en":"To Tanaka: Professor Yamada is coming this afternoon. Please come to the 2nd floor classroom at 3. Please bring a notebook and a pencil. – Kim","q":[["田中さんは 何時に どこへ 行きますか。","3時に 2かいの きょうしつ","3時に 1かいの きょうしつ","2時に 3がいの きょうしつ","2時に 2かいの としょしつ"],["田中さんは 何を もって いきますか。","ノートと えんぴつ","本と ペン","ノートと 本","えんぴつと じしょ"]]}],"listen":[{"s":["男の人と 女の人が 話しています。男の人は 何を 買いますか。","すみません、りんごを 三つと、みかんを 五つ ください。","すみません、りんごは きょうは ないんです。","そうですか。じゃあ、みかんだけ ください。","男の人は 何を 買いますか。"],"en":"He wanted 3 apples and 5 mandarins, but there are no apples today, so he buys only mandarins.","q":["男の人は 何を 買いますか。","みかん","りんご","りんごと みかん","何も 買わない"]},{"s":["女の人が お店の人と 話しています。女の人は どの かばんを 買いますか。","その 黒い かばん、いくらですか。","五千円です。","ちょっと 高いですね。あの 白いのは？","白いのは 三千円です。","じゃあ、白いのを ください。","女の人は どの かばんを 買いますか。"],"en":"The black bag is 5,000 yen (too expensive); the white one is 3,000 yen, so she buys the white one.","q":["女の人は どの かばんを 買いますか。","白い かばん","黒い かばん","五千円の かばん","何も 買わない"]},{"s":["友だちに プレゼントを もらいました。何と 言いますか。"],"en":"When you receive a present, you say thank you.","q":["何と 言いますか。","ありがとう。","いただきます。","おやすみなさい。","いってきます。"]}]},"N4":{"read":[{"t":"来週の土曜日、駅の前の公園でお祭りがあります。朝10時から夜8時までです。雨が降ったら、日曜日になります。お祭りでは、食べ物の店がたくさん出ますが、ごみは持って帰ってください。","en":"Next Saturday there's a festival in the park in front of the station, 10am to 8pm. If it rains, it moves to Sunday. Many food stalls, but please take your trash home.","q":[["雨が降ったら、お祭りはどうなりますか。","日曜日になる","中止になる","夜8時から始まる","駅でする"],["お祭りで、しなければならないことは何ですか。","ごみを持って帰る","食べ物を持っていく","10時までに駅に行く","店を出す"]]},{"t":"私は去年から日本語を勉強しています。最初はひらがなを覚えるのが大変でしたが、毎日少しずつ練習したので、今は簡単な本が読めるようになりました。来年は日本へ旅行に行くつもりです。","en":"I've studied Japanese since last year. Memorizing hiragana was hard at first, but I practiced a little every day, so now I can read easy books. I plan to travel to Japan next year.","q":[["この人は今、何ができますか。","簡単な本を読む","日本で働く","ひらがなを教える","難しい本を書く"],["この人は来年何をしますか。","日本へ旅行に行く","ひらがなを勉強し始める","日本語の先生になる","去年の本を読む"]]}],"listen":[{"s":["男の学生と女の学生が話しています。二人はいつ図書館へ行きますか。","明日の午後、いっしょに図書館で勉強しない？","明日は午後からアルバイトがあるの。午前ならいいよ。","じゃあ、午前十時に駅で会おう。","二人はいつ図書館へ行きますか。"],"en":"She has a part-time job in the afternoon, so they'll go tomorrow morning (meet at 10 at the station).","q":["二人はいつ図書館へ行きますか。","明日の午前","明日の午後","今日の午後","あさっての午前"]},{"s":["女の人と男の人が話しています。男の人はこれから何をしますか。","部屋の掃除、手伝ってくれる？","いいよ。何からしようか。","先に窓を拭いてくれる？私は床を掃除するから。","男の人はこれから何をしますか。"],"en":"She asks him to wipe the windows first; she'll clean the floor.","q":["男の人はこれから何をしますか。","窓を拭く","床を掃除する","料理を作る","買い物に行く"]},{"s":["電車で、空いている席に座りたいです。隣の人に何と言いますか。"],"en":"Politely asking if a seat is free.","q":["何と言いますか。","すみません、この席、空いていますか。","すみません、この席、いただきます。","どうぞ、座ってください。","お先に失礼します。"]}]},"N3":{"read":[{"t":"最近、スマートフォンで本を読む人が増えている。重い本を持ち歩かなくてもいいし、夜でも明かりをつけずに読めるからだ。しかし、紙の本の方が内容を覚えやすいと言う人も少なくない。私は、旅行のときは電子書籍、勉強のときは紙の本と、目的によって使い分けている。","en":"More people read on smartphones (no heavy books, can read in the dark). But many say paper books are easier to remember. The writer uses e-books for travel and paper books for study.","q":[["筆者はどのように本を読んでいるか。","目的によって紙と電子書籍を使い分けている","いつも紙の本だけを読んでいる","スマートフォンでしか読まない","夜は本を読まない"],["紙の本について、何と言う人がいるか。","内容を覚えやすい","持ち歩きやすい","明かりがなくても読める","値段が安い"]]},{"t":"お知らせ\n来月1日から、図書館の開館時間が変わります。平日は午前9時から午後8時まで、土日は午前10時から午後5時までです。なお、毎月第3月曜日は休館日となります。","en":"From the 1st next month: weekdays 9am–8pm, weekends 10am–5pm. Closed every 3rd Monday of the month.","q":[["来月の土曜日、図書館は何時に閉まるか。","午後5時","午後8時","午前10時","午前9時"],["図書館が休みになるのはいつか。","毎月第3月曜日","毎週月曜日","毎月1日","土曜日と日曜日"]]}],"listen":[{"s":["会社で女の人と男の人が話しています。男の人はこのあとまず何をしますか。","会議の資料、もうできた？","はい、あとはコピーするだけです。","あ、その前に部長に一度見てもらってくれる？内容が少し変わったみたいだから。","わかりました。","男の人はこのあとまず何をしますか。"],"en":"Before copying, she asks him to have the manager check the materials first.","q":["男の人はこのあとまず何をしますか。","部長に資料を見てもらう","資料をコピーする","会議に出る","資料を作り直す"]},{"s":["男の人と女の人が映画について話しています。女の人は映画のどこがよかったと言っていますか。","昨日の映画、どうだった？","話はちょっと長かったけど、音楽が本当にすてきだったよ。","女の人は映画のどこがよかったと言っていますか。"],"en":"The story was a bit long, but the music was wonderful.","q":["女の人は映画のどこがよかったと言っていますか。","音楽","話の長さ","俳優","映像"]},{"s":["友だちが傘を忘れて困っています。何と言いますか。"],"en":"Offering your umbrella to a friend.","q":["何と言いますか。","よかったら、私の傘、使って。","傘を忘れないでください。","傘はいりません。","雨が降るかもしれません。"]}]},"N2":{"read":[{"t":"働き方改革が進み、在宅勤務を導入する企業が増えている。通勤時間がなくなり、家族と過ごす時間が増えたという声がある一方で、仕事と私生活の区切りがつけにくくなったという悩みも聞かれる。在宅勤務を成功させるには、制度を整えるだけでなく、働く人自身が時間の使い方を工夫することが欠かせないだろう。","en":"More companies use remote work. Some enjoy more family time; others struggle to separate work and private life. Success needs both good systems and workers managing their own time.","q":[["筆者の考えに合うものはどれか。","在宅勤務の成功には働く人自身の工夫も必要だ","在宅勤務は家族との時間を減らす","制度さえ整えれば在宅勤務は成功する","在宅勤務をやめる企業が増えている"],["在宅勤務の悩みとして挙げられているのはどれか。","仕事と私生活の区切りがつけにくい","通勤時間が長くなる","家族と話す時間がない","給料が下がる"]]},{"t":"新しい言語を学ぶとき、多くの人は完璧に話そうとして、間違いを恐れる。しかし、間違いは学習の過程で避けられないものであり、むしろ上達のきっかけになる。間違えたときにこそ、正しい形が記憶に残りやすいからだ。大切なのは、間違いを恥ずかしがらずに使い続けることである。","en":"Many learners fear mistakes, but mistakes are unavoidable and help you improve, because the correct form sticks when you've made an error. Keep using the language without embarrassment.","q":[["筆者によると、間違いはなぜ大切か。","正しい形が記憶に残りやすくなるから","間違えると恥ずかしいから","完璧に話せるまで話さない方がいいから","間違いは避けられるから"],["筆者が最も言いたいことは何か。","間違いを恐れずに使い続けることが大切だ","完璧に話せるまで練習すべきだ","新しい言語は学ばない方がいい","間違いをしないように注意すべきだ"]]}],"listen":[{"s":["大学で男の学生と女の学生が話しています。女の学生はレポートをどうすることにしましたか。","レポート、締め切りに間に合いそう？","うーん、データがまだ足りなくて。先生にお願いして、一週間延ばしてもらうことにしたの。","女の学生はレポートをどうすることにしましたか。"],"en":"Her data isn't enough yet, so she asked the professor to extend the deadline by a week.","q":["女の学生はレポートをどうすることにしましたか。","締め切りを延ばしてもらう","データを使わずに書く","今日中に出す","別のテーマに変える"]},{"s":["テレビで男の人が話しています。男の人は、健康のために何が一番大切だと言っていますか。","運動や食事も大切ですが、私が一番大事だと思うのは、毎日同じ時間に寝て、同じ時間に起きることです。","男の人は、健康のために何が一番大切だと言っていますか。"],"en":"Exercise and food matter, but the most important is sleeping and waking at the same time every day.","q":["何が一番大切だと言っていますか。","規則正しく寝起きすること","毎日運動すること","食事に気をつけること","たくさん寝ること"]},{"s":["先週、取引先の人にとてもお世話になりました。今日、その人に会いました。何と言いますか。"],"en":"Thanking someone for their help the other day.","q":["何と言いますか。","先日はお世話になりました。","今後お世話になります。","お疲れさまでした。","お大事に。"]}]},"N1":{"read":[{"t":"情報があふれる現代において、私たちは知りたいことを瞬時に調べられるようになった。だが、その手軽さゆえに、自ら考える前に答えを求める習慣が身についてはいないだろうか。知識を得ることと、それを咀嚼し自分の言葉で語れるようになることとは、本来まったく別の営みである。検索で得た答えは、思考の出発点にすぎないのだ。","en":"We can look anything up instantly, but that convenience may make us seek answers before thinking. Getting knowledge and digesting it into your own words are different. A search result is only the starting point for thinking.","q":[["筆者が懸念していることは何か。","自分で考える前に答えを求める習慣がつくこと","情報が少なくて調べられないこと","検索の速度が遅いこと","知識を得る機会が減っていること"],["「思考の出発点にすぎない」とはどういう意味か。","検索で得た答えをもとに、さらに自分で考える必要がある","検索で得た答えが最終的な結論である","検索をすれば考える必要はない","答えを得るためには検索してはいけない"]]},{"t":"伝統工芸の担い手不足が叫ばれて久しい。ある産地では、職人の技を若い世代に伝えるため、工房を一般に開放し、体験教室を設けた。当初は観光客向けの催しにすぎないとの批判もあったが、そこから弟子入りを志願する若者が現れ始め、今では後継者育成の柱となっている。","en":"Traditional crafts lack successors. One region opened workshops and started hands-on classes. At first critics called it just a tourist event, but young people began asking to become apprentices, and now it's central to training successors.","q":[["体験教室について、当初どのような批判があったか。","観光客向けの催しにすぎない","料金が高すぎる","職人の技が正しく伝わらない","若者が参加しない"],["体験教室は結果的にどうなったか。","後継者を育てる重要な役割を果たすようになった","観光客が来なくなった","すぐに中止された","職人の数が減った"]]}],"listen":[{"s":["会社で上司と部下が話しています。部下はこのあとまず何をしなければなりませんか。","来週のプレゼン、資料はほぼできているんだよね。","はい、あとはグラフを入れるだけです。","そうか。ただ、先方の担当者が変わったらしくてね。念のため、出席者を確認しておいてくれる？それによって内容も調整したいから。","部下はこのあとまず何をしなければなりませんか。"],"en":"The client's contact changed, so the boss wants the attendees confirmed first, then adjust the content.","q":["部下はこのあとまず何をしなければなりませんか。","出席者を確認する","グラフを入れる","資料を作り直す","先方に会いに行く"]},{"s":["ラジオで作家が話しています。作家は、小説を書くうえで何が最も重要だと言っていますか。","よく、才能がなければ書けないと言われますが、私はそうは思いません。才能よりも、毎日欠かさず机に向かう習慣、これに尽きると思います。","作家は、小説を書くうえで何が最も重要だと言っていますか。"],"en":"Not talent: the habit of sitting at your desk every single day is everything.","q":["何が最も重要だと言っていますか。","毎日欠かさず書く習慣","生まれ持った才能","豊かな人生経験","読者の意見"]},{"s":["取引先の人が、大きなミスについて深く謝っています。あなたは許したいです。何と言いますか。"],"en":"Accepting a formal apology graciously.","q":["何と言いますか。","いえ、今後お気をつけいただければ結構です。","それはおめでとうございます。","どうぞお大事になさってください。","では、遠慮なくいただきます。"]}]}};
+
+/* ================= JLPT MOCK TEST · REVIEW · CERTIFICATE ================= */
+/* Format follows the official JLPT (jlpt.jp): sections, question types, scaled scoring (0-180) and pass marks. Questions are a shorter practice set. */
+const JSPEC={
+ N5:{secs:[["v","言語知識（文字・語彙）","Vocabulary",20,7],["g","言語知識（文法）・読解","Grammar · Reading",40,13],["l","聴解","Listening",30,8]],score:[["vgr","Language Knowledge (Vocab/Grammar) · Reading",120,38,["v","g","r"]],["l","Listening",60,19,["l"]]],pass:80},
+ N4:{secs:[["v","言語知識（文字・語彙）","Vocabulary",25,8],["g","言語知識（文法）・読解","Grammar · Reading",55,16],["l","聴解","Listening",35,8]],score:[["vgr","Language Knowledge (Vocab/Grammar) · Reading",120,38,["v","g","r"]],["l","Listening",60,19,["l"]]],pass:90},
+ N3:{secs:[["v","言語知識（文字・語彙）","Vocabulary",30,9],["g","言語知識（文法）・読解","Grammar · Reading",70,18],["l","聴解","Listening",40,8]],score:[["vg","Language Knowledge (Vocab/Grammar)",60,19,["v","g"]],["r","Reading",60,19,["r"]],["l","Listening",60,19,["l"]]],pass:95},
+ N2:{secs:[["vg","言語知識（文字・語彙・文法）・読解","Vocab · Grammar · Reading",105,24],["l","聴解","Listening",50,8]],score:[["vg","Language Knowledge (Vocab/Grammar)",60,19,["v","g"]],["r","Reading",60,19,["r"]],["l","Listening",60,19,["l"]]],pass:90},
+ N1:{secs:[["vg","言語知識（文字・語彙・文法）・読解","Vocab · Grammar · Reading",110,26],["l","聴解","Listening",55,8]],score:[["vg","Language Knowledge (Vocab/Grammar)",60,19,["v","g"]],["r","Reading",60,19,["r"]],["l","Listening",60,19,["l"]]],pass:100}};
+const JMON={kr:["漢字読み","＿＿の ことばは ひらがなで どう かきますか。","Kanji reading: how is the underlined word read?"],or:["表記","＿＿の ことばは どう かきますか。","Orthography: how is the underlined word written?"],ctx:["文脈規定","（　　）に なにが はいりますか。","Context: which word fits the blank?"],gf:["文法形式の判断","（　　）に 何を 入れますか。","Grammar: which goes in the blank?"],star:["文の組み立て","★ に 入る ものは どれですか。","Sentence order: which piece goes in ★?"],read:["読解","つぎの 文章を 読んで、質問に 答えて ください。","Reading: read the text and answer."],listen:["聴解","問題を 聞いて、正しい 答えを えらんで ください。","Listening: listen and choose the answer."]};
+const JTYPE_SEC={kr:"v",or:"v",ctx:"v",gf:"g",star:"g",read:"r",listen:"l"};
+const isKana=c=>/[ぁ-ゖー]/.test(c);
+function allSents(){if(allSents.c)return allSents.c;const out=[];LEVELS.forEach(l=>{GLES[l].forEach(x=>x.x.forEach(e=>out.push([e[0],e[1],l])));GRAM[l].forEach(q=>out.push([q[0].replace("___",q[1][0]),GRAM_EN[q[0]]||"",l]))});return allSents.c=out}
+const DAK={"か":"が","き":"ぎ","く":"ぐ","け":"げ","こ":"ご","さ":"ざ","し":"じ","す":"ず","せ":"ぜ","そ":"ぞ","た":"だ","て":"で","と":"ど","は":"ば","ひ":"び","ふ":"ぶ","へ":"べ","ほ":"ぼ"};const UND={};Object.entries(DAK).forEach(([a,b])=>UND[b]=a);
+const OROW="おこそとのほもよろごぞどぼょ",SOKU="かきくけこさしすせそたちつてとぱぴぷぺぽ";
+function nearMiss(r){const v=new Set(),ch=[...r];
+ ch.forEach((c,i)=>{const d=DAK[c]||UND[c];if(d){const x=ch.slice();x[i]=d;v.add(x.join(""))}
+  if(c==="う"&&i>0&&OROW.includes(ch[i-1])){const x=ch.slice();x.splice(i,1);v.add(x.join(""))}
+  if(OROW.includes(c)&&ch[i+1]!=="う"&&i<ch.length-1){const x=ch.slice();x.splice(i+1,0,"う");v.add(x.join(""))}
+  if(c==="っ"){const x=ch.slice();x.splice(i,1);v.add(x.join(""))}
+  if(i>0&&SOKU.includes(c)&&ch[i-1]!=="っ"&&!isKana(ch[i-1])===false&&i<ch.length){const x=ch.slice();x.splice(i,0,"っ");v.add(x.join(""))}
+  if(c==="ゅ"||c==="ょ"){const x=ch.slice();x[i]=c==="ゅ"?"ょ":"ゅ";v.add(x.join(""))}});
+ v.delete(r);return shuffle([...v])}
+function jFill(arr,ans,pool,n=4){const o=[ans];for(const x of arr)if(o.length<n&&x&&!o.includes(x))o.push(x);for(const x of shuffle(pool))if(o.length<n&&x&&!o.includes(x))o.push(x);return shuffle(o)}
+function sentFor(w,lv){const S2=allSents().filter(s=>s[0].includes(w));const same=S2.filter(s=>s[2]===lv);return rnd(same.length?same:S2.length?S2:[null])}
+function vocabItems(lv){return V[lv].filter(x=>[...x.c].some(isKj))}
+function qKR(lv){const it=rnd(vocabItems(lv));const s=sentFor(it.c,lv);
+ return{t:"kr",k:it,prompt:s?esc(s[0]).replace(esc(it.c),`<u>${esc(it.c)}</u>`):`<u>${esc(it.c)}</u>`,opts:jFill(nearMiss(it.r),it.r,V[lv].map(x=>x.r)),ans:it.r,expl:`${it.c}（${it.r}）= ${it.m}`,en:s?s[1]:""}}
+function qOR(lv){const it=rnd(vocabItems(lv));const s=sentFor(it.c,lv);const ks=[...it.c].map((c,i)=>isKj(c)?i:-1).filter(i=>i>=0);const pool=shuffle(Object.keys(ALLK).filter(c=>!it.c.includes(c)));const wr=[];
+ for(const p of pool){if(wr.length>=6)break;const x=[...it.c];x[rnd(ks)]=p;wr.push(x.join(""))}
+ return{t:"or",k:it,prompt:s?esc(s[0]).replace(esc(it.c),`<u>${esc(it.r)}</u>`):`<u>${esc(it.r)}</u>`,opts:jFill(wr,it.c,[]),ans:it.c,expl:`${it.r} → ${it.c} = ${it.m}`,en:s?s[1]:""}}
+const posOf=w=>/[うくぐすつぬぶむる]$/.test(w)?"v":/い$/.test(w)?"a":"n";
+function qCTX(lv){const cands=shuffle(vocabItems(lv).concat(V[lv])).filter(x=>allSents().some(s=>s[0].includes(x.c)));const it=cands[0];if(!it)return null;const s=sentFor(it.c,lv);
+ const same=V[lv].filter(x=>x.c!==it.c&&posOf(x.c)===posOf(it.c)).map(x=>x.c);
+ return{t:"ctx",k:it,prompt:esc(s[0]).replace(esc(it.c),"（　　）"),opts:jFill(shuffle(same),it.c,V[lv].map(x=>x.c)),ans:it.c,expl:`${it.c}（${it.r}）= ${it.m}`,en:s[1]}}
+function gfPool(lv){const a=GRAM[lv].map(q=>({s:q[0],o:q[1],e:q[2],en:GRAM_EN[q[0]]||""}));const ansAll=GLES[lv].map(x=>x.q[1]);
+ GLES[lv].forEach(x=>a.push({s:x.q[0],o:[x.q[1],x.q[2],x.q[3],rnd(ansAll.filter(y=>![x.q[1],x.q[2],x.q[3]].includes(y)))||"から"],e:x.t+" · "+x.t2,en:QEN[x.id]||""}));return a}
+function qGF(lv,used){const p=gfPool(lv).filter(x=>!used.has(x.s));const g=rnd(p.length?p:gfPool(lv));used.add(g.s);
+ return{t:"gf",prompt:esc(g.s).replace("___","（　　）"),opts:shuffle([...new Set(g.o)]),ans:g.o[0],expl:g.e,en:g.en,full:g.s.replace("___",g.o[0])}}
+function qSTAR(lv,used){const src=shuffle(GLES[lv].flatMap(x=>x.x).concat(GRAM[lv].map(q=>[q[0].replace("___",q[1][0]),GRAM_EN[q[0]]||""])));
+ for(const e of src){if(used.has(e[0]))continue;const t=segJP(e[0]);if(t.length<4||new Set(t).size!==t.length)continue;used.add(e[0]);
+  const st=Math.floor(Math.random()*(t.length-3)),win=t.slice(st,st+4),pre=t.slice(0,st).join(""),suf=t.slice(st+4).join("")+(/[。？！]$/.test(e[0])?e[0].slice(-1):"");
+  return{t:"star",prompt:`${esc(pre)} <span class="jb">＿＿</span> <span class="jb">＿＿</span> <span class="jb st">★</span> <span class="jb">＿＿</span> ${esc(suf)}`,opts:shuffle(win),ans:win[2],expl:"Correct order: "+win.join(" → "),en:e[1],full:e[0]}}return null}
+function qREAD(lv){return JCONT[lv].read.flatMap((p,pi)=>p.q.map(q=>({t:"read",passage:p.t,pen:p.en,prompt:esc(q[0]),opts:shuffle(q.slice(1)),ans:q[1],expl:"Passage: "+p.en})))}
+function qLISTEN(lv){return JCONT[lv].listen.map(x=>({t:"listen",lines:x.s,prompt:esc(x.q[0]),opts:shuffle(x.q.slice(1)),ans:x.q[1],expl:x.en,script:x.s}))}
+function buildMock(lv){const u=new Set(),Q=[];const rep=(n,f)=>{for(let i=0;i<n;i++){const q=f();if(q)Q.push(q)}};
+ rep(lv==="N1"||lv==="N2"?4:5,()=>qKR(lv));if(lv!=="N1")rep(3,()=>qOR(lv));rep(3,()=>qCTX(lv));rep(6,()=>qGF(lv,u));rep(2,()=>qSTAR(lv,u));Q.push(...qREAD(lv),...qLISTEN(lv));
+ Q.forEach(q=>q.sec=JTYPE_SEC[q.t]);return Q}
+/* audio for listening: native TTS (app) → browser voice → Gemini voice → transcript */
+function jSpeakAll(lines){const txt=lines.join("。\n");
+ if(IS_APK&&nativeBuild()>=11){native("speak?t="+encodeURIComponent(txt));return Promise.resolve("native")}
+ if(window.speechSynthesis&&speechSynthesis.getVoices().some(v=>/^ja/i.test(v.lang))){return new Promise(r=>{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(txt);u.lang="ja-JP";u.rate=.9;u.onend=()=>r("web");u.onerror=()=>r("web");speechSynthesis.speak(u)})}
+ if(typeof aiReady==="function"&&aiReady()&&navigator.onLine!==false)return aiTTS(txt).then(()=>"ai").catch(()=>"none");
+ return Promise.resolve("none")}
+/* ---- runner ---- */
+let JT=null;
+function jOpen(){$("#jt").classList.add("on");jHome()}
+function jClose(){if(JT&&JT.timer)clearInterval(JT.timer);JT=null;$("#jt").classList.remove("on");try{speechSynthesis.cancel()}catch(e){}}
+function jHome(sel){const lv=sel||S.lv;const best=(S.jlpt||{})[lv];
+ $("#jtB").innerHTML=`<div class="jHero"><div class="jSun"></div><small>日本語能力試験 · PRACTICE</small><b>JLPT Mock Test</b><span>Same sections, question types and scoring as the real JLPT. Pass it and earn your certificate 🏅</span></div>
+ <div class="gBelts jLv">${LEVELS.map(l=>`<button class="gBelt ${l===lv?"on":""}" data-l="${l}">${beltSVG(l)}<b>${l}</b><span>${(S.jlpt||{})[l]&&(S.jlpt||{})[l].passed?"✅ passed":"–"}</span></button>`).join("")}</div>
+ <div class="jFormat"><div class="jFH">Official ${lv} format</div>${JSPEC[lv].secs.map(s=>`<div class="jFR"><span>${s[1]}<i>${s[2]}</i></span><b>${s[3]} min</b></div>`).join("")}
+  <div class="jFH" style="margin-top:10px">Pass if total ≥ <b>${JSPEC[lv].pass}/180</b> and every section ≥ its pass mark</div>${JSPEC[lv].score.map(s=>`<div class="jFR"><span>${s[1]}</span><b>${s[3]} / ${s[2]}</b></div>`).join("")}</div>
+ ${best?`<div class="jBest">Your best: <b>${best.total}/180</b> ${best.passed?"· ✅ PASSED":"· not yet"}</div>`:""}
+ <button class="btn shu full jBig" id="jStart">🎌 Start ${lv} mock test (~${JSPEC[lv].secs.reduce((a,s)=>a+s[4],0)} min)</button>
+ <button class="btn full jBig2" id="jRev">📚 JLPT Review (practice by question type)</button>
+ ${(S.certs||[]).length?`<button class="btn full" id="jCerts" style="margin-top:10px">🏅 My certificates (${S.certs.length})</button>`:""}
+ <p class="tiny muted" style="line-height:1.5;margin-top:12px">This is a shorter practice version (${buildMock.n||"about 30"} questions) built in the official JLPT format, with scores scaled to the official 0–180 range. It's a great readiness check, but it's not the official exam.</p>`;
+ $$("#jtB .jLv .gBelt").forEach(b=>b.onclick=()=>{sfx.pop();jHome(b.dataset.l)});$("#jStart").onclick=()=>jIntro(lv);$("#jRev").onclick=()=>jReviewHome(lv);const c=$("#jCerts");if(c)c.onclick=jCertList}
+function jIntro(lv){$("#jtB").innerHTML=`<div class="jPaper"><div class="jPT">日本語能力試験 模擬テスト</div><div class="jPL">${lv}</div><p>Answer every question. Each section has its own timer, like the real test. You can't go back to a finished section.</p>
+  <label class="tiny muted">Your name (for the certificate)</label><input class="dSearch" id="jName" value="${esc(S.name||"")}" placeholder="Your name"></div>
+  <button class="btn shu full jBig" id="jGo">はじめ！ Start</button><button class="btn full" id="jBack" style="margin-top:10px">← Back</button>`;
+ $("#jBack").onclick=()=>jHome(lv);$("#jGo").onclick=()=>{S.name=$("#jName").value.trim().slice(0,40);save();const Q=buildMock(lv);JT={lv,Q,ans:{},si:0,qi:0,mode:"mock"};jSection()}}
+function jSecQs(){const s=JSPEC[JT.lv].secs[JT.si][0];const want=s==="vg"?["v","g","r"]:s==="g"?["g","r"]:[s];return JT.Q.map((q,i)=>i).filter(i=>want.includes(JT.Q[i].sec))}
+function jSection(){const sp=JSPEC[JT.lv].secs[JT.si];JT.idx=jSecQs();JT.qi=0;JT.end=Date.now()+sp[4]*60000;clearInterval(JT.timer);JT.timer=setInterval(jTick,1000);
+ $("#jtB").innerHTML=`<div class="jSecIntro"><div class="jSecN">${JT.si+1} / ${JSPEC[JT.lv].secs.length}</div><b>${sp[1]}</b><span>${sp[2]} · ${JT.idx.length} questions · ${sp[4]} min</span><button class="btn shu full" id="jSecGo">Start section →</button></div>`;
+ clearInterval(JT.timer);$("#jSecGo").onclick=()=>{JT.end=Date.now()+sp[4]*60000;JT.timer=setInterval(jTick,1000);jQ()}}
+function jTick(){if(!JT||!JT.end)return;const l=JT.end-Date.now();const e=$("#jTime");if(e){e.textContent=fmtL(l);e.classList.toggle("low",l<60000)}if(l<=0){clearInterval(JT.timer);toast("⏰ Time's up for this section!");jNextSec()}}
+function jQ(){const i=JT.idx[JT.qi],q=JT.Q[i],m=JMON[q.t],sp=JSPEC[JT.lv].secs[JT.si];const chosen=JT.ans[i];
+ const prevT=JT.qi>0?JT.Q[JT.idx[JT.qi-1]].t:null;
+ $("#jtB").innerHTML=`<div class="jTop"><span class="jSecT">${sp[1]}</span><b id="jTime" class="jTime">--:--</b></div><div class="bar"><div style="width:${JT.qi/JT.idx.length*100}%"></div></div>
+  <div class="jMon"><b>もんだい · ${m[0]}</b><span>${m[1]}</span><i>${m[2]}</i></div>
+  ${q.passage?`<div class="jPass">${esc(q.passage).replace(/\n/g,"<br>")}</div>`:""}
+  ${q.t==="listen"?`<button class="jPlay" id="jPlay">▶ Play audio</button><div class="jScript" id="jScript"></div>`:""}
+  <div class="jQ"><span class="jNo">${JT.qi+1}</span><div>${q.prompt}</div></div>
+  <div class="jOpts">${q.opts.map((o,k)=>`<button class="jOpt ${chosen===o?"on":""}" data-o="${esc(o)}"><i>${k+1}</i><span>${esc(o)}</span></button>`).join("")}</div>
+  <div class="row" style="gap:8px;margin-top:14px">${JT.qi>0?'<button class="btn" id="jPrev" style="flex:none">←</button>':""}<button class="btn shu grow" id="jNext">${JT.qi+1<JT.idx.length?"Next →":"Finish section ✓"}</button></div>`;
+ jTick();$$("#jtB .jOpt").forEach(b=>b.onclick=()=>{JT.ans[i]=b.dataset.o;$$("#jtB .jOpt").forEach(x=>x.classList.toggle("on",x===b));sfx.pop()});
+ const pv=$("#jPrev");if(pv)pv.onclick=()=>{JT.qi--;jQ()};$("#jNext").onclick=()=>{if(JT.qi+1<JT.idx.length){JT.qi++;jQ()}else{const un=JT.idx.filter(k=>!JT.ans[k]).length;if(un&&!confirmTap($("#jNext"),`${un} unanswered. Tap again to finish`))return;jNextSec()}};
+ if(q.t==="listen"){let plays=0;$("#jPlay").onclick=async()=>{if(plays>=2){toast("You can play it twice, like the real test 🎧");return}plays++;$("#jPlay").textContent="🔊 Playing…";const how=await jSpeakAll(q.lines);
+  $("#jPlay").textContent=plays<2?"▶ Play again":"✓ Played";if(how==="none"){$("#jScript").innerHTML="🔇 No Japanese voice on this phone, so here's the script:<br>"+q.lines.map(esc).join("<br>")}}}}
+function jNextSec(){clearInterval(JT.timer);JT.si++;if(JT.si<JSPEC[JT.lv].secs.length)jSection();else jResult()}
+function jScore(lv,Q,ans){const sp=JSPEC[lv];const parts=sp.score.map(s=>{const qs=Q.filter(q=>s[4].includes(q.sec));const ok=qs.filter(q=>ans[Q.indexOf(q)]===q.ans).length;const pts=qs.length?Math.round(ok/qs.length*s[2]):0;return{id:s[0],name:s[1],max:s[2],min:s[3],pts,ok,n:qs.length,pass:pts>=s[3]}});
+ const total=parts.reduce((a,p)=>a+p.pts,0);return{parts,total,passed:total>=sp.pass&&parts.every(p=>p.pass)}}
+function jResult(){const {lv,Q,ans}=JT;const r=jScore(lv,Q,ans);S.jlpt=S.jlpt||{};const prev=S.jlpt[lv];const date=new Date().toISOString().slice(0,10);
+ if(!prev||r.total>prev.total||(r.passed&&!prev.passed))S.jlpt[lv]={total:r.total,passed:r.passed||!!(prev&&prev.passed),date,parts:r.parts.map(p=>p.pts)};
+ let cert=null;if(r.passed){S.certs=S.certs||[];cert={id:"KD-"+lv+"-"+date.replace(/-/g,"")+"-"+Math.random().toString(36).slice(2,6).toUpperCase(),lv,name:S.name||"Kanji Dojo Student",date,total:r.total,parts:r.parts.map(p=>[p.name,p.pts,p.max])};S.certs.push(cert)}
+ addXP(r.passed?150:40);save();JT.last={r,Q,ans};
+ $("#jtB").innerHTML=`<div class="jRes ${r.passed?"pass":"fail"}"><div class="jStamp">${r.passed?"合格":"不合格"}</div><small>${lv} MOCK TEST RESULT</small><div class="jTot">${r.total}<span>/180</span></div><div class="tiny">Pass mark ${JSPEC[lv].pass}</div>
+  ${r.parts.map(p=>`<div class="jSR"><div class="row"><span class="grow">${p.name}</span><b>${p.pts}/${p.max}</b></div><div class="jBar"><div style="width:${p.pts/p.max*100}%" class="${p.pass?"ok":"no"}"></div><i style="left:${p.min/p.max*100}%"></i></div><div class="tiny muted">${p.ok}/${p.n} correct · section pass mark ${p.min} ${p.pass?"✅":"❌"}</div></div>`).join("")}
+  <p class="jMsg">${r.passed?(savage()?"Tangina, PASADO ka! 🎉 Sana all handa na sa JLPT 😎":"Congratulations! You passed! 🎉"):(savage()?"Ay, bagsak pre 😂 Pero okay lang, review muna tayo tapos balik ka!":"Not this time. Review your mistakes and try again! 💪")}</p></div>
+  ${cert?'<button class="btn shu full jBig" id="jCert">🏅 Get my certificate</button>':""}
+  <button class="btn full" id="jRevAns" style="margin-top:10px">🔍 Review my answers</button><button class="btn full" id="jHomeB" style="margin-top:10px">← JLPT home</button>`;
+ if(r.passed){confetti(160);stamp("合格");sfx.win()}else{sfx.no()}
+ if(cert)$("#jCert").onclick=()=>jCert(cert);$("#jRevAns").onclick=jReviewAnswers;$("#jHomeB").onclick=()=>jHome(lv)}
+function jExplHTML(q,chosen){const ok=chosen===q.ans;return`<div class="jEx ${ok?"ok":"no"}"><b>${ok?"✅ Correct":"❌ "+(chosen?"You chose: "+esc(chosen):"No answer")}</b><div>Answer: <b>${esc(q.ans)}</b></div><div class="tiny" style="margin-top:4px">💡 ${jlink(q.expl||"")}</div>${q.full?`<div class="jExS">${jlink(q.full)}</div>`:""}${q.en?`<div class="tiny muted">🇬🇧 ${esc(q.en)}</div>`:""}${q.script?`<div class="tiny" style="margin-top:4px">📝 ${q.script.map(esc).join(" / ")}</div>`:""}</div>`}
+function jReviewAnswers(){const {Q,ans}=JT.last;$("#jtB").innerHTML=`<h2><small>REVIEW</small>Your answers</h2>`+Q.map((q,i)=>`<div class="jRevQ"><div class="jMonS">${JMON[q.t][0]} · ${JMON[q.t][2]}</div>${q.passage?`<details><summary class="tiny">Show passage</summary><div class="jPass">${jlink(q.passage)}</div></details>`:""}<div class="jQ"><span class="jNo">${i+1}</span><div>${q.prompt}</div></div>${jExplHTML(q,ans[i])}</div>`).join("")+`<button class="btn full" id="jHomeB">← JLPT home</button>`;$("#jHomeB").onclick=()=>jHome(JT.lv);$("#jt").scrollTop=0}
+/* review mode */
+function jReviewHome(lv){const types=[["kr","🈁"],["or","✍️"],["ctx","🧩"],["gf","📐"],["star","⭐"],["read","📖"],["listen","🎧"]].filter(t=>!(lv==="N1"&&t[0]==="or"));
+ $("#jtB").innerHTML=`<h2><small>JLPT REVIEW · ${lv}</small>Practice by question type</h2><p class="tiny muted">Untimed. You see the answer and an explanation right after each question.</p>
+  <div class="jRevG">${types.map(([t,e])=>`<button class="jRevT" data-t="${t}"><span>${e}</span><b>${JMON[t][0]}</b><i>${JMON[t][2].split(":")[0]}</i></button>`).join("")}</div><button class="btn full" id="jHomeB" style="margin-top:14px">← Back</button>`;
+ $$("#jtB .jRevT").forEach(b=>b.onclick=()=>jReviewRun(lv,b.dataset.t));$("#jHomeB").onclick=()=>jHome(lv)}
+function jReviewRun(lv,t){const u=new Set();let Q=[];if(t==="read")Q=qREAD(lv);else if(t==="listen")Q=qLISTEN(lv);else for(let i=0;i<10;i++){const q=t==="kr"?qKR(lv):t==="or"?qOR(lv):t==="ctx"?qCTX(lv):t==="gf"?qGF(lv,u):qSTAR(lv,u);if(q)Q.push(q)}
+ if(!Q.length){toast("No questions for this type yet");return}let i=0,ok=0;JT={lv,Q,ans:{},mode:"review"};
+ const show=()=>{if(i>=Q.length){$("#jtB").innerHTML=`<div class="jRes pass"><div class="jStamp">${ok>=Q.length*.8?"優秀":"練習"}</div><small>REVIEW DONE</small><div class="jTot">${ok}<span>/${Q.length}</span></div></div><button class="btn shu full" id="jAgain">🔁 Again</button><button class="btn full" id="jHomeB" style="margin-top:10px">← Review menu</button>`;addXP(ok*3);if(ok>=Q.length*.8)confetti(60);$("#jAgain").onclick=()=>jReviewRun(lv,t);$("#jHomeB").onclick=()=>jReviewHome(lv);return}
+  const q=Q[i],m=JMON[q.t];$("#jtB").innerHTML=`<div class="jTop"><span class="jSecT">Review · ${m[0]}</span><b>${i+1}/${Q.length}</b></div><div class="jMon"><b>${m[0]}</b><span>${m[1]}</span><i>${m[2]}</i></div>
+   ${q.passage?`<div class="jPass">${jlink(q.passage).replace(/\n/g,"<br>")}</div>`:""}${q.t==="listen"?`<button class="jPlay" id="jPlay">▶ Play audio</button><div class="jScript" id="jScript"></div>`:""}
+   <div class="jQ"><div>${q.prompt}</div></div><div class="jOpts">${q.opts.map((o,k)=>`<button class="jOpt" data-o="${esc(o)}"><i>${k+1}</i><span>${esc(o)}</span></button>`).join("")}</div><div id="jExW"></div>`;
+  if(q.t==="listen")$("#jPlay").onclick=async()=>{const how=await jSpeakAll(q.lines);if(how==="none")$("#jScript").innerHTML="🔇 No Japanese voice on this phone. Script:<br>"+q.lines.map(esc).join("<br>")};
+  $$("#jtB .jOpt").forEach(b=>b.onclick=()=>{if($("#jExW").innerHTML)return;const good=b.dataset.o===q.ans;if(good){ok++;sfx.ok()}else sfx.no();
+   $$("#jtB .jOpt").forEach(x=>{if(x.dataset.o===q.ans)x.classList.add("ok");else if(x===b)x.classList.add("no")});
+   $("#jExW").innerHTML=jExplHTML(q,b.dataset.o)+`<button class="btn shu full" id="jN" style="margin-top:12px">${i+1<Q.length?"Next →":"See score"}</button>`;$("#jN").onclick=()=>{i++;show();$("#jt").scrollTop=0}})};show()}
+/* certificate */
+function jCertList(){$("#jtB").innerHTML=`<h2><small>MY CERTIFICATES</small>🏅 合格証書</h2>`+(S.certs||[]).slice().reverse().map((c,k)=>`<button class="jCL" data-k="${(S.certs.length-1-k)}"><b>${c.lv}</b><span>${esc(c.name)} · ${c.date} · ${c.total}/180</span></button>`).join("")+`<button class="btn full" id="jHomeB" style="margin-top:12px">← Back</button>`;
+ $$("#jtB .jCL").forEach(b=>b.onclick=()=>jCert(S.certs[+b.dataset.k]));$("#jHomeB").onclick=()=>jHome()}
+function jCert(c){const desc={N5:"can understand some basic Japanese",N4:"can understand basic Japanese",N3:"can understand Japanese used in everyday situations to a certain degree",N2:"can understand Japanese used in everyday situations and in a variety of circumstances to a certain degree",N1:"can understand Japanese used in a variety of circumstances"}[c.lv];
+ $("#jtB").innerHTML=`<div class="cert" id="certEl"><div class="cBorder"><div class="cIn">
+  <div class="cTop"><div class="cLogo">${CATSVG}</div><div><b>KANJI DOJO</b><span>漢字道場</span></div></div>
+  <div class="cJp">合格証書</div><div class="cEn">Certificate of Achievement</div>
+  <div class="cLine">This is to certify that</div><div class="cName">${esc(c.name)}</div>
+  <div class="cLine">has passed the Kanji Dojo <b>JLPT ${c.lv}</b> Mock Test<br>and ${desc}.</div>
+  <div class="cLvl"><span>${c.lv}</span></div>
+  <div class="cScores">${c.parts.map(p=>`<div><span>${esc(p[0])}</span><b>${p[1]}/${p[2]}</b></div>`).join("")}<div class="cTot"><span>Total score</span><b>${c.total}/180</b></div></div>
+  <div class="cFoot"><div><div class="cSig">Hana-sensei</div><span>Head Sensei, Kanji Dojo</span></div><div class="cSeal">合格</div><div style="text-align:right"><b>${c.date}</b><span>No. ${c.id}</span></div></div>
+  <div class="cNote">Practice certificate from the Kanji Dojo app. Not an official JLPT certificate.</div></div></div></div>
+  <p class="tiny muted" style="text-align:center;margin-top:10px">📸 Take a screenshot to save or share it</p><button class="btn full" id="jHomeB">← Back</button>`;
+ $("#jHomeB").onclick=()=>jHome(c.lv);$("#jt").scrollTop=0;stamp("合格")}
+$("#jtX").onclick=jClose;$("#jlptHome").onclick=()=>{sfx.pop();jOpen()};
+
 /* ================= STUDY REMINDERS + SESSIONS ================= */
 function remCfg(){S.rem=S.rem||{on:false,t:"20:00",dur:60,pre:[60,15],fired:{}};S.rem.fired=S.rem.fired||{};return S.rem}
 function sesCfg(){S.ses=S.ses||{start:0,dur:0,done:{},count:0,mins:0};S.ses.done=S.ses.done||{};return S.ses}
@@ -2675,6 +2876,7 @@ setInterval(()=>{try{sesTick();remTick()}catch(e){}},1000);
 
 checkLevelUp();afterBoot();
 try{renderRem();remSync();sesTick()}catch(e){}
+try{if(IS_APK&&nativeBuild()>=11&&!GATE&&!STUDY)setTimeout(()=>native("speak"),3000)}catch(e){}
 try{renderAcct();if(!GATE&&!STUDY&&acct())setTimeout(()=>cloudSync(false),2500)}catch(e){}
 if(STUDY){$("#app").style.display="none";openSL(false)}
 else if(GATE){$("#app").style.display="none";showLock()}
