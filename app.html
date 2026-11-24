@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <script>
-var KD_BUILD=38,KD_VER="3.8",KD_NATIVE=11;
+var KD_BUILD=39,KD_VER="3.9",KD_NATIVE=11;
 (function(){try{if(window.__KD_SWAP)return;var ls=localStorage;
  if(location.href.indexOf("file:///android_asset")===0)ls.setItem("kd_native",String(KD_NATIVE));
  var b=+(ls.getItem("kd_build")||0),h=ls.getItem("kd_html");
@@ -583,6 +583,13 @@ nav .navAI:active .navAIc{transform:scale(.92)}
 .cSig{white-space:nowrap;font-family:"Brush Script MT","Segoe Script",cursive;font-size:20px;color:#2a1d05;border-bottom:1px solid #8a6a1a;padding:0 6px}
 .cSeal{width:70px;height:70px;border-radius:50%;border:3px solid #c8102e;color:#c8102e;display:grid;place-items:center;font-family:"Shippori Mincho B1",serif;font-size:22px;font-weight:800;transform:rotate(-12deg);background:rgba(200,16,46,.06);box-shadow:inset 0 0 0 3px #fffdf5,inset 0 0 0 5px rgba(200,16,46,.6)}
 .cNote{margin-top:12px;font-size:10px;color:#9a8550;font-style:italic}
+.jPlay{position:relative;overflow:hidden;display:flex!important;align-items:center;justify-content:center;gap:10px}
+.jPlay.playing{background:linear-gradient(135deg,#ff6fa8,#7b5cff)!important;box-shadow:0 0 0 5px rgba(255,111,168,.18),0 8px 24px rgba(255,111,168,.45)!important}.jPlay small{opacity:.85;font-size:11px}
+.jPlay.prep{background:linear-gradient(135deg,#9bb4ff,#b9a6ff)!important}
+.jProg{position:absolute;left:0;bottom:0;height:5px;background:rgba(255,255,255,.85);border-radius:0 3px 3px 0;transition:width .15s linear}
+.eq{display:inline-flex;gap:3px;align-items:flex-end;height:20px}.eq i{width:4px;background:#fff;border-radius:2px;animation:eqb .9s ease-in-out infinite}.eq i:nth-child(2){animation-delay:.15s}.eq i:nth-child(3){animation-delay:.3s}.eq i:nth-child(4){animation-delay:.45s}.eq i:nth-child(5){animation-delay:.6s}
+@keyframes eqb{0%,100%{height:5px}50%{height:20px}}
+.jSpin{width:18px;height:18px;border-radius:50%;border:3px solid rgba(255,255,255,.5);border-top-color:#fff;animation:spin .8s linear infinite}
 /* ===== GORGEOUS LOCK SCREEN ===== */
 #lock{background:#120b2e!important}
 #lock .aur{position:absolute;inset:-20%;pointer-events:none;filter:blur(55px) saturate(1.3);opacity:.85}
@@ -2731,7 +2738,7 @@ function qSTAR(lv,used){const src=shuffle(GLES[lv].flatMap(x=>x.x).concat(GRAM[l
   const st=Math.floor(Math.random()*(t.length-3)),win=t.slice(st,st+4),pre=t.slice(0,st).join(""),suf=t.slice(st+4).join("")+(/[。？！]$/.test(e[0])?e[0].slice(-1):"");
   return{t:"star",prompt:`${esc(pre)} <span class="jb">＿＿</span> <span class="jb">＿＿</span> <span class="jb st">★</span> <span class="jb">＿＿</span> ${esc(suf)}`,opts:shuffle(win),ans:win[2],expl:"Correct order: "+win.join(" → "),en:e[1],full:e[0]}}return null}
 function qREAD(lv){return JCONT[lv].read.flatMap((p,pi)=>p.q.map(q=>({t:"read",passage:p.t,pen:p.en,prompt:esc(q[0]),opts:shuffle(q.slice(1)),ans:q[1],expl:"Passage: "+p.en})))}
-function qLISTEN(lv){return JCONT[lv].listen.map(x=>({t:"listen",lines:x.s,prompt:esc(x.q[0]),opts:shuffle(x.q.slice(1)),ans:x.q[1],expl:x.en,script:x.s}))}
+function qLISTEN(lv){return JCONT[lv].listen.map((x,i)=>({t:"listen",id:lv+"_"+i,roles:(JROLES[lv]||[])[i],lines:x.s,prompt:esc(x.q[0]),opts:shuffle(x.q.slice(1)),ans:x.q[1],expl:x.en,script:x.s}))}
 function buildMock(lv){const u=new Set(),Q=[];const rep=(n,f)=>{for(let i=0;i<n;i++){const q=f();if(q)Q.push(q)}};
  rep(lv==="N1"||lv==="N2"?4:5,()=>qKR(lv));if(lv!=="N1")rep(3,()=>qOR(lv));rep(3,()=>qCTX(lv));rep(6,()=>qGF(lv,u));rep(2,()=>qSTAR(lv,u));Q.push(...qREAD(lv),...qLISTEN(lv));
  Q.forEach(q=>q.sec=JTYPE_SEC[q.t]);return Q}
@@ -2741,12 +2748,54 @@ function jSpeakAll(lines){const txt=lines.join("。\n");
  if(window.speechSynthesis&&speechSynthesis.getVoices().some(v=>/^ja/i.test(v.lang))){return new Promise(r=>{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(txt);u.lang="ja-JP";u.rate=.9;u.onend=()=>r("web");u.onerror=()=>r("web");speechSynthesis.speak(u)})}
  if(typeof aiReady==="function"&&aiReady()&&navigator.onLine!==false)return aiTTS(txt).then(()=>"ai").catch(()=>"none");
  return Promise.resolve("none")}
+
+/* ---- natural listening audio: Gemini multi-speaker voices (cached for offline), phone voice as fallback ---- */
+const JROLES={N5:[["n","m","f","m","n"],["n","f","m","f","m","f","n"],["n"]],N4:[["n","m","f","m","n"],["n","f","m","f","n"],["n"]],N3:[["n","f","m","f","m","n"],["n","m","f","n"],["n"]],N2:[["n","m","f","n"],["n","m","n"],["n"]],N1:[["n","m","f","m","n"],["n","m","n"],["n"]]};
+const JVOICE={n:"Schedar",m:"Orus",f:"Kore"};
+const withTO=(p,ms,v)=>Promise.race([p,new Promise(r=>setTimeout(()=>r(v),ms))]);
+const IDB={db:null,open(){return this.db?Promise.resolve(this.db):new Promise((res,rej)=>{try{const r=indexedDB.open("kd_audio",1);r.onupgradeneeded=()=>r.result.createObjectStore("a");r.onsuccess=()=>{this.db=r.result;res(this.db)};r.onerror=()=>rej(r.error)}catch(e){rej(e)}})},
+ async get(k){return withTO(this._get(k),2000,null)},async _get(k){try{const db=await this.open();return await new Promise(r=>{const q=db.transaction("a").objectStore("a").get(k);q.onsuccess=()=>r(q.result||null);q.onerror=()=>r(null)})}catch(e){return null}},
+ async set(k,v){return withTO(this._set(k,v),3000)},async _set(k,v){try{const db=await this.open();await new Promise(r=>{const t=db.transaction("a","readwrite");t.objectStore("a").put(v,k);t.oncomplete=r;t.onerror=r})}catch(e){}}};
+function lsSegments(item){const roles=item.roles||item.lines.map(()=>"n");const segs=[];item.lines.forEach((t,i)=>{const r=roles[i]||"n";const kind=r==="n"?"n":"d";const last=segs[segs.length-1];if(last&&last.kind===kind&&kind==="d")last.lines.push([r,t]);else segs.push({kind,lines:[[r,t]]})});return segs}
+async function lsGenSeg(seg){const style="Read this as a real JLPT listening exam recording by native Japanese voice actors: natural Tokyo-standard pronunciation, natural speed and intonation, clear and warm, like real people talking.";
+ let body;if(seg.kind==="n"){body={contents:[{parts:[{text:style+" Narrator, calm and clear:\n"+seg.lines.map(x=>x[1]).join("\n")}]}],generationConfig:{responseModalities:["AUDIO"],speechConfig:{voiceConfig:{prebuiltVoiceConfig:{voiceName:JVOICE.n}}}}}}
+ else{const sp=r=>r==="m"?"Takeshi":"Yumi";const used=[...new Set(seg.lines.map(x=>x[0]))];
+  if(used.length<2){body={contents:[{parts:[{text:style+"\n"+seg.lines.map(x=>x[1]).join("\n")}]}],generationConfig:{responseModalities:["AUDIO"],speechConfig:{voiceConfig:{prebuiltVoiceConfig:{voiceName:JVOICE[used[0]]}}}}}}
+  else body={contents:[{parts:[{text:style+" A conversation between Takeshi (man) and Yumi (woman):\n"+seg.lines.map(x=>sp(x[0])+": "+x[1]).join("\n")}]}],generationConfig:{responseModalities:["AUDIO"],speechConfig:{multiSpeakerVoiceConfig:{speakerVoiceConfigs:[{speaker:"Takeshi",voiceConfig:{prebuiltVoiceConfig:{voiceName:JVOICE.m}}},{speaker:"Yumi",voiceConfig:{prebuiltVoiceConfig:{voiceName:JVOICE.f}}}]}}}}}
+ const {r}=await aiPost(AI_TTS_MODELS,"generateContent",body);const j=await r.json();const p=((((j.candidates||[])[0]||{}).content||{}).parts||[]).filter(x=>x.inlineData).map(x=>x.inlineData.data);if(!p.length)throw new Error("no audio");return p}
+const LSP={};/* in-flight audio requests by key */
+function lsAudio(item){const key="ls2_"+item.id;if(LSP[key])return LSP[key];
+ LSP[key]=(async()=>{const c=await IDB.get(key);if(c)return c;if(!(typeof aiReady==="function"&&aiReady())||navigator.onLine===false)return null;
+  const out=[];for(const sg of lsSegments(item))out.push(await lsGenSeg(sg));await IDB.set(key,out);return out})().catch(e=>{delete LSP[key];return null});return LSP[key]}
+function jPrefetch(items){items.forEach(it=>{if(it&&it.t==="listen")lsAudio(it)})}
+const LS={timer:0,end:0,mode:null,onEnd:null};
+function jStopAudio(){clearInterval(LS.timer);LS.timer=0;try{aiStopAudio()}catch(e){}try{speechSynthesis.cancel()}catch(e){}if(LS.mode==="native")native("speak?t=");LS.mode=null;const f=LS.onEnd;LS.onEnd=null;if(f)f(true)}
+function jPlayItem(item,ui){jStopAudio();ui("prep");
+ return new Promise(async res=>{const done=stopped=>{clearInterval(LS.timer);LS.timer=0;LS.mode=null;LS.onEnd=null;ui(stopped?"stopped":"done");res()};LS.onEnd=done;
+  const aud=await lsAudio(item);if(LS.onEnd!==done)return;
+  if(aud&&aud.length){const c=aiPlayCtx();aiStopAudio();AIP.next=c.currentTime+.15;aud.forEach(seg=>{seg.forEach(b=>aiPlayChunk(b));AIP.next+=.55});LS.mode="ai";const total=AIP.next-c.currentTime,t0=c.currentTime;
+   ui("play",0,"natural");LS.timer=setInterval(()=>{const p=(c.currentTime-t0)/total;ui("play",Math.min(1,p),"natural");if(c.currentTime>=AIP.next-.5)done(false)},150);return}
+  const txt=item.lines.join("。\n");const est=Math.max(2.5,[...txt].length*.17+item.lines.length*.7);
+  if(IS_APK&&nativeBuild()>=11){native("speak?t="+encodeURIComponent(txt));LS.mode="native"}
+  else if(window.speechSynthesis&&speechSynthesis.getVoices().some(v=>/^ja/i.test(v.lang))){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(txt);u.lang="ja-JP";u.rate=.9;u.onend=()=>{if(LS.onEnd===done)done(false)};speechSynthesis.speak(u);LS.mode="web"}
+  else{ui("none");LS.onEnd=null;res();return}
+  const t0=Date.now();ui("play",0,"phone");LS.timer=setInterval(()=>{const p=(Date.now()-t0)/1000/est;ui("play",Math.min(1,p),"phone");if(p>=1&&LS.mode!=="web")done(false)},150)})}
+function jPlayUI(q,maxPlays){let plays=0;const btn=$("#jPlay"),sc=$("#jScript");
+ const ui=(st,p,src)=>{if(!btn)return;btn.classList.toggle("playing",st==="play");btn.classList.toggle("prep",st==="prep");
+  if(st==="prep")btn.innerHTML='<span class="jSpin"></span> Preparing audio…';
+  if(st==="play"&&btn.querySelector(".jProg")){btn.querySelector(".jProg").style.width=(p||0)*100+"%"}else if(st==="play")btn.innerHTML=`<span class="eq"><i></i><i></i><i></i><i></i><i></i></span> Playing… <small>tap to stop</small><span class="jProg" style="width:${(p||0)*100}%"></span>`;
+  if(st==="done"||st==="stopped")btn.innerHTML=maxPlays&&plays>=maxPlays?"✓ Played":`▶ Play again${maxPlays?` (${maxPlays-plays} left)`:""}`;
+  if(st==="none"){btn.innerHTML="🔇 No voice available";sc.innerHTML="No Japanese voice on this phone and no internet for natural voices, so here's the script:<br>"+q.lines.map(esc).join("<br>")}
+  if(st==="play"&&src==="phone"&&!sc.dataset.n){sc.dataset.n=1;sc.innerHTML='<span class="tiny muted">📱 Using the phone\'s voice. Connect Hana-sensei and go online once for natural human voices (saved for offline after).</span>'}};
+ btn.onclick=()=>{if(btn.classList.contains("playing")||btn.classList.contains("prep")){jStopAudio();return}if(maxPlays&&plays>=maxPlays){toast("You can play it twice, like the real test 🎧");return}plays++;jPlayItem(q,ui)}}
+document.addEventListener("visibilitychange",()=>{if(document.hidden)jStopAudio()});
+
 /* ---- runner ---- */
 let JT=null;
 function jOpen(){go("jlpt")}
 function jOv(f){$("#jt").classList.add("on");$("#jt").scrollTop=0;f()}
 function jExit(lv){jClose();go("jlpt");setTimeout(()=>jHome(lv),10)}
-function jClose(){if(JT&&JT.timer)clearInterval(JT.timer);JT=null;$("#jt").classList.remove("on");try{speechSynthesis.cancel()}catch(e){}}
+function jClose(){jStopAudio();if(JT&&JT.timer)clearInterval(JT.timer);JT=null;$("#jt").classList.remove("on");try{speechSynthesis.cancel()}catch(e){}}
 function jHome(sel){const lv=sel||jHome.lv||S.lv;jHome.lv=lv;const best=(S.jlpt||{})[lv];const H=$("#jHub");if(!H)return;
  H.innerHTML=`<div class="jHero"><div class="jSun"></div><small>日本語能力試験 · PRACTICE</small><b>JLPT Mock Test</b><span>Same sections, question types and scoring as the real JLPT. Pass it and earn your certificate 🏅</span></div>
  <div class="gBelts jLv">${LEVELS.map(l=>`<button class="gBelt ${l===lv?"on":""}" data-l="${l}">${beltSVG(l)}<b>${l}</b><span>${(S.jlpt||{})[l]&&(S.jlpt||{})[l].passed?"✅ passed":"–"}</span></button>`).join("")}</div>
@@ -2763,11 +2812,11 @@ function jIntro(lv){$("#jtB").innerHTML=`<div class="jPaper"><div class="jPT">�
   <button class="btn shu full jBig" id="jGo">はじめ！ Start</button><button class="btn full" id="jBack" style="margin-top:10px">← Back</button>`;
  $("#jBack").onclick=()=>jExit(lv);$("#jGo").onclick=()=>{S.name=$("#jName").value.trim().slice(0,40);save();const Q=buildMock(lv);JT={lv,Q,ans:{},si:0,qi:0,mode:"mock"};jSection()}}
 function jSecQs(){const s=JSPEC[JT.lv].secs[JT.si][0];const want=s==="vg"?["v","g","r"]:s==="g"?["g","r"]:[s];return JT.Q.map((q,i)=>i).filter(i=>want.includes(JT.Q[i].sec))}
-function jSection(){const sp=JSPEC[JT.lv].secs[JT.si];JT.idx=jSecQs();JT.qi=0;JT.end=Date.now()+sp[4]*60000;clearInterval(JT.timer);JT.timer=setInterval(jTick,1000);
+function jSection(){jStopAudio();const sp=JSPEC[JT.lv].secs[JT.si];JT.idx=jSecQs();jPrefetch(JT.idx.map(k=>JT.Q[k]));JT.qi=0;JT.end=Date.now()+sp[4]*60000;clearInterval(JT.timer);JT.timer=setInterval(jTick,1000);
  $("#jtB").innerHTML=`<div class="jSecIntro"><div class="jSecN">${JT.si+1} / ${JSPEC[JT.lv].secs.length}</div><b>${sp[1]}</b><span>${sp[2]} · ${JT.idx.length} questions · ${sp[4]} min</span><button class="btn shu full" id="jSecGo">Start section →</button></div>`;
  clearInterval(JT.timer);$("#jSecGo").onclick=()=>{JT.end=Date.now()+sp[4]*60000;JT.timer=setInterval(jTick,1000);jQ()}}
 function jTick(){if(!JT||!JT.end)return;const l=JT.end-Date.now();const e=$("#jTime");if(e){e.textContent=fmtL(l);e.classList.toggle("low",l<60000)}if(l<=0){clearInterval(JT.timer);toast("⏰ Time's up for this section!");jNextSec()}}
-function jQ(){const i=JT.idx[JT.qi],q=JT.Q[i],m=JMON[q.t],sp=JSPEC[JT.lv].secs[JT.si];const chosen=JT.ans[i];
+function jQ(){jStopAudio();const i=JT.idx[JT.qi],q=JT.Q[i],m=JMON[q.t],sp=JSPEC[JT.lv].secs[JT.si];const chosen=JT.ans[i];
  const prevT=JT.qi>0?JT.Q[JT.idx[JT.qi-1]].t:null;
  $("#jtB").innerHTML=`<div class="jTop"><span class="jSecT">${sp[1]}</span><b id="jTime" class="jTime">--:--</b></div><div class="bar"><div style="width:${JT.qi/JT.idx.length*100}%"></div></div>
   <div class="jMon"><b>もんだい · ${m[0]}</b><span>${m[1]}</span><i>${m[2]}</i></div>
@@ -2778,8 +2827,7 @@ function jQ(){const i=JT.idx[JT.qi],q=JT.Q[i],m=JMON[q.t],sp=JSPEC[JT.lv].secs[J
   <div class="row" style="gap:8px;margin-top:14px">${JT.qi>0?'<button class="btn" id="jPrev" style="flex:none">←</button>':""}<button class="btn shu grow" id="jNext">${JT.qi+1<JT.idx.length?"Next →":"Finish section ✓"}</button></div>`;
  jTick();$$("#jtB .jOpt").forEach(b=>b.onclick=()=>{JT.ans[i]=b.dataset.o;$$("#jtB .jOpt").forEach(x=>x.classList.toggle("on",x===b));sfx.pop()});
  const pv=$("#jPrev");if(pv)pv.onclick=()=>{JT.qi--;jQ()};$("#jNext").onclick=()=>{if(JT.qi+1<JT.idx.length){JT.qi++;jQ()}else{const un=JT.idx.filter(k=>!JT.ans[k]).length;if(un&&!confirmTap($("#jNext"),`${un} unanswered. Tap again to finish`))return;jNextSec()}};
- if(q.t==="listen"){let plays=0;$("#jPlay").onclick=async()=>{if(plays>=2){toast("You can play it twice, like the real test 🎧");return}plays++;$("#jPlay").textContent="🔊 Playing…";const how=await jSpeakAll(q.lines);
-  $("#jPlay").textContent=plays<2?"▶ Play again":"✓ Played";if(how==="none"){$("#jScript").innerHTML="🔇 No Japanese voice on this phone, so here's the script:<br>"+q.lines.map(esc).join("<br>")}}}}
+ if(q.t==="listen")jPlayUI(q,2)}
 function jNextSec(){clearInterval(JT.timer);JT.si++;if(JT.si<JSPEC[JT.lv].secs.length)jSection();else jResult()}
 function jScore(lv,Q,ans){const sp=JSPEC[lv];const parts=sp.score.map(s=>{const qs=Q.filter(q=>s[4].includes(q.sec));const ok=qs.filter(q=>ans[Q.indexOf(q)]===q.ans).length;const pts=qs.length?Math.round(ok/qs.length*s[2]):0;return{id:s[0],name:s[1],max:s[2],min:s[3],pts,ok,n:qs.length,pass:pts>=s[3]}});
  const total=parts.reduce((a,p)=>a+p.pts,0);return{parts,total,passed:total>=sp.pass&&parts.every(p=>p.pass)}}
@@ -2804,10 +2852,10 @@ function jReviewHome(lv){const types=[["kr","🈁"],["or","✍️"],["ctx","🧩
 function jReviewRun(lv,t){const u=new Set();let Q=[];if(t==="read")Q=qREAD(lv);else if(t==="listen")Q=qLISTEN(lv);else for(let i=0;i<10;i++){const q=t==="kr"?qKR(lv):t==="or"?qOR(lv):t==="ctx"?qCTX(lv):t==="gf"?qGF(lv,u):qSTAR(lv,u);if(q)Q.push(q)}
  if(!Q.length){toast("No questions for this type yet");return}let i=0,ok=0;JT={lv,Q,ans:{},mode:"review"};
  const show=()=>{if(i>=Q.length){$("#jtB").innerHTML=`<div class="jRes pass"><div class="jStamp">${ok>=Q.length*.8?"優秀":"練習"}</div><small>REVIEW DONE</small><div class="jTot">${ok}<span>/${Q.length}</span></div></div><button class="btn shu full" id="jAgain">🔁 Again</button><button class="btn full" id="jHomeB" style="margin-top:10px">← Review menu</button>`;addXP(ok*3);if(ok>=Q.length*.8)confetti(60);$("#jAgain").onclick=()=>jReviewRun(lv,t);$("#jHomeB").onclick=()=>jReviewHome(lv);return}
-  const q=Q[i],m=JMON[q.t];$("#jtB").innerHTML=`<div class="jTop"><span class="jSecT">Review · ${m[0]}</span><b>${i+1}/${Q.length}</b></div><div class="jMon"><b>${m[0]}</b><span>${m[1]}</span><i>${m[2]}</i></div>
+  jStopAudio();if(i===0)jPrefetch(Q);const q=Q[i],m=JMON[q.t];$("#jtB").innerHTML=`<div class="jTop"><span class="jSecT">Review · ${m[0]}</span><b>${i+1}/${Q.length}</b></div><div class="jMon"><b>${m[0]}</b><span>${m[1]}</span><i>${m[2]}</i></div>
    ${q.passage?`<div class="jPass">${jlink(q.passage).replace(/\n/g,"<br>")}</div>`:""}${q.t==="listen"?`<button class="jPlay" id="jPlay">▶ Play audio</button><div class="jScript" id="jScript"></div>`:""}
    <div class="jQ"><div>${q.prompt}</div></div><div class="jOpts">${q.opts.map((o,k)=>`<button class="jOpt" data-o="${esc(o)}"><i>${k+1}</i><span>${esc(o)}</span></button>`).join("")}</div><div id="jExW"></div>`;
-  if(q.t==="listen")$("#jPlay").onclick=async()=>{const how=await jSpeakAll(q.lines);if(how==="none")$("#jScript").innerHTML="🔇 No Japanese voice on this phone. Script:<br>"+q.lines.map(esc).join("<br>")};
+  if(q.t==="listen")jPlayUI(q,0);
   $$("#jtB .jOpt").forEach(b=>b.onclick=()=>{if($("#jExW").innerHTML)return;const good=b.dataset.o===q.ans;if(good){ok++;sfx.ok()}else sfx.no();
    $$("#jtB .jOpt").forEach(x=>{if(x.dataset.o===q.ans)x.classList.add("ok");else if(x===b)x.classList.add("no")});
    $("#jExW").innerHTML=jExplHTML(q,b.dataset.o)+`<button class="btn shu full" id="jN" style="margin-top:12px">${i+1<Q.length?"Next →":"See score"}</button>`;$("#jN").onclick=()=>{i++;show();$("#jt").scrollTop=0}})};show()}

@@ -1,13 +1,13 @@
 {
-  "build": 38,
-  "version": "3.8",
+  "build": 39,
+  "version": "3.9",
   "file": "app.html",
-  "size": 546218,
+  "size": 553547,
   "minNative": 6,
   "notes": [
-    "🧭 New navbar: Learn · JLPT · Sensei · Game · Alarm · Progress",
-    "📚 Grammar Dojo and Writing are now inside Learn (new tiles)",
-    "🎌 New JLPT tab with the mock test, review and your certificates"
+    "🎧 JLPT listening now uses natural human-like Japanese voices: a narrator plus a man and a woman talking, like the real test (needs Hana-sensei connected + internet the first time, then saved for offline)",
+    "▶ Clear 'Playing…' indicator with a progress bar, and tap to stop",
+    "⏹ Audio stops when you leave the app, go to the next question, or close the test"
   ],
   "native": {
     "build": 11,
