@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <script>
-var KD_BUILD=41,KD_VER="4.1",KD_NATIVE=11;
+var KD_BUILD=42,KD_VER="4.2",KD_NATIVE=11;
 (function(){try{if(window.__KD_SWAP)return;var ls=localStorage;
  if(location.href.indexOf("file:///android_asset")===0)ls.setItem("kd_native",String(KD_NATIVE));
  var b=+(ls.getItem("kd_build")||0),h=ls.getItem("kd_html");
@@ -614,6 +614,13 @@ nav .navAI:active .navAIc{transform:scale(.92)}
 .podL.now{background:#fff;box-shadow:0 6px 18px rgba(123,92,255,.18);transform:scale(1.02)}.podJ{font-size:17px;line-height:1.6}.podE{display:none;font-size:13px;color:#6b5f94;margin-top:2px}.podTr.en .podE{display:block}
 .podCard{display:flex;align-items:center;gap:12px;width:100%;border:none;font-family:inherit;color:#fff;background:linear-gradient(135deg,#2d2147,#7b5cff 60%,#ff6fa8)!important;box-shadow:0 10px 26px rgba(123,92,255,.35);cursor:pointer}
 .podCard .pIco{width:52px;height:52px;flex:none;border-radius:16px;background:rgba(255,255,255,.18);display:grid;place-items:center;font-size:28px}.podCard .tiny{color:#fff;opacity:.95}
+
+.podNow{display:grid;grid-template-columns:auto 1fr;column-gap:14px;align-items:center;text-align:left;padding:14px!important;border-radius:24px!important}
+.podNow .podDisc{grid-row:1/3;padding:4px}.podNow .podArt.big{width:64px;height:64px;font-size:19px}
+.podNow>b{margin-top:0!important;font-size:16px!important;align-self:end}.podNow>span{align-self:start}
+.podNow .podBar,.podNow .podCtl,.podNow #podSt{grid-column:1/3}.podNow .podBar{margin:12px 2px 10px}
+.podNow .podBig{width:58px;height:58px;font-size:24px}.podNow .podSm{width:42px;height:42px}
+.podNow #podSt{text-align:center;margin-top:4px}
 /* ===== GORGEOUS LOCK SCREEN ===== */
 #lock{background:#120b2e!important}
 #lock .aur{position:absolute;inset:-20%;pointer-events:none;filter:blur(55px) saturate(1.3);opacity:.85}
@@ -2436,7 +2443,7 @@ $("#rStudy").onclick=()=>openRescue("ring");$("#slStudy").onclick=()=>openRescue
 const AI_VOICES=[["Aoede","Breezy"],["Sulafat","Warm"],["Leda","Youthful"],["Kore","Firm"],["Zephyr","Bright"],["Puck","Upbeat"],["Charon","Informative"],["Fenrir","Excitable"],["Orus","Firm"],["Callirrhoe","Easy-going"],["Autonoe","Bright"],["Enceladus","Breathy"],["Iapetus","Clear"],["Umbriel","Easy-going"],["Algieba","Smooth"],["Despina","Smooth"],["Erinome","Clear"],["Algenib","Gravelly"],["Rasalgethi","Informative"],["Laomedeia","Upbeat"],["Achernar","Soft"],["Alnilam","Firm"],["Schedar","Even"],["Gacrux","Mature"],["Pulcherrima","Forward"],["Achird","Friendly"],["Zubenelgenubi","Casual"],["Vindemiatrix","Gentle"],["Sadachbia","Lively"],["Sadaltager","Knowledgeable"]];
 const AI_LIVE_MODELS=["gemini-3.8-live","gemini-3.1-flash-live-preview","gemini-2.5-flash-native-audio-preview-12-2025","gemini-2.5-flash-native-audio-preview-09-2025"];
 const AI_CHAT_MODELS=["gemini-flash-latest","gemini-3.6-flash","gemini-2.5-flash"];
-const AI_TTS_MODELS=["gemini-3.8-flash-lite-tts","gemini-3.8-flash-tts","gemini-2.5-flash-preview-tts"];
+const AI_TTS_MODELS=["gemini-3.1-flash-tts-preview","gemini-2.5-flash-preview-tts"];
 const AI_API="https://generativelanguage.googleapis.com/v1beta/";
 /* Built-in mode: the app talks to Gemini through Firebase AI Logic, so users don't need their own key. A personal key (Advanced) overrides it. */
 const aiOwn=()=>!!aiCfg().key;
@@ -2503,12 +2510,14 @@ function aiPlayChunk(b64){const c=aiPlayCtx(),f=pcm16b64ToF32(b64);if(!f.length)
 function aiStopAudio(){AIP.srcs.forEach(s=>{try{s.stop()}catch(e){}});AIP.srcs=[];AIP.next=0}
 function aiSpeaking(){return AIP.ctx&&AIP.next>AIP.ctx.currentTime+.02}
 /* ---- REST: chat (streaming) and TTS ---- */
-async function aiPost(models,path,body,stream){const c=aiCfg();let last="";
- for(const m of (c.chatModel&&path.includes("Generate")&&!path.includes("tts")?[c.chatModel,...models.filter(x=>x!==c.chatModel)]:models)){
+const AI_DEAD=new Set();
+async function aiPost(models,path,body,stream){const c=aiCfg();let last="",quota="";
+ let list=(c.chatModel&&path.includes("Generate")&&!path.includes("tts")?[c.chatModel,...models.filter(x=>x!==c.chatModel)]:models);const live=list.filter(m=>!AI_DEAD.has(m));if(live.length)list=live;
+ for(const m of list){
   try{const r=await fetch(aiUrl(m,path),{method:"POST",headers:aiHeaders(),body:JSON.stringify(body)});
-   if(r.ok)return{r,m};const t=await r.text();last=`${r.status} ${t.slice(0,300)}`;if(r.status===400&&/API key/i.test(t)||r.status===401||(r.status===403&&aiOwn()))throw new Error("KEY:"+last);if(r.status===403&&!/not found|not supported|not available/i.test(t))throw new Error("SETUP:"+last);if(r.status===429)throw new Error("QUOTA:"+last)}
-  catch(e){if(/^(KEY|QUOTA|SETUP):/.test(e.message))throw e;last=e.message}}
- throw new Error(last||"Network error")}
+   if(r.ok)return{r,m};const t=await r.text();last=`${r.status} ${t.slice(0,300)}`;if(r.status===400&&/API key/i.test(t)||r.status===401||(r.status===403&&aiOwn()))throw new Error("KEY:"+last);if(r.status===404||/not found|not supported/i.test(t))AI_DEAD.add(m);else if(r.status===403&&!/not available/i.test(t))throw new Error("SETUP:"+last);if(r.status===429)quota="QUOTA:"+last}
+  catch(e){if(/^(KEY|SETUP):/.test(e.message))throw e;last=e.message}}
+ throw new Error(quota||last||"Network error")}
 async function aiChatSend(text,onDelta){const h=aiHist();const contents=h.slice(-24).map(x=>({role:x.r==="u"?"user":"model",parts:[{text:x.t}]}));contents.push({role:"user",parts:[{text:text+"\n\n[Hidden style note from the app, don't mention it: reply as fun savage Pinoy Hana-sensei in natural fluent Taglish. Mura only sakto lang: only if this moment calls for it (a mistake to roast, trash talk, big hype), otherwise none. Still teach correctly.]"}]});
  const {r,m}=await aiPost(AI_CHAT_MODELS,"streamGenerateContent?alt=sse",{systemInstruction:{parts:[{text:aiSystem(false)}]},contents,generationConfig:{temperature:savage()?1:.8,maxOutputTokens:2048},...(savage()?{safetySettings:[{category:"HARM_CATEGORY_HARASSMENT",threshold:"BLOCK_ONLY_HIGH"},{category:"HARM_CATEGORY_HATE_SPEECH",threshold:"BLOCK_MEDIUM_AND_ABOVE"}]}:{})},true);
  const c=aiCfg();if(c.chatModel!==m){c.chatModel=m;aiSave(c)}
@@ -2792,12 +2801,14 @@ async function lsGenSeg(seg){const style="Read this as a real JLPT listening exa
  const {r}=await aiPost(AI_TTS_MODELS,"generateContent",body);const j=await r.json();const p=((((j.candidates||[])[0]||{}).content||{}).parts||[]).filter(x=>x.inlineData).map(x=>x.inlineData.data);if(!p.length)throw new Error("no audio");return p}
 /* fast audio: parallel generation (max 4 at a time, retry on rate limit), play as soon as the first piece is ready, cache everything */
 let TTS_ACTIVE=0;const TTS_WAIT=[];
-function ttsSlot(){return new Promise(r=>{if(TTS_ACTIVE<4){TTS_ACTIVE++;r()}else TTS_WAIT.push(r)})}
+function ttsSlot(){return new Promise(r=>{if(TTS_ACTIVE<2){TTS_ACTIVE++;r()}else TTS_WAIT.push(r)})}
 function ttsFree(){TTS_ACTIVE--;const n=TTS_WAIT.shift();if(n){TTS_ACTIVE++;n()}}
-async function ttsGen(fn){await ttsSlot();try{for(let a=0;;a++){try{return await fn()}catch(e){if(a<2&&/^QUOTA:|Network|fetch/i.test(e.message)){await new Promise(r=>setTimeout(r,2500*(a+1)));continue}throw e}}}finally{ttsFree()}}
+let TTS_ERR="";function ttsCool(){try{return Date.now()<+(localStorage.getItem("kd_ttsq")||0)}catch(e){return false}}
+async function ttsGen(fn){if(ttsCool())throw new Error("QUOTA:cooldown");await ttsSlot();try{for(let a=0;;a++){try{const o=await fn();TTS_ERR="";return o}catch(e){TTS_ERR=e.message||String(e);if(/^QUOTA:/.test(TTS_ERR)){const day=/per.?day|PerDay|RPD/i.test(TTS_ERR);try{localStorage.setItem("kd_ttsq",Date.now()+(day?3600000:60000))}catch(x){}throw e}if(a<1&&/Network|fetch/i.test(TTS_ERR)){await new Promise(r=>setTimeout(r,1500));continue}throw e}}}finally{ttsFree()}}
+function ttsWhy(){const e=TTS_ERR||"";if(/QUOTA/.test(e)||ttsCool())return"Google's free natural-voice limit is used up for now";if(/^KEY/.test(e))return"Hana-sensei's key isn't working";if(/Network|fetch|Failed/i.test(e)||navigator.onLine===false)return"No internet";if(!(typeof aiReady==="function"&&aiReady()))return"Hana-sensei isn't connected";return e?"Natural voice unavailable ("+e.slice(0,60)+")":"Natural voice unavailable"}
 const LSP={};/* in-flight audio by key */
 function cachedAudio(key,gen){if(LSP[key])return LSP[key];
- LSP[key]=(async()=>{const c=await IDB.get(key);if(c)return c;if(!(typeof aiReady==="function"&&aiReady())||navigator.onLine===false)return null;const out=await ttsGen(gen);if(out)IDB.set(key,out);return out})().catch(e=>{delete LSP[key];return null});return LSP[key]}
+ LSP[key]=(async()=>{const c=await IDB.get(key);if(c)return c;if(!(typeof aiReady==="function"&&aiReady())||navigator.onLine===false||ttsCool())return null;const out=await ttsGen(gen);if(out)IDB.set(key,out);return out})().catch(e=>{delete LSP[key];return null});return LSP[key]}
 function lsParts(item){return lsSegments(item).map((sg,k)=>cachedAudio("ls3_"+item.id+"_"+k,()=>lsGenSeg(sg)))}
 function lsAudio(item){return Promise.all(lsParts(item)).then(a=>a.every(Boolean)?a:null)}
 function jPrefetch(items){items.forEach(it=>{if(it&&it.t==="listen"&&typeof aiReady==="function"&&aiReady())lsParts(it)})}
@@ -2829,7 +2840,7 @@ function jPlayUI(q,maxPlays){let plays=0;const btn=$("#jPlay"),sc=$("#jScript");
   if(st==="play"&&btn.querySelector(".jProg")){btn.querySelector(".jProg").style.width=(p||0)*100+"%"}else if(st==="play")btn.innerHTML=`<span class="eq"><i></i><i></i><i></i><i></i><i></i></span> Playing… <small>tap to stop</small><span class="jProg" style="width:${(p||0)*100}%"></span>`;
   if(st==="done"||st==="stopped")btn.innerHTML=maxPlays&&plays>=maxPlays?"✓ Played":`▶ Play again${maxPlays?` (${maxPlays-plays} left)`:""}`;
   if(st==="none"){btn.innerHTML="🔇 No voice available";sc.innerHTML="No Japanese voice on this phone and no internet for natural voices, so here's the script:<br>"+q.lines.map(esc).join("<br>")}
-  if(st==="play"&&src==="phone"&&!sc.dataset.n){sc.dataset.n=1;sc.innerHTML='<span class="tiny muted">📱 Using the phone\'s voice. Connect Hana-sensei and go online once for natural human voices (saved for offline after).</span>'}};
+  if(st==="play"&&src==="phone"&&!sc.dataset.n){sc.dataset.n=1;sc.innerHTML='<span class="tiny muted">📱 Using the phone\'s voice ('+esc(ttsWhy())+'). Natural voices come back automatically; ones you\'ve heard before are saved for offline.</span>'}};
  btn.onclick=()=>{if(btn.classList.contains("playing")||btn.classList.contains("prep")){jStopAudio();return}if(maxPlays&&plays>=maxPlays){toast("You can play it twice, like the real test 🎧");return}plays++;jPlayItem(q,ui)}}
 document.addEventListener("visibilitychange",()=>{if(document.hidden)jStopAudio()});
 
@@ -2839,7 +2850,7 @@ function jOpen(){go("jlpt")}
 function jOv(f){$("#jt").classList.add("on");$("#jt").scrollTop=0;f()}
 function jExit(lv){jClose();go("jlpt");setTimeout(()=>jHome(lv),10)}
 function jClose(){jStopAudio();if(JT&&JT.timer)clearInterval(JT.timer);JT=null;$("#jt").classList.remove("on");try{speechSynthesis.cancel()}catch(e){}}
-function jHome(sel){const lv=sel||jHome.lv||S.lv;jHome.lv=lv;try{jPrefetch(qLISTEN(lv))}catch(e){}const best=(S.jlpt||{})[lv];const H=$("#jHub");if(!H)return;
+function jHome(sel){const lv=sel||jHome.lv||S.lv;jHome.lv=lv;const best=(S.jlpt||{})[lv];const H=$("#jHub");if(!H)return;
  H.innerHTML=`<div class="jHero"><div class="jSun"></div><small>日本語能力試験 · PRACTICE</small><b>JLPT Mock Test</b><span>Same sections, question types and scoring as the real JLPT. Pass it and earn your certificate 🏅</span></div>
  <div class="gBelts jLv">${LEVELS.map(l=>`<button class="gBelt ${l===lv?"on":""}" data-l="${l}">${beltSVG(l)}<b>${l}</b><span>${(S.jlpt||{})[l]&&(S.jlpt||{})[l].passed?"✅ passed":"–"}</span></button>`).join("")}</div>
  <div class="jFormat"><div class="jFH">Official ${lv} format</div>${JSPEC[lv].secs.map(s=>`<div class="jFR"><span>${s[1]}<i>${s[2]}</i></span><b>${s[3]} min</b></div>`).join("")}
@@ -2932,12 +2943,12 @@ async function podGen(lines,lv){const slow=lv==="N5"||lv==="N4"?" Speak a little
  const body={contents:[{parts:[{text:POD_STYLE+slow+"\n"+lines.map(x=>(x[0]==="m"?"Takeshi":"Yumi")+": "+x[1]).join("\n")}]}],generationConfig:{responseModalities:["AUDIO"],speechConfig:{multiSpeakerVoiceConfig:{speakerVoiceConfigs:[{speaker:"Takeshi",voiceConfig:{prebuiltVoiceConfig:{voiceName:JVOICE.m}}},{speaker:"Yumi",voiceConfig:{prebuiltVoiceConfig:{voiceName:JVOICE.f}}}]}}}};
  if(new Set(lines.map(x=>x[0])).size<2){delete body.generationConfig.speechConfig.multiSpeakerVoiceConfig;body.generationConfig.speechConfig.voiceConfig={prebuiltVoiceConfig:{voiceName:JVOICE[lines[0][0]]}};body.contents[0].parts[0].text=POD_STYLE+slow+"\n"+lines.map(x=>x[1]).join("\n")}
  const {r}=await aiPost(AI_TTS_MODELS,"generateContent",body);const j=await r.json();const p=((((j.candidates||[])[0]||{}).content||{}).parts||[]).filter(x=>x.inlineData).map(x=>x.inlineData.data);if(!p.length)throw new Error("no audio");return p}
-function podChunks(ep){const out=[];for(let i=0;i<ep.l.length;i+=3)out.push({from:i,lines:ep.l.slice(i,i+3)});return out}
-function podParts(ep){return podChunks(ep).map((c,k)=>cachedAudio("pod1_"+ep.id+"_"+k,()=>podGen(c.lines,ep.lv)))}
+function podChunks(ep){const a=Math.min(4,ep.l.length);const out=[{from:0,lines:ep.l.slice(0,a)}];if(ep.l.length>a)out.push({from:a,lines:ep.l.slice(a)});return out}
+function podParts(ep){return podChunks(ep).map((c,k)=>cachedAudio("pod2_"+ep.id+"_"+k,()=>podGen(c.lines,ep.lv)))}
 let podLv=null,PODP={ep:null,playing:false,paused:false};
 function podOpen(){go("pod")}
 function podClose(){podStop();go("home")}
-function podStop(){if(PODP.playing||PODP.paused)streamStop();PODP.playing=PODP.paused=false;try{if(AIP.ctx&&AIP.ctx.state==="suspended")AIP.ctx.resume()}catch(e){}}
+function podStop(){if(PODP.playing||PODP.paused)streamStop();PODP.ptok=(PODP.ptok||0)+1;clearTimeout(PODP.timer);if(PODP.mode==="phone"){try{speechSynthesis.cancel()}catch(e){}if(IS_APK)native("speak?t=")}PODP.mode=null;PODP.playing=PODP.paused=false;try{if(AIP.ctx&&AIP.ctx.state==="suspended")AIP.ctx.resume()}catch(e){}}
 function podHome(){podStop();podLv=podLv||S.lv;const eps=PODS.filter(e=>e.lv===podLv);
  $("#podB").innerHTML=`<div class="podHero"><div class="podWave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><small>KANJI DOJO RADIO · ポッドキャスト</small><b>Japanese Podcast</b><span>Yumi &amp; Takeshi chat in natural Japanese at your level. Tap any word, see English anytime.</span></div>
  <div class="levels" id="podLv"></div>
@@ -2947,7 +2958,7 @@ function podHome(){podStop();podLv=podLv||S.lv;const eps=PODS.filter(e=>e.lv===p
  levelChips($("#podLv"),podLv,l=>{podLv=l;podHome()});
  $$("#podB .podEp").forEach(b=>b.onclick=()=>podPlayer(PODS.find(e=>e.id===b.dataset.id)));
  $$("#podB .podExt").forEach(b=>b.onclick=()=>{const u=b.dataset.u;if(IS_APK)native("open/"+u);else window.open(u,"_blank")});
- if(typeof aiReady==="function"&&aiReady())eps.forEach(e=>cachedAudio("pod1_"+e.id+"_0",()=>podGen(podChunks(e)[0].lines,e.lv)))}
+}
 function podPlayer(ep){podStop();PODP={ep,playing:false,paused:false,en:false,cur:-1};const ch=podChunks(ep);
  $("#podB").innerHTML=`<button class="subBack" id="podBack">← Episodes</button>
   <div class="podNow"><div class="podDisc" id="podDisc"><div class="podArt big"><span>${ep.lv}</span></div></div><b>${esc(ep.t)}</b><span>${esc(ep.en)}</span>
@@ -2956,16 +2967,33 @@ function podPlayer(ep){podStop();PODP={ep,playing:false,paused:false,en:false,cu
  $("#podBack").onclick=podHome;
  const setSt=t=>{const e=$("#podSt");if(e)e.textContent=t};
  const hi=k=>{PODP.cur=k;const c=ch[k];$$("#podTr .podL").forEach(el=>{const i=+el.dataset.i;el.classList.toggle("now",i>=c.from&&i<c.from+c.lines.length)});const f=$(`#podTr .podL[data-i="${c.from}"]`);if(f)f.scrollIntoView({block:"center",behavior:"smooth"});const pg=$("#podProg");if(pg)pg.style.width=((k+1)/ch.length*100)+"%"};
- const start=()=>{if(!(typeof aiReady==="function"&&aiReady())){setSt("🌸 Connect Hana-sensei once to hear the natural voices.");toast("Connect Hana-sensei first 🌸");aiOpen("setup");return}
-  if(navigator.onLine===false&&!PODP.cached){setSt("📴 Offline: episodes you've played before work offline.")}
-  PODP.playing=true;PODP.paused=false;$("#podPP").textContent="⏸";$("#podDisc").classList.add("podSpin");setSt("⏳ Starting…");
-  streamPlay(podParts(ep),{seg:k=>{hi(k);setSt("🔊 Playing")},end:()=>{PODP.playing=false;$("#podPP").textContent="▶";$("#podDisc").classList.remove("podSpin");setSt("✓ Finished! お疲れさま 🎉");addXP(10)},fail:()=>{PODP.playing=false;$("#podPP").textContent="▶";$("#podDisc").classList.remove("podSpin");setSt("😿 Couldn't load the audio. Check your internet and try again.")}})};
- $("#podPP").onclick=()=>{const c=AIP.ctx;if(PODP.playing&&!PODP.paused){c.suspend();PODP.paused=true;$("#podPP").textContent="▶";$("#podDisc").classList.remove("podSpin");setSt("⏸ Paused");return}
-  if(PODP.paused){c.resume();PODP.paused=false;$("#podPP").textContent="⏸";$("#podDisc").classList.add("podSpin");setSt("🔊 Playing");return}start()};
+ const playing=on=>{PODP.playing=on;const b=$("#podPP"),d=$("#podDisc");if(b)b.textContent=on?"⏸":"▶";if(d)d.classList.toggle("podSpin",on)};
+ const finish=()=>{playing(false);PODP.mode=null;setSt("✓ Finished! お疲れさま 🎉");addXP(10)};
+ const hiLine=i=>{$$("#podTr .podL").forEach(el=>el.classList.toggle("now",+el.dataset.i===i));const f=$(`#podTr .podL[data-i="${i}"]`);if(f)f.scrollIntoView({block:"center",behavior:"smooth"});const pg=$("#podProg");if(pg)pg.style.width=((i+1)/ep.l.length*100)+"%"};
+ const phone=(from,why)=>{const tok=++PODP.ptok;PODP.mode="phone";const jaVoice=window.speechSynthesis&&speechSynthesis.getVoices().some(v=>/^ja/i.test(v.lang));
+  if(!(IS_APK&&nativeBuild()>=11)&&!jaVoice){playing(false);setSt("🔇 "+(why||"No voice available")+". Read along below 📖");return}
+  playing(true);setSt("📱 Phone voice"+(why?" · "+why:""));
+  const say=i=>{if(tok!==PODP.ptok||!PODP.playing)return;if(i>=ep.l.length){finish();return}hiLine(i);PODP.line=i;const t=ep.l[i][1];
+   if(IS_APK&&nativeBuild()>=11){native("speak?t="+encodeURIComponent(t));PODP.timer=setTimeout(()=>say(i+1),(Math.max(1.6,[...t].length*.2+.8))*1000)}
+   else{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="ja-JP";u.rate=.9;u.pitch=ep.l[i][0]==="m"?.8:1.2;u.onend=()=>{PODP.timer=setTimeout(()=>say(i+1),350)};speechSynthesis.speak(u)}};
+  say(from||0)};
+ PODP.phone=phone;
+ const start=()=>{podStop();PODP.ptok=(PODP.ptok||0)+1;
+  const natural=typeof aiReady==="function"&&aiReady()&&navigator.onLine!==false&&!ttsCool();
+  playing(true);setSt(natural?"⏳ Starting…":"");
+  if(!natural){Promise.all(podChunks(ep).map((c,k)=>IDB.get("pod2_"+ep.id+"_"+k))).then(a=>{if(!PODP.playing)return;if(a.every(Boolean)){PODP.mode="ai";streamPlay(a.map(x=>Promise.resolve(x)),cbs)}else phone(0,ttsWhy())});return}
+  PODP.mode="ai";streamPlay(podParts(ep),cbs)};
+ const cbs={seg:k=>{hi(k);setSt("🔊 Playing · natural voices")},end:()=>{if(PODP.mode==="ai")finish()},
+  fail:k=>{if(!PODP.playing||PODP.mode!=="ai")return;streamStop();phone(ch[k]?ch[k].from:0,ttsWhy())}};
+ $("#podPP").onclick=()=>{const c=AIP.ctx;
+  if(PODP.mode==="phone"&&PODP.playing){PODP.ptok++;clearTimeout(PODP.timer);try{speechSynthesis.cancel()}catch(e){}if(IS_APK)native("speak?t=");playing(false);PODP.paused=true;setSt("⏸ Paused");return}
+  if(PODP.mode==="phone"&&PODP.paused){PODP.paused=false;phone(PODP.line||0,"");return}
+  if(PODP.playing&&!PODP.paused&&c){c.suspend();PODP.paused=true;playing(false);PODP.playing=true;setSt("⏸ Paused");return}
+  if(PODP.paused&&c){c.resume();PODP.paused=false;playing(true);setSt("🔊 Playing");return}start()};
  $("#podRe").onclick=()=>{podStop();start()};
  $("#podEn").onclick=()=>{PODP.en=!PODP.en;$("#podTr").classList.toggle("en",PODP.en);$("#podEn").classList.toggle("on",PODP.en)};
- if(typeof aiReady==="function"&&aiReady())podParts(ep)}
-document.addEventListener("visibilitychange",()=>{if(document.hidden&&PODP.playing&&!PODP.paused){try{AIP.ctx.suspend();PODP.paused=true;const b=$("#podPP");if(b)b.textContent="▶";const d=$("#podDisc");if(d)d.classList.remove("podSpin");const st=$("#podSt");if(st)st.textContent="⏸ Paused"}catch(e){}}});
+}
+document.addEventListener("visibilitychange",()=>{if(document.hidden&&PODP.mode==="phone"&&PODP.playing){podStop();const b=$("#podPP");if(b)b.textContent="▶";const d=$("#podDisc");if(d)d.classList.remove("podSpin");const st=$("#podSt");if(st)st.textContent="⏸ Stopped"}else if(document.hidden&&PODP.playing&&!PODP.paused){try{AIP.ctx.suspend();PODP.paused=true;const b=$("#podPP");if(b)b.textContent="▶";const d=$("#podDisc");if(d)d.classList.remove("podSpin");const st=$("#podSt");if(st)st.textContent="⏸ Paused"}catch(e){}}});
 $("#podHome").onclick=()=>{sfx.pop();podOpen()};
 
 /* ================= STUDY REMINDERS + SESSIONS ================= */

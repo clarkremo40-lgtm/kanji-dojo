@@ -1,13 +1,14 @@
 {
-  "build": 41,
-  "version": "4.1",
+  "build": 42,
+  "version": "4.2",
   "file": "app.html",
-  "size": 586163,
+  "size": 589415,
   "minNative": 6,
   "notes": [
-    "🎙️ Podcast now has its own tab in the bottom navigation (聴 Podcast)",
-    "⏹ Podcast stops automatically when you switch tabs",
-    "💿 Fixed the spinning disc in the podcast player"
+    "🔧 Fixed 'Couldn't load the audio' in Podcast and Listening: now uses Google's current voice models",
+    "📱 If the free natural-voice limit runs out, it switches instantly to the phone's Japanese voice, line by line with highlight, instead of failing",
+    "💾 Uses far fewer voice requests (no more background pre-loading), so the free daily limit lasts longer",
+    "🎛️ Smaller podcast player so you see more of the transcript"
   ],
   "native": {
     "build": 11,
