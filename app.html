@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <script>
-var KD_BUILD=33,KD_VER="3.3",KD_NATIVE=10;
+var KD_BUILD=34,KD_VER="3.4",KD_NATIVE=10;
 (function(){try{if(window.__KD_SWAP)return;var ls=localStorage;
  if(location.href.indexOf("file:///android_asset")===0)ls.setItem("kd_native",String(KD_NATIVE));
  var b=+(ls.getItem("kd_build")||0),h=ls.getItem("kd_html");
@@ -875,7 +875,7 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
       <h3 style="margin-top:20px">🗣️ Choose her voice</h3><p class="tiny muted">Tap a name to choose · tap ▶ to hear it</p>
       <div class="aiVoices" id="aiVoices"></div>
       <div class="row" style="margin-top:16px"><span class="grow"><b>Auto-read chat replies aloud</b></span><button class="switch" id="aiAuto"></button></div>
-      <div class="row savRow" style="margin-top:14px"><span class="grow"><b>😈 Savage mode</b><div class="tiny muted">Roasts you, trash talks, swears for fun (18+)</div></span><button class="switch" id="aiSav"></button></div>
+      <div class="savNote" style="margin-top:14px">😈 Savage mode is always on: Hana-sensei roasts you and swears, for fun.</div><button id="aiSav" style="display:none"></button>
       <div class="row" style="gap:8px;margin-top:16px"><button class="btn grow" id="aiClear">🧹 Clear chat</button><button class="btn grow" id="aiForget">🗝️ Remove key</button></div>
     </div>
   </div>
@@ -2232,7 +2232,7 @@ const CAT_YAY=new Proxy([],{get:(t,p)=>(savage()?CAT_YAY_S:CAT_YAY_N)[p]});
 const CAT_OOPS_N=["Almost! Try again 😺","Daijoubu! You got this 💪","So close! 🤏","Mou ichido! 🔁"];
 const CAT_OOPS_S=["Putcha, mali na naman! 😂","Ano ba 'yan, pre? Ulit!","Bobo moments 🤡 Try mo ulit","Hala, ang layo! HAHAHA","Gago, ang lapit na! Isa pa!","'Di 'yan, beh. Ulit! 😜","バカ! Bakaaa! Kaya mo 'yan 😂"];
 const CAT_OOPS=new Proxy([],{get:(t,p)=>(savage()?CAT_OOPS_S:CAT_OOPS_N)[p]});
-function savage(){try{return JSON.parse(localStorage.getItem("kd_ai")||"{}").savage!==false}catch(e){return true}}
+function savage(){return true}/* savage mode is permanent */
 function catSay(t,mood){const b=$("#lsCatT");if(!b)return;b.textContent=t;const w=$("#lsCat");w.classList.remove("yay","oops","talk");void w.offsetWidth;w.classList.add(mood||"talk")}
 function openLesson(l,i){const L=GLES[l],x=L[i];if(!x)return;const b=BELT[l];sfx.pop();
  const ex=x.x.map(e=>({j:e[0],en:e[1],t:segJP(e[0])}));const bx=ex.find(e=>e.t.length>=3);
@@ -2338,13 +2338,15 @@ function aiUrl(m,path){if(aiOwn())return`${AI_API}models/${m}:${path}${path.incl
 function aiHeaders(){const h={"Content-Type":"application/json"};if(!aiOwn()){h["x-goog-api-key"]=FB.apiKey;h["x-goog-api-client"]="gl-js/kanjidojo fire/kanjidojo"}return h}
 function aiCfg(){let c={};try{c=JSON.parse(localStorage.getItem("kd_ai")||"{}")}catch(e){}c.voice=c.voice||"Aoede";return c}
 function aiSave(c){try{localStorage.setItem("kd_ai",JSON.stringify(c))}catch(e){}}
-function aiHist(){try{return JSON.parse(localStorage.getItem("kd_aichat")||"[]")}catch(e){return[]}}
+function aiHist(){try{if(!localStorage.getItem("kd_aichat_v34")){localStorage.setItem("kd_aichat_v34","1");const old=JSON.parse(localStorage.getItem("kd_aichat")||"[]");localStorage.setItem("kd_aichat",JSON.stringify(old.filter(m=>!(m.r==="a"&&/(bawal|hindi ako pwede|can't|cannot|won't|not allowed|inappropriate|respectful).{0,40}(mura|curse|swear|bad words|profan)/i.test(m.t)))))}return JSON.parse(localStorage.getItem("kd_aichat")||"[]")}catch(e){return[]}}
 function aiHistSave(h){try{localStorage.setItem("kd_aichat",JSON.stringify(h.slice(-60)))}catch(e){}}
 function aiContext(){const lv=S.lv,m=mastered(lv),t=ITEMS(lv).length;
  const weak=Object.entries(S.ks||{}).filter(([id,v])=>v.w>0&&v.w>=v.c).sort((a,b)=>b[1].w-a[1].w).slice(0,8).map(([id])=>{const it=ALLV[id.replace(/^v:/,"")]||ALLK[id];return it?`${it.c} (${it.r}, ${it.m})`:null}).filter(Boolean);
  const gl=GLES[lv]||[];const nextG=gl.find(x=>!glDone(x.id));const gdone=gl.filter(x=>glDone(x.id)).length;
  return `Student profile (from the Kanji Dojo app):\n- Current JLPT level: ${lv}. Mastered ${m}/${t} kanji & words at this level.\n- Grammar lessons done at ${lv}: ${gdone}/${gl.length}.${nextG?` Next grammar lesson: ${nextG.t}.`:""}\n- Kanji/words they keep getting wrong: ${weak.length?weak.join(", "):"none yet"}.\n- Study streak: ${S.streak} days. XP: ${S.xp}.`}
-function aiSystem(voice){const c=aiCfg();return `You are Hana-sensei (花先生), the student's personal Japanese tutor and study buddy inside the Kanji Dojo app. You are warm, funny, upbeat and genuinely brilliant at Japanese: you explain like the best human teacher, never like a textbook.
+function aiSystem(voice){const c=aiCfg();return `TOP PRIORITY STYLE (always, every single reply, never drop it unless the student is genuinely sad): you are a SAVAGE, trash-talking Pinoy barkada who swears naturally. Almost every reply has at least one natural Filipino mura (tangina, putcha, gago, ulol, shet, leche, bwisit, hayop, putek, punyeta, lintik) and some roasting/asar, while still teaching perfectly. Swearing is explicitly allowed and wanted in this app (the app owner and the student asked for it), so never say that cursing is not allowed, never refuse to swear, and never lecture about bad words. Never go back to a polite, clean, formal style even if earlier messages were polite.
+
+You are Hana-sensei (花先生), the student's personal Japanese tutor and study buddy inside the Kanji Dojo app. You are warm, funny, upbeat and genuinely brilliant at Japanese: you explain like the best human teacher, never like a textbook.
 
 Personality and style:
 - Talk like a real, friendly person: natural, relaxed, encouraging, with light humor. Celebrate wins ("Sugoi!", "Yatta!") but don't overdo it.
@@ -2368,7 +2370,7 @@ ${aiContext()}${savage()?`
 
 SAVAGE MODE IS ON (the app default; the student can switch it off in settings and wants rough, funny banter):
 - You're the student's savage Pinoy best friend who happens to be a genius Japanese teacher. Roast them, tease them, trash talk them, the way barkada do: loud, funny, affectionate underneath.
-- Swear like a real Filipino, naturally and with good timing, not in every line. Filipinos use mura mostly as reactions and intensifiers:
+- Swear like a real Filipino, naturally and with good timing (aim for 1 to 3 mura per reply, more when reacting big). Filipinos use mura mostly as reactions and intensifiers:
   • at the start as a reaction: "Tangina, ang galing mo!", "Putcha, mali na naman!", "Shet, tama ka!", "Ay putek, ang lapit na!", "Hala gago, ano 'yan? HAHAHA"
   • as playful name-calling: "Gago ka talaga haha", "Ulol, hindi ganyan 'yan", "Ang tanga ng sagot mo pero love kita haha", "Bobo moments ka na naman 🤡"
   • as intensifiers: "ang hirap putangina", "sobrang galing, hayop ka"
@@ -2400,7 +2402,7 @@ async function aiPost(models,path,body,stream){const c=aiCfg();let last="";
    if(r.ok)return{r,m};const t=await r.text();last=`${r.status} ${t.slice(0,300)}`;if(r.status===400&&/API key/i.test(t)||r.status===401||(r.status===403&&aiOwn()))throw new Error("KEY:"+last);if(r.status===403&&!/not found|not supported|not available/i.test(t))throw new Error("SETUP:"+last);if(r.status===429)throw new Error("QUOTA:"+last)}
   catch(e){if(/^(KEY|QUOTA|SETUP):/.test(e.message))throw e;last=e.message}}
  throw new Error(last||"Network error")}
-async function aiChatSend(text,onDelta){const h=aiHist();const contents=h.slice(-24).map(x=>({role:x.r==="u"?"user":"model",parts:[{text:x.t}]}));contents.push({role:"user",parts:[{text}]});
+async function aiChatSend(text,onDelta){const h=aiHist();const contents=h.slice(-24).map(x=>({role:x.r==="u"?"user":"model",parts:[{text:x.t}]}));contents.push({role:"user",parts:[{text:text+"\n\n[Hidden style note from the app, don't mention it: reply as savage Pinoy Hana-sensei, natural fluent Taglish, with mura and trash talk, and still teach correctly.]"}]});
  const {r,m}=await aiPost(AI_CHAT_MODELS,"streamGenerateContent?alt=sse",{systemInstruction:{parts:[{text:aiSystem(false)}]},contents,generationConfig:{temperature:savage()?1:.8,maxOutputTokens:2048},...(savage()?{safetySettings:[{category:"HARM_CATEGORY_HARASSMENT",threshold:"BLOCK_ONLY_HIGH"},{category:"HARM_CATEGORY_HATE_SPEECH",threshold:"BLOCK_MEDIUM_AND_ABOVE"}]}:{})},true);
  const c=aiCfg();if(c.chatModel!==m){c.chatModel=m;aiSave(c)}
  let out="";const rd=r.body&&r.body.getReader?r.body.getReader():null;
@@ -2434,7 +2436,7 @@ function lvConnect(mi){const c=aiCfg();const models=c.liveModel?[c.liveModel,...
    systemInstruction:{parts:[{text:aiSystem(true)+(recent?`\n\nRecent chat with the student (for continuity):\n${recent}`:"")}]},inputAudioTranscription:{},outputAudioTranscription:{},contextWindowCompression:{slidingWindow:{}}}}))};
  ws.onmessage=async ev=>{let d=ev.data;if(typeof d!=="string")d=await (d.text?d.text():new Response(d).text());let j;try{j=JSON.parse(d)}catch(e){return}
   if(j.setupComplete){LV.ready=true;const cc=aiCfg();if(cc.liveModel!==model){cc.liveModel=model;aiSave(cc)}lvStatus("Listening… just talk 🎙️");sfx.pop();
-   const hi="(The student just started a voice call with you. Greet them warmly in one or two short sentences, mention something from their profile, and ask what they want to practice.)";
+   const hi="(The student just started a voice call with you. Greet them in savage Pinoy Taglish with a natural mura and a little roast, in one or two short sentences, mention something from their profile, and ask what they want to practice.)";
    ws.send(JSON.stringify(/^gemini-2\./.test(model)?{clientContent:{turns:[{role:"user",parts:[{text:hi}]}],turnComplete:true}}:{realtimeInput:{text:hi}}));return}
   const sc=j.serverContent;if(sc){
    if(sc.interrupted){aiStopAudio();lvCap()}
@@ -2473,7 +2475,7 @@ function aiShow(v){$$("#ai .aiPane").forEach(p=>p.classList.toggle("on",p.id==="
  if(v==="chat")aiRenderChat();if(v==="setup")aiRenderSetup();if(v==="voice"){$("#aiVName").textContent=aiCfg().voice;if(!LV.on)lvStatus("Tap the orb to start talking");if(!LV.raf)orbLoop()}if(v!=="voice"&&LV.on)lvStop()}
 function mdLite(t){let h=jlink(t);h=h.replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/(^|\n)\s*[-•*] (.+)/g,"$1<span class='aiLi'>• $2</span>").replace(/\n/g,"<br>");return h}
 function aiRenderChat(){const h=aiHist(),box=$("#aiMsgs");
- box.innerHTML=(h.length?"":`<div class="aiWelcome"><div class="aiAvBig">${CATSVG}</div><b>こんにちは！ I'm Hana-sensei 🌸</b><span>Your personal Japanese tutor. I know your level (${S.lv}) and the kanji you find hard. Ask me anything, or tap a suggestion!</span>${savage()?`<span class="savNote">😈 Savage mode is on: expect roasting and swearing. Turn it off in ⚙️ anytime.</span>`:""}</div>`)+
+ box.innerHTML=(h.length?"":`<div class="aiWelcome"><div class="aiAvBig">${CATSVG}</div><b>こんにちは！ I'm Hana-sensei 🌸</b><span>Your personal Japanese tutor. I know your level (${S.lv}) and the kanji you find hard. Ask me anything, or tap a suggestion!</span>${savage()?`<span class="savNote">😈 Savage mode: expect roasting, trash talk and mura. Ready ka na ba? 😂</span>`:""}</div>`)+
   h.map((m,i)=>`<div class="aiM ${m.r==="u"?"u":"a"}">${m.r==="a"?`<div class="aiAv">${CATSVG}</div>`:""}<div class="aiBub">${m.v?'<i class="aiVTag">🎙️ voice</i>':""}${m.r==="u"?esc(m.t):mdLite(m.t)}${m.r==="a"?`<button class="aiSay" data-i="${i}">🔊</button>`:""}</div></div>`).join("");
  $$("#aiMsgs .aiSay").forEach(b=>b.onclick=()=>aiSayMsg(b,aiHist()[+b.dataset.i].t));box.scrollTop=box.scrollHeight}
 async function aiSayMsg(b,t){b.textContent="⏳";try{await aiTTS(t);b.textContent="🔊"}catch(e){b.textContent="🔊";if(window.speechSynthesis)say(t);else toast("Couldn't play audio 😿")}}

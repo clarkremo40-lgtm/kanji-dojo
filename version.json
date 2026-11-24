@@ -1,12 +1,12 @@
 {
-  "build": 33,
-  "version": "3.3",
+  "build": 34,
+  "version": "3.4",
   "file": "app.html",
-  "size": 490573,
+  "size": 491744,
   "minNative": 6,
   "notes": [
-    "🇵🇭 Hana-sensei now talks like a real Pinoy: natural, fluent Taglish with barkada-style banter",
-    "😈 Her trash talk and mura sound natural now (and the cat coach's lines too)"
+    "😈 Savage mode is now permanent: Hana-sensei always swears and trash talks (in natural Pinoy Taglish)",
+    "Fixed: she no longer says swearing isn't allowed"
   ],
   "native": {
     "build": 10,
