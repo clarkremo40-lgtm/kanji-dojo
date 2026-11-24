@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <script>
-var KD_BUILD=31,KD_VER="3.1",KD_NATIVE=10;
+var KD_BUILD=32,KD_VER="3.2",KD_NATIVE=10;
 (function(){try{if(window.__KD_SWAP)return;var ls=localStorage;
  if(location.href.indexOf("file:///android_asset")===0)ls.setItem("kd_native",String(KD_NATIVE));
  var b=+(ls.getItem("kd_build")||0),h=ls.getItem("kd_html");
@@ -477,6 +477,7 @@ select{font-family:inherit;font-size:15px;font-weight:700;background:var(--ink3)
 .aiVCtl #aiEnd{background:linear-gradient(135deg,#ff5a6e,#e3203f);color:#fff}.aiVCtl #aiMute.off{background:#2d2147}
 .aiSet{overflow:auto;padding:4px 16px calc(24px + env(safe-area-inset-bottom,0px))}.aiSet h3{margin:6px 0 8px}
 .aiModal{position:absolute;inset:0;z-index:5;background:rgba(30,15,60,.5);display:flex;align-items:center;justify-content:center;padding:20px;animation:qIn .25s both}.aiModalIn{background:#fff;border-radius:28px;padding:22px 20px;text-align:center;max-width:400px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.savNote{display:block;margin-top:10px;padding:8px 12px;border-radius:14px;background:#fff0f3;color:#c2185b!important;font-size:12.5px!important;font-weight:800}
 .savRow b{color:#c2185b}
 #aiSav.on{background:linear-gradient(135deg,#ff3b5c,#7b1fa2)!important}
 .aiBuiltIn{padding:14px 16px;border-radius:18px;background:#fff;box-shadow:0 3px 0 #eee6ff;font-size:14px;line-height:1.5;margin:6px 0 14px}
@@ -2231,7 +2232,7 @@ const CAT_YAY=new Proxy([],{get:(t,p)=>(savage()?CAT_YAY_S:CAT_YAY_N)[p]});
 const CAT_OOPS_N=["Almost! Try again 😺","Daijoubu! You got this 💪","So close! 🤏","Mou ichido! 🔁"];
 const CAT_OOPS_S=["Ano ba 'yan?! 😂 Mali na naman!","バカ! Bakaaa! Ulit 😜","Putek, ang lapit na! Ulit!","Grabe ka, kahit pusa alam 'to 🐱","Hoy! Gising! 🤡 Try again","Sus, kaya mo 'yan, gago 😂"];
 const CAT_OOPS=new Proxy([],{get:(t,p)=>(savage()?CAT_OOPS_S:CAT_OOPS_N)[p]});
-function savage(){try{return !!JSON.parse(localStorage.getItem("kd_ai")||"{}").savage}catch(e){return false}}
+function savage(){try{return JSON.parse(localStorage.getItem("kd_ai")||"{}").savage!==false}catch(e){return true}}
 function catSay(t,mood){const b=$("#lsCatT");if(!b)return;b.textContent=t;const w=$("#lsCat");w.classList.remove("yay","oops","talk");void w.offsetWidth;w.classList.add(mood||"talk")}
 function openLesson(l,i){const L=GLES[l],x=L[i];if(!x)return;const b=BELT[l];sfx.pop();
  const ex=x.x.map(e=>({j:e[0],en:e[1],t:segJP(e[0])}));const bx=ex.find(e=>e.t.length>=3);
@@ -2357,7 +2358,7 @@ ${voice?`- THIS IS A LIVE VOICE CALL. Speak naturally like a person on a call: s
 
 ${aiContext()}${savage()?`
 
-SAVAGE MODE IS ON (the student switched it on for fun; they are an adult who wants rough, funny banter):
+SAVAGE MODE IS ON (the app default; the student can switch it off in settings and wants rough, funny banter):
 - Be a savage, hilarious, trash-talking sensei. Roast their mistakes, tease them, talk trash like a best friend who loves them.
 - Casual swearing is welcome and expected: English (damn, hell, shit, wtf) and Taglish/Filipino (putek, gago, tanga, tangina, leche, bwisit, ulol). Mix it in naturally, not every sentence.
 - Teach fun rough Japanese too (バカ baka, アホ aho, うるさい urusai, くそ kuso, ふざけんな fuzakenna, やばい yabai) with readings and when NOT to use them in real life.
@@ -2455,7 +2456,7 @@ function aiShow(v){$$("#ai .aiPane").forEach(p=>p.classList.toggle("on",p.id==="
  if(v==="chat")aiRenderChat();if(v==="setup")aiRenderSetup();if(v==="voice"){$("#aiVName").textContent=aiCfg().voice;if(!LV.on)lvStatus("Tap the orb to start talking");if(!LV.raf)orbLoop()}if(v!=="voice"&&LV.on)lvStop()}
 function mdLite(t){let h=jlink(t);h=h.replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/(^|\n)\s*[-•*] (.+)/g,"$1<span class='aiLi'>• $2</span>").replace(/\n/g,"<br>");return h}
 function aiRenderChat(){const h=aiHist(),box=$("#aiMsgs");
- box.innerHTML=(h.length?"":`<div class="aiWelcome"><div class="aiAvBig">${CATSVG}</div><b>こんにちは！ I'm Hana-sensei 🌸</b><span>Your personal Japanese tutor. I know your level (${S.lv}) and the kanji you find hard. Ask me anything, or tap a suggestion!</span></div>`)+
+ box.innerHTML=(h.length?"":`<div class="aiWelcome"><div class="aiAvBig">${CATSVG}</div><b>こんにちは！ I'm Hana-sensei 🌸</b><span>Your personal Japanese tutor. I know your level (${S.lv}) and the kanji you find hard. Ask me anything, or tap a suggestion!</span>${savage()?`<span class="savNote">😈 Savage mode is on: expect roasting and swearing. Turn it off in ⚙️ anytime.</span>`:""}</div>`)+
   h.map((m,i)=>`<div class="aiM ${m.r==="u"?"u":"a"}">${m.r==="a"?`<div class="aiAv">${CATSVG}</div>`:""}<div class="aiBub">${m.v?'<i class="aiVTag">🎙️ voice</i>':""}${m.r==="u"?esc(m.t):mdLite(m.t)}${m.r==="a"?`<button class="aiSay" data-i="${i}">🔊</button>`:""}</div></div>`).join("");
  $$("#aiMsgs .aiSay").forEach(b=>b.onclick=()=>aiSayMsg(b,aiHist()[+b.dataset.i].t));box.scrollTop=box.scrollHeight}
 async function aiSayMsg(b,t){b.textContent="⏳";try{await aiTTS(t);b.textContent="🔊"}catch(e){b.textContent="🔊";if(window.speechSynthesis)say(t);else toast("Couldn't play audio 😿")}}
@@ -2467,7 +2468,7 @@ async function aiSend(text){text=(text||"").trim();if(!text||aiBusy)return;const
   const hh=aiHist();hh.push({r:"a",t:out||"(no answer)"});aiHistSave(hh);aiRenderChat();sfx.pop();if(aiCfg().autoSpeak&&out){const bs=$$("#aiMsgs .aiSay");const lb=bs[bs.length-1];if(lb)aiSayMsg(lb,out)}}
  catch(e){const m=e.message||"";el.querySelector(".aiBub").innerHTML=/^SETUP:/.test(m)?"😿 Hana-sensei is resting right now. Please try again later.":/^KEY:/.test(m)?"❌ Your own API key isn't working. Tap ⚙️ to check it.":/^QUOTA:/.test(m)?"⏳ The free limit is used up for now. Try again in a minute.":"😿 Couldn't reach Hana-sensei. Check your internet and try again.<br><small>"+esc(m.slice(0,140))+"</small>";const hh=aiHist();hh.pop();aiHistSave(hh)}
  aiBusy=false}
-function aiRenderSetup(){const c=aiCfg();$("#aiSav").classList.toggle("on",!!c.savage);$("#aiKey").value=c.key||"";$("#aiBuiltIn").innerHTML=FB_ON()?(c.key?"🔑 Using your own key. Remove it to go back to the built-in connection.":"✅ <b>Hana-sensei is connected.</b> Nothing to set up, just pick her voice below and start chatting!"):(c.key?"✅ <b>Hana-sensei is connected</b> with your Google account. Pick her voice below and start chatting!":"");$("#aiAdv").open=false;$("#aiLogin").style.display=aiReady()?"none":"block";if(!aiReady())$("#aiBuiltIn").style.display="none";else $("#aiBuiltIn").style.display="";$("#aiAuto").classList.toggle("on",!!c.autoSpeak);
+function aiRenderSetup(){const c=aiCfg();$("#aiSav").classList.toggle("on",savage());$("#aiKey").value=c.key||"";$("#aiBuiltIn").innerHTML=FB_ON()?(c.key?"🔑 Using your own key. Remove it to go back to the built-in connection.":"✅ <b>Hana-sensei is connected.</b> Nothing to set up, just pick her voice below and start chatting!"):(c.key?"✅ <b>Hana-sensei is connected</b> with your Google account. Pick her voice below and start chatting!":"");$("#aiAdv").open=false;$("#aiLogin").style.display=aiReady()?"none":"block";if(!aiReady())$("#aiBuiltIn").style.display="none";else $("#aiBuiltIn").style.display="";$("#aiAuto").classList.toggle("on",!!c.autoSpeak);
  $("#aiVoices").innerHTML=AI_VOICES.map(([n,d])=>`<button class="aiVo ${n===c.voice?"on":""}" data-v="${n}"><b>${n}</b><span>${d}</span><i data-p="${n}">▶</i></button>`).join("");
  $$("#aiVoices .aiVo").forEach(b=>b.onclick=e=>{const cc=aiCfg();cc.voice=b.dataset.v;aiSave(cc);$$("#aiVoices .aiVo").forEach(x=>x.classList.toggle("on",x===b));sfx.pop();if(e.target.dataset.p)aiPreview(b.dataset.v,e.target)})}
 async function aiPreview(v,el){const c=aiCfg();if(!aiReady()){toast("Hana-sensei is almost ready 🌸");return}el.textContent="⏳";
@@ -2520,9 +2521,7 @@ $("#aiPasteB").onclick=()=>aiTryClip(true);
 document.addEventListener("visibilitychange",()=>{if(!document.hidden&&aiLoginWait&&$("#ai").classList.contains("on")){setTimeout(async()=>{if(await aiTryClip(false))aiLoginWait=false},400)}});
 $("#aiKey").addEventListener("input",()=>{const m=$("#aiKey").value.match(KEY_RE);if(m&&!aiOwn()){$("#aiKey").value=m[0];aiTestKey()}});
 
-$("#aiSav").onclick=()=>{const c=aiCfg();if(c.savage){c.savage=false;aiSave(c);$("#aiSav").classList.remove("on");toast("😇 Savage mode off. Hana-sensei is sweet again");return}
- const m=document.createElement("div");m.className="aiModal";m.innerHTML=`<div class="aiModalIn"><div style="font-size:64px">😈</div><h2 style="text-align:center;margin:4px 0"><small style="display:block;font-size:11px;letter-spacing:2px;color:#e3203f">18+ ONLY</small>Savage mode</h2><p style="line-height:1.6;font-size:14.5px">Hana-sensei will <b>roast you, trash talk and swear</b> (English &amp; Taglish) and teach you rude Japanese slang. All for fun, and she still teaches you properly.<br><br>The cat coach in lessons gets savage too 😼</p><button class="btn shu full" id="savGo">😈 Bring it on!</button><button class="btn full" id="savNo" style="margin-top:10px">Nah, keep her sweet</button></div>`;
- $("#ai").appendChild(m);$("#savNo").onclick=()=>m.remove();$("#savGo").onclick=()=>{const cc=aiCfg();cc.savage=true;aiSave(cc);m.remove();$("#aiSav").classList.add("on");stamp("鬼");sfx.win();toast("😈 Savage mode ON. Good luck, ha!")}};
+$("#aiSav").onclick=()=>{const c=aiCfg();const on=!savage();c.savage=on;aiSave(c);$("#aiSav").classList.toggle("on",on);if(on){stamp("鬼");sfx.win();toast("😈 Savage mode ON. Good luck, ha!")}else toast("😇 Savage mode off. Hana-sensei is sweet again")};
 $("#aiHome").onclick=()=>aiOpen();
 document.addEventListener("visibilitychange",()=>{if(document.hidden&&LV.on)lvStop()});
 

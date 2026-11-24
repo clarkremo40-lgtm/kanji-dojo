@@ -1,12 +1,11 @@
 {
-  "build": 31,
-  "version": "3.1",
+  "build": 32,
+  "version": "3.2",
   "file": "app.html",
-  "size": 489174,
+  "size": 488598,
   "minNative": 6,
   "notes": [
-    "😈 Savage mode (18+): Hana-sensei roasts you, trash talks, swears for fun and teaches rude Japanese slang. Turn it on in Hana-sensei ⚙️",
-    "The cat coach in lessons gets savage too when it's on"
+    "😈 Savage mode is now ON by default. Hana-sensei and the cat coach roast you for fun. Switch it off anytime in Hana-sensei ⚙️"
   ],
   "native": {
     "build": 10,
