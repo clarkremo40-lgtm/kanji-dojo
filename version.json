@@ -1,13 +1,13 @@
 {
-  "build": 18,
-  "version": "1.8",
+  "build": 19,
+  "version": "1.9",
   "file": "app.html",
-  "size": 197327,
+  "size": 205824,
   "minNative": 6,
   "notes": [
-    "🔐 Brand-new lock screen: glowing aurora, floating kanji, animated lock, hanko stamps for each correct answer",
-    "🚀 Auto level-up: master 80% of your level's kanji and the app moves you up on its own (N5 → N4 → N3 → N2 → N1), with a celebration",
-    "🏠 Home shows how many kanji you still need before the next level"
+    "📚 211 new vocabulary words (N5 to N1) mixed into every quiz, lock screen, alarm and Study Lock",
+    "⭐ Get a kanji or word right 3 times and it's mastered (★★★). The app then focuses on the ones you don't know yet",
+    "🚀 Master 80% of your level's kanji and words and the app moves you up automatically: N5 → N4 → N3 → N2 → N1"
   ],
   "native": {
     "build": 6,

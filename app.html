@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <script>
-var KD_BUILD=18,KD_VER="1.8",KD_NATIVE=6;
+var KD_BUILD=19,KD_VER="1.9",KD_NATIVE=6;
 (function(){try{if(window.__KD_SWAP)return;var ls=localStorage;
  if(location.href.indexOf("file:///android_asset")===0)ls.setItem("kd_native",String(KD_NATIVE));
  var b=+(ls.getItem("kd_build")||0),h=ls.getItem("kd_html");
@@ -246,6 +246,10 @@ select{font-family:inherit;font-size:15px;font-weight:700;background:var(--ink3)
 .lvup-stamp{position:absolute;right:18px;top:8px;border:4px solid #e8202a;color:#e8202a;border-radius:12px;padding:2px 10px;font-family:"Shippori Mincho B1";font-weight:800;font-size:26px;transform:rotate(14deg);animation:stampHit2 .6s cubic-bezier(.2,1.6,.4,1) both .6s}
 @keyframes stampHit2{from{transform:scale(2.5) rotate(30deg);opacity:0}to{transform:scale(1) rotate(14deg);opacity:1}}
 
+.qprompt.voc{font-size:min(64px,15vw);letter-spacing:2px}
+.qtag{display:inline-block;font-size:10px;font-weight:900;letter-spacing:1.5px;padding:3px 9px;border-radius:99px;background:linear-gradient(135deg,#ff6fa8,#ff9a5c);color:#fff;margin-bottom:6px}
+.qtag.vw{background:linear-gradient(135deg,#31c8ff,#7b6cff)}
+.qstar{margin-left:6px;color:#f5b800;font-size:12px;letter-spacing:1px}
 /* ===== GORGEOUS LOCK SCREEN ===== */
 #lock{background:#120b2e!important}
 #lock .aur{position:absolute;inset:-20%;pointer-events:none;filter:blur(55px) saturate(1.3);opacity:.85}
@@ -511,7 +515,7 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
       </div>
       <div class="grid2" id="pStats"></div>
       <div class="card"><b>Last 14 days</b><div class="heat" id="pHeat"></div></div>
-      <div class="card"><b>Kanji mastered by level</b><div class="tiny muted">A kanji counts as mastered after you get it right 3 times</div><div id="pLevels"></div></div>
+      <div class="card"><b>Mastered by level</b><div class="tiny muted">Kanji + vocabulary. Each one counts as mastered (★★★) after you get it right 3 times</div><div id="pLevels"></div></div>
       <div class="card"><b>Best grammar scores</b><div id="pGram" style="margin-top:8px"></div></div>
       <div class="card">
         <b>Settings</b>
@@ -781,7 +785,10 @@ N1:`曖|あい|unclear
 斡|あつ|mediate
 旋|せん|rotate, revolve`};
 const LEVELS=["N5","N4","N3","N2","N1"];
-const K={};LEVELS.forEach(l=>K[l]=RAW[l].trim().split("\n").map(s=>{const[c,r,m]=s.split("|");return{c,r,m,l}}));
+const K={};LEVELS.forEach(l=>K[l]=RAW[l].trim().split("\n").map(s=>{const[c,r,m]=s.split("|");return{c,r,m,l,id:c}}));
+const RAWV={"N5": "学生|がくせい|student\n先生|せんせい|teacher\n友達|ともだち|friend\n学校|がっこう|school\n電車|でんしゃ|train\n今日|きょう|today\n明日|あした|tomorrow\n昨日|きのう|yesterday\n時間|じかん|time, hours\nお金|おかね|money\n水曜日|すいようび|Wednesday\n天気|てんき|weather\n元気|げんき|healthy, energetic\n食べる|たべる|to eat\n飲む|のむ|to drink\n見る|みる|to see, to watch\n行く|いく|to go\n来る|くる|to come\n読む|よむ|to read\n書く|かく|to write\n話す|はなす|to speak\n聞く|きく|to listen, to ask\n買う|かう|to buy\n休む|やすむ|to rest\n大きい|おおきい|big\n小さい|ちいさい|small\n新しい|あたらしい|new\n古い|ふるい|old (things)\n高い|たかい|tall, expensive\n安い|やすい|cheap\n白い|しろい|white\n長い|ながい|long\n半分|はんぶん|half\n毎日|まいにち|every day\n午前|ごぜん|morning, a.m.\n午後|ごご|afternoon, p.m.\n名前|なまえ|name\n外国|がいこく|foreign country\n会社|かいしゃ|company\n子供|こども|child\n男の人|おとこのひと|man\n女の人|おんなのひと|woman\n電話|でんわ|telephone\n大学|だいがく|university\n日本語|にほんご|Japanese language\n先週|せんしゅう|last week\n来年|らいねん|next year\n今年|ことし|this year\n一人|ひとり|one person, alone\n二人|ふたり|two people\n上手|じょうず|skillful, good at\n下手|へた|unskillful, bad at\n入口|いりぐち|entrance\n出口|でぐち|exit\n右手|みぎて|right hand\n花火|はなび|fireworks", "N4": "映画|えいが|movie\n音楽|おんがく|music\n写真|しゃしん|photo\n旅行|りょこう|trip, travel\n料理|りょうり|cooking, cuisine\n病院|びょういん|hospital\n医者|いしゃ|doctor\n銀行|ぎんこう|bank\n図書館|としょかん|library\n空港|くうこう|airport\n世界|せかい|world\n自分|じぶん|oneself\n家族|かぞく|family\n兄弟|きょうだい|siblings\n授業|じゅぎょう|class, lesson\n宿題|しゅくだい|homework\n試験|しけん|exam\n意味|いみ|meaning\n質問|しつもん|question\n答え|こたえ|answer\n特に|とくに|especially\n急ぐ|いそぐ|to hurry\n走る|はしる|to run\n歩く|あるく|to walk\n働く|はたらく|to work\n始める|はじめる|to begin\n終わる|おわる|to end\n教える|おしえる|to teach\n習う|ならう|to learn (from someone)\n借りる|かりる|to borrow\n貸す|かす|to lend\n送る|おくる|to send\n思う|おもう|to think\n知る|しる|to know\n住む|すむ|to live (reside)\n重い|おもい|heavy\n軽い|かるい|light (weight)\n暑い|あつい|hot (weather)\n寒い|さむい|cold (weather)\n近い|ちかい|near\n遠い|とおい|far\n早い|はやい|early\n暗い|くらい|dark\n便利|べんり|convenient\n親切|しんせつ|kind\n有名|ゆうめい|famous", "N3": "経験|けいけん|experience\n説明|せつめい|explanation\n準備|じゅんび|preparation\n約束|やくそく|promise\n関係|かんけい|relationship, connection\n結果|けっか|result\n理由|りゆう|reason\n必要|ひつよう|necessary\n注意|ちゅうい|caution, attention\n連絡|れんらく|contact\n相談|そうだん|consultation, advice\n予定|よてい|plan, schedule\n残念|ざんねん|too bad, regrettable\n最近|さいきん|recently\n将来|しょうらい|future\n自然|しぜん|nature\n社会|しゃかい|society\n政治|せいじ|politics\n経済|けいざい|economy\n技術|ぎじゅつ|technology, skill\n増える|ふえる|to increase\n減る|へる|to decrease\n決める|きめる|to decide\n比べる|くらべる|to compare\n選ぶ|えらぶ|to choose\n集める|あつめる|to collect\n届ける|とどける|to deliver\n助ける|たすける|to help, to save\n信じる|しんじる|to believe\n忘れる|わすれる|to forget\n感じる|かんじる|to feel\n続ける|つづける|to continue\n危険|きけん|danger\n安全|あんぜん|safety\n複雑|ふくざつ|complicated\n簡単|かんたん|easy, simple\n正確|せいかく|accurate\n完全|かんぜん|complete\n普通|ふつう|normal, usual\n突然|とつぜん|suddenly", "N2": "影響|えいきょう|influence\n環境|かんきょう|environment\n状況|じょうきょう|situation\n条件|じょうけん|condition, terms\n責任|せきにん|responsibility\n判断|はんだん|judgment\n努力|どりょく|effort\n価値|かち|value, worth\n解決|かいけつ|solution\n改善|かいぜん|improvement\n削減|さくげん|reduction, cut\n確認|かくにん|confirmation\n提案|ていあん|proposal\n対象|たいしょう|target, subject\n傾向|けいこう|tendency\n印象|いんしょう|impression\n批判|ひはん|criticism\n妥協|だきょう|compromise\n需要|じゅよう|demand\n供給|きょうきゅう|supply\n維持|いじ|maintenance\n証拠|しょうこ|evidence\n訪れる|おとずれる|to visit\n与える|あたえる|to give, to grant\n防ぐ|ふせぐ|to prevent\n認める|みとめる|to admit, to recognize\n迷う|まよう|to get lost, to hesitate\n訴える|うったえる|to sue, to appeal\n諦める|あきらめる|to give up\n抱える|かかえる|to hold, to carry (problems)\n厳しい|きびしい|strict, severe\n詳しい|くわしい|detailed\n鋭い|するどい|sharp\n贅沢|ぜいたく|luxury\n曖昧|あいまい|vague\n貴重|きちょう|precious", "N1": "概念|がいねん|concept\n矛盾|むじゅん|contradiction\n把握|はあく|grasp, understanding\n貢献|こうけん|contribution\n懸念|けねん|concern, worry\n措置|そち|measure, step\n促進|そくしん|promotion, acceleration\n撤回|てっかい|withdrawal, retraction\n該当|がいとう|applicable, corresponding\n顕著|けんちょ|conspicuous, prominent\n緩和|かんわ|easing, relaxation\n抑制|よくせい|suppression, restraint\n模索|もさく|groping, searching\n是正|ぜせい|correction\n脆弱|ぜいじゃく|fragile, vulnerable\n妥当|だとう|valid, appropriate\n覆す|くつがえす|to overturn\n携わる|たずさわる|to be involved in\n培う|つちかう|to cultivate\n賄う|まかなう|to cover (costs), to provide\n慈しむ|いつくしむ|to cherish\n滞る|とどこおる|to stagnate, to be overdue\n赴く|おもむく|to proceed to\n潔い|いさぎよい|graceful, gallant\n著しい|いちじるしい|striking, considerable\n煩わしい|わずらわしい|troublesome\n甚だしい|はなはだしい|extreme, excessive\n目論見|もくろみ|plan, scheme\n兆し|きざし|sign, omen\n傍ら|かたわら|beside, while\n示唆|しさ|suggestion, hint\n閲覧|えつらん|browsing, viewing\n既存|きぞん|existing"};
+const V={};LEVELS.forEach(l=>V[l]=RAWV[l].trim().split("\n").map(s=>{const[c,r,m]=s.split("|");return{c,r,m,l,v:true,id:"v:"+c}}));
+const ITEMS=l=>K[l].concat(V[l]);const MASTER_N=3;const isM=it=>((S.ks[it.id]||{}).c||0)>=MASTER_N;
 
 const GRAM={
 N5:[["私___学生です。",["は","を","に","で"],"I am a student. — は marks the topic."],
@@ -863,14 +870,14 @@ function rankOf(x){let r=0;RANKS.forEach((k,i)=>{if(x>=k[0])r=i});return r}
 function addXP(n){const before=rankOf(S.xp);S.xp+=n;activity(1);save();renderHeader();if(rankOf(S.xp)>before){setTimeout(()=>{toast("🎉 Rank up! "+RANKS[rankOf(S.xp)][1]);confetti()},600)}}
 function markK(c,ok){const s=S.ks[c]||(S.ks[c]={c:0,w:0});ok?s.c++:s.w++;save();try{checkLevelUp()}catch(e){}}
 const LV_UP=0.8;let PENDING=null;
-function checkLevelUp(){if(PENDING||(typeof GATE!=="undefined"&&(GATE||STUDY)))return;const i=LEVELS.indexOf(S.lv);if(i<0||i>=LEVELS.length-1)return;const l=S.lv;if((S.autoLv||{})[l])return;if(mastered(l)/K[l].length>=LV_UP)PENDING={from:l,to:LEVELS[i+1]}}
+function checkLevelUp(){if(PENDING||(typeof GATE!=="undefined"&&(GATE||STUDY)))return;const i=LEVELS.indexOf(S.lv);if(i<0||i>=LEVELS.length-1)return;const l=S.lv;if((S.autoLv||{})[l])return;if(mastered(l)/ITEMS(l).length>=LV_UP)PENDING={from:l,to:LEVELS[i+1]}}
 function showPending(){if(!PENDING||GATE||STUDY||ringing||slActive||RUN.on||$("#sheet").classList.contains("on")||$("#lock").classList.contains("on"))return;
  const p=PENDING;PENDING=null;S.autoLv=S.autoLv||{};S.autoLv[p.from]=true;S.lv=p.to;S.wIdx=0;save();renderHeader();renderHome();try{renderWrite()}catch(e){}
- openSheet(`<div class="lvup"><div class="lvup-rays"></div><div class="lvup-badges"><span class="b1">${p.from}</span><span class="arr">➜</span><span class="b2">${p.to}</span></div><div class="lvup-stamp">昇級</div><h2 style="text-align:center;margin-top:6px"><small>LEVEL UP!</small>${p.from} クリア！</h2><p style="text-align:center;line-height:1.55;margin:6px 4px 16px">You've mastered ${Math.round(LV_UP*100)}% of the ${p.from} kanji. Sugoi! 🎉<br>Your lessons, quizzes, game, lock screen and Study Lock now use <b>${p.to}</b>.</p><button class="btn shu full" id="lvGo">Let's go ${p.to}! 🚀</button><button class="btn full" id="lvStay" style="margin-top:10px">Stay on ${p.from} a bit longer</button></div>`);
+ openSheet(`<div class="lvup"><div class="lvup-rays"></div><div class="lvup-badges"><span class="b1">${p.from}</span><span class="arr">➜</span><span class="b2">${p.to}</span></div><div class="lvup-stamp">昇級</div><h2 style="text-align:center;margin-top:6px"><small>LEVEL UP!</small>${p.from} クリア！</h2><p style="text-align:center;line-height:1.55;margin:6px 4px 16px">You've mastered ${Math.round(LV_UP*100)}% of the ${p.from} kanji &amp; words (3× correct each). Sugoi! 🎉<br>Your lessons, quizzes, game, lock screen and Study Lock now use <b>${p.to}</b>.</p><button class="btn shu full" id="lvGo">Let's go ${p.to}! 🚀</button><button class="btn full" id="lvStay" style="margin-top:10px">Stay on ${p.from} a bit longer</button></div>`);
  confetti(110);sfx.win();stamp("昇級");buzz([60,40,60,40,120]);
  $("#lvGo").onclick=()=>closeSheet();$("#lvStay").onclick=()=>{S.lv=p.from;S.wIdx=0;save();closeSheet();renderHeader();toast("OK! Staying on "+p.from+". Change level anytime on Learn.")}}
 setInterval(()=>{try{showPending()}catch(e){}},1500);
-const mastered=l=>K[l].filter(k=>(S.ks[k.c]||{}).c>=3).length;
+const mastered=l=>ITEMS(l).filter(isM).length;
 
 /* ================= FX ================= */
 let AC=null;
@@ -888,16 +895,21 @@ function confetti(n=60){const cols=["#e8452c","#f0c14b","#ffb7c5","#3ec7a0","#7a
 function f(){x.clearRect(0,0,W,H);P.forEach(p=>{p.y+=p.v*devicePixelRatio;p.x+=Math.sin(p.a+=p.w)*.8*devicePixelRatio;if(p.y>H+20){p.y=-20;p.x=Math.random()*W}x.save();x.translate(p.x,p.y);x.rotate(p.a);x.globalAlpha=.55;x.fillStyle="#ffb7c5";x.beginPath();x.moveTo(0,0);x.bezierCurveTo(p.s,-p.s,p.s*1.6,p.s*.4,0,p.s);x.bezierCurveTo(-p.s*1.6,p.s*.4,-p.s,-p.s,0,0);x.fill();x.restore()});requestAnimationFrame(f)}f()})();
 
 /* ================= QUESTIONS ================= */
-function kanjiQ(level,force){const pool=K[level];const k=rnd(pool);const type=force||rnd(["meaning","meaning","reading","kanji"]);const others=shuffle(pool.filter(o=>o.c!==k.c)).slice(0,3);
- if(type==="meaning")return{k,type,prompt:k.c,hint:"What does this kanji mean?",ans:k.m,opts:shuffle([k.m,...others.map(o=>o.m)])};
- if(type==="reading")return{k,type,prompt:k.c,hint:"How do you read it?",ans:k.r,opts:shuffle([k.r,...others.map(o=>o.r)])};
- return{k,type,prompt:k.m,txt:true,hint:"Which kanji means this?",ans:k.c,kj:true,opts:shuffle([k.c,...others.map(o=>o.c)])}}
+let lastQ=[];
+function pickItem(level){const all=ITEMS(level).filter(x=>!lastQ.includes(x.id));const un=all.filter(x=>!isM(x));
+ /* focus on items not yet answered right 3 times; mastered ones come back sometimes for review */
+ const src=un.length&&(Math.random()<0.85||un.length===all.length)?un:all;const k=rnd(src.length?src:ITEMS(level));lastQ.push(k.id);if(lastQ.length>4)lastQ.shift();return k}
+function kanjiQ(level,force){const k=pickItem(level);const pool=k.v?V[level]:K[level];const type=force||rnd(["meaning","meaning","reading","kanji"]);const others=shuffle(pool.filter(o=>o.c!==k.c)).slice(0,3);
+ const w=k.v?"word":"kanji",cnt=Math.min(MASTER_N,(S.ks[k.id]||{}).c||0),tag=`<span class="qtag ${k.v?"vw":""}">${k.v?"単語 VOCAB":"漢字 KANJI"}</span><span class="qstar">${"★".repeat(cnt)}${"☆".repeat(MASTER_N-cnt)}</span><br>`,vc=k.v?" voc":"";
+ if(type==="meaning")return{k,type,prompt:k.c,pcls:vc,hint:tag+`What does this ${w} mean?`,ans:k.m,opts:shuffle([k.m,...others.map(o=>o.m)])};
+ if(type==="reading")return{k,type,prompt:k.c,pcls:vc,hint:tag+`How do you read this ${w}?`,ans:k.r,opts:shuffle([k.r,...others.map(o=>o.r)])};
+ return{k,type,prompt:k.m,txt:true,hint:tag+`Which ${w} means this?`,ans:k.c,kj:!k.v,opts:shuffle([k.c,...others.map(o=>o.c)])}}
 function renderQ(el,q,cb,opts={}){
- el.innerHTML=`<div class="qprompt ${q.sent?"sent":q.txt?"txt":""}">${q.sent?q.prompt.replace("___",'<span class="blank">？</span>'):q.prompt}</div><div class="qhint">${q.hint||""}</div><div class="opts"></div><div class="expl"></div>`;
+ el.innerHTML=`<div class="qprompt ${q.sent?"sent":q.txt?"txt":""}${q.pcls||""}">${q.sent?q.prompt.replace("___",'<span class="blank">？</span>'):q.prompt}</div><div class="qhint">${q.hint||""}</div><div class="opts"></div><div class="expl"></div>`;
  const box=el.querySelector(".opts");let done=false;
  q.opts.forEach(o=>{const b=document.createElement("button");b.className="opt"+(q.kj?" kj":"");b.textContent=o;b.onclick=()=>{if(done)return;const ok=o===q.ans;
   if(ok){done=true;b.classList.add("ok");sfx.ok();buzz(20)}else{b.classList.add("no");sfx.no();buzz([60,40,60]);if(!opts.retry){done=true;[...box.children].find(x=>x.textContent===q.ans).classList.add("ok")}}
-  if(q.k)markK(q.k.c,ok);
+  if(q.k){const was=isM(q.k);markK(q.k.id,ok);if(ok&&!was&&isM(q.k)&&!GATE&&!STUDY)toast(`⭐ ${q.k.c} mastered! (3× correct)`)}
   if(q.expl&&(ok||!opts.retry))el.querySelector(".expl").textContent=q.expl;
   cb(ok,b)};box.appendChild(b)})}
 
@@ -907,7 +919,7 @@ function levelChips(el,cur,onPick){el.innerHTML="";LEVELS.forEach(l=>{const b=do
 function renderHome(){levelChips($("#levels"),S.lv,l=>{S.lv=l;S.wIdx=0;save();renderHome();renderHeader();renderWrite()});
  const all=LEVELS.flatMap(l=>K[l]);const d=new Date();const k=all[(d.getFullYear()*372+d.getMonth()*31+d.getDate())%all.length];
  $("#kotd").textContent=k.c;$("#kotdM").textContent=k.m;$("#kotdR").textContent=k.r;$("#kotdL").textContent="JLPT "+k.l;
- const m=mastered(S.lv),t=K[S.lv].length;{const i=LEVELS.indexOf(S.lv),need=Math.ceil(t*LV_UP);$("#homeMastTxt").textContent=i<LEVELS.length-1?`${S.lv}: ${m}/${t} mastered · reach ${need} to move up to ${LEVELS[i+1]} automatically`:`${S.lv}: ${m} of ${t} kanji mastered · top level!`}$("#homeMastPct").textContent=Math.round(m/t*100)+"%";$("#homeMastBar").style.width=(m/t*100)+"%";
+ const m=mastered(S.lv),t=ITEMS(S.lv).length;{const i=LEVELS.indexOf(S.lv),need=Math.ceil(t*LV_UP);$("#homeMastTxt").textContent=i<LEVELS.length-1?`${S.lv}: ${m}/${t} mastered (kanji + words) · ${need} needed for ${LEVELS[i+1]} · 3× correct = ★★★`:`${S.lv}: ${m} of ${t} kanji mastered · top level!`}$("#homeMastPct").textContent=Math.round(m/t*100)+"%";$("#homeMastBar").style.width=(m/t*100)+"%";
  $("#senseiTalk").textContent=rnd(SENSEI)}
 $$(".tile").forEach(t=>t.onclick=()=>{sfx.pop();const a=t.dataset.act;if(a==="flash")openFlash();if(a==="quiz")openQuiz();if(a==="lock")showLock();if(a==="game")go("game")});
 
@@ -917,12 +929,12 @@ function closeSheet(){SHEET++;$("#sheet").classList.remove("on");renderHome()}
 $("#sheetX").onclick=closeSheet;$("#sheet").onclick=e=>{if(e.target.id==="sheet")closeSheet()};
 
 /* flashcards */
-function openFlash(){let deck=shuffle(K[S.lv]),i=0,known=0;
+function openFlash(){let deck=shuffle(ITEMS(S.lv).filter(x=>!isM(x))).slice(0,30),i=0,known=0;if(deck.length<10)deck=shuffle(ITEMS(S.lv)).slice(0,30);
  openSheet(`<h2><small>FLASHCARDS · ${S.lv}</small>単語カード</h2><div class="bar"><div id="fcBar"></div></div><div class="fc" id="fc"><div class="inner"><div class="face front"><div class="c" id="fcC"></div><div class="tiny" style="margin-top:14px;opacity:.5">Tap to flip</div></div><div class="face back"><div style="font-size:30px;font-weight:900" id="fcM"></div><div style="font-size:22px;margin-top:10px" id="fcR"></div><div class="tag" style="margin-top:16px;color:#fff">${S.lv}</div></div></div></div><div class="row"><button class="btn grow" id="fcAgain">😵 Again</button><button class="btn jade grow" id="fcKnow">😎 Got it</button></div><p class="tiny muted" id="fcN" style="text-align:center;margin-top:10px"></p>`);
  const fc=$("#fc");fc.onclick=()=>{fc.classList.toggle("flip");sfx.pop()};
  function show(){if(i>=deck.length){$("#sheetBody").innerHTML=`<div class="result"><div style="font-size:60px">🎴</div><div class="score">${known}/${deck.length}</div><p class="muted">cards known on first look</p><br><button class="btn shu full" id="fcDone">Finish · +${known*3} XP</button></div>`;addXP(known*3);$("#fcDone").onclick=closeSheet;if(known>deck.length*.7){stamp("優秀");confetti()}return}
-  const k=deck[i];fc.classList.remove("flip");setTimeout(()=>{if(!$("#fcC"))return;$("#fcC").textContent=k.c;$("#fcM").textContent=k.m;$("#fcR").textContent=k.r},150);$("#fcBar").style.width=(i/deck.length*100)+"%";$("#fcN").textContent=`${i+1} / ${deck.length}`}
- $("#fcKnow").onclick=()=>{known++;markK(deck[i].c,true);sfx.ok();i++;show()};
+  const k=deck[i];fc.classList.remove("flip");setTimeout(()=>{if(!$("#fcC"))return;$("#fcC").textContent=k.c;$("#fcC").style.fontSize=k.c.length>2?(k.c.length>3?"56px":"72px"):"";$("#fcM").textContent=k.m;$("#fcR").textContent=k.r},150);$("#fcBar").style.width=(i/deck.length*100)+"%";$("#fcN").textContent=`${i+1} / ${deck.length}`}
+ $("#fcKnow").onclick=()=>{known++;markK(deck[i].id,true);sfx.ok();i++;show()};
  $("#fcAgain").onclick=()=>{deck.push(deck[i]);sfx.no();i++;show()};show()}
 
 /* quick quiz */
@@ -1619,9 +1631,9 @@ setInterval(tick,1000);
 function renderProg(){const r=rankOf(S.xp),cur=RANKS[r][0],nxt=RANKS[r+1];$("#pRank").textContent=RANKS[r][1];$("#pXp").textContent=S.xp+" XP";$("#pNext").textContent=nxt?`${nxt[0]-S.xp} XP to ${nxt[1]}`:"Max rank reached 👑";
  const pct=nxt?(S.xp-cur)/(nxt[0]-cur):1;$("#pRing").style.strokeDashoffset=251*(1-pct);
  const tot=LEVELS.reduce((s,l)=>s+mastered(l),0),allc=Object.values(S.ks).reduce((s,v)=>s+v.c,0),allw=Object.values(S.ks).reduce((s,v)=>s+v.w,0);
- $("#pStats").innerHTML=[["🔥 "+S.streak,"day streak"],[tot,"kanji mastered"],[(allc+allw?Math.round(allc/(allc+allw)*100):0)+"%","accuracy"],[S.hi,"Kanji Rush best"],[S.alarmsDone,"alarms beaten"],[S.writes,"kanji written"],[S.slocks||0,"study locks passed"],[S.unlocks,"lock screen unlocks"]].map(([b,s])=>`<div class="stat"><b>${b}</b><span>${s}</span></div>`).join("");
+ $("#pStats").innerHTML=[["🔥 "+S.streak,"day streak"],[tot,"kanji & words mastered"],[(allc+allw?Math.round(allc/(allc+allw)*100):0)+"%","accuracy"],[S.hi,"Kanji Rush best"],[S.alarmsDone,"alarms beaten"],[S.writes,"kanji written"],[S.slocks||0,"study locks passed"],[S.unlocks,"lock screen unlocks"]].map(([b,s])=>`<div class="stat"><b>${b}</b><span>${s}</span></div>`).join("");
  let h="";for(let i=13;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const k=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");const v=S.days[k]||0;const a=v?Math.min(1,.25+v/30):0;h+=`<div title="${k}: ${v}" style="${v?`background:rgba(232,69,44,${a})`:""}"></div>`}$("#pHeat").innerHTML=h;
- $("#pLevels").innerHTML=LEVELS.map(l=>{const m=mastered(l),t=K[l].length;return`<div class="lvrow"><div class="row"><span>${l}</span><span class="muted">${m}/${t}</span></div><div class="bar"><div style="width:${m/t*100}%"></div></div></div>`}).join("");
+ $("#pLevels").innerHTML=LEVELS.map(l=>{const m=mastered(l),t=ITEMS(l).length;return`<div class="lvrow"><div class="row"><span>${l}</span><span class="muted">${m}/${t}</span></div><div class="bar"><div style="width:${m/t*100}%"></div></div></div>`}).join("");
  $("#pGram").innerHTML=LEVELS.map(l=>{const b=S.gBest[l];return`<div class="row" style="justify-content:space-between;padding:5px 0;font-size:14px"><b>${l}</b><span class="${b==null?"muted":""}">${b==null?"not taken":b+" / "+GRAM[l].length}</span></div>`}).join("");
  $("#sPhone").classList.toggle("on",!!S.phoneLock);$("#phoneSet").style.display=IS_APK?"flex":"none";$("#phoneHelp").style.display=IS_APK&&S.phoneLock?"block":"none";$("#sSound").classList.toggle("on",S.sound)}
 
