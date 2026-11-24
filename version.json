@@ -1,15 +1,12 @@
 {
-  "build": 45,
-  "version": "4.5",
+  "build": 46,
+  "version": "4.6",
   "file": "app.html",
-  "size": 611468,
+  "size": 616278,
   "minNative": 6,
   "notes": [
-    "🗓️ NEW Routine Checker: plan your day with ready-made routines (Student, Working, JLPT sprint, Light), check things off, see NOW/next, study time, sleep, weekly chart and routine streak",
-    "⏰ Alarm is now set in your phone's own alarm system: rings even when the app is closed or after a restart, and shows in the status bar",
-    "🔟 Alarm now needs 10 correct answers to turn off",
-    "🚨 Emergency button on the lock screen no longer covers the answer meaning",
-    "👋 Hana-sensei removed"
+    "📊 NEW Level of Mastery at the top of Learn: big mastery ring, rank (Beginner → Legend), kanji / vocab / grammar progress",
+    "🎌 Tap N5–N1 to see your mastery for any level, and switch your study level from there"
   ],
   "native": {
     "build": 14,

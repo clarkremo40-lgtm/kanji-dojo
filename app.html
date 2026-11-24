@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <script>
-var KD_BUILD=45,KD_VER="4.5",KD_NATIVE=14;
+var KD_BUILD=46,KD_VER="4.6",KD_NATIVE=14;
 (function(){try{if(window.__KD_SWAP)return;var ls=localStorage;
  if(location.href.indexOf("file:///android_asset")===0)ls.setItem("kd_native",String(KD_NATIVE));
  var b=+(ls.getItem("kd_build")||0),h=ls.getItem("kd_html");
@@ -645,6 +645,18 @@ nav .navAI:active .navAIc{transform:scale(.92)}
 .rtBtns{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}.rtBtns .btn{flex:1;white-space:nowrap;font-size:12.5px}
 .rtF{margin:10px 0}.rtF label{display:block;font-size:12px;font-weight:800;opacity:.7;margin-bottom:5px}.rtF input,.rtF select{width:100%}.rtF #rtN,.rtF select{box-sizing:border-box;border:2px solid #e2d8ff;border-radius:14px;padding:12px 14px;font:inherit;font-size:15px;background:#fff;color:#2d2147}.rtF #rtTm{font-size:28px!important;padding:8px 14px!important}
 .rtCats,.rtDays{display:flex;flex-wrap:wrap;gap:6px}.rtCat,.rtDay{border:1.5px solid #e2d8ff;background:#fff;border-radius:99px;padding:7px 11px;font:inherit;font-size:12.5px;font-weight:800;color:#4b3c8f}.rtCat.on,.rtDay.on{background:#7b5cff;border-color:#7b5cff;color:#fff}
+.mastC{padding:16px!important;background:#fff!important;color:#2d2147}
+.mTop{display:flex;align-items:center;justify-content:space-between}.mTop small{display:block;font-size:10.5px;letter-spacing:2px;font-weight:900;color:#ff4f8b}.mTop b{font-size:19px}
+.mCur{font-size:11px;font-weight:800;background:#f1ebff;color:#6b4fd8;border-radius:99px;padding:5px 10px}.mSet{border:none;font:inherit;font-size:12px;font-weight:900;color:#fff;background:linear-gradient(135deg,#ff6fa8,#7b5cff);border-radius:99px;padding:7px 12px}
+.mLvs{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:12px 0}
+.mLv{border:none;font:inherit;border-radius:14px;padding:7px 4px 6px;background:#f6f2ff;color:#4b3c8f;box-shadow:0 3px 0 #e6deff}.mLv b{display:block;font-size:14px}.mLv i{display:block;height:4px;border-radius:2px;background:#e6deff;margin:4px 6px 2px;overflow:hidden}.mLv em{display:block;height:100%;background:#7b5cff}.mLv span{font-size:10px;font-weight:800;opacity:.7}
+.mLv.on{background:linear-gradient(135deg,#ff6fa8,#7b5cff);color:#fff;box-shadow:0 3px 0 #c9417f}.mLv.on i{background:rgba(255,255,255,.35)}.mLv.on em{background:#fff}
+.mMain{display:flex;gap:14px;align-items:center}
+.mRing{--p:0;width:118px;height:118px;flex:none;border-radius:50%;display:grid;place-items:center;background:radial-gradient(closest-side,#fff 80%,transparent 82%),conic-gradient(#ff6fa8,#7b5cff calc(var(--p)*1%),#efe9ff 0);animation:qIn .5s both}
+.mRing div{text-align:center}.mRing b{display:block;font-size:34px;line-height:1;font-weight:900}.mRing b small{font-size:15px}.mRing span{font-size:11px;font-weight:800;opacity:.7}
+.mSide{flex:1;min-width:0}.mRank{font-size:14px;margin-bottom:6px}.mRank span{font-size:12px;opacity:.6}
+.mBar{margin:5px 0}.mBarT{display:flex;justify-content:space-between;font-size:12px;font-weight:700}.mBarT b{font-size:12px}.mBarB{height:8px;border-radius:99px;background:#f0ebff;overflow:hidden;margin-top:2px}.mBarB i{display:block;height:100%;border-radius:99px;transition:width .6s}
+.mFoot{margin-top:12px;font-size:12.5px;line-height:1.5;background:#faf7ff;border-radius:14px;padding:8px 12px;color:#4b3c8f}
 /* ===== GORGEOUS LOCK SCREEN ===== */
 #lock{background:#120b2e!important}
 #lock .aur{position:absolute;inset:-20%;pointer-events:none;filter:blur(55px) saturate(1.3);opacity:.85}
@@ -782,6 +794,7 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
   <main id="main">
     <!-- HOME -->
     <section class="view on" id="v-home">
+      <div class="card mastC" id="mastC"></div>
       <div class="card hero">
         <div style="position:relative;width:100%;aspect-ratio:1;display:grid;place-items:center;max-width:140px"><div class="ring"></div><div class="big" id="kotd">日</div></div>
         <div style="min-width:0;overflow-wrap:anywhere">
@@ -1413,7 +1426,25 @@ function renderQ(el,q,cb,opts={}){
 /* ================= HEADER / HOME ================= */
 function renderHeader(){$("#hStreak").textContent=S.streak;$("#hLv").textContent=S.lv;$("#hXp").textContent=S.xp+" XP"}
 function levelChips(el,cur,onPick){el.innerHTML="";LEVELS.forEach(l=>{const b=document.createElement("button");b.className="lvchip"+(l===cur?" on":"");b.textContent=l;b.onclick=()=>{sfx.pop();onPick(l)};el.appendChild(b)})}
-function renderHome(){levelChips($("#levels"),S.lv,l=>{S.lv=l;S.wIdx=0;save();renderHome();renderHeader();renderWrite()});
+
+/* ===== LEVEL OF MASTERY: first thing on Learn, pick N5–N1 ===== */
+let mastLv=null;
+const MAST_RANK=[[0,"🌱","Beginner","初心者"],[20,"🌿","Learner","学習者"],[50,"🔥","Skilled","上手"],[80,"🏅","Master","達人"],[100,"👑","Legend","伝説"]];
+function mastStats(l){const k=K[l],v=V[l];let g=[];try{g=GLES[l]||[]}catch(e){setTimeout(renderMastery,50)}const km=k.filter(isM).length,vm=v.filter(isM).length,gd=g.filter(x=>glDone(x.id)).length;
+ const tot=k.length+v.length,m=km+vm;const pct=tot?Math.round(m/tot*100):0;const gp=g.length?gd/g.length:0;
+ const score=Math.round((m/(tot||1))*80+gp*20);return{km,kt:k.length,vm,vt:v.length,gd,gt:g.length,pct,score}}
+function renderMastery(){const el=$("#mastC");if(!el)return;const l=mastLv||S.lv;const st=mastStats(l);const sc=st.score;const r=MAST_RANK.filter(x=>sc>=x[0]).pop();const nx=MAST_RANK.find(x=>x[0]>sc);
+ const i=LEVELS.indexOf(l),need=Math.ceil((st.kt+st.vt)*LV_UP),have=st.km+st.vm;const jb=(S.jlpt||{})[l];
+ const bar=(ic,lab,a,b,c)=>`<div class="mBar"><div class="mBarT"><span>${ic} ${lab}</span><b>${a}/${b}</b></div><div class="mBarB"><i style="width:${b?a/b*100:0}%;background:${c}"></i></div></div>`;
+ el.innerHTML=`<div class="mTop"><div><small>LEVEL OF MASTERY</small><b>習熟度 · ${l}</b></div>${l===S.lv?'<span class="mCur">your level</span>':`<button class="mSet" id="mSet">Study ${l}</button>`}</div>
+ <div class="mLvs">${LEVELS.map(x=>{const p=mastStats(x).score;return`<button class="mLv ${x===l?"on":""}" data-l="${x}"><b>${x}</b><i><em style="width:${p}%"></em></i><span>${p}%</span></button>`}).join("")}</div>
+ <div class="mMain"><div class="mRing" style="--p:${sc}"><div><b>${sc}<small>%</small></b><span>${r[1]} ${r[2]}</span></div></div>
+  <div class="mSide"><div class="mRank">${r[1]} <b>${r[2]}</b> <span>${r[3]}</span></div>
+  ${bar("漢","Kanji",st.km,st.kt,"linear-gradient(90deg,#ff6fa8,#ff9966)")}${bar("語","Vocab",st.vm,st.vt,"linear-gradient(90deg,#7b5cff,#31c8ff)")}${bar("文","Grammar",st.gd,st.gt,"linear-gradient(90deg,#21b889,#9be15d)")}</div></div>
+ <div class="mFoot">${nx?`Next rank <b>${nx[1]} ${nx[2]}</b> at ${nx[0]}%`:"Max rank! 🎉"}${i<LEVELS.length-1?` · <b>${Math.max(0,need-have)}</b> more mastered to unlock ${LEVELS[i+1]}`:""}${jb?` · Mock test: <b>${jb.total}/180</b> ${jb.passed?"✅":""}`:""}</div>`;
+ $$("#mastC .mLv").forEach(b=>b.onclick=()=>{sfx.pop();mastLv=b.dataset.l;renderMastery()});
+ const ms=$("#mSet");if(ms)ms.onclick=()=>{S.lv=l;S.wIdx=0;save();mastLv=null;renderHome();renderHeader();try{renderWrite()}catch(e){}toast("📚 Now studying "+l)}}
+function renderHome(){renderMastery();levelChips($("#levels"),S.lv,l=>{S.lv=l;S.wIdx=0;save();renderHome();renderHeader();renderWrite()});
  const all=LEVELS.flatMap(l=>K[l]);const d=new Date();const k=all[(d.getFullYear()*372+d.getMonth()*31+d.getDate())%all.length];
  $("#kotd").textContent=k.c;$("#kotdM").textContent=k.m;$("#kotdR").textContent=k.r;$("#kotdL").textContent="JLPT "+k.l;
  const m=mastered(S.lv),t=ITEMS(S.lv).length;{const i=LEVELS.indexOf(S.lv),need=Math.ceil(t*LV_UP);$("#homeMastTxt").textContent=i<LEVELS.length-1?`${S.lv}: ${m}/${t} mastered (kanji + words) · ${need} needed for ${LEVELS[i+1]} · 3× correct = ★★★`:`${S.lv}: ${m} of ${t} kanji mastered · top level!`}$("#homeMastPct").textContent=Math.round(m/t*100)+"%";$("#homeMastBar").style.width=(m/t*100)+"%";
