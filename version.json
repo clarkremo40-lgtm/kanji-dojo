@@ -1,18 +1,18 @@
 {
-  "build": 42,
-  "version": "4.2",
+  "build": 43,
+  "version": "4.3",
   "file": "app.html",
-  "size": 589415,
+  "size": 590942,
   "minNative": 6,
   "notes": [
-    "🔧 Fixed 'Couldn't load the audio' in Podcast and Listening: now uses Google's current voice models",
-    "📱 If the free natural-voice limit runs out, it switches instantly to the phone's Japanese voice, line by line with highlight, instead of failing",
-    "💾 Uses far fewer voice requests (no more background pre-loading), so the free daily limit lasts longer",
-    "🎛️ Smaller podcast player so you see more of the transcript"
+    "🎧 Podcast keeps playing in the background, even with the screen off",
+    "⏯ New notification with Play/Pause and Stop so you can control the podcast without opening the app",
+    "📞 Hana-sensei voice calls no longer cut off: reconnects automatically when Google's session time ends or the connection drops",
+    "🔀 If one voice line hits its free limit, the call switches to another automatically"
   ],
   "native": {
-    "build": 11,
-    "version": "3.7",
+    "build": 12,
+    "version": "4.3",
     "url": "https://github.com/clarkremo40-lgtm/kanji-dojo/raw/main/KanjiDojo.apk",
     "direct": "https://raw.githubusercontent.com/clarkremo40-lgtm/kanji-dojo/main/KanjiDojo.apk"
   }
