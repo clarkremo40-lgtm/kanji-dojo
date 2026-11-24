@@ -1,15 +1,14 @@
 {
-  "build": 22,
-  "version": "2.2",
+  "build": 23,
+  "version": "2.3",
   "file": "app.html",
-  "size": 286636,
+  "size": 391089,
   "minNative": 6,
   "notes": [
-    "💡 Memory tricks for all 194 kanji (口 is a square, wide-open mouth 👄) and stories for words (花 + 火 = 花火 fireworks 🎆)",
-    "👆 Tap any kanji or word to see its reading, meaning, trick, the kanji it's made of and words that use it, plus 🔊 pronunciation",
-    "📖 New 'Kanji & Word Tricks' dictionary on Home with search",
-    "🎵 New sounds: sparkly bells for correct answers (they go higher with each streak) and a soft boop-boop for wrong ones",
-    "After each answer you see the trick. Wrong answers wait so you can read it"
+    "🥋 New Grammar Dojo: 145 grammar lessons from N5 to N1 on a fun lesson path. Earn every belt from white to black!",
+    "📖 Each lesson has a color formula, a simple explanation, an easy memory trick, a forms table, examples with 🔊 and a check question",
+    "N5 covers particles (は が を に で へ と も の), です, ます, verb groups, て-form, past, negative, future, い/な-adjectives and more",
+    "🇬🇧 English translation in the grammar test (Show English hint, and the full translation after you answer)"
   ],
   "native": {
     "build": 8,
