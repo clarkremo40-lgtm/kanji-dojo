@@ -1,18 +1,18 @@
 {
-  "build": 43,
-  "version": "4.3",
+  "build": 44,
+  "version": "4.4",
   "file": "app.html",
-  "size": 590942,
+  "size": 596311,
   "minNative": 6,
   "notes": [
-    "🎧 Podcast keeps playing in the background, even with the screen off",
-    "⏯ New notification with Play/Pause and Stop so you can control the podcast without opening the app",
-    "📞 Hana-sensei voice calls no longer cut off: reconnects automatically when Google's session time ends or the connection drops",
-    "🔀 If one voice line hits its free limit, the call switches to another automatically"
+    "♾️ NEW Unli mode for Hana-sensei voice: when Google's free live-call limit runs out, it switches automatically (or tap ♾️ Unli mode)",
+    "🎙️ Unli mode hears you with the phone's own free speech recognizer, thinks with Gemini (much bigger free limit), and talks with her natural voice while available, then the phone's voice",
+    "🇯🇵 Tap the flag to practice speaking Japanese: she listens for Japanese instead of Taglish",
+    "💬 Chat now auto-switches to Flash-Lite when the main model's free limit is used up"
   ],
   "native": {
-    "build": 12,
-    "version": "4.3",
+    "build": 13,
+    "version": "4.4",
     "url": "https://github.com/clarkremo40-lgtm/kanji-dojo/raw/main/KanjiDojo.apk",
     "direct": "https://raw.githubusercontent.com/clarkremo40-lgtm/kanji-dojo/main/KanjiDojo.apk"
   }

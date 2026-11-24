@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <script>
-var KD_BUILD=43,KD_VER="4.3",KD_NATIVE=12;
+var KD_BUILD=44,KD_VER="4.4",KD_NATIVE=13;
 (function(){try{if(window.__KD_SWAP)return;var ls=localStorage;
  if(location.href.indexOf("file:///android_asset")===0)ls.setItem("kd_native",String(KD_NATIVE));
  var b=+(ls.getItem("kd_build")||0),h=ls.getItem("kd_html");
@@ -472,6 +472,8 @@ select{font-family:inherit;font-size:15px;font-weight:700;background:var(--ink3)
 .aiVStat{font-weight:900;font-size:16px;margin-top:6px;min-height:24px}
 .aiCaps{min-height:90px;max-height:24vh;overflow:auto;margin-top:10px;width:100%;max-width:480px}
 .aiCaps div{font-size:15px;line-height:1.5;margin:4px 0;text-align:left}.aiCaps #aiCapU{color:#6b5f94}
+.aiUnliRow{display:flex;gap:8px;justify-content:center;margin-top:10px}.aiUnliRow button{border:none;background:#f1ebff;color:#6b4fd8;box-shadow:0 3px 0 #e2d8ff;border-radius:99px;padding:7px 14px;font:inherit;font-weight:800;font-size:13px}
+.aiVoice.unli #aiUnli{background:linear-gradient(135deg,#ff6fa8,#7b5cff);color:#fff;border-color:transparent}.aiVoice.unli #aiMute{display:none}
 .aiVCtl{display:flex;gap:22px;margin-top:10px;opacity:.35;pointer-events:none;transition:.3s}.aiVoice.live .aiVCtl{opacity:1;pointer-events:auto}
 .aiVCtl button{width:64px;height:64px;border-radius:50%;border:none;font-size:26px;background:#fff;box-shadow:0 6px 18px rgba(123,92,255,.2)}
 .aiVCtl #aiEnd{background:linear-gradient(135deg,#ff5a6e,#e3203f);color:#fff}.aiVCtl #aiMute.off{background:#2d2147}
@@ -964,6 +966,7 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
       <div class="aiVStat" id="aiVStat">Tap the orb to start talking</div>
       <div class="aiCaps"><div id="aiCapU"></div><div id="aiCapA"></div></div>
       <button class="btn shu aiStartBig" id="aiStartB">🎙️ Start talking</button><div class="aiVCtl"><button id="aiMute">🎙️</button><button id="aiEnd">✕</button></div>
+      <div class="aiUnliRow"><button id="aiUnli">♾️ Unli mode</button><button id="aiLang" title="Language you will speak in Unli mode">🇵🇭</button></div>
       <div class="tiny" style="opacity:.6;margin-top:8px">Voice: <b id="aiVName">Aoede</b> · change in ⚙️ · talk in English, Tagalog or Japanese</div>
     </div>
   </div>
@@ -2442,7 +2445,7 @@ $("#rStudy").onclick=()=>openRescue("ring");$("#slStudy").onclick=()=>openRescue
 /* ================= AI SENSEI: chat + real-time voice (Gemini) ================= */
 const AI_VOICES=[["Aoede","Breezy"],["Sulafat","Warm"],["Leda","Youthful"],["Kore","Firm"],["Zephyr","Bright"],["Puck","Upbeat"],["Charon","Informative"],["Fenrir","Excitable"],["Orus","Firm"],["Callirrhoe","Easy-going"],["Autonoe","Bright"],["Enceladus","Breathy"],["Iapetus","Clear"],["Umbriel","Easy-going"],["Algieba","Smooth"],["Despina","Smooth"],["Erinome","Clear"],["Algenib","Gravelly"],["Rasalgethi","Informative"],["Laomedeia","Upbeat"],["Achernar","Soft"],["Alnilam","Firm"],["Schedar","Even"],["Gacrux","Mature"],["Pulcherrima","Forward"],["Achird","Friendly"],["Zubenelgenubi","Casual"],["Vindemiatrix","Gentle"],["Sadachbia","Lively"],["Sadaltager","Knowledgeable"]];
 const AI_LIVE_MODELS=["gemini-3.1-flash-live-preview","gemini-2.5-flash-native-audio-preview-12-2025","gemini-2.5-flash-native-audio-preview-09-2025"];
-const AI_CHAT_MODELS=["gemini-flash-latest","gemini-3.6-flash","gemini-2.5-flash"];
+const AI_CHAT_MODELS=["gemini-flash-latest","gemini-2.5-flash","gemini-flash-lite-latest","gemini-3.1-flash-lite","gemini-2.5-flash-lite"];
 const AI_TTS_MODELS=["gemini-3.1-flash-tts-preview","gemini-2.5-flash-preview-tts"];
 const AI_API="https://generativelanguage.googleapis.com/v1beta/";
 /* Built-in mode: the app talks to Gemini through Firebase AI Logic, so users don't need their own key. A personal key (Advanced) overrides it. */
@@ -2531,7 +2534,8 @@ async function aiTTS(text){const c=aiCfg();const clean=text.replace(/\*\*|__|[#>
 /* ---- LIVE voice session ---- */
 const LV={ws:null,on:false,ready:false,muted:false,mic:null,mctx:null,proc:null,model:null,uTxt:"",aTxt:"",level:0,raf:0,closing:false};
 function lvStatus(t){const e=$("#aiVStat");if(e)e.textContent=t}
-async function lvStart(){if(LV.on)return;const c=aiCfg();if(!aiReady()){aiShow("setup");return}if(aiOffline()){lvStatus("📴 Offline ka. Voice call needs internet.");const cp=$("#aiCapA");cp.innerHTML=aiOffHTML();aiOffWire(cp);sfx.no();return}
+async function lvStart(){if(LV.on||UV.on)return;const c=aiCfg();if(!aiReady()){aiShow("setup");return}
+ if(uvCan()&&Date.now()<+(localStorage.getItem("kd_liveq")||0)){uvStart("free live calls are used up for now");return}if(aiOffline()){lvStatus("📴 Offline ka. Voice call needs internet.");const cp=$("#aiCapA");cp.innerHTML=aiOffHTML();aiOffWire(cp);sfx.no();return}
  if(IS_APK&&nativeBuild()<9){lvStatus("Voice needs the new app version (2.6). Install it from the update pop-up. Chat works now!");return}
  LV.on=true;LV.closing=false;$("#aiV").classList.add("live");lvStatus("Getting your microphone…");aiPlayCtx();
  try{await lvMic()}catch(e){LV.on=false;$("#aiV").classList.remove("live");lvStatus(e.message);return}
@@ -2573,8 +2577,41 @@ function lvConnect(mi){const c=aiCfg();const models=c.liveModel?[c.liveModel,...
   if(LV.resume&&!LV.ready&&/handle|resum|session/.test(why)){LV.handle=null;lvReconnect(mi,"reconnect");return}
   if(LV.ready&&!/api key|permission|quota|exhaust/.test(why)){lvReconnect(mi,"reconnect");return}
   if(!LV.ready&&(why.includes("model")||why.includes("not found")||why.includes("not supported")||ev.code===1008||ev.code===1007)&&!/api key|permission|quota/.test(why)){lvConnect(mi+1);return}
-  lvStatus(/api key/.test(why)?(own?"❌ Your own API key isn't working. Check it in ⚙️.":"😿 Voice isn't available right now. Try chat, or try again later."):/quota|exhaust|rate|resource/.test(why)?"⏳ Google's free voice-call limit is used up on all voice lines for now. Chat with Hana-sensei still works, or try the call again later.":"Call ended."+(ev.reason?" ("+ev.reason.slice(0,90)+")":""));lvStop(true)};
+  lvStatus(/api key/.test(why)?(own?"❌ Your own API key isn't working. Check it in ⚙️.":"😿 Voice isn't available right now. Try chat, or try again later."):/quota|exhaust|rate|resource/.test(why)?"⏳ Google's free voice-call limit is used up on all voice lines for now. Chat with Hana-sensei still works, or try the call again later.":"Call ended."+(ev.reason?" ("+ev.reason.slice(0,90)+")":""));lvStop(true);
+  if(/quota|exhaust|rate|resource/.test(why)){try{localStorage.setItem("kd_liveq",Date.now()+3600000)}catch(e){}if(uvCan())uvStart("used up na ang free live calls, Unli mode muna")}};
  ws.onerror=()=>{}}
+
+/* ===== UNLI VOICE: free fallback when Google's live-call quota runs out =====
+   ears = the phone's own speech recognizer (free) · brain = Gemini text (much bigger free quota, auto-switches to Flash-Lite)
+   mouth = Hana's natural Gemini voice while it's available, otherwise the phone's voice */
+const UV={on:false,lang:"fil-PH",tok:0,idle:false,t:0,rec:null};
+function uvCan(){return (IS_APK&&nativeBuild()>=13)||!!(window.SpeechRecognition||window.webkitSpeechRecognition)}
+function uvStart(why){if(LV.on)lvStop(true);UV.on=true;UV.tok++;const v=$("#aiV");v.classList.add("live","unli");$("#aiUnli").textContent="♾️ Unli ON";
+ LV.uTxt=LV.aTxt="";lvCap();toast("♾️ Unli mode"+(why?": "+why:""));if(!LV.raf)orbLoop();uvListen()}
+function uvStop(){UV.on=false;UV.tok++;clearTimeout(UV.t);try{UV.rec&&UV.rec.abort()}catch(e){}if(IS_APK)native("speak?t=");try{speechSynthesis.cancel()}catch(e){}aiStopAudio();
+ const v=$("#aiV");if(v)v.classList.remove("live","unli");const b=$("#aiUnli");if(b)b.textContent="♾️ Unli mode";lvStatus("Tap the orb to start talking")}
+function uvListen(){if(!UV.on)return;UV.idle=false;clearTimeout(UV.t);lvStatus(UV.lang==="ja-JP"?"🎙️ 日本語でどうぞ… (Japanese mode)":"🎙️ Speak now… (Taglish / English)");
+ if(IS_APK&&nativeBuild()>=13){native("listen?l="+UV.lang);return}
+ const R=window.SpeechRecognition||window.webkitSpeechRecognition;if(!R){lvStatus("Unli voice needs the app update (4.4).");return}
+ const r=new R();UV.rec=r;r.lang=UV.lang;r.interimResults=false;r.maxAlternatives=1;let got=false;
+ r.onresult=e=>{got=true;kdHeard(e.results[0][0].transcript)};r.onerror=()=>{};r.onend=()=>{if(!got)kdHeard("")};try{r.start()}catch(e){kdHeard("")}}
+window.kdHeard=async(t,err)=>{if(!UV.on)return;t=(t||"").trim();
+ if(err){UV.idle=true;lvStatus("😿 No speech recognizer on this phone. Turn on Google voice typing, then tap the orb.");return}
+ if(!t){UV.idle=true;lvStatus("Tap the orb to talk 🎙️");return}
+ const tok=UV.tok;LV.uTxt=t;LV.aTxt="";lvCap();lvStatus("🤔 Hana-sensei is thinking…");let reply="";
+ try{reply=await aiChatSend(t+"\n\n[Voice call (Unli mode): answer like you're talking out loud. Short: 1 to 3 sentences, natural spoken Taglish. Japanese in kana/kanji only when teaching. No romaji in brackets, no markdown, no emojis, no lists.]",out=>{if(tok===UV.tok){LV.aTxt=out.replace(/\*\*|__/g,"");lvCap()}})}
+ catch(e){if(tok!==UV.tok)return;UV.idle=true;lvStatus(/QUOTA/.test(e.message)?"⏳ Pati free chat limit ni Google ubos na today. Balik bukas, or enable billing for true unli.":"😿 "+String(e.message||e).slice(0,90)+" · tap the orb to retry");return}
+ if(tok!==UV.tok||!UV.on)return;reply=(reply||"").trim();if(!reply){UV.idle=true;lvStatus("Tap the orb to talk 🎙️");return}
+ const h=aiHist();h.push({r:"u",t,v:1});h.push({r:"a",t:reply,v:1});aiHistSave(h);LV.aTxt=reply.replace(/\*\*|__/g,"");lvCap();uvSay(reply,tok)};
+async function uvSay(txt,tok){const clean=txt.replace(/\*\*|__|[#>`*_~]/g,"").replace(/[（(][^)）]{0,40}[）)]/g,"").replace(/[\u{1F000}-\u{1FAFF}☀-➿️]/gu,"").replace(/\s+/g," ").trim();
+ lvStatus("🗣️ Hana-sensei is talking… (tap the orb to cut in)");UV.idle=true;let dur=0;
+ if(!ttsCool()&&navigator.onLine!==false){try{await ttsGen(()=>aiTTS(clean));if(AIP.ctx)dur=Math.max(0,AIP.next-AIP.ctx.currentTime)}catch(e){}}
+ if(tok!==UV.tok||!UV.on)return;
+ if(!dur){const ja=(clean.match(/[぀-ヿ一-鿿]/g)||[]).length>clean.length*.4;
+  if(IS_APK&&nativeBuild()>=13)native("speak?l="+(ja?"ja":"fil-PH")+"&t="+encodeURIComponent(clean));
+  else if(window.speechSynthesis){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(clean);u.lang=ja?"ja-JP":"fil-PH";speechSynthesis.speak(u)}catch(e){}}
+  dur=[...clean].length*(ja?.2:.08)+.6}
+ clearTimeout(UV.t);UV.t=setTimeout(()=>{if(UV.on&&tok===UV.tok)uvListen()},dur*1000+700)}
 function lvCap(){const u=$("#aiCapU"),a=$("#aiCapA");if(u)u.innerHTML=LV.uTxt?"🧑 "+esc(LV.uTxt):"";if(a)a.innerHTML=LV.aTxt?"🌸 "+jlink(LV.aTxt):""}
 function lvStop(keepMsg){LV.closing=true;LV.on=false;LV.handle=null;LV.resume=false;LV.ready=false;try{LV.ws&&LV.ws.close()}catch(e){}LV.ws=null;aiStopAudio();
  try{LV.proc&&LV.proc.disconnect()}catch(e){}try{LV.mic&&LV.mic.getTracks().forEach(t=>t.stop())}catch(e){}try{LV.mctx&&LV.mctx.close()}catch(e){}LV.mic=LV.mctx=LV.proc=null;
@@ -2595,9 +2632,9 @@ function orbLoop(){const cv=$("#aiOrb");if(!cv||!$("#ai").classList.contains("on
  const sh=g.createRadialGradient(cx-R*.35,cy-R*.4,0,cx-R*.35,cy-R*.4,R*.9);sh.addColorStop(0,"rgba(255,255,255,.75)");sh.addColorStop(1,"rgba(255,255,255,0)");g.fillStyle=sh;g.fillRect(0,0,W,H);g.restore()}
 /* ---- UI ---- */
 function aiOpen(tab){$("#ai").classList.add("on");sfx.pop();aiOffBanner();aiShow(aiReady()?(tab||"chat"):"setup");if(!LV.raf)orbLoop()}
-function aiClose(){if(REC.on)recStop(false);if(LV.on)lvStop();$("#ai").classList.remove("on");aiStopAudio()}
+function aiClose(){if(REC.on)recStop(false);if(LV.on)lvStop();if(UV.on)uvStop();$("#ai").classList.remove("on");aiStopAudio()}
 function aiShow(v){$$("#ai .aiPane").forEach(p=>p.classList.toggle("on",p.id==="aiP-"+v));$$("#ai .aiTab").forEach(b=>b.classList.toggle("on",b.dataset.t===v));
- if(v==="chat")aiRenderChat();if(v==="setup")aiRenderSetup();if(v==="voice"){$("#aiVName").textContent=aiCfg().voice;if(!LV.on)lvStatus("Tap the orb to start talking");if(!LV.raf)orbLoop()}if(v!=="voice"&&LV.on)lvStop()}
+ if(v==="chat")aiRenderChat();if(v==="setup")aiRenderSetup();if(v==="voice"){$("#aiVName").textContent=aiCfg().voice;if(!LV.on)lvStatus("Tap the orb to start talking");if(!LV.raf)orbLoop()}if(v!=="voice"&&LV.on)lvStop();if(v!=="voice"&&UV.on)uvStop()}
 function mdLite(t){let h=jlink(t);h=h.replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/(^|\n)\s*[-•*] (.+)/g,"$1<span class='aiLi'>• $2</span>").replace(/\n/g,"<br>");return h}
 function aiRenderChat(){const h=aiHist(),box=$("#aiMsgs");
  box.innerHTML=(h.length?"":`<div class="aiWelcome"><div class="aiAvBig">${CATSVG}</div><b>こんにちは！ I'm Hana-sensei 🌸</b><span>Your personal Japanese tutor. I know your level (${S.lv}) and the kanji you find hard. Ask me anything, or tap a suggestion!</span>${savage()?`<span class="savNote">😈 Savage mode: may konting asar at mura, sakto lang. Ready ka na ba? 😂</span>`:""}</div>`)+
@@ -2627,7 +2664,9 @@ async function aiTestKey(){const k=$("#aiKey").value.trim();if(!k){toast("Paste 
 $("#aiClose").onclick=aiClose;$$("#ai .aiTab").forEach(b=>b.onclick=()=>aiShow(b.dataset.t));
 $("#aiSendB").onclick=()=>aiSend($("#aiIn").value);$("#aiIn").onkeydown=e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();aiSend($("#aiIn").value)}};
 $$("#ai .aiSug").forEach(b=>b.onclick=()=>aiSend(b.dataset.q||b.textContent));
-$("#aiOrbW").onclick=()=>{if(LV.on)return;lvStart()};$("#aiEnd").onclick=()=>lvStop();$("#aiMute").onclick=lvMute;
+$("#aiOrbW").onclick=()=>{if(UV.on){if(UV.idle)uvListen();return}if(LV.on)return;lvStart()};$("#aiEnd").onclick=()=>{if(UV.on)uvStop();else lvStop()};
+$("#aiUnli").onclick=()=>{if(UV.on){uvStop();return}if(!aiReady()){aiShow("setup");return}if(!uvCan()){toast("Unli voice needs the new app update (4.4) 📲");return}uvStart("")};
+$("#aiLang").onclick=()=>{UV.lang=UV.lang==="ja-JP"?"fil-PH":"ja-JP";$("#aiLang").textContent=UV.lang==="ja-JP"?"🇯🇵":"🇵🇭";toast(UV.lang==="ja-JP"?"🎙️ Listening for Japanese":"🎙️ Listening for Taglish/English");if(UV.on&&UV.idle)uvListen()};$("#aiMute").onclick=lvMute;
 $("#aiTest").onclick=aiTestKey;$("#aiGetKey").onclick=()=>{const u="https://aistudio.google.com/apikey";if(IS_APK)native("open/"+u);else window.open(u,"_blank")};
 $("#aiAuto").onclick=()=>{const c=aiCfg();c.autoSpeak=!c.autoSpeak;aiSave(c);$("#aiAuto").classList.toggle("on",c.autoSpeak)};
 $("#aiClear").onclick=()=>{aiHistSave([]);aiRenderChat();toast("Chat cleared 🧹")};
@@ -2652,7 +2691,7 @@ async function recStop(send){if(!REC.on)return;const parts=REC.chunks;recClean()
   $("#aiIn").placeholder="Ask Hana-sensei…";if(!t){toast("I didn't catch that. Try again 🎙️");return}aiSend(t)}
  catch(e){$("#aiIn").placeholder="Ask Hana-sensei…";toast(/^KEY:/.test(e.message)?"❌ API key not working":"😿 Couldn't understand the audio. Try again")}}
 $("#aiMicB").onclick=()=>REC.on?recStop(true):recStart();$("#aiRecX").onclick=()=>recStop(false);
-$("#aiCallB").onclick=()=>{aiShow("voice");lvStart()};$("#aiStartB").onclick=()=>{if(!LV.on)lvStart()};
+$("#aiCallB").onclick=()=>{aiShow("voice");lvStart()};$("#aiStartB").onclick=()=>{if(!LV.on&&!UV.on)lvStart()};
 
 /* "Log in with Google" connect flow: open AI Studio, then grab the copied key when the user comes back */
 const KEY_RE=/AIza[0-9A-Za-z_\-]{35}/;
