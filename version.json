@@ -1,14 +1,13 @@
 {
-  "build": 37,
-  "version": "3.7",
+  "build": 38,
+  "version": "3.8",
   "file": "app.html",
-  "size": 545122,
+  "size": 546218,
   "minNative": 6,
   "notes": [
-    "🎌 NEW: JLPT Mock Test for N5 to N1, in the official JLPT format: same sections, question types (漢字読み, 表記, 文脈規定, 文法, ★並べ替え, 読解, 聴解), timers and 0–180 scoring with the real pass marks",
-    "🏅 Pass it and get a beautiful 合格 certificate with your name and scores",
-    "📚 JLPT Review: practice each question type untimed, with answers and explanations",
-    "🔊 New app version 3.7: Japanese voice built into the app (works offline) for listening and all 🔊 buttons"
+    "🧭 New navbar: Learn · JLPT · Sensei · Game · Alarm · Progress",
+    "📚 Grammar Dojo and Writing are now inside Learn (new tiles)",
+    "🎌 New JLPT tab with the mock test, review and your certificates"
   ],
   "native": {
     "build": 11,
