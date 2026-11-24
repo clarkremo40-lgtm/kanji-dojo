@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <script>
-var KD_BUILD=25,KD_VER="2.5",KD_NATIVE=8;
+var KD_BUILD=26,KD_VER="2.6",KD_NATIVE=9;
 (function(){try{if(window.__KD_SWAP)return;var ls=localStorage;
  if(location.href.indexOf("file:///android_asset")===0)ls.setItem("kd_native",String(KD_NATIVE));
  var b=+(ls.getItem("kd_build")||0),h=ls.getItem("kd_html");
@@ -439,6 +439,54 @@ select{font-family:inherit;font-size:15px;font-weight:700;background:var(--ink3)
 .srNext{margin-top:16px;position:relative;overflow:hidden}.srNext[disabled]{opacity:.6}
 .srNext[disabled] .srRing{position:absolute;left:0;top:0;bottom:0;background:rgba(255,255,255,.35);animation:srFill 3s linear forwards}
 @keyframes srFill{from{width:0}to{width:100%}}
+#ai{position:fixed;inset:0;z-index:66;display:none;flex-direction:column;background:linear-gradient(165deg,#fff1f7 0%,#f3edff 45%,#e9f6ff 100%);color:#2d2147;padding-top:env(safe-area-inset-top,0px)}
+#ai.on{display:flex;animation:qIn .35s both}
+.aiTop{display:flex;align-items:center;gap:10px;padding:12px 14px 6px}
+.aiX{border:none;background:#fff;border-radius:50%;width:40px;height:40px;font-size:20px;font-weight:900;color:#6b4fd8;box-shadow:0 3px 10px rgba(123,92,255,.18)}
+.aiWho{display:flex;align-items:center;gap:10px}.aiWho b{display:block;font-size:17px}.aiWho span{font-size:12px;color:#8a7fae;font-weight:700}
+.aiAvS{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#ffd6e8,#e6dcff);display:grid;place-items:center;box-shadow:0 0 0 3px #fff,0 4px 14px rgba(255,111,168,.35)}.aiAvS svg{width:38px;height:38px}
+.aiTabs{display:flex;gap:8px;padding:6px 14px 10px}.aiTab{flex:1;border:none;border-radius:99px;padding:10px;font:inherit;font-weight:900;font-size:14px;background:rgba(255,255,255,.7);color:#6b5f94}
+.aiTab[data-t="setup"]{flex:none;width:48px}.aiTab.on{background:linear-gradient(135deg,#ff6fa8,#9b7bff);color:#fff;box-shadow:0 6px 18px rgba(155,123,255,.35)}
+.aiPane{display:none;flex:1;min-height:0;flex-direction:column}.aiPane.on{display:flex}
+.aiMsgs{flex:1;overflow:auto;padding:6px 14px 10px}
+.aiWelcome{text-align:center;padding:24px 10px;display:flex;flex-direction:column;align-items:center;gap:6px}.aiWelcome b{font-size:19px}.aiWelcome span{font-size:14px;color:#6b5f94;line-height:1.5}
+.aiAvBig{width:96px;height:96px;animation:catBob 2.2s ease-in-out infinite}.aiAvBig svg{width:96px;height:96px}
+.aiM{display:flex;gap:8px;margin:10px 0;align-items:flex-end}.aiM.u{justify-content:flex-end}
+.aiAv{width:34px;height:34px;flex:none}.aiAv svg{width:34px;height:34px}
+.aiBub{position:relative;max-width:80%;padding:11px 14px;border-radius:20px 20px 20px 6px;background:#fff;box-shadow:0 4px 14px rgba(123,92,255,.12);font-size:15px;line-height:1.55;animation:qIn .3s both;word-wrap:break-word}
+.aiM.u .aiBub{background:linear-gradient(135deg,#ff6fa8,#9b7bff);color:#fff;border-radius:20px 20px 6px 20px}
+.aiBub .jw{border-bottom-color:rgba(155,123,255,.6)}.aiLi{display:block;padding-left:4px}
+.aiSay{position:absolute;right:-10px;bottom:-12px;border:none;background:#fff;border-radius:50%;width:30px;height:30px;font-size:13px;box-shadow:0 3px 8px rgba(0,0,0,.12)}
+.aiVTag{display:block;font-style:normal;font-size:10px;font-weight:800;opacity:.7;margin-bottom:2px}
+.aiDots{display:inline-flex;gap:4px;padding:4px 0}.aiDots i{width:8px;height:8px;border-radius:50%;background:#c9b8ff;animation:aiDot 1s infinite}.aiDots i:nth-child(2){animation-delay:.15s}.aiDots i:nth-child(3){animation-delay:.3s}
+@keyframes aiDot{30%{transform:translateY(-6px);background:#ff6fa8}}
+.aiSugs{display:flex;gap:8px;overflow-x:auto;padding:4px 14px 8px;scrollbar-width:none}
+.aiSug{flex:none;border:none;border-radius:99px;padding:9px 14px;font:inherit;font-weight:800;font-size:13px;background:#fff;color:#6b4fd8;box-shadow:0 3px 0 #e6dcff;white-space:nowrap}
+.aiBar{display:flex;gap:8px;padding:8px 12px calc(12px + env(safe-area-inset-bottom,0px));align-items:flex-end}
+.aiBar textarea{flex:1;resize:none;border:2px solid #e6dcff;border-radius:22px;padding:12px 16px;font:inherit;font-size:15px;max-height:120px;outline:none;background:#fff}
+.aiBar textarea:focus{border-color:#9b7bff}
+#aiSendB{width:48px;height:48px;border:none;border-radius:50%;font-size:20px;color:#fff;background:linear-gradient(135deg,#ff6fa8,#9b7bff);box-shadow:0 6px 16px rgba(155,123,255,.4)}
+.aiVoice{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 20px calc(20px + env(safe-area-inset-bottom,0px));text-align:center}
+.aiOrbW{position:relative;width:min(78vw,340px);height:min(78vw,340px);cursor:pointer}.aiOrbW canvas{width:100%;height:100%}
+.aiOrbHint{position:absolute;left:0;right:0;bottom:6%;font-weight:900;font-size:13px;color:#8a6fe8;animation:barPulse 1.6s infinite}.aiVoice.live .aiOrbHint{display:none}
+.aiVStat{font-weight:900;font-size:16px;margin-top:6px;min-height:24px}
+.aiCaps{min-height:90px;max-height:24vh;overflow:auto;margin-top:10px;width:100%;max-width:480px}
+.aiCaps div{font-size:15px;line-height:1.5;margin:4px 0;text-align:left}.aiCaps #aiCapU{color:#6b5f94}
+.aiVCtl{display:flex;gap:22px;margin-top:10px;opacity:.35;pointer-events:none;transition:.3s}.aiVoice.live .aiVCtl{opacity:1;pointer-events:auto}
+.aiVCtl button{width:64px;height:64px;border-radius:50%;border:none;font-size:26px;background:#fff;box-shadow:0 6px 18px rgba(123,92,255,.2)}
+.aiVCtl #aiEnd{background:linear-gradient(135deg,#ff5a6e,#e3203f);color:#fff}.aiVCtl #aiMute.off{background:#2d2147}
+.aiSet{overflow:auto;padding:4px 16px calc(24px + env(safe-area-inset-bottom,0px))}.aiSet h3{margin:6px 0 8px}
+.aiSteps{padding-left:20px;line-height:1.6;font-size:14px;margin:0 0 12px}
+.aiVoices{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.aiVo{position:relative;border:2px solid transparent;border-radius:16px;padding:10px 40px 10px 12px;background:#fff;text-align:left;font-family:inherit;color:#2d2147;box-shadow:0 3px 0 #eee6ff}
+.aiVo b{display:block;font-size:14px}.aiVo span{font-size:11.5px;color:#8a7fae;font-weight:700}
+.aiVo i{position:absolute;right:8px;top:50%;margin-top:-15px;width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#ff6fa8,#9b7bff);color:#fff;font-style:normal;display:grid;place-items:center;font-size:12px}
+.aiVo.on{border-color:#ff6fa8;background:#fff3f8}
+.aiCard{display:flex;align-items:center;gap:12px;width:100%;border:none;font-family:inherit;color:#fff;background:linear-gradient(135deg,#ff6fa8,#9b7bff 55%,#4fc3ff)!important;box-shadow:0 10px 30px rgba(155,123,255,.4);cursor:pointer;position:relative;overflow:hidden}
+.aiCard::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);animation:shine 3.2s infinite}
+@keyframes shine{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+.aiCard .aiCi{width:56px;height:56px;flex:none;border-radius:50%;background:rgba(255,255,255,.25);display:grid;place-items:center;animation:catBob 2.2s ease-in-out infinite}.aiCard .aiCi svg{width:50px;height:50px}
+.aiCard b{font-size:17px}.aiCard .tiny{color:#fff;opacity:.95}
 /* ===== GORGEOUS LOCK SCREEN ===== */
 #lock{background:#120b2e!important}
 #lock .aur{position:absolute;inset:-20%;pointer-events:none;filter:blur(55px) saturate(1.3);opacity:.85}
@@ -610,6 +658,7 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
           <span style="opacity:.75">After a full restart, Android asks for your passcode once first. After that, every screen-on shows the quiz.</span>
         </div>
       </div>
+      <button class="card aiCard" id="aiHome"><div class="aiCi"><svg viewBox="0 0 64 64"><path d="M14 22 L18 4 L28 16 Z M50 22 L46 4 L36 16 Z" fill="#2b59c3"/><path d="M17 18 L19 9 L25 16 Z M47 18 L45 9 L39 16 Z" fill="#ff9eb5"/><circle cx="32" cy="32" r="22" fill="#2b59c3"/><ellipse cx="32" cy="37" rx="16" ry="13" fill="#ffe3c7"/><rect x="10" y="20" width="44" height="7" rx="3" fill="#ff4d6d"/><ellipse class="catEye" cx="25" cy="35" rx="3" ry="3.6" fill="#2d2147"/><ellipse class="catEye" cx="39" cy="35" rx="3" ry="3.6" fill="#2d2147"/><circle cx="26" cy="33.8" r="1" fill="#fff"/><circle cx="40" cy="33.8" r="1" fill="#fff"/><ellipse cx="20" cy="41" rx="3" ry="1.8" fill="#ffb3c6"/><ellipse cx="44" cy="41" rx="3" ry="1.8" fill="#ffb3c6"/><path d="M29 41 q3 3 6 0" stroke="#2d2147" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg></div><div class="grow" style="text-align:left"><b>Talk with Hana-sensei 🌸</b><div class="tiny">Your AI tutor: chat or real voice call · she knows your level and weak kanji</div></div><div style="font-size:22px">›</div></button>
       <button class="card dictCard" id="dictHome"><div class="dIco">💡</div><div class="grow" style="text-align:left"><b>Kanji &amp; Word Tricks</b><div class="tiny">Easy ways to remember: 口 is a square mouth, 花 + 火 = 花火 fireworks 🎆</div></div><div style="font-size:22px">›</div></button>
       <div class="card sesCard" id="sesHome">
         <div class="row"><div class="sesIco">📅</div><div class="grow"><b id="sesHT">Study time</b><div class="tiny" id="sesHS" style="opacity:.9"></div></div></div>
@@ -754,6 +803,38 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
 </div>
 
 <button id="sesPill"><span class="dot"></span><span id="sesPillT">60:00</span></button>
+<div id="ai">
+  <div class="aiTop"><button class="aiX" id="aiClose">←</button><div class="aiWho"><div class="aiAvS"><svg viewBox="0 0 64 64"><path d="M14 22 L18 4 L28 16 Z M50 22 L46 4 L36 16 Z" fill="#2b59c3"/><path d="M17 18 L19 9 L25 16 Z M47 18 L45 9 L39 16 Z" fill="#ff9eb5"/><circle cx="32" cy="32" r="22" fill="#2b59c3"/><ellipse cx="32" cy="37" rx="16" ry="13" fill="#ffe3c7"/><rect x="10" y="20" width="44" height="7" rx="3" fill="#ff4d6d"/><ellipse class="catEye" cx="25" cy="35" rx="3" ry="3.6" fill="#2d2147"/><ellipse class="catEye" cx="39" cy="35" rx="3" ry="3.6" fill="#2d2147"/><circle cx="26" cy="33.8" r="1" fill="#fff"/><circle cx="40" cy="33.8" r="1" fill="#fff"/><ellipse cx="20" cy="41" rx="3" ry="1.8" fill="#ffb3c6"/><ellipse cx="44" cy="41" rx="3" ry="1.8" fill="#ffb3c6"/><path d="M29 41 q3 3 6 0" stroke="#2d2147" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg></div><div><b>Hana-sensei 花先生</b><span>your AI Japanese tutor</span></div></div></div>
+  <div class="aiTabs"><button class="aiTab on" data-t="chat">💬 Chat</button><button class="aiTab" data-t="voice">🎙️ Voice</button><button class="aiTab" data-t="setup">⚙️</button></div>
+  <div class="aiPane on" id="aiP-chat">
+    <div class="aiMsgs" id="aiMsgs"></div>
+    <div class="aiSugs"><button class="aiSug" data-q="Quiz me on the kanji I keep getting wrong">🎯 Quiz my weak kanji</button><button class="aiSug" data-q="Explain the て-form super simply with a memory trick">🧩 Explain て-form</button><button class="aiSug" data-q="Let's have a short, easy conversation in Japanese at my level. You start!">🗣️ Japanese conversation</button><button class="aiSug" data-q="Check my Japanese sentence and correct it: ">✏️ Correct my sentence</button><button class="aiSug" data-q="Give me a fun 5-minute lesson for today based on my level">📅 Today's mini lesson</button></div>
+    <div class="aiBar"><textarea id="aiIn" rows="1" placeholder="Ask Hana-sensei anything…"></textarea><button id="aiSendB">➤</button></div>
+  </div>
+  <div class="aiPane" id="aiP-voice">
+    <div class="aiVoice" id="aiV">
+      <div class="aiOrbW" id="aiOrbW"><canvas id="aiOrb" width="560" height="560"></canvas><div class="aiOrbHint">Tap to talk</div></div>
+      <div class="aiVStat" id="aiVStat">Tap the orb to start talking</div>
+      <div class="aiCaps"><div id="aiCapU"></div><div id="aiCapA"></div></div>
+      <div class="aiVCtl"><button id="aiMute">🎙️</button><button id="aiEnd">✕</button></div>
+      <div class="tiny" style="opacity:.6;margin-top:8px">Voice: <b id="aiVName">Aoede</b> · change in ⚙️ · talk in English, Tagalog or Japanese</div>
+    </div>
+  </div>
+  <div class="aiPane" id="aiP-setup">
+    <div class="aiSet">
+      <h3>🔑 Connect Hana-sensei</h3>
+      <ol class="aiSteps"><li>Get a <b>free</b> Gemini API key from Google AI Studio (sign in with Google, tap <i>Create API key</i>).</li><li>Copy it and paste it here.</li><li>Tap <b>Test &amp; save</b>.</li></ol>
+      <button class="btn full" id="aiGetKey">🌐 Open Google AI Studio</button>
+      <input id="aiKey" class="dSearch" placeholder="Paste your API key (AIza…)" autocomplete="off" style="margin-top:12px">
+      <button class="btn shu full" id="aiTest">Test &amp; save key</button>
+      <p class="tiny muted" style="line-height:1.5;margin-top:10px">Your key is saved only on this phone and is sent only to Google. On Google's free tier, Google may use what you say to improve its products, so don't share private info. Free use has limits per minute and per day.</p>
+      <h3 style="margin-top:20px">🗣️ Choose her voice</h3><p class="tiny muted">Tap a name to choose · tap ▶ to hear it</p>
+      <div class="aiVoices" id="aiVoices"></div>
+      <div class="row" style="margin-top:16px"><span class="grow"><b>Auto-read chat replies aloud</b></span><button class="switch" id="aiAuto"></button></div>
+      <div class="row" style="gap:8px;margin-top:16px"><button class="btn grow" id="aiClear">🧹 Clear chat</button><button class="btn grow" id="aiForget">🗝️ Remove key</button></div>
+    </div>
+  </div>
+</div>
 <div id="srs"><div class="srIn" id="srIn"></div></div>
 <div id="peek"><div class="pk"></div></div>
 <div id="lock">
@@ -1857,7 +1938,7 @@ $("#aTime").onchange=e=>{S.alarm.t=e.target.value;S.alarm.fired="";save();render
 $("#aTest").onclick=()=>{ac();startRing()};
 function alarmSound(){const a=ac();if(!a)return;[0,.18,.36].forEach(w=>{tone(988,.14,"square",.22,w);tone(1319,.14,"square",.12,w+.07)})}
 let wake=null;async function keepAwake(){try{if(navigator.wakeLock&&S.alarm.on&&!wake)wake=await navigator.wakeLock.request("screen")}catch(e){}}
-function startRing(){if(ringing)return;ringing=true;rState={n:0,miss:0,sm:0,missed:[],paused:false,lv:LEVELS[S.alarm.lv]};$("#ring").classList.add("on");$("#rLv").textContent=rState.lv;alarmSound();ringTimer=setInterval(()=>{if(rState.paused)return;alarmSound();buzz([400,200,400])},1200);ringNext()}
+function startRing(){if(ringing)return;try{if(typeof LV!=="undefined"&&LV.on)lvStop()}catch(e){}ringing=true;rState={n:0,miss:0,sm:0,missed:[],paused:false,lv:LEVELS[S.alarm.lv]};$("#ring").classList.add("on");$("#rLv").textContent=rState.lv;alarmSound();ringTimer=setInterval(()=>{if(rState.paused)return;alarmSound();buzz([400,200,400])},1200);ringNext()}
 function ringNext(){$("#rCount").textContent=rState.n+" / 5";$("#rMiss").textContent=rState.miss;$("#rBar").style.width=(rState.n/5*100)+"%";if(rState.n>=5)return stopRing();
  $("#rStudy").classList.toggle("on",rState.sm>=5);const q=kanjiQ(rState.lv);renderQ($("#rQ"),q,ok=>{if(ok){rState.n++;setTimeout(ringNext,450)}else{rState.miss++;rState.sm++;addMissed(rState.missed,q.k);$("#rMiss").textContent=rState.miss;if(rState.sm>=5)$("#rStudy").classList.add("on");setTimeout(ringNext,2600)}})}
 function stopRing(){clearInterval(ringTimer);ringTimer=null;ringing=false;try{navigator.vibrate&&navigator.vibrate(0)}catch(e){}$("#ring").classList.remove("on");const a=S.alarm;S.alarmsDone++;let msg="おはよう！ Good morning! +40 XP";
@@ -2186,6 +2267,161 @@ function openRescue(ctx){const st=ctx==="ring"?rState:ctx==="sl"?slState:LKS;if(
    toast("💪 Studied! Now try again. They'll come up next")}};
  draw()}
 $("#rStudy").onclick=()=>openRescue("ring");$("#slStudy").onclick=()=>openRescue("sl");$("#lStudy").onclick=e=>{e.stopPropagation();openRescue("lock")};
+
+
+/* ================= AI SENSEI: chat + real-time voice (Gemini) ================= */
+const AI_VOICES=[["Aoede","Breezy"],["Sulafat","Warm"],["Leda","Youthful"],["Kore","Firm"],["Zephyr","Bright"],["Puck","Upbeat"],["Charon","Informative"],["Fenrir","Excitable"],["Orus","Firm"],["Callirrhoe","Easy-going"],["Autonoe","Bright"],["Enceladus","Breathy"],["Iapetus","Clear"],["Umbriel","Easy-going"],["Algieba","Smooth"],["Despina","Smooth"],["Erinome","Clear"],["Algenib","Gravelly"],["Rasalgethi","Informative"],["Laomedeia","Upbeat"],["Achernar","Soft"],["Alnilam","Firm"],["Schedar","Even"],["Gacrux","Mature"],["Pulcherrima","Forward"],["Achird","Friendly"],["Zubenelgenubi","Casual"],["Vindemiatrix","Gentle"],["Sadachbia","Lively"],["Sadaltager","Knowledgeable"]];
+const AI_LIVE_MODELS=["gemini-3.8-live","gemini-3.1-flash-live-preview","gemini-2.5-flash-native-audio-preview-12-2025","gemini-2.5-flash-native-audio-preview-09-2025"];
+const AI_CHAT_MODELS=["gemini-flash-latest","gemini-3.6-flash","gemini-2.5-flash"];
+const AI_TTS_MODELS=["gemini-3.8-flash-lite-tts","gemini-3.8-flash-tts","gemini-2.5-flash-preview-tts"];
+const AI_API="https://generativelanguage.googleapis.com/v1beta/";
+function aiCfg(){let c={};try{c=JSON.parse(localStorage.getItem("kd_ai")||"{}")}catch(e){}c.voice=c.voice||"Aoede";return c}
+function aiSave(c){try{localStorage.setItem("kd_ai",JSON.stringify(c))}catch(e){}}
+function aiHist(){try{return JSON.parse(localStorage.getItem("kd_aichat")||"[]")}catch(e){return[]}}
+function aiHistSave(h){try{localStorage.setItem("kd_aichat",JSON.stringify(h.slice(-60)))}catch(e){}}
+function aiContext(){const lv=S.lv,m=mastered(lv),t=ITEMS(lv).length;
+ const weak=Object.entries(S.ks||{}).filter(([id,v])=>v.w>0&&v.w>=v.c).sort((a,b)=>b[1].w-a[1].w).slice(0,8).map(([id])=>{const it=ALLV[id.replace(/^v:/,"")]||ALLK[id];return it?`${it.c} (${it.r}, ${it.m})`:null}).filter(Boolean);
+ const gl=GLES[lv]||[];const nextG=gl.find(x=>!glDone(x.id));const gdone=gl.filter(x=>glDone(x.id)).length;
+ return `Student profile (from the Kanji Dojo app):\n- Current JLPT level: ${lv}. Mastered ${m}/${t} kanji & words at this level.\n- Grammar lessons done at ${lv}: ${gdone}/${gl.length}.${nextG?` Next grammar lesson: ${nextG.t}.`:""}\n- Kanji/words they keep getting wrong: ${weak.length?weak.join(", "):"none yet"}.\n- Study streak: ${S.streak} days. XP: ${S.xp}.`}
+function aiSystem(voice){const c=aiCfg();return `You are Hana-sensei (花先生), the student's personal Japanese tutor and study buddy inside the Kanji Dojo app. You are warm, funny, upbeat and genuinely brilliant at Japanese: you explain like the best human teacher, never like a textbook.
+
+Personality and style:
+- Talk like a real, friendly person: natural, relaxed, encouraging, with light humor. Celebrate wins ("Sugoi!", "Yatta!") but don't overdo it.
+- Mirror the student's language. If they write or speak English, use English. If they use Tagalog or Taglish, reply in natural Taglish. Mix in Japanese as practice.
+- Teach at the student's level (see profile). Above their level, always add the reading in hiragana and the meaning.
+- Be accurate. Give correct readings, meanings, stroke-related facts and grammar. If you're not sure about something, say so honestly instead of guessing.
+- Correct mistakes gently: show the correct version, explain why in one simple line, then let them try again.
+- Teach actively: ask one question at a time, quiz them, give memory tricks (like "口 is a square mouth"), use small examples from daily life.
+- If they ask whether you're a human, be honest that you're an AI tutor, then keep going warmly.
+${voice?`- THIS IS A LIVE VOICE CALL. Speak naturally like a person on a call: short turns (1 to 3 sentences), no lists, no markdown, no emoji, no reading out symbols. Pronounce Japanese clearly and a bit slowly, then say the meaning. Pause and let the student answer. If they speak Japanese, respond to it and gently fix pronunciation or grammar.`:`- This is a text chat. Keep replies short and easy to read on a phone (usually under 120 words). You may use **bold** and short bullet lists. Write Japanese with readings like 漢字（かんじ）.`}
+
+${aiContext()}`}
+/* ---- PCM helpers ---- */
+function b64FromBytes(u8){let s="";for(let i=0;i<u8.length;i+=0x8000)s+=String.fromCharCode.apply(null,u8.subarray(i,i+0x8000));return btoa(s)}
+function f32ToPcm16b64(f){const o=new Int16Array(f.length);for(let i=0;i<f.length;i++){const v=Math.max(-1,Math.min(1,f[i]));o[i]=v<0?v*0x8000:v*0x7fff}return b64FromBytes(new Uint8Array(o.buffer))}
+function pcm16b64ToF32(b){const bin=atob(b),n=bin.length>>1,o=new Float32Array(n);for(let i=0;i<n;i++){let v=bin.charCodeAt(2*i)|(bin.charCodeAt(2*i+1)<<8);if(v>=0x8000)v-=0x10000;o[i]=v/0x8000}return o}
+function downsample(buf,from,to){if(from===to)return buf;const r=from/to,n=Math.floor(buf.length/r),o=new Float32Array(n);for(let i=0;i<n;i++){const s=Math.floor(i*r),e=Math.min(buf.length,Math.floor((i+1)*r));let a=0;for(let j=s;j<e;j++)a+=buf[j];o[i]=a/Math.max(1,e-s)}return o}
+/* audio player for 24 kHz PCM chunks, with an analyser for the orb */
+const AIP={ctx:null,an:null,next:0,srcs:[]};
+function aiPlayCtx(){if(!AIP.ctx){const C=window.AudioContext||window.webkitAudioContext;AIP.ctx=new C({sampleRate:24000});AIP.an=AIP.ctx.createAnalyser();AIP.an.fftSize=256;AIP.an.connect(AIP.ctx.destination)}if(AIP.ctx.state==="suspended")AIP.ctx.resume();return AIP.ctx}
+function aiPlayChunk(b64){const c=aiPlayCtx(),f=pcm16b64ToF32(b64);if(!f.length)return;const buf=c.createBuffer(1,f.length,24000);buf.copyToChannel?buf.copyToChannel(f,0):buf.getChannelData(0).set(f);
+ const s=c.createBufferSource();s.buffer=buf;s.connect(AIP.an);const t=Math.max(c.currentTime+.04,AIP.next);s.start(t);AIP.next=t+buf.duration;AIP.srcs.push(s);s.onended=()=>{AIP.srcs=AIP.srcs.filter(x=>x!==s)}}
+function aiStopAudio(){AIP.srcs.forEach(s=>{try{s.stop()}catch(e){}});AIP.srcs=[];AIP.next=0}
+function aiSpeaking(){return AIP.ctx&&AIP.next>AIP.ctx.currentTime+.02}
+/* ---- REST: chat (streaming) and TTS ---- */
+async function aiPost(models,path,body,stream){const c=aiCfg();let last="";
+ for(const m of (c.chatModel&&path.includes("Generate")&&!path.includes("tts")?[c.chatModel,...models.filter(x=>x!==c.chatModel)]:models)){
+  try{const r=await fetch(`${AI_API}models/${m}:${path}${path.includes("?")?"&":"?"}key=${encodeURIComponent(c.key||"")}`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
+   if(r.ok)return{r,m};const t=await r.text();last=`${r.status} ${t.slice(0,300)}`;if(r.status===400&&/API key/i.test(t)||r.status===401||r.status===403)throw new Error("KEY:"+last);if(r.status===429)throw new Error("QUOTA:"+last)}
+  catch(e){if(/^(KEY|QUOTA):/.test(e.message))throw e;last=e.message}}
+ throw new Error(last||"Network error")}
+async function aiChatSend(text,onDelta){const h=aiHist();const contents=h.slice(-24).map(x=>({role:x.r==="u"?"user":"model",parts:[{text:x.t}]}));contents.push({role:"user",parts:[{text}]});
+ const {r,m}=await aiPost(AI_CHAT_MODELS,"streamGenerateContent?alt=sse",{systemInstruction:{parts:[{text:aiSystem(false)}]},contents,generationConfig:{temperature:.8,maxOutputTokens:2048}},true);
+ const c=aiCfg();if(c.chatModel!==m){c.chatModel=m;aiSave(c)}
+ let out="";const rd=r.body&&r.body.getReader?r.body.getReader():null;
+ const eat=chunk=>{chunk.split("\n").forEach(line=>{line=line.trim();if(!line.startsWith("data:"))return;try{const j=JSON.parse(line.slice(5));((j.candidates&&j.candidates[0]&&j.candidates[0].content&&j.candidates[0].content.parts)||[]).forEach(p=>{if(p.text&&!p.thought){out+=p.text;onDelta(out)}})}catch(e){}})};
+ if(rd){const dec=new TextDecoder();let buf="";for(;;){const {done,value}=await rd.read();if(done)break;buf+=dec.decode(value,{stream:true});const k=buf.lastIndexOf("\n");if(k>=0){eat(buf.slice(0,k));buf=buf.slice(k+1)}}eat(buf)}else eat(await r.text());
+ return out.trim()}
+async function aiTTS(text){const c=aiCfg();const clean=text.replace(/\*\*|__|[#>`]/g,"").replace(/[（(][ぁ-んァ-ンー・\s]+[）)]/g,"").slice(0,900);
+ const {r}=await aiPost(AI_TTS_MODELS,"generateContent",{contents:[{parts:[{text:"Say this warmly and naturally, like a friendly Japanese teacher: "+clean}]}],generationConfig:{responseModalities:["AUDIO"],speechConfig:{voiceConfig:{prebuiltVoiceConfig:{voiceName:c.voice}}}}});
+ const j=await r.json();const parts=((j.candidates||[])[0]||{}).content;const p=((parts&&parts.parts)||[]).find(x=>x.inlineData);if(!p)throw new Error("No audio");aiStopAudio();aiPlayChunk(p.inlineData.data)}
+/* ---- LIVE voice session ---- */
+const LV={ws:null,on:false,ready:false,muted:false,mic:null,mctx:null,proc:null,model:null,uTxt:"",aTxt:"",level:0,raf:0,closing:false};
+function lvStatus(t){const e=$("#aiVStat");if(e)e.textContent=t}
+async function lvStart(){if(LV.on)return;const c=aiCfg();if(!c.key){aiShow("setup");return}
+ if(IS_APK&&nativeBuild()<9){lvStatus("Voice needs the new app version (2.6). Install it from the update pop-up. Chat works now!");return}
+ LV.on=true;LV.closing=false;$("#aiV").classList.add("live");lvStatus("Getting your microphone…");aiPlayCtx();
+ try{await lvMic()}catch(e){LV.on=false;$("#aiV").classList.remove("live");lvStatus(e.message);return}
+ if(!LV.on){lvStop();return}
+ lvConnect(0)}
+async function lvMic(){const gum=()=>navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true,channelCount:1}});
+ let st=null;for(let a=0;a<6&&!st;a++){try{st=await gum()}catch(e){if(IS_APK&&a===0)native("mic");if(a===5)throw new Error("🎙️ Microphone not allowed. Allow it for Kanji Dojo (Android settings → Apps → Kanji Dojo → Permissions), then tap Start again.");lvStatus("Please tap Allow for the microphone 🎙️");await new Promise(r=>setTimeout(r,2500))}}
+ LV.mic=st;const C=window.AudioContext||window.webkitAudioContext;LV.mctx=new C();const src=LV.mctx.createMediaStreamSource(st);const pr=LV.mctx.createScriptProcessor(4096,1,1);
+ pr.onaudioprocess=e=>{const d=e.inputBuffer.getChannelData(0);let s=0;for(let i=0;i<d.length;i+=16)s+=d[i]*d[i];LV.level=Math.sqrt(s/(d.length/16));
+  if(LV.ready&&!LV.muted&&LV.ws&&LV.ws.readyState===1){LV.ws.send(JSON.stringify({realtimeInput:{audio:{data:f32ToPcm16b64(downsample(d,LV.mctx.sampleRate,16000)),mimeType:"audio/pcm;rate=16000"}}}))}};
+ src.connect(pr);const g=LV.mctx.createGain();g.gain.value=0;pr.connect(g);g.connect(LV.mctx.destination);LV.proc=pr}
+function lvConnect(mi){const c=aiCfg();const models=c.liveModel?[c.liveModel,...AI_LIVE_MODELS.filter(x=>x!==c.liveModel)]:AI_LIVE_MODELS;const model=models[mi];
+ if(!model){lvStatus("Couldn't start a voice session. Check your key or try again later.");lvStop(true);return}
+ lvStatus(mi?"Trying another voice model…":"Connecting to Hana-sensei…");LV.ready=false;LV.model=model;
+ const ws=new WebSocket(`wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent?key=${encodeURIComponent(c.key)}`);LV.ws=ws;
+ ws.onopen=()=>{const recent=aiHist().slice(-8).map(x=>(x.r==="u"?"Student: ":"You: ")+x.t).join("\n");
+  ws.send(JSON.stringify({setup:{model:"models/"+model,generationConfig:{responseModalities:["AUDIO"],speechConfig:{voiceConfig:{prebuiltVoiceConfig:{voiceName:c.voice}}}},
+   systemInstruction:{parts:[{text:aiSystem(true)+(recent?`\n\nRecent chat with the student (for continuity):\n${recent}`:"")}]},inputAudioTranscription:{},outputAudioTranscription:{},contextWindowCompression:{slidingWindow:{}}}}))};
+ ws.onmessage=async ev=>{let d=ev.data;if(typeof d!=="string")d=await (d.text?d.text():new Response(d).text());let j;try{j=JSON.parse(d)}catch(e){return}
+  if(j.setupComplete){LV.ready=true;const cc=aiCfg();if(cc.liveModel!==model){cc.liveModel=model;aiSave(cc)}lvStatus("Listening… just talk 🎙️");sfx.pop();
+   const hi="(The student just started a voice call with you. Greet them warmly in one or two short sentences, mention something from their profile, and ask what they want to practice.)";
+   ws.send(JSON.stringify(/^gemini-2\./.test(model)?{clientContent:{turns:[{role:"user",parts:[{text:hi}]}],turnComplete:true}}:{realtimeInput:{text:hi}}));return}
+  const sc=j.serverContent;if(sc){
+   if(sc.interrupted){aiStopAudio();lvCap()}
+   if(sc.inputTranscription&&sc.inputTranscription.text){LV.uTxt+=sc.inputTranscription.text;lvCap()}
+   if(sc.outputTranscription&&sc.outputTranscription.text){LV.aTxt+=sc.outputTranscription.text;lvCap()}
+   ((sc.modelTurn&&sc.modelTurn.parts)||[]).forEach(p=>{if(p.inlineData&&p.inlineData.data)aiPlayChunk(p.inlineData.data)});
+   if(sc.modelTurn)lvStatus("Hana-sensei is talking… (you can interrupt)");
+   if(sc.turnComplete){const h=aiHist();if(LV.uTxt.trim())h.push({r:"u",t:LV.uTxt.trim(),v:1});if(LV.aTxt.trim())h.push({r:"a",t:LV.aTxt.trim(),v:1});aiHistSave(h);LV.uTxt="";LV.aTxt="";setTimeout(()=>{if(LV.on&&!aiSpeaking())lvStatus("Listening… your turn 🎙️")},600)}}
+  if(j.goAway)lvStatus("Session ending soon. Tap end, then start again to continue.")};
+ ws.onclose=ev=>{if(LV.closing||!LV.on)return;const why=(ev.reason||"").toLowerCase();
+  if(!LV.ready&&(why.includes("model")||why.includes("not found")||why.includes("not supported")||ev.code===1008||ev.code===1007)&&!/api key|permission|quota/.test(why)){lvConnect(mi+1);return}
+  lvStatus(/api key/.test(why)?"❌ Your API key isn't working. Check it in ⚙️ Settings.":/quota|exhaust|rate/.test(why)?"⏳ Free limit reached for now. Try again in a bit.":"Call ended."+(ev.reason?" ("+ev.reason.slice(0,90)+")":""));lvStop(true)};
+ ws.onerror=()=>{}}
+function lvCap(){const u=$("#aiCapU"),a=$("#aiCapA");if(u)u.innerHTML=LV.uTxt?"🧑 "+esc(LV.uTxt):"";if(a)a.innerHTML=LV.aTxt?"🌸 "+jlink(LV.aTxt):""}
+function lvStop(keepMsg){LV.closing=true;LV.on=false;LV.ready=false;try{LV.ws&&LV.ws.close()}catch(e){}LV.ws=null;aiStopAudio();
+ try{LV.proc&&LV.proc.disconnect()}catch(e){}try{LV.mic&&LV.mic.getTracks().forEach(t=>t.stop())}catch(e){}try{LV.mctx&&LV.mctx.close()}catch(e){}LV.mic=LV.mctx=LV.proc=null;
+ const h=aiHist();if(LV.uTxt.trim())h.push({r:"u",t:LV.uTxt.trim(),v:1});if(LV.aTxt.trim())h.push({r:"a",t:LV.aTxt.trim(),v:1});aiHistSave(h);LV.uTxt=LV.aTxt="";
+ const v=$("#aiV");if(v)v.classList.remove("live");if(!keepMsg)lvStatus("Tap the orb to start talking");lvCap()}
+function lvMute(){LV.muted=!LV.muted;$("#aiMute").classList.toggle("off",LV.muted);$("#aiMute").textContent=LV.muted?"🔇":"🎙️";
+ if(LV.muted&&LV.ws&&LV.ready)LV.ws.send(JSON.stringify({realtimeInput:{audioStreamEnd:true}}));lvStatus(LV.muted?"Mic muted":"Listening… 🎙️")}
+/* orb animation */
+function orbLoop(){const cv=$("#aiOrb");if(!cv||!$("#ai").classList.contains("on")){LV.raf=0;return}LV.raf=requestAnimationFrame(orbLoop);
+ const g=cv.getContext("2d"),W=cv.width,H=cv.height,t=performance.now()/1000;let out=0;
+ if(AIP.an&&aiSpeaking()){const a=new Uint8Array(AIP.an.frequencyBinCount);AIP.an.getByteFrequencyData(a);let s=0;for(const x of a)s+=x;out=s/a.length/120}
+ const inp=LV.on&&!LV.muted?Math.min(1,LV.level*6):0;const e=Math.max(out,inp*.7);LV.e=(LV.e||0)*.8+e*.2;const k=LV.e;
+ g.clearRect(0,0,W,H);const cx=W/2,cy=H/2,R=W*.27*(1+k*.22);
+ for(let i=3;i>=0;i--){const rr=R*(1+i*.16+Math.sin(t*1.6+i)*.02+k*.12*i);const gr=g.createRadialGradient(cx,cy,rr*.2,cx,cy,rr);gr.addColorStop(0,`rgba(255,255,255,${.06-i*.01})`);gr.addColorStop(1,"rgba(255,255,255,0)");g.fillStyle=gr;g.beginPath();g.arc(cx,cy,rr,0,7);g.fill()}
+ g.save();g.beginPath();const N=90;for(let i=0;i<=N;i++){const an=i/N*Math.PI*2;const w=1+.05*Math.sin(an*3+t*2)+.04*Math.sin(an*5-t*2.6)+k*.14*Math.sin(an*7+t*9);const x=cx+Math.cos(an)*R*w,y=cy+Math.sin(an)*R*w;i?g.lineTo(x,y):g.moveTo(x,y)}g.closePath();g.clip();
+ const c1=LV.on?(out>inp?["#ff7eb6","#9b7bff","#4fc3ff"]:["#4fe3a8","#4fc3ff","#9b7bff"]):["#ffb3d0","#c9b8ff","#a8e6ff"];
+ for(let i=0;i<3;i++){const ox=cx+Math.cos(t*(.7+i*.3)+i*2)*R*.45,oy=cy+Math.sin(t*(.9+i*.25)+i)*R*.45;const gr=g.createRadialGradient(ox,oy,0,ox,oy,R*1.3);gr.addColorStop(0,c1[i]);gr.addColorStop(1,c1[i]+"00");g.fillStyle=gr;g.fillRect(0,0,W,H)}
+ const sh=g.createRadialGradient(cx-R*.35,cy-R*.4,0,cx-R*.35,cy-R*.4,R*.9);sh.addColorStop(0,"rgba(255,255,255,.75)");sh.addColorStop(1,"rgba(255,255,255,0)");g.fillStyle=sh;g.fillRect(0,0,W,H);g.restore()}
+/* ---- UI ---- */
+function aiOpen(tab){$("#ai").classList.add("on");sfx.pop();const c=aiCfg();aiShow(c.key?(tab||"chat"):"setup");if(!LV.raf)orbLoop()}
+function aiClose(){if(LV.on)lvStop();$("#ai").classList.remove("on");aiStopAudio()}
+function aiShow(v){$$("#ai .aiPane").forEach(p=>p.classList.toggle("on",p.id==="aiP-"+v));$$("#ai .aiTab").forEach(b=>b.classList.toggle("on",b.dataset.t===v));
+ if(v==="chat")aiRenderChat();if(v==="setup")aiRenderSetup();if(v==="voice"){$("#aiVName").textContent=aiCfg().voice;if(!LV.on)lvStatus("Tap the orb to start talking");if(!LV.raf)orbLoop()}if(v!=="voice"&&LV.on)lvStop()}
+function mdLite(t){let h=jlink(t);h=h.replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/(^|\n)\s*[-•*] (.+)/g,"$1<span class='aiLi'>• $2</span>").replace(/\n/g,"<br>");return h}
+function aiRenderChat(){const h=aiHist(),box=$("#aiMsgs");
+ box.innerHTML=(h.length?"":`<div class="aiWelcome"><div class="aiAvBig">${CATSVG}</div><b>こんにちは！ I'm Hana-sensei 🌸</b><span>Your personal Japanese tutor. I know your level (${S.lv}) and the kanji you find hard. Ask me anything, or tap a suggestion!</span></div>`)+
+  h.map((m,i)=>`<div class="aiM ${m.r==="u"?"u":"a"}">${m.r==="a"?`<div class="aiAv">${CATSVG}</div>`:""}<div class="aiBub">${m.v?'<i class="aiVTag">🎙️ voice</i>':""}${m.r==="u"?esc(m.t):mdLite(m.t)}${m.r==="a"?`<button class="aiSay" data-i="${i}">🔊</button>`:""}</div></div>`).join("");
+ $$("#aiMsgs .aiSay").forEach(b=>b.onclick=()=>aiSayMsg(b,aiHist()[+b.dataset.i].t));box.scrollTop=box.scrollHeight}
+async function aiSayMsg(b,t){b.textContent="⏳";try{await aiTTS(t);b.textContent="🔊"}catch(e){b.textContent="🔊";if(window.speechSynthesis)say(t);else toast("Couldn't play audio 😿")}}
+let aiBusy=false;
+async function aiSend(text){text=(text||"").trim();if(!text||aiBusy)return;const c=aiCfg();if(!c.key){aiShow("setup");return}aiBusy=true;$("#aiIn").value="";
+ const h=aiHist();h.push({r:"u",t:text});aiHistSave(h);aiRenderChat();const box=$("#aiMsgs");
+ const el=document.createElement("div");el.className="aiM a";el.innerHTML=`<div class="aiAv">${CATSVG}</div><div class="aiBub"><span class="aiDots"><i></i><i></i><i></i></span></div>`;box.appendChild(el);box.scrollTop=box.scrollHeight;
+ try{const out=await aiChatSend(text,t=>{el.querySelector(".aiBub").innerHTML=mdLite(t);box.scrollTop=box.scrollHeight});
+  const hh=aiHist();hh.push({r:"a",t:out||"(no answer)"});aiHistSave(hh);aiRenderChat();sfx.pop();if(aiCfg().autoSpeak&&out){const bs=$$("#aiMsgs .aiSay");const lb=bs[bs.length-1];if(lb)aiSayMsg(lb,out)}}
+ catch(e){const m=e.message||"";el.querySelector(".aiBub").innerHTML=/^KEY:/.test(m)?"❌ Your API key isn't working. Tap ⚙️ to check it.":/^QUOTA:/.test(m)?"⏳ The free limit is used up for now. Try again in a minute.":"😿 Couldn't reach Hana-sensei. Check your internet and try again.<br><small>"+esc(m.slice(0,140))+"</small>";const hh=aiHist();hh.pop();aiHistSave(hh)}
+ aiBusy=false}
+function aiRenderSetup(){const c=aiCfg();$("#aiKey").value=c.key||"";$("#aiAuto").classList.toggle("on",!!c.autoSpeak);
+ $("#aiVoices").innerHTML=AI_VOICES.map(([n,d])=>`<button class="aiVo ${n===c.voice?"on":""}" data-v="${n}"><b>${n}</b><span>${d}</span><i data-p="${n}">▶</i></button>`).join("");
+ $$("#aiVoices .aiVo").forEach(b=>b.onclick=e=>{const cc=aiCfg();cc.voice=b.dataset.v;aiSave(cc);$$("#aiVoices .aiVo").forEach(x=>x.classList.toggle("on",x===b));sfx.pop();if(e.target.dataset.p)aiPreview(b.dataset.v,e.target)})}
+async function aiPreview(v,el){const c=aiCfg();if(!c.key){toast("Add your API key first 🔑");return}el.textContent="⏳";
+ try{const {r}=await aiPost(AI_TTS_MODELS,"generateContent",{contents:[{parts:[{text:"Say cheerfully and naturally: Hi! I'm Hana-sensei. Let's learn Japanese together. よろしくね！"}]}],generationConfig:{responseModalities:["AUDIO"],speechConfig:{voiceConfig:{prebuiltVoiceConfig:{voiceName:v}}}}});
+  const j=await r.json();const p=(((j.candidates||[])[0]||{}).content||{parts:[]}).parts.find(x=>x.inlineData);if(!p)throw new Error("no audio");aiStopAudio();aiPlayChunk(p.inlineData.data);el.textContent="▶"}
+ catch(e){el.textContent="▶";toast(/^KEY:/.test(e.message)?"❌ API key not working":"Couldn't preview the voice 😿")}}
+async function aiTestKey(){const k=$("#aiKey").value.trim();if(!k){toast("Paste your key first 🔑");return}const c=aiCfg();c.key=k;aiSave(c);$("#aiTest").textContent="⏳ Testing…";
+ try{const r=await fetch(`${AI_API}models?key=${encodeURIComponent(k)}&pageSize=200`);if(!r.ok)throw new Error(r.status+"");const j=await r.json();const names=(j.models||[]).map(m=>m.name.replace("models/",""));
+  const live=AI_LIVE_MODELS.find(m=>names.includes(m));if(live){c.liveModel=live}const chat=AI_CHAT_MODELS.find(m=>names.includes(m));if(chat)c.chatModel=chat;aiSave(c);
+  $("#aiTest").textContent="✅ Key works! Let's go";stamp("合格");sfx.win();setTimeout(()=>aiShow("chat"),900)}
+ catch(e){$("#aiTest").textContent="Test & save key";toast(e.message==="400"||e.message==="403"?"❌ That key doesn't work. Copy it again from AI Studio.":"😿 Couldn't check the key (no internet?). Saved anyway.")}}
+$("#aiClose").onclick=aiClose;$$("#ai .aiTab").forEach(b=>b.onclick=()=>aiShow(b.dataset.t));
+$("#aiSendB").onclick=()=>aiSend($("#aiIn").value);$("#aiIn").onkeydown=e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();aiSend($("#aiIn").value)}};
+$$("#ai .aiSug").forEach(b=>b.onclick=()=>aiSend(b.dataset.q||b.textContent));
+$("#aiOrbW").onclick=()=>{if(LV.on)return;lvStart()};$("#aiEnd").onclick=()=>lvStop();$("#aiMute").onclick=lvMute;
+$("#aiTest").onclick=aiTestKey;$("#aiGetKey").onclick=()=>{const u="https://aistudio.google.com/apikey";if(IS_APK)native("open/"+u);else window.open(u,"_blank")};
+$("#aiAuto").onclick=()=>{const c=aiCfg();c.autoSpeak=!c.autoSpeak;aiSave(c);$("#aiAuto").classList.toggle("on",c.autoSpeak)};
+$("#aiClear").onclick=()=>{aiHistSave([]);aiRenderChat();toast("Chat cleared 🧹")};
+$("#aiForget").onclick=()=>{const c=aiCfg();delete c.key;aiSave(c);$("#aiKey").value="";toast("Key removed from this phone")};
+$("#aiHome").onclick=()=>aiOpen();
+document.addEventListener("visibilitychange",()=>{if(document.hidden&&LV.on)lvStop()});
 
 /* ================= STUDY REMINDERS + SESSIONS ================= */
 function remCfg(){S.rem=S.rem||{on:false,t:"20:00",dur:60,pre:[60,15],fired:{}};S.rem.fired=S.rem.fired||{};return S.rem}

@@ -1,18 +1,19 @@
 {
-  "build": 25,
-  "version": "2.5",
+  "build": 26,
+  "version": "2.6",
   "file": "app.html",
-  "size": 426233,
+  "size": 460531,
   "minNative": 6,
   "notes": [
-    "📚 Struggling? After 5 mistakes in the alarm, Study Lock or lock screen, a STUDY button appears",
-    "It shows the kanji and words you missed with meaning, reading, 🔊 and memory trick, then sends you back to try them again",
-    "⏰ The alarm sound pauses while you study, then comes back",
-    "🚨 Emergency is now 15 minutes (Study Lock and lock screen)"
+    "🌸 NEW: Hana-sensei, your AI Japanese tutor! Chat with her or talk in a real-time voice call",
+    "🗣️ 30 natural human-like voices to choose from (tap ▶ to hear each one)",
+    "🧠 She knows your level, your weak kanji and your grammar progress, corrects you gently and quizzes you",
+    "🔑 Uses your own free Gemini API key (setup guide inside)",
+    "🎙️ Voice calls need the new app version 2.6 (microphone permission)"
   ],
   "native": {
-    "build": 8,
-    "version": "2.1",
+    "build": 9,
+    "version": "2.6",
     "url": "https://github.com/clarkremo40-lgtm/kanji-dojo/raw/main/KanjiDojo.apk"
   }
 }
