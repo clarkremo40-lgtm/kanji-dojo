@@ -1,12 +1,11 @@
 {
-  "build": 29,
-  "version": "2.9",
+  "build": 30,
+  "version": "3.0",
   "file": "app.html",
-  "size": 480996,
+  "size": 485423,
   "minNative": 6,
   "notes": [
-    "🌸 Hana-sensei is getting a built-in connection: soon she'll work for everyone with no setup at all",
-    "Your own Gemini key (if you added one) still works under ⚙️ Advanced"
+    "🔐 New 'Log in with Google' button to connect Hana-sensei: log in, tap Create API key and Copy, come back, and she connects by herself"
   ],
   "native": {
     "build": 10,
