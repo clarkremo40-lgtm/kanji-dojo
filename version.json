@@ -1,12 +1,12 @@
 {
-  "build": 28,
-  "version": "2.8",
+  "build": 29,
+  "version": "2.9",
   "file": "app.html",
-  "size": 479197,
+  "size": 480996,
   "minNative": 6,
   "notes": [
-    "🌸 Hana-sensei is now in the navbar: tap the glowing cat in the middle to chat or call her anytime",
-    "☁️ Account section added to Progress (cloud login coming very soon)"
+    "🌸 Hana-sensei is getting a built-in connection: soon she'll work for everyone with no setup at all",
+    "Your own Gemini key (if you added one) still works under ⚙️ Advanced"
   ],
   "native": {
     "build": 10,

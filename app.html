@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <script>
-var KD_BUILD=28,KD_VER="2.8",KD_NATIVE=10;
+var KD_BUILD=29,KD_VER="2.9",KD_NATIVE=10;
 (function(){try{if(window.__KD_SWAP)return;var ls=localStorage;
  if(location.href.indexOf("file:///android_asset")===0)ls.setItem("kd_native",String(KD_NATIVE));
  var b=+(ls.getItem("kd_build")||0),h=ls.getItem("kd_html");
@@ -476,6 +476,8 @@ select{font-family:inherit;font-size:15px;font-weight:700;background:var(--ink3)
 .aiVCtl button{width:64px;height:64px;border-radius:50%;border:none;font-size:26px;background:#fff;box-shadow:0 6px 18px rgba(123,92,255,.2)}
 .aiVCtl #aiEnd{background:linear-gradient(135deg,#ff5a6e,#e3203f);color:#fff}.aiVCtl #aiMute.off{background:#2d2147}
 .aiSet{overflow:auto;padding:4px 16px calc(24px + env(safe-area-inset-bottom,0px))}.aiSet h3{margin:6px 0 8px}
+.aiBuiltIn{padding:14px 16px;border-radius:18px;background:#fff;box-shadow:0 3px 0 #eee6ff;font-size:14px;line-height:1.5;margin:6px 0 14px}
+.aiAdv{margin:4px 0 6px;font-size:14px}.aiAdv summary{font-weight:800;color:#7b5cff;cursor:pointer;padding:8px 0}
 .aiSteps{padding-left:20px;line-height:1.6;font-size:14px;margin:0 0 12px}
 .aiVoices{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .aiVo{position:relative;border:2px solid transparent;border-radius:16px;padding:10px 40px 10px 12px;background:#fff;text-align:left;font-family:inherit;color:#2d2147;box-shadow:0 3px 0 #eee6ff}
@@ -846,12 +848,14 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
   </div>
   <div class="aiPane" id="aiP-setup">
     <div class="aiSet">
-      <h3>🔑 Connect Hana-sensei</h3>
-      <ol class="aiSteps"><li>Get a <b>free</b> Gemini API key from Google AI Studio (sign in with Google, tap <i>Create API key</i>).</li><li>Copy it and paste it here.</li><li>Tap <b>Test &amp; save</b>.</li></ol>
+      <div id="aiBuiltIn" class="aiBuiltIn"></div>
+      <details class="aiAdv" id="aiAdv"><summary>Advanced: use my own Gemini key (optional)</summary>
+      <ol class="aiSteps"><li>Get a free Gemini API key from Google AI Studio.</li><li>Paste it here and tap <b>Test &amp; save</b>.</li></ol>
       <button class="btn full" id="aiGetKey">🌐 Open Google AI Studio</button>
       <input id="aiKey" class="dSearch" placeholder="Paste your API key (AIza…)" autocomplete="off" style="margin-top:12px">
       <button class="btn shu full" id="aiTest">Test &amp; save key</button>
-      <p class="tiny muted" style="line-height:1.5;margin-top:10px">Your key is saved only on this phone and is sent only to Google. On Google's free tier, Google may use what you say to improve its products, so don't share private info. Free use has limits per minute and per day.</p>
+      <p class="tiny muted" style="line-height:1.5;margin-top:10px">Your key is saved only on this phone and is sent only to Google.</p></details>
+      <p class="tiny muted" style="line-height:1.5;margin-top:10px">Hana-sensei runs on Google Gemini. Google may use conversations to improve its products, so don't share private info.</p>
       <h3 style="margin-top:20px">🗣️ Choose her voice</h3><p class="tiny muted">Tap a name to choose · tap ▶ to hear it</p>
       <div class="aiVoices" id="aiVoices"></div>
       <div class="row" style="margin-top:16px"><span class="grow"><b>Auto-read chat replies aloud</b></span><button class="switch" id="aiAuto"></button></div>
@@ -2305,6 +2309,11 @@ const AI_LIVE_MODELS=["gemini-3.8-live","gemini-3.1-flash-live-preview","gemini-
 const AI_CHAT_MODELS=["gemini-flash-latest","gemini-3.6-flash","gemini-2.5-flash"];
 const AI_TTS_MODELS=["gemini-3.8-flash-lite-tts","gemini-3.8-flash-tts","gemini-2.5-flash-preview-tts"];
 const AI_API="https://generativelanguage.googleapis.com/v1beta/";
+/* Built-in mode: the app talks to Gemini through Firebase AI Logic, so users don't need their own key. A personal key (Advanced) overrides it. */
+const aiOwn=()=>!!aiCfg().key;
+const aiReady=()=>aiOwn()||(typeof FB_ON==="function"&&FB_ON());
+function aiUrl(m,path){if(aiOwn())return`${AI_API}models/${m}:${path}${path.includes("?")?"&":"?"}key=${encodeURIComponent(aiCfg().key)}`;return`https://firebasevertexai.googleapis.com/v1beta/projects/${FB.projectId}/models/${m}:${path}`}
+function aiHeaders(){const h={"Content-Type":"application/json"};if(!aiOwn()){h["x-goog-api-key"]=FB.apiKey;h["x-goog-api-client"]="gl-js/kanjidojo fire/kanjidojo"}return h}
 function aiCfg(){let c={};try{c=JSON.parse(localStorage.getItem("kd_ai")||"{}")}catch(e){}c.voice=c.voice||"Aoede";return c}
 function aiSave(c){try{localStorage.setItem("kd_ai",JSON.stringify(c))}catch(e){}}
 function aiHist(){try{return JSON.parse(localStorage.getItem("kd_aichat")||"[]")}catch(e){return[]}}
@@ -2341,9 +2350,9 @@ function aiSpeaking(){return AIP.ctx&&AIP.next>AIP.ctx.currentTime+.02}
 /* ---- REST: chat (streaming) and TTS ---- */
 async function aiPost(models,path,body,stream){const c=aiCfg();let last="";
  for(const m of (c.chatModel&&path.includes("Generate")&&!path.includes("tts")?[c.chatModel,...models.filter(x=>x!==c.chatModel)]:models)){
-  try{const r=await fetch(`${AI_API}models/${m}:${path}${path.includes("?")?"&":"?"}key=${encodeURIComponent(c.key||"")}`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
-   if(r.ok)return{r,m};const t=await r.text();last=`${r.status} ${t.slice(0,300)}`;if(r.status===400&&/API key/i.test(t)||r.status===401||r.status===403)throw new Error("KEY:"+last);if(r.status===429)throw new Error("QUOTA:"+last)}
-  catch(e){if(/^(KEY|QUOTA):/.test(e.message))throw e;last=e.message}}
+  try{const r=await fetch(aiUrl(m,path),{method:"POST",headers:aiHeaders(),body:JSON.stringify(body)});
+   if(r.ok)return{r,m};const t=await r.text();last=`${r.status} ${t.slice(0,300)}`;if(r.status===400&&/API key/i.test(t)||r.status===401||(r.status===403&&aiOwn()))throw new Error("KEY:"+last);if(r.status===403&&!/not found|not supported|not available/i.test(t))throw new Error("SETUP:"+last);if(r.status===429)throw new Error("QUOTA:"+last)}
+  catch(e){if(/^(KEY|QUOTA|SETUP):/.test(e.message))throw e;last=e.message}}
  throw new Error(last||"Network error")}
 async function aiChatSend(text,onDelta){const h=aiHist();const contents=h.slice(-24).map(x=>({role:x.r==="u"?"user":"model",parts:[{text:x.t}]}));contents.push({role:"user",parts:[{text}]});
  const {r,m}=await aiPost(AI_CHAT_MODELS,"streamGenerateContent?alt=sse",{systemInstruction:{parts:[{text:aiSystem(false)}]},contents,generationConfig:{temperature:.8,maxOutputTokens:2048}},true);
@@ -2358,7 +2367,7 @@ async function aiTTS(text){const c=aiCfg();const clean=text.replace(/\*\*|__|[#>
 /* ---- LIVE voice session ---- */
 const LV={ws:null,on:false,ready:false,muted:false,mic:null,mctx:null,proc:null,model:null,uTxt:"",aTxt:"",level:0,raf:0,closing:false};
 function lvStatus(t){const e=$("#aiVStat");if(e)e.textContent=t}
-async function lvStart(){if(LV.on)return;const c=aiCfg();if(!c.key){aiShow("setup");return}
+async function lvStart(){if(LV.on)return;const c=aiCfg();if(!aiReady()){aiShow("setup");return}
  if(IS_APK&&nativeBuild()<9){lvStatus("Voice needs the new app version (2.6). Install it from the update pop-up. Chat works now!");return}
  LV.on=true;LV.closing=false;$("#aiV").classList.add("live");lvStatus("Getting your microphone…");aiPlayCtx();
  try{await lvMic()}catch(e){LV.on=false;$("#aiV").classList.remove("live");lvStatus(e.message);return}
@@ -2373,9 +2382,9 @@ async function lvMic(){const gum=()=>navigator.mediaDevices.getUserMedia({audio:
 function lvConnect(mi){const c=aiCfg();const models=c.liveModel?[c.liveModel,...AI_LIVE_MODELS.filter(x=>x!==c.liveModel)]:AI_LIVE_MODELS;const model=models[mi];
  if(!model){lvStatus("Couldn't start a voice session. Check your key or try again later.");lvStop(true);return}
  lvStatus(mi?"Trying another voice model…":"Connecting to Hana-sensei…");LV.ready=false;LV.model=model;
- const ws=new WebSocket(`wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent?key=${encodeURIComponent(c.key)}`);LV.ws=ws;
+ const own=!!c.key;const ws=new WebSocket(own?`wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent?key=${encodeURIComponent(c.key)}`:`wss://firebasevertexai.googleapis.com/ws/google.firebase.vertexai.v1beta.GenerativeService/BidiGenerateContent?key=${encodeURIComponent(FB.apiKey)}`);LV.ws=ws;
  ws.onopen=()=>{const recent=aiHist().slice(-8).map(x=>(x.r==="u"?"Student: ":"You: ")+x.t).join("\n");
-  ws.send(JSON.stringify({setup:{model:"models/"+model,generationConfig:{responseModalities:["AUDIO"],speechConfig:{voiceConfig:{prebuiltVoiceConfig:{voiceName:c.voice}}}},
+  ws.send(JSON.stringify({setup:{model:(own?"":`projects/${FB.projectId}/`)+"models/"+model,generationConfig:{responseModalities:["AUDIO"],speechConfig:{voiceConfig:{prebuiltVoiceConfig:{voiceName:c.voice}}}},
    systemInstruction:{parts:[{text:aiSystem(true)+(recent?`\n\nRecent chat with the student (for continuity):\n${recent}`:"")}]},inputAudioTranscription:{},outputAudioTranscription:{},contextWindowCompression:{slidingWindow:{}}}}))};
  ws.onmessage=async ev=>{let d=ev.data;if(typeof d!=="string")d=await (d.text?d.text():new Response(d).text());let j;try{j=JSON.parse(d)}catch(e){return}
   if(j.setupComplete){LV.ready=true;const cc=aiCfg();if(cc.liveModel!==model){cc.liveModel=model;aiSave(cc)}lvStatus("Listening… just talk 🎙️");sfx.pop();
@@ -2391,7 +2400,7 @@ function lvConnect(mi){const c=aiCfg();const models=c.liveModel?[c.liveModel,...
   if(j.goAway)lvStatus("Session ending soon. Tap end, then start again to continue.")};
  ws.onclose=ev=>{if(LV.closing||!LV.on)return;const why=(ev.reason||"").toLowerCase();
   if(!LV.ready&&(why.includes("model")||why.includes("not found")||why.includes("not supported")||ev.code===1008||ev.code===1007)&&!/api key|permission|quota/.test(why)){lvConnect(mi+1);return}
-  lvStatus(/api key/.test(why)?"❌ Your API key isn't working. Check it in ⚙️ Settings.":/quota|exhaust|rate/.test(why)?"⏳ Free limit reached for now. Try again in a bit.":"Call ended."+(ev.reason?" ("+ev.reason.slice(0,90)+")":""));lvStop(true)};
+  lvStatus(/api key/.test(why)?(own?"❌ Your own API key isn't working. Check it in ⚙️.":"😿 Voice isn't available right now. Try chat, or try again later."):/quota|exhaust|rate/.test(why)?"⏳ Free limit reached for now. Try again in a bit.":"Call ended."+(ev.reason?" ("+ev.reason.slice(0,90)+")":""));lvStop(true)};
  ws.onerror=()=>{}}
 function lvCap(){const u=$("#aiCapU"),a=$("#aiCapA");if(u)u.innerHTML=LV.uTxt?"🧑 "+esc(LV.uTxt):"";if(a)a.innerHTML=LV.aTxt?"🌸 "+jlink(LV.aTxt):""}
 function lvStop(keepMsg){LV.closing=true;LV.on=false;LV.ready=false;try{LV.ws&&LV.ws.close()}catch(e){}LV.ws=null;aiStopAudio();
@@ -2412,7 +2421,7 @@ function orbLoop(){const cv=$("#aiOrb");if(!cv||!$("#ai").classList.contains("on
  for(let i=0;i<3;i++){const ox=cx+Math.cos(t*(.7+i*.3)+i*2)*R*.45,oy=cy+Math.sin(t*(.9+i*.25)+i)*R*.45;const gr=g.createRadialGradient(ox,oy,0,ox,oy,R*1.3);gr.addColorStop(0,c1[i]);gr.addColorStop(1,c1[i]+"00");g.fillStyle=gr;g.fillRect(0,0,W,H)}
  const sh=g.createRadialGradient(cx-R*.35,cy-R*.4,0,cx-R*.35,cy-R*.4,R*.9);sh.addColorStop(0,"rgba(255,255,255,.75)");sh.addColorStop(1,"rgba(255,255,255,0)");g.fillStyle=sh;g.fillRect(0,0,W,H);g.restore()}
 /* ---- UI ---- */
-function aiOpen(tab){$("#ai").classList.add("on");sfx.pop();const c=aiCfg();aiShow(c.key?(tab||"chat"):"setup");if(!LV.raf)orbLoop()}
+function aiOpen(tab){$("#ai").classList.add("on");sfx.pop();aiShow(aiReady()?(tab||"chat"):"setup");if(!LV.raf)orbLoop()}
 function aiClose(){if(REC.on)recStop(false);if(LV.on)lvStop();$("#ai").classList.remove("on");aiStopAudio()}
 function aiShow(v){$$("#ai .aiPane").forEach(p=>p.classList.toggle("on",p.id==="aiP-"+v));$$("#ai .aiTab").forEach(b=>b.classList.toggle("on",b.dataset.t===v));
  if(v==="chat")aiRenderChat();if(v==="setup")aiRenderSetup();if(v==="voice"){$("#aiVName").textContent=aiCfg().voice;if(!LV.on)lvStatus("Tap the orb to start talking");if(!LV.raf)orbLoop()}if(v!=="voice"&&LV.on)lvStop()}
@@ -2423,17 +2432,17 @@ function aiRenderChat(){const h=aiHist(),box=$("#aiMsgs");
  $$("#aiMsgs .aiSay").forEach(b=>b.onclick=()=>aiSayMsg(b,aiHist()[+b.dataset.i].t));box.scrollTop=box.scrollHeight}
 async function aiSayMsg(b,t){b.textContent="⏳";try{await aiTTS(t);b.textContent="🔊"}catch(e){b.textContent="🔊";if(window.speechSynthesis)say(t);else toast("Couldn't play audio 😿")}}
 let aiBusy=false;
-async function aiSend(text){text=(text||"").trim();if(!text||aiBusy)return;const c=aiCfg();if(!c.key){aiShow("setup");return}aiBusy=true;$("#aiIn").value="";
+async function aiSend(text){text=(text||"").trim();if(!text||aiBusy)return;const c=aiCfg();if(!aiReady()){aiShow("setup");return}aiBusy=true;$("#aiIn").value="";
  const h=aiHist();h.push({r:"u",t:text});aiHistSave(h);aiRenderChat();const box=$("#aiMsgs");
  const el=document.createElement("div");el.className="aiM a";el.innerHTML=`<div class="aiAv">${CATSVG}</div><div class="aiBub"><span class="aiDots"><i></i><i></i><i></i></span></div>`;box.appendChild(el);box.scrollTop=box.scrollHeight;
  try{const out=await aiChatSend(text,t=>{el.querySelector(".aiBub").innerHTML=mdLite(t);box.scrollTop=box.scrollHeight});
   const hh=aiHist();hh.push({r:"a",t:out||"(no answer)"});aiHistSave(hh);aiRenderChat();sfx.pop();if(aiCfg().autoSpeak&&out){const bs=$$("#aiMsgs .aiSay");const lb=bs[bs.length-1];if(lb)aiSayMsg(lb,out)}}
- catch(e){const m=e.message||"";el.querySelector(".aiBub").innerHTML=/^KEY:/.test(m)?"❌ Your API key isn't working. Tap ⚙️ to check it.":/^QUOTA:/.test(m)?"⏳ The free limit is used up for now. Try again in a minute.":"😿 Couldn't reach Hana-sensei. Check your internet and try again.<br><small>"+esc(m.slice(0,140))+"</small>";const hh=aiHist();hh.pop();aiHistSave(hh)}
+ catch(e){const m=e.message||"";el.querySelector(".aiBub").innerHTML=/^SETUP:/.test(m)?"😿 Hana-sensei is resting right now. Please try again later.":/^KEY:/.test(m)?"❌ Your own API key isn't working. Tap ⚙️ to check it.":/^QUOTA:/.test(m)?"⏳ The free limit is used up for now. Try again in a minute.":"😿 Couldn't reach Hana-sensei. Check your internet and try again.<br><small>"+esc(m.slice(0,140))+"</small>";const hh=aiHist();hh.pop();aiHistSave(hh)}
  aiBusy=false}
-function aiRenderSetup(){const c=aiCfg();$("#aiKey").value=c.key||"";$("#aiAuto").classList.toggle("on",!!c.autoSpeak);
+function aiRenderSetup(){const c=aiCfg();$("#aiKey").value=c.key||"";$("#aiBuiltIn").innerHTML=FB_ON()?(c.key?"🔑 Using your own key. Remove it to go back to the built-in connection.":"✅ <b>Hana-sensei is connected.</b> Nothing to set up, just pick her voice below and start chatting!"):"🌸 <b>Hana-sensei is almost ready.</b> She will be connected automatically in the next update.";$("#aiAdv").open=!FB_ON()||!!c.key;$("#aiAuto").classList.toggle("on",!!c.autoSpeak);
  $("#aiVoices").innerHTML=AI_VOICES.map(([n,d])=>`<button class="aiVo ${n===c.voice?"on":""}" data-v="${n}"><b>${n}</b><span>${d}</span><i data-p="${n}">▶</i></button>`).join("");
  $$("#aiVoices .aiVo").forEach(b=>b.onclick=e=>{const cc=aiCfg();cc.voice=b.dataset.v;aiSave(cc);$$("#aiVoices .aiVo").forEach(x=>x.classList.toggle("on",x===b));sfx.pop();if(e.target.dataset.p)aiPreview(b.dataset.v,e.target)})}
-async function aiPreview(v,el){const c=aiCfg();if(!c.key){toast("Add your API key first 🔑");return}el.textContent="⏳";
+async function aiPreview(v,el){const c=aiCfg();if(!aiReady()){toast("Hana-sensei is almost ready 🌸");return}el.textContent="⏳";
  try{const {r}=await aiPost(AI_TTS_MODELS,"generateContent",{contents:[{parts:[{text:"Say cheerfully and naturally: Hi! I'm Hana-sensei. Let's learn Japanese together. よろしくね！"}]}],generationConfig:{responseModalities:["AUDIO"],speechConfig:{voiceConfig:{prebuiltVoiceConfig:{voiceName:v}}}}});
   const j=await r.json();const p=(((j.candidates||[])[0]||{}).content||{parts:[]}).parts.find(x=>x.inlineData);if(!p)throw new Error("no audio");aiStopAudio();aiPlayChunk(p.inlineData.data);el.textContent="▶"}
  catch(e){el.textContent="▶";toast(/^KEY:/.test(e.message)?"❌ API key not working":"Couldn't preview the voice 😿")}}
@@ -2449,14 +2458,14 @@ $("#aiOrbW").onclick=()=>{if(LV.on)return;lvStart()};$("#aiEnd").onclick=()=>lvS
 $("#aiTest").onclick=aiTestKey;$("#aiGetKey").onclick=()=>{const u="https://aistudio.google.com/apikey";if(IS_APK)native("open/"+u);else window.open(u,"_blank")};
 $("#aiAuto").onclick=()=>{const c=aiCfg();c.autoSpeak=!c.autoSpeak;aiSave(c);$("#aiAuto").classList.toggle("on",c.autoSpeak)};
 $("#aiClear").onclick=()=>{aiHistSave([]);aiRenderChat();toast("Chat cleared 🧹")};
-$("#aiForget").onclick=()=>{const c=aiCfg();delete c.key;aiSave(c);$("#aiKey").value="";toast("Key removed from this phone")};
+$("#aiForget").onclick=()=>{const c=aiCfg();delete c.key;delete c.liveModel;delete c.chatModel;aiSave(c);$("#aiKey").value="";aiRenderSetup();toast("Key removed from this phone")};
 
 /* chat: speak instead of typing (record → Gemini transcribes → send) */
 const REC={on:false,st:null,ctx:null,pr:null,chunks:[],rate:16000,t0:0,tm:0};
 function wavB64(f32,rate){const n=f32.length,buf=new ArrayBuffer(44+n*2),dv=new DataView(buf);const w=(o,s)=>{for(let i=0;i<s.length;i++)dv.setUint8(o+i,s.charCodeAt(i))};
  w(0,"RIFF");dv.setUint32(4,36+n*2,true);w(8,"WAVE");w(12,"fmt ");dv.setUint32(16,16,true);dv.setUint16(20,1,true);dv.setUint16(22,1,true);dv.setUint32(24,rate,true);dv.setUint32(28,rate*2,true);dv.setUint16(32,2,true);dv.setUint16(34,16,true);w(36,"data");dv.setUint32(40,n*2,true);
  for(let i=0;i<n;i++){const v=Math.max(-1,Math.min(1,f32[i]));dv.setInt16(44+i*2,v<0?v*0x8000:v*0x7fff,true)}return b64FromBytes(new Uint8Array(buf))}
-async function recStart(){const c=aiCfg();if(!c.key){aiShow("setup");return}if(IS_APK&&nativeBuild()<9){toast("🎙️ The microphone needs the new app version. Install it from the update pop-up.");return}
+async function recStart(){const c=aiCfg();if(!aiReady()){aiShow("setup");return}if(IS_APK&&nativeBuild()<9){toast("🎙️ The microphone needs the new app version. Install it from the update pop-up.");return}
  let st=null;for(let a=0;a<6&&!st;a++){try{st=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true}})}catch(e){if(IS_APK&&a===0)native("mic");if(a===5){toast("🎙️ Please allow the microphone for Kanji Dojo");return}toast("Tap Allow for the microphone 🎙️");await new Promise(r=>setTimeout(r,2500))}}
  const C=window.AudioContext||window.webkitAudioContext;REC.ctx=new C();REC.st=st;REC.chunks=[];const src=REC.ctx.createMediaStreamSource(st),pr=REC.ctx.createScriptProcessor(4096,1,1);
  pr.onaudioprocess=e=>{if(REC.on)REC.chunks.push(downsample(e.inputBuffer.getChannelData(0).slice(0),REC.ctx.sampleRate,16000))};src.connect(pr);const g=REC.ctx.createGain();g.gain.value=0;pr.connect(g);g.connect(REC.ctx.destination);REC.pr=pr;
