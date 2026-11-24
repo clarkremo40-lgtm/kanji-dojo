@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <script>
-var KD_BUILD=35,KD_VER="3.5",KD_NATIVE=10;
+var KD_BUILD=36,KD_VER="3.6",KD_NATIVE=10;
 (function(){try{if(window.__KD_SWAP)return;var ls=localStorage;
  if(location.href.indexOf("file:///android_asset")===0)ls.setItem("kd_native",String(KD_NATIVE));
  var b=+(ls.getItem("kd_build")||0),h=ls.getItem("kd_html");
@@ -521,6 +521,10 @@ nav .navAI:active .navAIc{transform:scale(.92)}
 .aiGBtn:active{transform:translateY(3px);box-shadow:0 1px 0 #e0e0e0}
 .aiLSteps{text-align:left;margin:16px 4px 10px;display:grid;gap:8px}.aiLSteps div{display:flex;align-items:center;gap:10px;font-size:14px}
 .aiLSteps i{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:900;color:#fff;background:linear-gradient(135deg,#ff6fa8,#9b7bff)}
+.aiOffBar{display:none;align-items:center;gap:6px;margin:0 14px 6px;padding:9px 12px;border-radius:14px;background:#2d2147;color:#fff;font-size:12.5px;font-weight:800}
+.aiOff{text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px}.aiOff b{font-size:17px}.aiOff span{font-size:13.5px;line-height:1.5}
+.aiOffB{display:grid;grid-template-columns:1fr 1fr;gap:6px;width:100%;margin-top:6px}.aiOffB button{border:none;border-radius:14px;padding:10px 6px;font:inherit;font-weight:800;font-size:13px;background:linear-gradient(135deg,#fff0f6,#f1ebff);color:#5b3fa8;box-shadow:0 3px 0 #e6dcff}
+.aiCaps .aiOff{color:#2d2147;background:#fff;border-radius:20px;padding:14px;box-shadow:0 6px 18px rgba(123,92,255,.15)}
 /* ===== GORGEOUS LOCK SCREEN ===== */
 #lock{background:#120b2e!important}
 #lock .aur{position:absolute;inset:-20%;pointer-events:none;filter:blur(55px) saturate(1.3);opacity:.85}
@@ -841,6 +845,7 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
 <button id="sesPill"><span class="dot"></span><span id="sesPillT">60:00</span></button>
 <div id="ai">
   <div class="aiTop"><button class="aiX" id="aiClose">←</button><div class="aiWho"><div class="aiAvS"><svg viewBox="0 0 64 64"><path d="M14 22 L18 4 L28 16 Z M50 22 L46 4 L36 16 Z" fill="#2b59c3"/><path d="M17 18 L19 9 L25 16 Z M47 18 L45 9 L39 16 Z" fill="#ff9eb5"/><circle cx="32" cy="32" r="22" fill="#2b59c3"/><ellipse cx="32" cy="37" rx="16" ry="13" fill="#ffe3c7"/><rect x="10" y="20" width="44" height="7" rx="3" fill="#ff4d6d"/><ellipse class="catEye" cx="25" cy="35" rx="3" ry="3.6" fill="#2d2147"/><ellipse class="catEye" cx="39" cy="35" rx="3" ry="3.6" fill="#2d2147"/><circle cx="26" cy="33.8" r="1" fill="#fff"/><circle cx="40" cy="33.8" r="1" fill="#fff"/><ellipse cx="20" cy="41" rx="3" ry="1.8" fill="#ffb3c6"/><ellipse cx="44" cy="41" rx="3" ry="1.8" fill="#ffb3c6"/><path d="M29 41 q3 3 6 0" stroke="#2d2147" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg></div><div><b>Hana-sensei 花先生</b><span>your AI Japanese tutor</span></div></div></div>
+  <div class="aiOffBar" id="aiOffBar">📴 Offline · Hana-sensei needs internet. Lessons, quizzes and games still work!</div>
   <div class="aiTabs"><button class="aiTab on" data-t="chat">💬 Chat</button><button class="aiTab" data-t="voice">🎙️ Voice</button><button class="aiTab" data-t="setup">⚙️</button></div>
   <div class="aiPane on" id="aiP-chat">
     <div class="aiMsgs" id="aiMsgs"></div>
@@ -2415,7 +2420,7 @@ async function aiTTS(text){const c=aiCfg();const clean=text.replace(/\*\*|__|[#>
 /* ---- LIVE voice session ---- */
 const LV={ws:null,on:false,ready:false,muted:false,mic:null,mctx:null,proc:null,model:null,uTxt:"",aTxt:"",level:0,raf:0,closing:false};
 function lvStatus(t){const e=$("#aiVStat");if(e)e.textContent=t}
-async function lvStart(){if(LV.on)return;const c=aiCfg();if(!aiReady()){aiShow("setup");return}
+async function lvStart(){if(LV.on)return;const c=aiCfg();if(!aiReady()){aiShow("setup");return}if(aiOffline()){lvStatus("📴 Offline ka. Voice call needs internet.");const cp=$("#aiCapA");cp.innerHTML=aiOffHTML();aiOffWire(cp);sfx.no();return}
  if(IS_APK&&nativeBuild()<9){lvStatus("Voice needs the new app version (2.6). Install it from the update pop-up. Chat works now!");return}
  LV.on=true;LV.closing=false;$("#aiV").classList.add("live");lvStatus("Getting your microphone…");aiPlayCtx();
  try{await lvMic()}catch(e){LV.on=false;$("#aiV").classList.remove("live");lvStatus(e.message);return}
@@ -2469,7 +2474,7 @@ function orbLoop(){const cv=$("#aiOrb");if(!cv||!$("#ai").classList.contains("on
  for(let i=0;i<3;i++){const ox=cx+Math.cos(t*(.7+i*.3)+i*2)*R*.45,oy=cy+Math.sin(t*(.9+i*.25)+i)*R*.45;const gr=g.createRadialGradient(ox,oy,0,ox,oy,R*1.3);gr.addColorStop(0,c1[i]);gr.addColorStop(1,c1[i]+"00");g.fillStyle=gr;g.fillRect(0,0,W,H)}
  const sh=g.createRadialGradient(cx-R*.35,cy-R*.4,0,cx-R*.35,cy-R*.4,R*.9);sh.addColorStop(0,"rgba(255,255,255,.75)");sh.addColorStop(1,"rgba(255,255,255,0)");g.fillStyle=sh;g.fillRect(0,0,W,H);g.restore()}
 /* ---- UI ---- */
-function aiOpen(tab){$("#ai").classList.add("on");sfx.pop();aiShow(aiReady()?(tab||"chat"):"setup");if(!LV.raf)orbLoop()}
+function aiOpen(tab){$("#ai").classList.add("on");sfx.pop();aiOffBanner();aiShow(aiReady()?(tab||"chat"):"setup");if(!LV.raf)orbLoop()}
 function aiClose(){if(REC.on)recStop(false);if(LV.on)lvStop();$("#ai").classList.remove("on");aiStopAudio()}
 function aiShow(v){$$("#ai .aiPane").forEach(p=>p.classList.toggle("on",p.id==="aiP-"+v));$$("#ai .aiTab").forEach(b=>b.classList.toggle("on",b.dataset.t===v));
  if(v==="chat")aiRenderChat();if(v==="setup")aiRenderSetup();if(v==="voice"){$("#aiVName").textContent=aiCfg().voice;if(!LV.on)lvStatus("Tap the orb to start talking");if(!LV.raf)orbLoop()}if(v!=="voice"&&LV.on)lvStop()}
@@ -2480,12 +2485,12 @@ function aiRenderChat(){const h=aiHist(),box=$("#aiMsgs");
  $$("#aiMsgs .aiSay").forEach(b=>b.onclick=()=>aiSayMsg(b,aiHist()[+b.dataset.i].t));box.scrollTop=box.scrollHeight}
 async function aiSayMsg(b,t){b.textContent="⏳";try{await aiTTS(t);b.textContent="🔊"}catch(e){b.textContent="🔊";if(window.speechSynthesis)say(t);else toast("Couldn't play audio 😿")}}
 let aiBusy=false;
-async function aiSend(text){text=(text||"").trim();if(!text||aiBusy)return;const c=aiCfg();if(!aiReady()){aiShow("setup");return}aiBusy=true;$("#aiIn").value="";
+async function aiSend(text){text=(text||"").trim();if(!text||aiBusy)return;const c=aiCfg();if(!aiReady()){aiShow("setup");return}if(aiOffline()){const box=$("#aiMsgs");const d=document.createElement("div");d.className="aiM a";d.innerHTML=`<div class="aiAv">${CATSVG}</div><div class="aiBub">${aiOffHTML()}</div>`;box.appendChild(d);aiOffWire(d);box.scrollTop=box.scrollHeight;sfx.no();return}aiBusy=true;$("#aiIn").value="";
  const h=aiHist();h.push({r:"u",t:text});aiHistSave(h);aiRenderChat();const box=$("#aiMsgs");
  const el=document.createElement("div");el.className="aiM a";el.innerHTML=`<div class="aiAv">${CATSVG}</div><div class="aiBub"><span class="aiDots"><i></i><i></i><i></i></span></div>`;box.appendChild(el);box.scrollTop=box.scrollHeight;
  try{const out=await aiChatSend(text,t=>{el.querySelector(".aiBub").innerHTML=mdLite(t);box.scrollTop=box.scrollHeight});
   const hh=aiHist();hh.push({r:"a",t:out||"(no answer)"});aiHistSave(hh);aiRenderChat();sfx.pop();if(aiCfg().autoSpeak&&out){const bs=$$("#aiMsgs .aiSay");const lb=bs[bs.length-1];if(lb)aiSayMsg(lb,out)}}
- catch(e){const m=e.message||"";el.querySelector(".aiBub").innerHTML=/^SETUP:/.test(m)?"😿 Hana-sensei is resting right now. Please try again later.":/^KEY:/.test(m)?"❌ Your own API key isn't working. Tap ⚙️ to check it.":/^QUOTA:/.test(m)?"⏳ The free limit is used up for now. Try again in a minute.":"😿 Couldn't reach Hana-sensei. Check your internet and try again.<br><small>"+esc(m.slice(0,140))+"</small>";const hh=aiHist();hh.pop();aiHistSave(hh)}
+ catch(e){const m=e.message||"";el.querySelector(".aiBub").innerHTML=/^SETUP:/.test(m)?"😿 Hana-sensei is resting right now. Please try again later.":/^KEY:/.test(m)?"❌ Your own API key isn't working. Tap ⚙️ to check it.":/^QUOTA:/.test(m)?"⏳ The free limit is used up for now. Try again in a minute.":(aiOffline()||/fetch|network/i.test(m)?aiOffHTML():"😿 Couldn't reach Hana-sensei. Try again in a bit.<br><small>"+esc(m.slice(0,140))+"</small>");const hh=aiHist();hh.pop();aiHistSave(hh);aiOffWire(el)}
  aiBusy=false}
 function aiRenderSetup(){const c=aiCfg();$("#aiSav").classList.toggle("on",savage());$("#aiKey").value=c.key||"";$("#aiBuiltIn").innerHTML=FB_ON()?(c.key?"🔑 Using your own key. Remove it to go back to the built-in connection.":"✅ <b>Hana-sensei is connected.</b> Nothing to set up, just pick her voice below and start chatting!"):(c.key?"✅ <b>Hana-sensei is connected</b> with your Google account. Pick her voice below and start chatting!":"");$("#aiAdv").open=false;$("#aiLogin").style.display=aiReady()?"none":"block";if(!aiReady())$("#aiBuiltIn").style.display="none";else $("#aiBuiltIn").style.display="";$("#aiAuto").classList.toggle("on",!!c.autoSpeak);
  $("#aiVoices").innerHTML=AI_VOICES.map(([n,d])=>`<button class="aiVo ${n===c.voice?"on":""}" data-v="${n}"><b>${n}</b><span>${d}</span><i data-p="${n}">▶</i></button>`).join("");
@@ -2513,7 +2518,7 @@ const REC={on:false,st:null,ctx:null,pr:null,chunks:[],rate:16000,t0:0,tm:0};
 function wavB64(f32,rate){const n=f32.length,buf=new ArrayBuffer(44+n*2),dv=new DataView(buf);const w=(o,s)=>{for(let i=0;i<s.length;i++)dv.setUint8(o+i,s.charCodeAt(i))};
  w(0,"RIFF");dv.setUint32(4,36+n*2,true);w(8,"WAVE");w(12,"fmt ");dv.setUint32(16,16,true);dv.setUint16(20,1,true);dv.setUint16(22,1,true);dv.setUint32(24,rate,true);dv.setUint32(28,rate*2,true);dv.setUint16(32,2,true);dv.setUint16(34,16,true);w(36,"data");dv.setUint32(40,n*2,true);
  for(let i=0;i<n;i++){const v=Math.max(-1,Math.min(1,f32[i]));dv.setInt16(44+i*2,v<0?v*0x8000:v*0x7fff,true)}return b64FromBytes(new Uint8Array(buf))}
-async function recStart(){const c=aiCfg();if(!aiReady()){aiShow("setup");return}if(IS_APK&&nativeBuild()<9){toast("🎙️ The microphone needs the new app version. Install it from the update pop-up.");return}
+async function recStart(){const c=aiCfg();if(!aiReady()){aiShow("setup");return}if(aiOffline()){toast("📴 Offline ka. Kailangan ng internet para kay Hana-sensei");return}if(IS_APK&&nativeBuild()<9){toast("🎙️ The microphone needs the new app version. Install it from the update pop-up.");return}
  let st=null;for(let a=0;a<6&&!st;a++){try{st=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true}})}catch(e){if(IS_APK&&a===0)native("mic");if(a===5){toast("🎙️ Please allow the microphone for Kanji Dojo");return}toast("Tap Allow for the microphone 🎙️");await new Promise(r=>setTimeout(r,2500))}}
  const C=window.AudioContext||window.webkitAudioContext;REC.ctx=new C();REC.st=st;REC.chunks=[];const src=REC.ctx.createMediaStreamSource(st),pr=REC.ctx.createScriptProcessor(4096,1,1);
  pr.onaudioprocess=e=>{if(REC.on)REC.chunks.push(downsample(e.inputBuffer.getChannelData(0).slice(0),REC.ctx.sampleRate,16000))};src.connect(pr);const g=REC.ctx.createGain();g.gain.value=0;pr.connect(g);g.connect(REC.ctx.destination);REC.pr=pr;
@@ -2541,6 +2546,14 @@ document.addEventListener("visibilitychange",()=>{if(!document.hidden&&aiLoginWa
 $("#aiKey").addEventListener("input",()=>{const m=$("#aiKey").value.match(KEY_RE);if(m&&!aiOwn()){$("#aiKey").value=m[0];aiTestKey()}});
 
 $("#aiSav").onclick=()=>{const c=aiCfg();const on=!savage();c.savage=on;aiSave(c);$("#aiSav").classList.toggle("on",on);if(on){stamp("鬼");sfx.win();toast("😈 Savage mode ON. Good luck, ha!")}else toast("😇 Savage mode off. Hana-sensei is sweet again")};
+
+/* offline: Hana-sensei needs internet; everything else works offline */
+function aiOffHTML(){return`<div class="aiOff"><div style="font-size:40px">📴</div><b>Offline ka, pre!</b><span>Kailangan ni Hana-sensei ng internet para makausap mo siya. Pero gumagana offline ang lahat ng ito:</span>
+ <div class="aiOffB"><button data-o="quiz">⚡ Quick quiz</button><button data-o="flash">🎴 Flashcards</button><button data-o="gram">🥋 Grammar</button><button data-o="game">🏃 Kanji Rush</button><button data-o="dict">💡 Tricks</button><button data-o="write">✍️ Writing</button></div></div>`}
+function aiOffWire(root){root.querySelectorAll(".aiOffB button").forEach(b=>b.onclick=()=>{const o=b.dataset.o;aiClose();setTimeout(()=>{if(o==="quiz")openQuiz();else if(o==="flash")openFlash();else if(o==="dict")openDict();else go(o)},150)})}
+function aiOffline(){return navigator.onLine===false}
+function aiOffBanner(){const on=aiOffline();$("#ai").classList.toggle("offline",on);const bn=$("#aiOffBar");if(bn)bn.style.display=on?"flex":"none"}
+window.addEventListener("online",aiOffBanner);window.addEventListener("offline",aiOffBanner);
 $("#aiHome").onclick=()=>aiOpen();
 document.addEventListener("visibilitychange",()=>{if(document.hidden&&LV.on)lvStop()});
 

@@ -1,11 +1,11 @@
 {
-  "build": 35,
-  "version": "3.5",
+  "build": 36,
+  "version": "3.6",
   "file": "app.html",
-  "size": 492199,
+  "size": 494767,
   "minNative": 6,
   "notes": [
-    "😈 Hana-sensei's mura is now 'sakto lang': casual, mostly when roasting your mistakes or hyping a win, in chat and voice calls"
+    "📴 Offline friendly: when there's no internet, Hana-sensei tells you and gives one-tap shortcuts to everything that works offline (quiz, flashcards, grammar, Kanji Rush, tricks, writing)"
   ],
   "native": {
     "build": 10,
