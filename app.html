@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <script>
-var KD_BUILD=27,KD_VER="2.7",KD_NATIVE=10;
+var KD_BUILD=28,KD_VER="2.8",KD_NATIVE=10;
 (function(){try{if(window.__KD_SWAP)return;var ls=localStorage;
  if(location.href.indexOf("file:///android_asset")===0)ls.setItem("kd_native",String(KD_NATIVE));
  var b=+(ls.getItem("kd_build")||0),h=ls.getItem("kd_html");
@@ -493,6 +493,22 @@ select{font-family:inherit;font-size:15px;font-weight:700;background:var(--ink3)
 .aiRec button{margin-left:auto;border:none;background:#fff;border-radius:50%;width:28px;height:28px}
 .aiRecDot{width:12px;height:12px;border-radius:50%;background:#e3203f;animation:barPulse .8s infinite}
 .aiStartBig{margin-top:12px;padding:14px 26px!important;font-size:16px!important}.aiVoice.live .aiStartBig{display:none}
+.acIco{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-size:24px;background:linear-gradient(135deg,#e9f6ff,#f3edff);flex:none}
+.acIco.on{background:linear-gradient(135deg,#ff6fa8,#9b7bff);color:#fff;font-weight:900;font-size:22px}
+#acCard{border:2px solid rgba(155,123,255,.25)}
+.acLogin{padding-bottom:10px}.acHero{width:90px;height:90px;margin:0 auto;animation:catBob 2.2s ease-in-out infinite}.acHero svg{width:90px;height:90px}
+.acTabs{display:flex;gap:6px;background:#f1ebff;border-radius:99px;padding:4px;margin:6px 0 14px}.acTabs button{flex:1;border:none;border-radius:99px;padding:10px;font:inherit;font-weight:900;background:transparent;color:#6b5f94}
+.acTabs button.on{background:#fff;color:#ff4f8b;box-shadow:0 3px 10px rgba(123,92,255,.18)}
+.acPw{position:relative}.acPw button{position:absolute;right:8px;top:8px;border:none;background:transparent;font-size:18px}
+.acPick{display:block;width:100%;text-align:left;border:2px solid #e6dcff;border-radius:20px;padding:14px 16px;margin:10px 0;background:#fff;font:inherit;color:#2d2147}.acPick b{display:block;font-size:17px}.acPick span{font-size:13px;color:#6b5f94}.acPick:active{border-color:#ff6fa8}
+.acLink{display:block;margin:10px auto 0;border:none;background:none;color:#7b5cff;font:inherit;font-weight:800;font-size:13px}
+
+nav .navAI{position:relative;color:#ff4f8b!important;font-weight:900}
+.navAIc{position:relative;width:50px;height:50px;margin:-24px 0 1px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#ff6fa8,#9b7bff 60%,#4fc3ff);box-shadow:0 0 0 4px #fff,0 8px 20px rgba(155,123,255,.5);animation:navAIglow 2.4s ease-in-out infinite}
+.navAIc svg{width:42px;height:42px;animation:catBob 2.2s ease-in-out infinite}
+.navAIc em{position:absolute;top:1px;right:1px;width:12px;height:12px;border-radius:50%;background:#34d399;border:2px solid #fff}
+@keyframes navAIglow{50%{box-shadow:0 0 0 4px #fff,0 8px 28px rgba(255,111,168,.75)}}
+nav .navAI:active .navAIc{transform:scale(.92)}
 /* ===== GORGEOUS LOCK SCREEN ===== */
 #lock{background:#120b2e!important}
 #lock .aur{position:absolute;inset:-20%;pointer-events:none;filter:blur(55px) saturate(1.3);opacity:.85}
@@ -767,6 +783,7 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
     <!-- PROGRESS -->
     <section class="view" id="v-prog">
       <h2><small>YOUR JOURNEY</small>進歩</h2>
+      <div class="card" id="acCard"></div>
       <div class="card" style="display:flex;align-items:center;gap:16px">
         <svg width="96" height="96" class="ringsvg"><circle cx="48" cy="48" r="40" stroke="rgba(255,255,255,.08)" stroke-width="10" fill="none"/><circle id="pRing" cx="48" cy="48" r="40" stroke="url(#gr)" stroke-width="10" fill="none" stroke-linecap="round" stroke-dasharray="251" stroke-dashoffset="251" style="transition:stroke-dashoffset 1s"/><defs><linearGradient id="gr"><stop offset="0" stop-color="#ffb7c5"/><stop offset="1" stop-color="#e8452c"/></linearGradient></defs></svg>
         <div class="grow"><div class="tag" id="pRank">見習い</div><div style="font-size:24px;font-weight:900;margin-top:6px" id="pXp">0 XP</div><div class="tiny muted" id="pNext"></div></div>
@@ -791,6 +808,7 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
     <button data-v="home" class="on"><i>学</i>Learn</button>
     <button data-v="write"><i>書</i>Write</button>
     <button data-v="gram"><i>文</i>Grammar</button>
+    <button id="navAI" class="navAI"><span class="navAIc"><svg viewBox="0 0 64 64"><path d="M14 22 L18 4 L28 16 Z M50 22 L46 4 L36 16 Z" fill="#2b59c3"/><path d="M17 18 L19 9 L25 16 Z M47 18 L45 9 L39 16 Z" fill="#ff9eb5"/><circle cx="32" cy="32" r="22" fill="#2b59c3"/><ellipse cx="32" cy="37" rx="16" ry="13" fill="#ffe3c7"/><rect x="10" y="20" width="44" height="7" rx="3" fill="#ff4d6d"/><ellipse class="catEye" cx="25" cy="35" rx="3" ry="3.6" fill="#2d2147"/><ellipse class="catEye" cx="39" cy="35" rx="3" ry="3.6" fill="#2d2147"/><circle cx="26" cy="33.8" r="1" fill="#fff"/><circle cx="40" cy="33.8" r="1" fill="#fff"/><ellipse cx="20" cy="41" rx="3" ry="1.8" fill="#ffb3c6"/><ellipse cx="44" cy="41" rx="3" ry="1.8" fill="#ffb3c6"/><path d="M29 41 q3 3 6 0" stroke="#2d2147" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg><em></em></span>Sensei</button>
     <button data-v="game"><i>遊</i>Game</button>
     <button data-v="alarm"><i>鳴</i>Alarm</button>
     <button data-v="prog"><i>進</i>Progress</button>
@@ -1155,7 +1173,7 @@ const DEF={xp:0,streak:0,lastDay:"",days:{},ks:{},gBest:{},hi:0,alarm:{t:"06:30"
 let S;
 try{S=Object.assign({},DEF,JSON.parse(localStorage.getItem("kanjiDojo")||"{}"));S.alarm=Object.assign({},DEF.alarm,S.alarm||{})}catch(e){S=JSON.parse(JSON.stringify(DEF))}
 function loadS(){try{const n=Object.assign({},DEF,JSON.parse(localStorage.getItem("kanjiDojo")||"{}"));n.alarm=Object.assign({},DEF.alarm,n.alarm||{});return n}catch(e){return null}}
-function save(){if(window.__KD_ASLEEP)return;try{localStorage.setItem("kanjiDojo",JSON.stringify(S))}catch(e){}}
+function save(){if(window.__KD_ASLEEP)return;S.updatedAt=Date.now();try{localStorage.setItem("kanjiDojo",JSON.stringify(S))}catch(e){}try{cloudSoon()}catch(e){}}
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const rnd=a=>a[Math.floor(Math.random()*a.length)];
 const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
@@ -1977,6 +1995,7 @@ function go(v){$$("nav button").forEach(b=>b.classList.toggle("on",b.dataset.v==
  if(v!=="game"&&$("#v-game").classList.contains("fs"))setFs(false);
  if(v!=="game"&&RUN.on){RUN.on=false;const st=$("#rStart");st.style.display="flex";st.innerHTML=`<div style="font-size:50px">⏸</div><div style="font-size:24px;font-weight:900">Paused</div><button class="btn shu" id="rGo">Run again</button>`;$("#rGo").onclick=runStart}}
 $$("nav button").forEach(b=>b.onclick=()=>{sfx.pop();go(b.dataset.v)});
+$("#navAI").onclick=()=>aiOpen();
 addEventListener("resize",()=>{if($("#v-write").classList.contains("on"))sizePad()});
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"){wake=null;if($("#v-alarm").classList.contains("on"))keepAwake()}});
 
@@ -2455,6 +2474,67 @@ $("#aiCallB").onclick=()=>{aiShow("voice");lvStart()};$("#aiStartB").onclick=()=
 $("#aiHome").onclick=()=>aiOpen();
 document.addEventListener("visibilitychange",()=>{if(document.hidden&&LV.on)lvStop()});
 
+
+/* ================= ACCOUNT & CLOUD SAVE (Firebase Auth + Firestore via REST) ================= */
+const FB={apiKey:"__FB_KEY__",projectId:"__FB_PID__"};
+const FB_ON=()=>FB.apiKey&&!FB.apiKey.startsWith("__")&&FB.projectId&&!FB.projectId.startsWith("__");
+function acct(){try{return JSON.parse(localStorage.getItem("kd_acct")||"null")}catch(e){return null}}
+function acctSave(a){try{a?localStorage.setItem("kd_acct",JSON.stringify(a)):localStorage.removeItem("kd_acct")}catch(e){}}
+const FB_ERR={EMAIL_EXISTS:"That email already has an account. Log in instead.",EMAIL_NOT_FOUND:"No account with that email. Create one first.",INVALID_PASSWORD:"Wrong password.",INVALID_LOGIN_CREDENTIALS:"Wrong email or password.",INVALID_EMAIL:"That email doesn't look right.",WEAK_PASSWORD:"Password must be at least 6 characters.",TOO_MANY_ATTEMPTS_TRY_LATER:"Too many tries. Wait a bit and try again.",USER_DISABLED:"This account is disabled.",MISSING_PASSWORD:"Type your password."};
+function fbErrMsg(code){code=String(code||"");const k=Object.keys(FB_ERR).find(x=>code.startsWith(x));return k?FB_ERR[k]:"Something went wrong ("+code.slice(0,60)+")"}
+async function fbAuth(path,body){const r=await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:${path}?key=${FB.apiKey}`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});const j=await r.json();if(!r.ok)throw new Error(fbErrMsg(j.error&&j.error.message));return j}
+async function fbToken(){const a=acct();if(!a)throw new Error("Not logged in");if(Date.now()<a.exp-60000)return a.id;
+ const r=await fetch(`https://securetoken.googleapis.com/v1/token?key=${FB.apiKey}`,{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:"grant_type=refresh_token&refresh_token="+encodeURIComponent(a.rt)});
+ const j=await r.json();if(!r.ok)throw new Error("SESSION");a.id=j.id_token;a.rt=j.refresh_token||a.rt;a.exp=Date.now()+(+j.expires_in||3600)*1000;acctSave(a);return a.id}
+function fbDoc(uid){return`https://firestore.googleapis.com/v1/projects/${FB.projectId}/databases/(default)/documents/users/${uid}`}
+async function cloudGet(){const a=acct(),t=await fbToken();const r=await fetch(fbDoc(a.uid),{headers:{Authorization:"Bearer "+t}});if(r.status===404)return null;if(!r.ok)throw new Error("Cloud "+r.status);const j=await r.json();const f=j.fields||{};
+ return f.data?{data:JSON.parse(f.data.stringValue),updated:+(f.updated&&f.updated.integerValue||0)}:null}
+function syncBlob(){const extra={};["kd_aichat"].forEach(k=>{try{const v=localStorage.getItem(k);if(v)extra[k]=v}catch(e){}});return{S,extra}}
+async function cloudPut(){const a=acct(),t=await fbToken();const now=Date.now();
+ const r=await fetch(fbDoc(a.uid)+"?updateMask.fieldPaths=data&updateMask.fieldPaths=updated&updateMask.fieldPaths=email",{method:"PATCH",headers:{Authorization:"Bearer "+t,"Content-Type":"application/json"},
+  body:JSON.stringify({fields:{data:{stringValue:JSON.stringify(syncBlob())},updated:{integerValue:String(now)},email:{stringValue:a.email}}})});
+ if(!r.ok)throw new Error("Cloud "+r.status);a.synced=now;acctSave(a);return now}
+let cloudTimer=0,cloudBusy=false;
+function cloudSoon(){if(!FB_ON()||!acct()||GATE||STUDY)return;clearTimeout(cloudTimer);cloudTimer=setTimeout(()=>cloudSync(false),15000)}
+function takeCloud(c){Object.assign(S,c.data.S);if(c.data.extra)Object.entries(c.data.extra).forEach(([k,v])=>{try{localStorage.setItem(k,v)}catch(e){}});
+ S.updatedAt=c.updated;try{localStorage.setItem("kanjiDojo",JSON.stringify(S))}catch(e){}const a=acct();a.synced=c.updated;acctSave(a);try{renderHeader();renderHome();checkLevelUp()}catch(e){}}
+function chooseProgress(c){return new Promise(res=>{const cs=c.data.S;
+ openSheet(`<h2><small>TWO SAVES FOUND</small>Which progress do you want? 🤔</h2>
+  <button class="acPick" id="pkCloud"><b>☁️ Your account</b><span>Level ${cs.lv} · ${cs.xp||0} XP · 🔥${cs.streak||0} · saved ${new Date(c.updated).toLocaleDateString()}</span></button>
+  <button class="acPick" id="pkLocal"><b>📱 This phone</b><span>Level ${S.lv} · ${S.xp||0} XP · 🔥${S.streak||0}</span></button>
+  <p class="tiny muted" style="text-align:center">The one you don't pick will be replaced.</p>`);
+ $("#pkCloud").onclick=()=>{closeSheet();res("cloud")};$("#pkLocal").onclick=()=>{closeSheet();res("local")}})}
+async function cloudSync(manual){if(!FB_ON()||!acct()||cloudBusy)return;cloudBusy=true;acctStatus("☁️ Syncing…");
+ try{const c=await cloudGet();const a=acct();const has=c&&c.data&&c.data.S;
+  if(has&&!a.synced){const pick=(S.xp||0)===0?"cloud":await chooseProgress(c);if(pick==="cloud"){takeCloud(c);toast("☁️ Welcome back! Progress loaded")}else{await cloudPut();toast("☁️ This phone's progress saved to your account")}}
+  else if(has&&c.updated>a.synced){const localChanged=(+S.updatedAt||0)>a.synced;
+   if(!localChanged||((c.data.S.xp||0)>(S.xp||0))){takeCloud(c);if(manual)toast("☁️ Progress downloaded from your account")}else{await cloudPut();if(manual)toast("☁️ Progress saved")}}
+  else{await cloudPut();if(manual)toast("☁️ Progress saved to your account")}acctStatus()}
+ catch(e){acctStatus(e.message==="SESSION"?"⚠️ Please log in again":"⚠️ Couldn't sync (offline?)");if(e.message==="SESSION"){acctSave(null);renderAcct()}else if(manual)toast("Couldn't sync. Check your internet.")}
+ finally{cloudBusy=false}}
+function acctStatus(t){const e=$("#acSt");if(!e)return;const a=acct();e.textContent=t||(a&&a.synced?"✅ Saved "+new Date(a.synced).toLocaleString():"Not synced yet")}
+function renderAcct(){const el=$("#acCard");if(!el)return;const a=acct();
+ if(!FB_ON()){el.innerHTML=`<div class="row"><div class="acIco">☁️</div><div class="grow"><b>Cloud account</b><div class="tiny muted">Coming very soon: log in to save your progress online and use it on any phone.</div></div></div>`;return}
+ if(a){el.innerHTML=`<div class="row"><div class="acIco on">${esc(a.email[0].toUpperCase())}</div><div class="grow"><b>${esc(a.email)}</b><div class="tiny muted" id="acSt"></div></div></div><div class="row" style="gap:8px;margin-top:12px"><button class="btn shu grow" id="acSync">☁️ Sync now</button><button class="btn" id="acOut" style="flex:none">Log out</button></div>`;
+  acctStatus();$("#acSync").onclick=()=>cloudSync(true);$("#acOut").onclick=()=>{if(!confirmTap($("#acOut"),"Tap again to log out"))return;acctSave(null);renderAcct();toast("Logged out. Your progress stays on this phone.")};return}
+ el.innerHTML=`<div class="row"><div class="acIco">☁️</div><div class="grow"><b>Save your progress online</b><div class="tiny muted">Log in so you never lose your progress, even on a new phone.</div></div></div><button class="btn shu full" id="acIn" style="margin-top:12px">Log in / Create account</button>`;$("#acIn").onclick=openLogin}
+function confirmTap(b,txt){if(b.dataset.c){b.dataset.c="";return true}const o=b.textContent;b.dataset.c=1;b.textContent=txt;setTimeout(()=>{b.dataset.c="";b.textContent=o},2500);return false}
+function openLogin(){let mode="in";
+ openSheet(`<div class="acLogin"><div class="acHero">${CATSVG}</div><h2 style="text-align:center"><small>KANJI DOJO ACCOUNT</small><span id="acTitle">Welcome back!</span></h2>
+  <div class="acTabs"><button class="on" data-m="in">Log in</button><button data-m="up">Create account</button></div>
+  <input class="dSearch" id="acEmail" type="email" placeholder="Email" autocomplete="email"><div class="acPw"><input class="dSearch" id="acPass" type="password" placeholder="Password (6+ characters)" autocomplete="current-password"><button id="acEye">👁</button></div>
+  <button class="btn shu full" id="acGo">Log in</button><button class="acLink" id="acForgot">Forgot password?</button><p class="tiny muted" id="acMsg" style="text-align:center;min-height:18px"></p>
+  <p class="tiny muted" style="line-height:1.5;text-align:center">Your progress (levels, stars, kanji, settings and Hana-sensei chat) is saved to your account. Your AI key is never uploaded.</p></div>`);
+ const set=m=>{mode=m;$$(".acTabs button").forEach(b=>b.classList.toggle("on",b.dataset.m===m));$("#acGo").textContent=m==="in"?"Log in":"Create account";$("#acTitle").textContent=m==="in"?"Welcome back!":"Join the dojo! 🥋";$("#acPass").autocomplete=m==="in"?"current-password":"new-password"};
+ $$(".acTabs button").forEach(b=>b.onclick=()=>set(b.dataset.m));$("#acEye").onclick=()=>{const p=$("#acPass");p.type=p.type==="password"?"text":"password"};
+ $("#acForgot").onclick=async()=>{const e=$("#acEmail").value.trim();if(!e){$("#acMsg").textContent="Type your email first";return}try{await fbAuth("sendOobCode",{requestType:"PASSWORD_RESET",email:e});$("#acMsg").textContent="📧 Reset link sent. Check your email."}catch(err){$("#acMsg").textContent=err.message}};
+ $("#acGo").onclick=async()=>{const email=$("#acEmail").value.trim(),pw=$("#acPass").value;const go=$("#acGo");go.disabled=true;go.textContent="⏳ Please wait…";$("#acMsg").textContent="";
+  try{const j=await fbAuth(mode==="in"?"signInWithPassword":"signUp",{email,password:pw,returnSecureToken:true});
+   acctSave({uid:j.localId,email:j.email||email,id:j.idToken,rt:j.refreshToken,exp:Date.now()+(+j.expiresIn||3600)*1000,synced:0});
+   closeSheet();stamp(mode==="in"?"おかえり":"ようこそ");sfx.win();confetti(60);renderAcct();
+   if(mode==="up"){S.updatedAt=Date.now();save()}await cloudSync(true)}
+  catch(e){$("#acMsg").textContent="❌ "+e.message;go.disabled=false;go.textContent=mode==="in"?"Log in":"Create account"}}}
+
 /* ================= STUDY REMINDERS + SESSIONS ================= */
 function remCfg(){S.rem=S.rem||{on:false,t:"20:00",dur:60,pre:[60,15],fired:{}};S.rem.fired=S.rem.fired||{};return S.rem}
 function sesCfg(){S.ses=S.ses||{start:0,dur:0,done:{},count:0,mins:0};S.ses.done=S.ses.done||{};return S.ses}
@@ -2512,6 +2592,7 @@ setInterval(()=>{try{sesTick();remTick()}catch(e){}},1000);
 
 checkLevelUp();afterBoot();
 try{renderRem();remSync();sesTick()}catch(e){}
+try{renderAcct();if(!GATE&&!STUDY&&acct())setTimeout(()=>cloudSync(false),2500)}catch(e){}
 if(STUDY){$("#app").style.display="none";openSL(false)}
 else if(GATE){$("#app").style.display="none";showLock()}
 else{if(IS_APK&&S.phoneLock)setTimeout(()=>native("lockstart"),1200)}
