@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <script>
-var KD_BUILD=21,KD_VER="2.1",KD_NATIVE=8;
+var KD_BUILD=22,KD_VER="2.2",KD_NATIVE=8;
 (function(){try{if(window.__KD_SWAP)return;var ls=localStorage;
  if(location.href.indexOf("file:///android_asset")===0)ls.setItem("kd_native",String(KD_NATIVE));
  var b=+(ls.getItem("kd_build")||0),h=ls.getItem("kd_html");
@@ -267,6 +267,42 @@ select{font-family:inherit;font-size:15px;font-weight:700;background:var(--ink3)
 .sesGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
 .sesGrid button{padding:14px 8px;border-radius:18px;border:none;font-weight:900;font-family:inherit;font-size:14px;color:#fff}
 .remPop{text-align:center}.remPop .big{font-size:72px;animation:catBob 1.6s ease-in-out infinite}
+.jw{cursor:pointer;border-bottom:2px dotted rgba(155,123,255,.7);border-radius:3px;transition:background .15s}
+.jw:active{background:rgba(255,111,168,.25)}
+[data-qwait="1"] .jw{border-bottom-color:transparent}
+#lock .jw,#slock .jw,#ring .jw{border-bottom-color:rgba(255,255,255,.5)}
+.qtip{margin-top:12px;padding:12px 14px;border-radius:18px;background:linear-gradient(135deg,rgba(255,226,122,.35),rgba(255,111,168,.18));border:1.5px solid rgba(255,200,80,.55);text-align:left;font-size:14px;line-height:1.5;animation:qIn .4s both}
+.qtip .jw{font-size:22px;font-weight:900;font-family:"Shippori Mincho B1",serif}
+.qtipT{margin-top:4px}.qtipH{font-size:11px;opacity:.6;margin-top:4px}
+#lock .qtip,#slock .qtip,#ring .qtip{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.35);color:#fff}
+#peek{position:fixed;inset:0;z-index:80;background:rgba(20,10,45,.45);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);display:flex;align-items:flex-end;justify-content:center;opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s}
+#peek.on{opacity:1;visibility:visible}
+#peek .pk{position:relative;width:min(520px,100%);max-height:86vh;overflow:auto;background:linear-gradient(180deg,#fffaf2,#fff);color:#2d2147;border-radius:30px 30px 0 0;padding:22px 20px calc(24px + env(safe-area-inset-bottom,0px));box-shadow:0 -20px 60px rgba(60,20,120,.35);transform:translateY(100%);transition:transform .4s cubic-bezier(.2,1.2,.4,1);text-align:center}
+#peek.on .pk{transform:none}
+.pkX,.pkB{position:absolute;top:14px;border:none;background:#f1ebff;color:#6b4fd8;font-weight:900;border-radius:99px;padding:8px 12px;font-family:inherit}
+.pkX{right:14px}.pkB{left:14px}
+.pkTag{display:inline-block;font-size:11px;font-weight:900;letter-spacing:1.5px;padding:4px 10px;border-radius:99px;background:linear-gradient(135deg,#ff6fa8,#ff9a5c);color:#fff;margin-top:4px}
+.pkTag.vw{background:linear-gradient(135deg,#31c8ff,#7b6cff)}
+.pkC{font-family:"Shippori Mincho B1",serif;font-weight:800;font-size:110px;line-height:1.1;margin:8px 0 2px;background:linear-gradient(135deg,#ff4f8b,#7b5cff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pkC.long{font-size:70px}
+.pkR{font-size:22px;font-weight:800;color:#7b5cff}.pkSay{border:none;background:#ffe6f0;border-radius:50%;width:38px;height:38px;font-size:18px;margin-left:6px;vertical-align:middle}
+.pkM{font-size:22px;font-weight:900;margin-top:4px}
+.pkStar{color:#f5b800;margin-top:6px;font-size:16px}.pkStar span{color:#8a7fae;font-size:12px;font-weight:700}
+.pkTrick{margin-top:14px;text-align:left;padding:14px 16px;border-radius:20px;background:linear-gradient(135deg,#fff2c4,#ffe0ef);border:2px dashed #ffb84d;font-size:15px;line-height:1.55}
+.pkTrick b{display:block;font-size:12px;letter-spacing:1px;color:#e07a00;margin-bottom:4px}
+.pkSub{text-align:left;font-size:12px;font-weight:900;letter-spacing:1px;color:#8a7fae;margin:16px 0 8px;text-transform:uppercase}
+.pkParts,.pkUsed{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.pkParts i{font-style:normal;font-weight:900;color:#ff6fa8;font-size:20px}
+.pkPart{border:none;border-radius:16px;padding:8px 12px;background:#f1ebff;color:#2d2147;display:flex;flex-direction:column;align-items:center;font-family:inherit;box-shadow:0 3px 0 #d9ccff}
+.pkPart b{font-family:"Shippori Mincho B1",serif;font-size:24px}.pkPart span{font-size:11px;font-weight:700;opacity:.75}
+.fcTrick{margin-top:14px;font-size:13px;line-height:1.45;padding:0 14px;opacity:.95}
+.wTrick{font-size:12px;line-height:1.45;margin-top:6px;padding:0 6px}
+.dSearch{width:100%;box-sizing:border-box;padding:13px 16px;border-radius:16px;border:2px solid #e6dcff;background:#fff;font:inherit;font-size:15px;margin-bottom:12px;outline:none}.dSearch:focus{border-color:#9b7bff;box-shadow:0 0 0 4px rgba(155,123,255,.15)}
+.dictCard{display:flex;align-items:center;gap:12px;width:100%;border:none;font-family:inherit;color:#2d2147;background:linear-gradient(135deg,#fff2c4,#ffe0ef)!important;box-shadow:0 8px 24px rgba(255,184,77,.3);cursor:pointer}
+.dIco{font-size:30px;width:52px;height:52px;display:grid;place-items:center;background:#fff;border-radius:16px;flex:none;animation:catBob 2.4s ease-in-out infinite}
+.dGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:8px}.dGrid.w{grid-template-columns:repeat(auto-fill,minmax(104px,1fr))}
+.dCard{border:none;border-radius:16px;padding:10px 4px;background:#fff;box-shadow:0 3px 0 #e6dcff,0 4px 12px rgba(123,92,255,.12);display:flex;flex-direction:column;align-items:center;font-family:inherit;color:#2d2147}
+.dCard b{font-family:"Shippori Mincho B1",serif;font-size:28px}.dCard.v b{font-size:19px}.dCard span{font-size:10.5px;opacity:.7;font-weight:700;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dCard.m{background:linear-gradient(135deg,#e9fff4,#fff);box-shadow:0 3px 0 #a9efcf}
 /* ===== GORGEOUS LOCK SCREEN ===== */
 #lock{background:#120b2e!important}
 #lock .aur{position:absolute;inset:-20%;pointer-events:none;filter:blur(55px) saturate(1.3);opacity:.85}
@@ -438,6 +474,7 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
           <span style="opacity:.75">After a full restart, Android asks for your passcode once first. After that, every screen-on shows the quiz.</span>
         </div>
       </div>
+      <button class="card dictCard" id="dictHome"><div class="dIco">💡</div><div class="grow" style="text-align:left"><b>Kanji &amp; Word Tricks</b><div class="tiny">Easy ways to remember: 口 is a square mouth, 花 + 火 = 花火 fireworks 🎆</div></div><div style="font-size:22px">›</div></button>
       <div class="card sesCard" id="sesHome">
         <div class="row"><div class="sesIco">📅</div><div class="grow"><b id="sesHT">Study time</b><div class="tiny" id="sesHS" style="opacity:.9"></div></div></div>
         <div class="row" style="margin-top:12px;gap:10px"><button class="btn shu grow" id="sesStartH">▶ Start session</button><button class="btn" id="sesSetH" style="flex:none">⚙︎</button></div>
@@ -454,7 +491,7 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
       <div class="card" style="padding:12px 14px">
         <div class="row">
           <button class="btn sm" id="wPrev">◀</button>
-          <div class="grow" style="text-align:center"><div class="wbig" id="wChar">日</div><div class="tiny muted" id="wInfo">day · にち</div></div>
+          <div class="grow" style="text-align:center"><div class="wbig" id="wChar">日</div><div class="tiny muted" id="wInfo">day · にち</div><div class="wTrick" id="wTrick"></div></div>
           <button class="btn sm" id="wNext">▶</button>
         </div>
       </div>
@@ -580,6 +617,7 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
 </div>
 
 <button id="sesPill"><span class="dot"></span><span id="sesPillT">60:00</span></button>
+<div id="peek"><div class="pk"></div></div>
 <div id="lock">
   <div class="aur"><i class="a1"></i><i class="a2"></i><i class="a3"></i></div>
   <div class="lfloat" id="lFloat"></div>
@@ -915,7 +953,31 @@ let AC=null;
 function ac(){if(!AC){try{AC=new(window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(AC&&AC.state==="suspended")AC.resume();return AC}
 document.addEventListener("pointerdown",ac,{once:false,passive:true});
 function tone(f,d=.12,type="sine",v=.15,when=0){const a=ac();if(!a||!S.sound&&!ringing)return;const o=a.createOscillator(),g=a.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(v,a.currentTime+when);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+when+d);o.connect(g).connect(a.destination);o.start(a.currentTime+when);o.stop(a.currentTime+when+d+.02)}
-const sfx={ok(){tone(880,.1,"triangle");tone(1320,.18,"triangle",.12,.08)},no(){tone(180,.25,"sawtooth",.08)},pop(){tone(660,.06,"square",.05)},win(){[523,659,784,1047].forEach((f,i)=>tone(f,.25,"triangle",.13,i*.1))}};
+/* ---- pretty answer sounds: sparkle bells (correct) and a soft "boop-boop" (wrong), with a little echo ---- */
+function fxBus(a){if(a.__fx)return a.__fx;const comp=a.createDynamicsCompressor();comp.threshold.value=-14;comp.ratio.value=4;comp.connect(a.destination);
+ const dry=a.createGain();dry.connect(comp);const dl=a.createDelay(1);dl.delayTime.value=.17;const fb=a.createGain();fb.gain.value=.3;const lp=a.createBiquadFilter();lp.type="lowpass";lp.frequency.value=3200;const wet=a.createGain();wet.gain.value=.38;
+ dry.connect(dl);dl.connect(lp);lp.connect(fb);fb.connect(dl);lp.connect(wet);wet.connect(comp);return a.__fx=dry}
+function fxOk(){const a=ac();return a&&(S.sound||ringing)?a:null}
+function bell(a,f,when,vol,dur){const t=a.currentTime+when,out=fxBus(a);[[1,1,1],[2.01,.35,.55],[2.76,.22,.35],[5.4,.08,.18]].forEach(([m,v,d])=>{const o=a.createOscillator(),g=a.createGain();o.type="sine";o.frequency.value=f*m;
+ g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(vol*v,t+.006);g.gain.exponentialRampToValueAtTime(.0001,t+dur*d);o.connect(g);g.connect(out);o.start(t);o.stop(t+dur*d+.05)})}
+function swoop(a,f1,f2,when,dur,vol,type){const t=a.currentTime+when,o=a.createOscillator(),g=a.createGain();o.type=type||"sine";o.frequency.setValueAtTime(f1,t);o.frequency.exponentialRampToValueAtTime(f2,t+dur);
+ g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(vol,t+.012);g.gain.exponentialRampToValueAtTime(.0001,t+dur);o.connect(g);g.connect(fxBus(a));o.start(t);o.stop(t+dur+.05)}
+let COMBO=0;
+const sfx={
+ ok(big){const a=fxOk();if(!a)return;COMBO=Math.min(COMBO+1,8);const k=Math.pow(2,(COMBO-1)/12);
+  swoop(a,520*k,1180*k,0,.09,.12,"sine");                                   /* bubbly pop */
+  [784,1047,1319,1568].forEach((f,i)=>bell(a,f*k,.05+i*.065,.16-i*.015,1.1)); /* G-C-E-G sparkle arpeggio */
+  [[2637,.36],[3136,.42],[3520,.5],[4186,.56]].forEach(([f,w])=>bell(a,f*k,w,.035,.5)); /* twinkles */
+  const t=a.currentTime;[523,659,784].forEach(f=>{const o=a.createOscillator(),g=a.createGain();o.type="triangle";o.frequency.value=f*k;g.gain.setValueAtTime(.0001,t+.05);g.gain.exponentialRampToValueAtTime(.03,t+.12);g.gain.exponentialRampToValueAtTime(.0001,t+.7);o.connect(g);g.connect(fxBus(a));o.start(t+.05);o.stop(t+.75)});
+  if(big)[1047,1319,1568,2093].forEach((f,i)=>bell(a,f,.4+i*.08,.1,1.2))},
+ no(){const a=fxOk();if(!a)return;COMBO=0;const t=a.currentTime,out=fxBus(a);
+  swoop(a,150,62,0,.18,.22,"sine");                                         /* soft thud */
+  [[349,311,0,.17],[294,233,.17,.42]].forEach(([f1,f2,w,d])=>{const tt=t+w;const lp=a.createBiquadFilter();lp.type="lowpass";lp.Q.value=6;lp.frequency.setValueAtTime(1900,tt);lp.frequency.exponentialRampToValueAtTime(380,tt+d);
+   const g=a.createGain();g.gain.setValueAtTime(.0001,tt);g.gain.exponentialRampToValueAtTime(.16,tt+.02);g.gain.exponentialRampToValueAtTime(.0001,tt+d);lp.connect(g);g.connect(out);
+   const lfo=a.createOscillator(),lg=a.createGain();lfo.frequency.value=7;lg.gain.value=w?7:0;lfo.connect(lg);
+   ["triangle","sine"].forEach((ty,j)=>{const o=a.createOscillator();o.type=ty;o.frequency.setValueAtTime(f1*(j?1.005:1),tt);o.frequency.exponentialRampToValueAtTime(f2,tt+d);lg.connect(o.frequency);o.connect(lp);o.start(tt);o.stop(tt+d+.05)});lfo.start(tt);lfo.stop(tt+d+.05)})},
+ pop(){const a=fxOk();if(!a)return;swoop(a,700,1100,0,.06,.07,"sine")},
+ win(){const a=fxOk();if(!a)return;[523,659,784,1047,1319,1568,2093].forEach((f,i)=>bell(a,f,i*.07,.14,1.4));[[1047,1319,1568]].forEach(ch=>ch.forEach(f=>bell(a,f,.55,.07,2)))}};
 function buzz(p){try{navigator.vibrate&&navigator.vibrate(p)}catch(e){}}
 function stamp(t="合格"){const s=$("#stamp");s.textContent=t;s.classList.remove("go");void s.offsetWidth;s.classList.add("go")}
 let tT;function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("on");clearTimeout(tT);tT=setTimeout(()=>e.classList.remove("on"),2600)}
@@ -936,12 +998,12 @@ function kanjiQ(level,force){const k=pickItem(level);const pool=k.v?V[level]:K[l
  if(type==="reading")return{k,type,prompt:k.c,pcls:vc,hint:tag+`How do you read this ${w}?`,ans:k.r,opts:shuffle([k.r,...others.map(o=>o.r)])};
  return{k,type,prompt:k.m,txt:true,hint:tag+`Which ${w} means this?`,ans:k.c,kj:!k.v,opts:shuffle([k.c,...others.map(o=>o.c)])}}
 function renderQ(el,q,cb,opts={}){
- el.innerHTML=`<div class="qprompt ${q.sent?"sent":q.txt?"txt":""}${q.pcls||""}">${q.sent?q.prompt.replace("___",'<span class="blank">？</span>'):q.prompt}</div><div class="qhint">${q.hint||""}</div><div class="opts"></div><div class="expl"></div>`;
+ el.dataset.qwait="1";el.innerHTML=`<div class="qprompt ${q.sent?"sent":q.txt?"txt":""}${q.pcls||""}">${q.sent?jlink(q.prompt).replace("___",'<span class="blank">？</span>'):q.txt?esc(q.prompt):jlink(q.prompt)}</div><div class="qhint">${q.hint||""}</div><div class="opts"></div><div class="expl"></div>`;
  const box=el.querySelector(".opts");let done=false;
  q.opts.forEach(o=>{const b=document.createElement("button");b.className="opt"+(q.kj?" kj":"");b.textContent=o;b.onclick=()=>{if(done)return;const ok=o===q.ans;
   if(ok){done=true;b.classList.add("ok");sfx.ok();buzz(20)}else{b.classList.add("no");sfx.no();buzz([60,40,60]);if(!opts.retry){done=true;[...box.children].find(x=>x.textContent===q.ans).classList.add("ok")}}
   if(q.k){const was=isM(q.k);markK(q.k.id,ok);if(ok&&!was&&isM(q.k)&&!GATE&&!STUDY)toast(`⭐ ${q.k.c} mastered! (3× correct)`)}
-  if(q.expl&&(ok||!opts.retry))el.querySelector(".expl").textContent=q.expl;
+  if(done){el.dataset.qwait="0";if(q.expl)el.querySelector(".expl").innerHTML=jlink(q.expl);else if(q.k&&!opts.noTip)el.querySelector(".expl").innerHTML=tipHTML(q.k)}
   cb(ok,b)};box.appendChild(b)})}
 
 /* ================= HEADER / HOME ================= */
@@ -961,10 +1023,10 @@ $("#sheetX").onclick=closeSheet;$("#sheet").onclick=e=>{if(e.target.id==="sheet"
 
 /* flashcards */
 function openFlash(){let deck=shuffle(ITEMS(S.lv).filter(x=>!isM(x))).slice(0,30),i=0,known=0;if(deck.length<10)deck=shuffle(ITEMS(S.lv)).slice(0,30);
- openSheet(`<h2><small>FLASHCARDS · ${S.lv}</small>単語カード</h2><div class="bar"><div id="fcBar"></div></div><div class="fc" id="fc"><div class="inner"><div class="face front"><div class="c" id="fcC"></div><div class="tiny" style="margin-top:14px;opacity:.5">Tap to flip</div></div><div class="face back"><div style="font-size:30px;font-weight:900" id="fcM"></div><div style="font-size:22px;margin-top:10px" id="fcR"></div><div class="tag" style="margin-top:16px;color:#fff">${S.lv}</div></div></div></div><div class="row"><button class="btn grow" id="fcAgain">😵 Again</button><button class="btn jade grow" id="fcKnow">😎 Got it</button></div><p class="tiny muted" id="fcN" style="text-align:center;margin-top:10px"></p>`);
+ openSheet(`<h2><small>FLASHCARDS · ${S.lv}</small>単語カード</h2><div class="bar"><div id="fcBar"></div></div><div class="fc" id="fc"><div class="inner"><div class="face front"><div class="c" id="fcC"></div><div class="tiny" style="margin-top:14px;opacity:.5">Tap to flip</div></div><div class="face back"><div style="font-size:30px;font-weight:900" id="fcM"></div><div style="font-size:22px;margin-top:10px" id="fcR"></div><div class="fcTrick" id="fcT"></div></div></div></div><div class="row"><button class="btn grow" id="fcAgain">😵 Again</button><button class="btn jade grow" id="fcKnow">😎 Got it</button></div><p class="tiny muted" id="fcN" style="text-align:center;margin-top:10px"></p>`);
  const fc=$("#fc");fc.onclick=()=>{fc.classList.toggle("flip");sfx.pop()};
  function show(){if(i>=deck.length){$("#sheetBody").innerHTML=`<div class="result"><div style="font-size:60px">🎴</div><div class="score">${known}/${deck.length}</div><p class="muted">cards known on first look</p><br><button class="btn shu full" id="fcDone">Finish · +${known*3} XP</button></div>`;addXP(known*3);$("#fcDone").onclick=closeSheet;if(known>deck.length*.7){stamp("優秀");confetti()}return}
-  const k=deck[i];fc.classList.remove("flip");setTimeout(()=>{if(!$("#fcC"))return;$("#fcC").textContent=k.c;$("#fcC").style.fontSize=k.c.length>2?(k.c.length>3?"56px":"72px"):"";$("#fcM").textContent=k.m;$("#fcR").textContent=k.r},150);$("#fcBar").style.width=(i/deck.length*100)+"%";$("#fcN").textContent=`${i+1} / ${deck.length}`}
+  const k=deck[i];fc.classList.remove("flip");setTimeout(()=>{if(!$("#fcC"))return;$("#fcC").textContent=k.c;$("#fcC").style.fontSize=k.c.length>2?(k.c.length>3?"56px":"72px"):"";$("#fcM").textContent=k.m;$("#fcR").textContent=k.r;const t=trick(k);$("#fcT").innerHTML=t?"💡 "+t:""},150);$("#fcBar").style.width=(i/deck.length*100)+"%";$("#fcN").textContent=`${i+1} / ${deck.length}`}
  $("#fcKnow").onclick=()=>{known++;markK(deck[i].id,true);sfx.ok();i++;show()};
  $("#fcAgain").onclick=()=>{deck.push(deck[i]);sfx.no();i++;show()};show()}
 
@@ -972,7 +1034,7 @@ function openFlash(){let deck=shuffle(ITEMS(S.lv).filter(x=>!isM(x))).slice(0,30
 function openQuiz(){let n=0,ok=0;const N=10;
  openSheet(`<h2><small>QUICK QUIZ · ${S.lv}</small>小テスト</h2><div class="bar"><div id="qzBar"></div></div><div id="qz" class="qwrap"></div>`);
  const my=SHEET;function next(){if(my!==SHEET||!$("#qz"))return;if(n>=N){const xp=ok*5;S.quizzes++;addXP(xp);$("#sheetBody").innerHTML=`<div class="result"><div style="font-size:60px">${ok>=8?"🏯":ok>=5?"⛩️":"🍙"}</div><div class="score">${ok}/${N}</div><p class="muted">${ok>=8?"Subarashii! Amazing!":ok>=5?"Ii ne! Keep it up!":"Daijoubu, try again!"}</p><br><button class="btn shu full" id="qzA">Again · got +${xp} XP</button><br><br><button class="btn full" id="qzX">Close</button></div>`;$("#qzA").onclick=openQuiz;$("#qzX").onclick=closeSheet;if(ok>=8){stamp("合格");confetti();sfx.win()}return}
-  $("#qzBar").style.width=(n/N*100)+"%";renderQ($("#qz"),kanjiQ(S.lv),r=>{if(r)ok++;n++;setTimeout(next,850)})}next()}
+  $("#qzBar").style.width=(n/N*100)+"%";renderQ($("#qz"),kanjiQ(S.lv),r=>{if(r)ok++;n++;if(r)setTimeout(next,1300);else{const b=document.createElement("button");b.className="btn shu full";b.style.marginTop="12px";b.textContent="Got it, next →";b.onclick=next;$("#qz").appendChild(b)}})}next()}
 
 /* ================= LOCK SCREEN ================= */
 function lockClock(){const d=new Date();$("#lTime").textContent=String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");$("#lDate").textContent=`${d.getMonth()+1}月${d.getDate()}日 (${"日月火水木金土"[d.getDay()]}) · ${d.toLocaleDateString("en",{weekday:"long"})}`}
@@ -985,7 +1047,7 @@ let lockN=0;const LOCK_NEED=3;
 function lockDots(){$$("#lDots i").forEach((d,i)=>d.classList.toggle("on",i<lockN))}
 function showLock(){const L=$("#lock");L.classList.remove("out");L.classList.add("on");lockN=0;lockDots();$("#lQ").classList.remove("on");$("#lNotif").style.display="";$("#lSwipe").style.display="";$("#lIcon").classList.remove("open");$("#lWm").textContent=rnd(K[S.lv]).c;{const f=$("#lFloat");if(!f.children.length){const ks=K[S.lv].map(k=>k.c);for(let i=0;i<18;i++){const sp=document.createElement("span");sp.textContent=rnd(ks);sp.style.left=(Math.random()*100)+"%";sp.style.fontSize=(18+Math.random()*44)+"px";sp.style.animationDuration=(12+Math.random()*16)+"s";sp.style.animationDelay=(-Math.random()*20)+"s";f.appendChild(sp)}}}lockClock();if(GATE){$("#lEmerg").style.display="block";setTimeout(lockAsk,350)}}
 function lockAsk(){if($("#lQ").classList.contains("on"))return;$("#lSwipe").style.display="none";$("#lNotif").style.display="none";const el=$("#lQ");el.classList.add("on");
- const q=kanjiQ(S.lv);renderQ(el,q,ok=>{if(ok){lockN++;lockDots();if(lockN>=LOCK_NEED){unlockNow(true);return}setTimeout(()=>{el.classList.remove("on");lockAsk()},650)}else{setTimeout(()=>{el.classList.remove("on");lockAsk()},1100)}})}
+ const q=kanjiQ(S.lv);renderQ(el,q,ok=>{if(ok){lockN++;lockDots();if(lockN>=LOCK_NEED){unlockNow(true);return}setTimeout(()=>{el.classList.remove("on");lockAsk()},650)}else{setTimeout(()=>{el.classList.remove("on");lockAsk()},2600)}})}
 function unlockNow(earned){$("#lIcon").classList.add("open");{const bu=$("#lBurst");bu.classList.remove("go");void bu.offsetWidth;bu.classList.add("go")}confetti(70);buzz([30,40,60]);if(earned){S.unlocks++;addXP(10)}
  if(GATE){stamp("解錠");sfx.win();setTimeout(gateDone,700);return}
  setTimeout(()=>{$("#lock").classList.add("out");sfx.win();setTimeout(()=>{$("#lock").classList.remove("on","out");toast("Unlocked! +10 XP 🔓")},700)},500)}
@@ -1007,7 +1069,7 @@ function mask(src,N,fn){const c=document.createElement("canvas");c.width=c.heigh
 function dil(m,N,r){const o=new Uint8Array(N*N);for(let y=0;y<N;y++)for(let x=0;x<N;x++){if(!m[y*N+x])continue;for(let dy=-r;dy<=r;dy++)for(let dx=-r;dx<=r;dx++){const X=x+dx,Y=y+dy;if(X>=0&&Y>=0&&X<N&&Y<N)o[Y*N+X]=1}}return o}
 function scoreWrite(){const N=64;const U=mask(cI,N,(x,s)=>x.drawImage(s,0,0,N,N));const G=mask(null,N,x=>{x.fillStyle="#000";x.font=`${N*.78}px "Klee One"`;x.textAlign="center";x.textBaseline="middle";x.fillText(wk().c,N/2,N/2+N*.03)});
  const Gd=dil(G,N,3),Ud=dil(U,N,3);let u=0,g=0,pu=0,rg=0;for(let i=0;i<N*N;i++){if(U[i]){u++;if(Gd[i])pu++}if(G[i]){g++;if(Ud[i])rg++}}if(!u)return 0;const P=pu/u,R=rg/g;return Math.round(100*(2*P*R/(P+R||1)))}
-function renderWrite(){const k=wk();$("#wChar").textContent=k.c;$("#wInfo").textContent=`${k.m} · ${k.r} · ${S.lv}`;strokes=[];$("#wResult").style.display="none";drawGuide();redraw()}
+function renderWrite(){const k=wk();$("#wChar").textContent=k.c;$("#wInfo").textContent=`${k.m} · ${k.r} · ${S.lv}`;{const t=$("#wTrick");if(t)t.innerHTML=MN[k.c]?"💡 "+MN[k.c]+` <span class="jw" data-w="${k.c}">more ›</span>`:""}strokes=[];$("#wResult").style.display="none";drawGuide();redraw()}
 $("#wPrev").onclick=()=>{S.wIdx--;save();sfx.pop();renderWrite()};$("#wNext").onclick=()=>{S.wIdx++;save();sfx.pop();renderWrite()};
 $("#wGuide").onclick=()=>{guideOn=!guideOn;$("#wGuide").textContent="👁 Guide: "+(guideOn?"on":"off");drawGuide()};
 $("#wUndo").onclick=()=>{strokes.pop();redraw()};$("#wClear").onclick=()=>{strokes=[];redraw()};
@@ -1039,8 +1101,8 @@ const RS={
  stumble(){nz(.22,240,1,"lowpass",.5);tn(180,.18,"square",.06,0,90);tn(440,.12,"triangle",.05,.12,330);tn(330,.2,"triangle",.05,.2,250)},
  crash(){nz(.8,1400,0.6,"lowpass",.7,0,90);tn(80,.6,"sawtooth",.14,0,40);nz(.4,4000,1,"highpass",.15,.05)},
  power(){[523,659,784,1047,1319,1568].forEach((f,i)=>tn(f,.16,"triangle",.07,i*.05));nz(.5,3000,1,"highpass",.06,.1)},
- right(){[659,784,988,1319].forEach((f,i)=>tn(f,.3,"triangle",.08,i*.07));tn(1568,.5,"sine",.06,.28);tn(2093,.5,"sine",.04,.34)},
- wrong(){tn(392,.2,"square",.05);tn(370,.2,"square",.05,.14);tn(262,.4,"square",.05,.28,196)},
+ right(){sfx.ok(true)},
+ wrong(){sfx.no()},
  go(){tn(784,.08,"square",.05);tn(1175,.18,"square",.05,.09);nz(.3,1500,1,"bandpass",.12,.05,4000)},
  stop(){tn(880,.15,"sine",.07);tn(660,.25,"sine",.06,.12)},
  oni(){nz(.6,260,4,"bandpass",.35,0,140);tn(95,.55,"sawtooth",.08,0,70)},
@@ -1650,7 +1712,7 @@ function alarmSound(){const a=ac();if(!a)return;[0,.18,.36].forEach(w=>{tone(988
 let wake=null;async function keepAwake(){try{if(navigator.wakeLock&&S.alarm.on&&!wake)wake=await navigator.wakeLock.request("screen")}catch(e){}}
 function startRing(){if(ringing)return;ringing=true;rState={n:0,miss:0,lv:LEVELS[S.alarm.lv]};$("#ring").classList.add("on");$("#rLv").textContent=rState.lv;alarmSound();ringTimer=setInterval(()=>{alarmSound();buzz([400,200,400])},1200);ringNext()}
 function ringNext(){$("#rCount").textContent=rState.n+" / 5";$("#rMiss").textContent=rState.miss;$("#rBar").style.width=(rState.n/5*100)+"%";if(rState.n>=5)return stopRing();
- renderQ($("#rQ"),kanjiQ(rState.lv),ok=>{if(ok){rState.n++;setTimeout(ringNext,450)}else{rState.miss++;$("#rMiss").textContent=rState.miss;setTimeout(ringNext,900)}})}
+ renderQ($("#rQ"),kanjiQ(rState.lv),ok=>{if(ok){rState.n++;setTimeout(ringNext,450)}else{rState.miss++;$("#rMiss").textContent=rState.miss;setTimeout(ringNext,2600)}})}
 function stopRing(){clearInterval(ringTimer);ringTimer=null;ringing=false;try{navigator.vibrate&&navigator.vibrate(0)}catch(e){}$("#ring").classList.remove("on");const a=S.alarm;S.alarmsDone++;let msg="おはよう！ Good morning! +40 XP";
  if(rState.miss<=1){a.clears++;if(a.clears>=3&&a.lv<4){a.lv++;a.clears=0;msg="🎊 Alarm level up! Now "+LEVELS[a.lv];setTimeout(()=>confetti(90),300)}}else msg="Good morning! "+rState.miss+" mistakes, so this one doesn't count as a clear (1 or fewer needed).";
  addXP(40);save();renderAlarm();stamp("起床");sfx.win();toast(msg)}
@@ -1724,7 +1786,7 @@ $("#slTest").onclick=()=>{if(IS_APK){native("studytest");toast("⏱ Now leave Ka
 setInterval(()=>{if($("#v-alarm").classList.contains("on"))renderSL()},30000);
 function openSL(preview){if(slActive)return;slActive=true;slState={n:0,miss:0,lv:S.lv,preview:!!preview};$("#lock").classList.remove("on");$("#slock").classList.add("on");$("#slLvTag").textContent=slState.lv;$("#slEmerg").textContent=preview?"✕ Close preview":"🚨 Emergency: use phone for 5 min";buzz([200,100,200]);sfx.win();slNext()}
 function slNext(){$("#slCount").textContent=slState.n+" / 5";$("#slMiss").textContent=slState.miss;$("#slBar").style.width=(slState.n/5*100)+"%";if(slState.n>=5)return slDone();
- renderQ($("#slQ"),kanjiQ(slState.lv),ok=>{if(ok){slState.n++;setTimeout(slNext,450)}else{slState.miss++;setTimeout(slNext,900)}})}
+ renderQ($("#slQ"),kanjiQ(slState.lv),ok=>{if(ok){slState.n++;setTimeout(slNext,450)}else{slState.miss++;setTimeout(slNext,2600)}})}
 function studyCmd(cmd){native(cmd);setTimeout(()=>{try{location.href="kanjidojo://"+cmd}catch(e){}},900);setTimeout(sleepPage,1600)}
 function slDone(){S.slocks=(S.slocks||0)+1;addXP(15);stamp("解放");sfx.win();
  if(STUDY){const c=slCfg();c.next=Date.now()+c.iv*60000;save();setTimeout(()=>studyCmd("studydone"),800);return}
@@ -1775,6 +1837,51 @@ function syncS(){if(GATE||STUDY||ringing||window.__KD_ASLEEP)return;const n=load
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")syncS()});addEventListener("focus",syncS);addEventListener("storage",e=>{if(e.key==="kanjiDojo")syncS()});
 function renderAll(){renderPL();renderHeader();renderHome();renderAlarm();renderProg()}
 renderAll();tick();renderSL();
+
+const MN={"日":"A square window with the sun shining in the middle. One sun = one day ☀️","月":"A crescent moon with two cloud lines across it. The moon marks each month 🌙","火":"A campfire: a person (人) with two sparks flying off the sides 🔥","水":"A river: one long stream in the middle with water splashing left and right 💧","木":"A tree: a trunk (|), branches (一) and roots spreading down 🌳","金":"A roof over shiny nuggets buried in the earth (土): gold, money 💰","土":"A little sprout (十) growing out of the ground line (一): soil, earth 🌱","山":"Three mountain peaks, the middle one tallest ⛰️","川":"Three lines of water flowing down: a river 🏞️","人":"Two legs walking: a person 🚶","口":"A square, wide-open mouth. Say \"kuchi!\" and your mouth makes a box 👄","目":"An eye turned on its side: the box is the eye, the lines are the pupil 👁️","耳":"An ear with folds inside, and a lobe sticking out at the bottom 👂","手":"A hand: the lines are fingers, the hook is the wrist ✋","足":"A mouth (口) on top of a leg stepping forward: foot, leg 🦶","上":"A line pointing up from the ground: up, above ⬆️","下":"A line hanging down from the ceiling: down, below ⬇️","中":"A line going right through the middle of a box: middle, inside 🎯","大":"A person (人) stretching their arms wide: \"This BIG!\" 🙆","小":"One small line with two tiny dots beside it: small 🤏","三":"Three lines = three. Easy! 3️⃣","六":"A person with a hat and two legs doing a dance: 6 moves 💃","九":"An arm bent like a \"9\" 9️⃣","百":"One (一) on top of white (白): one hundred white rice grains 💯","千":"A person (ノ) carrying ten (十) bags... times 100 = thousand","万":"A one (一) and a hook that keeps going: ten thousand, so many!","円":"A round yen coin seen from the side, standing in a box 💴","年":"A person carrying a bundle of rice: one harvest every year 🌾","先":"A plant shooting up ahead, on legs (儿) that walk ahead of everyone ⏩","生":"A cow (牛) standing on the ground (一): new life is born 🌱","学":"A child (子) under a roof with sparkles above: studying 📚","校":"Wood (木) + mix (交): a wooden building where kids mix: school 🏫","友":"Two hands (ナ + 又) reaching for each other: friend 🤝","雨":"Raindrops falling from a cloud under the sky 🌧️","電":"Rain (雨) on top with a lightning bolt (电) below: electricity ⚡","車":"A cart seen from above: the box is the seat, the line is the axle 🚗","食":"A roof (人) over good food (良): eat! 🍙","飲":"Food (食) + a person with an open mouth (欠): drink 🥤","見":"An eye (目) on legs (儿): walk around and look 👀","行":"A crossroads: you can go any way 🛣️","来":"A rice plant with ears: the harvest has come 🌾","白":"The sun (日) with one ray of white light on top ⚪","何":"A person (亻) holding a box (可) asking \"What's this?\" ❓","休":"A person (亻) leaning on a tree (木): rest 😴","話":"Words (言) + tongue (舌): talk, story 🗣️","天":"Big (大) with a line above the person's head: the sky above ☁️","名":"Evening (夕) + mouth (口): in the dark, you call out your name 📛","女":"A woman sitting gracefully with crossed legs 👩","男":"A rice field (田) + power (力): the man working the field 👨","子":"A baby with arms out, wrapped in a blanket 👶","外":"Evening (夕) + fortune-teller (卜): telling fortunes outside at night 🌃","国":"A king's jewel (玉) inside borders (囗): country 🗾","語":"Words (言) + five (五) + mouth (口): language, word 💬","長":"Long flowing hair: long, and the chief has the longest 💇","高":"A tall tower with a roof and windows: tall, expensive 🏯","安":"A woman (女) safe under a roof (宀): peaceful, cheap 🏠","会":"People under one roof (人) talking (云): meet 👋","社":"An altar (礻) on the earth (土): shrine, company 🏢","自":"A nose (people point to their nose to mean \"me\"): oneself 👃","分":"A knife (刀) cutting something in two (八): part, minute ✂️","早":"The sun (日) just above a sprout (十): early morning 🌅","新":"Standing (立) tree (木) + axe (斤): freshly cut wood = new ✨","古":"Ten (十) mouths (口) telling the same story for generations: old 📜","強":"A bow (弓) + a strong bug (虫): strong 💪","弱":"Two bent bows with feathers: weak 🪶","思":"A field (田) on top of a heart (心): thinking 🤔","知":"An arrow (矢) + mouth (口): words that hit the target = know 🎯","教":"An old man (老) and a child (子) with a stick (攵): teach 👨‍🏫","習":"Wings (羽) over white (白): a baby bird learning to fly 🐦","春":"Three (三) people (人) under the sun (日): spring picnic 🌸","夏":"A head (頁) with feet: walking slowly in summer heat ☀️","秋":"Rice (禾) + fire (火): burning fields after the autumn harvest 🍂","冬":"Two icicles hanging under a roof: winter ❄️","朝":"The sun (日) rising between grass (十) while the moon (月) is still up: morning 🌄","夜":"A person under a roof with the moon (夕): night 🌙","家":"A pig (豕) under a roof (宀): home sweet home 🐷🏠","店":"A cliff roof (广) + fortune-teller (占): a little shop 🏪","町":"A rice field (田) + a road (丁): town 🏘️","海":"Water (氵) + every (毎): water every way you look: sea 🌊","空":"A hole (穴) + craft (工): the open sky, empty 🌌","走":"Earth (土) + a foot running (龰): run 🏃","歩":"Stop (止) + a few (少) steps: walk slowly 🚶","洋":"Water (氵) + sheep (羊): sheep sailed across the ocean to the West 🐑","病":"A sick person lying in bed (疒) with fire (丙) fever: illness 🤒","医":"An arrow (矢) inside a box (匚): a doctor removing an arrow 💉","映":"The sun (日) + center (央): light projected in the middle of the screen 🎬","画":"A field (田) inside a frame: a picture 🖼️","料":"Rice (米) measured with a ladle (斗): fee, materials 🍚","理":"A king's jewel (王) + village (里): logic and reason 🧠","色":"A person (⺈) kneeling over another (巴): color 🎨","世":"Three tens (十) joined: thirty years = one generation 🌍","牛":"A cow's head with horns sticking up 🐄","文":"A person with a decorated chest: writing, sentence ✍️","字":"A child (子) under a roof (宀) learning letters 🔤","送":"Road (辶) + a gift being sent off: send 📦","借":"A person (亻) + long ago (昔): borrowing from the past 🤲","貸":"Generation (代) + money (貝): lend money to the next generation 💸","感":"All (咸) + heart (心): feeling with your whole heart 💖","想":"Look (相) at someone with your heart (心): idea, imagine 💭","情":"Heart (忄) + blue/young (青): young emotions 💞","政":"Correct (正) + a hitting hand (攵): politics keeps things in order 🏛️","経":"Thread (糸) passing through: pass through, sutra 🧵","済":"Water (氵) + all even (斉): the matter is settled 💧","判":"Half (半) + a knife (刂): cut cleanly to judge ⚖️","断":"Rice (米) in a box cut with an axe (斤): cut off, refuse 🪓","際":"Hill (阝) + festival (祭): at the edge of the festival 🎐","違":"Road (辶) + different directions (韋): differ ↔️","戦":"A single (単) spear (戈): war, battle ⚔️","争":"A hand pulling a stick from another hand: conflict 🤼","役":"Step (彳) + a weapon (殳): a soldier's role 🎭","危":"A person on a cliff about to fall: dangerous ⚠️","届":"A body (尸) + reason (由): deliver, reach 📬","願":"Origin (原) + head (頁): bow your head and wish 🙏","許":"Words (言) + noon (午): at noon, words of permission ✅","夢":"Grass on top, eyes (罒) and evening (夕): dreaming at night 💤","認":"Words (言) + endure (忍): recognize, approve 👍","種":"Rice (禾) + heavy (重): heavy seeds, kinds 🌰","責":"A thorn on money (貝): blame, duty 💢","任":"A person (亻) carrying a load (壬): entrust, duty 🎒","庭":"A roof (广) + court (廷): garden 🌷","喜":"A drum on a stand (壴) + mouth (口): rejoice! 🥁🎉","泣":"Water (氵) + stand (立): standing in tears 😢","笑":"Bamboo (竹) bending like a smile + a big person (夭): laugh 😆","疲":"Sick (疒) + skin (皮): tired skin 😩","痛":"Sick (疒) + through (甬): pain goes right through 🤕","恋":"Also (亦) + heart (心): romantic love 💘","星":"The sun (日) + life (生): stars are born suns ⭐","宇":"A roof (宀) + over (于): the roof of the universe 🪐","宙":"A roof (宀) + reason (由): outer space 🚀","優":"A person (亻) + grief (憂): kind to the sad, gentle and excellent 🌟","決":"Water (氵) + a breaking dam (夬): decide! 🌊","晴":"Sun (日) + blue (青): clear blue sky ☀️","準":"Water (氵) + a little bird (隹) + ten (十): level standard 📏","備":"A person (亻) with arrows in a quiver: prepare 🏹","概":"Tree (木) + already (既): general, approximate 🌲","傾":"A person (亻) + a tilted head (頃): lean, tilt ↗️","継":"Thread (糸) + rice (米) cut and tied again: inherit, continue 🧶","刻":"Pig (亥) + knife (刂): engrave, the moment it's carved 🗿","患":"Skewered (串) heart (心): suffer, a patient 🏥","縮":"Thread (糸) + inn (宿): threads shrink overnight 🧺","微":"Step (彳) + a tiny mountain + a hand (攵): slight, delicate 🔬","柔":"Spear (矛) + tree (木): a soft bending branch 🍃","濃":"Water (氵) + farming (農): thick, dense soup 🍲","沈":"Water (氵) + a person sinking (冘) 🫧","劇":"Tiger (虍) + pig (豕) + knife (刂): a dramatic fight! 🎭","鋭":"Metal (金) + exchange (兑): a sharp blade 🗡️","揺":"Hand (扌) + a jar: shake, sway 🫨","臓":"Flesh (月) + hide (蔵): organs hidden inside 🫀","稼":"Rice (禾) + home (家): earn rice for the family 💴","粘":"Rice (米) + fortune (占): sticky rice 🍙","獲":"Dog (犭) + a bird in hand: hunt, obtain 🐕","掘":"Hand (扌) + a body bending (屈): dig ⛏️","祈":"Altar (礻) + axe (斤): pray at the shrine 🙏","腕":"Flesh (月) + a curve (宛): arm, skill 💪","嫁":"Woman (女) + home (家): the bride enters the house 👰","謝":"Words (言) + shoot (射): thank you, sorry 🙇","豊":"A bowl piled high (豆): abundant harvest 🍇","穏":"Rice (禾) + a hand (⺕) resting on a heart (心): calm, peaceful 😌","撮":"Hand (扌) + most (最): snap the best photo 📸","柱":"Tree (木) + master (主): the main wooden pillar 🏛️","召":"Sword (刀) + mouth (口): summon by calling 📣","憲":"A roof (宀) + eye + heart (心): the constitution watches over us 📜","励":"Cliff (厂) + ten thousand (万) + power (力): encourage 📣","輸":"Car (車) + boat-shaped (兪): transport 🚢","曖":"Sun (日) + love (愛): hazy love, unclear 🌫️","昧":"Sun (日) + not yet (未): dark, unclear 🌑","慄":"Heart (忄) + chestnut (栗): heart prickly with fear 😱","憂":"Head + heart (心) + slow feet: melancholy 😔","拐":"Hand (扌) + a crooked path: kidnap 🚨","遜":"Road (辶) + grandchild (孫): humble steps 🙇","慶":"Deer + heart (心): congratulations! 🦌🎊","嘲":"Mouth (口) + morning (朝): mocking laughter 😏","諮":"Words (言) + next (次) + mouth (口): consult 🗨️","赴":"Run (走) + fortune-teller (卜): proceed to 🧭","斬":"Car (車) + axe (斤): slash ⚔️","拙":"Hand (扌) + out (出): clumsy hands 🙈","錯":"Metal (金) + long ago (昔): mixed up, confused 🔀","蔑":"Grass + eye (罒) + spear (戈): look down on, despise 😒","翻":"Number (番) + wings (羽): flip, translate 🔄","擁":"Hand (扌) + harmony (雍): embrace 🤗","頻":"Steps (步) + head (頁): frequent 🔁","措":"Hand (扌) + long ago (昔): set aside 📥","漠":"Water (氵) + not (莫): no water = desert, vague 🏜️","粛":"A brush held strictly: solemn 🎌","閲":"Gate (門) + exchange (兑): inspect at the gate 🔍","賄":"Money (貝) + have (有): bribe, provide 💰","浸":"Water (氵) + a hand with a broom: soak 🛁","摯":"Hold tight (執) + hand (手): sincere 🤲","弔":"A bow (弓) with a line through it: mourn 🕯️","傲":"A person (亻) + proud (敖): arrogant 😤","詐":"Words (言) + make (乍): made-up words = deceive 🤥","窮":"Hole (穴) + body (躬): stuck in a hole, distress 🕳️","斡":"Lattice + dipper (斗): turn, mediate 🔧","旋":"Flag (方) + legs: the flag spins around 🌀"};const EXK={"達":"reach, plural","今":"now","明":"bright","昨":"yesterday, previous","時":"time, hour","間":"interval, between","曜":"weekday","気":"spirit, air","元":"origin","読":"read","書":"write","聞":"hear, ask","買":"buy","半":"half","毎":"every","午":"noon","前":"before, front","後":"after, behind","供":"offer, attend","本":"book, origin","週":"week","一":"one","二":"two","入":"enter","出":"exit, go out","右":"right","花":"flower","音":"sound","楽":"fun, music","写":"copy","真":"true","旅":"trip","院":"institution","者":"person","銀":"silver","図":"drawing, map","館":"building, hall","港":"harbor","界":"world, boundary","族":"tribe, family","兄":"older brother","弟":"younger brother","授":"give, teach","業":"business, work","宿":"inn, lodge","題":"topic","試":"try, test","験":"test, verify","意":"mind, idea","味":"taste","質":"quality","問":"question","答":"answer","特":"special","急":"hurry","働":"work","始":"begin","終":"end","住":"live, dwell","重":"heavy","軽":"light","暑":"hot (weather)","寒":"cold","近":"near","遠":"far","暗":"dark","便":"convenience","利":"benefit","親":"parent, intimate","切":"cut","有":"have, exist","説":"explain","約":"promise, approx.","束":"bundle","関":"connection, gate","係":"person in charge","結":"tie, bind","果":"fruit, result","由":"reason","必":"certain","要":"need","注":"pour, note","連":"link","絡":"entwine","相":"mutual","談":"discuss","予":"beforehand","定":"fix, decide","残":"remain","念":"thought","最":"most","将":"leader, future","然":"so, nature","治":"govern, cure","技":"skill","術":"art, technique","増":"increase","減":"decrease","比":"compare","選":"choose","集":"gather","助":"help","信":"believe, trust","忘":"forget","続":"continue","険":"steep","全":"whole","複":"double","雑":"mixed","簡":"simple","単":"single, simple","正":"correct","確":"certain","完":"complete","普":"universal","通":"pass through","突":"sudden, stab","影":"shadow","響":"echo","環":"ring","境":"border","状":"state","況":"situation","条":"article, clause","件":"matter","努":"toil","力":"power","価":"price, value","値":"value","解":"untie, solve","改":"reform","善":"good","削":"scrape","提":"present","案":"plan","対":"opposite, versus","象":"elephant, image","向":"toward","印":"mark, stamp","批":"criticize","妥":"gentle, peace","協":"cooperate","需":"demand","給":"supply","維":"fiber, keep","持":"hold","証":"proof","拠":"basis","訪":"visit","与":"give","防":"prevent","迷":"lost","訴":"sue","諦":"give up","抱":"hug, hold","厳":"strict","詳":"detailed","贅":"extravagance","沢":"swamp, plenty","貴":"precious","矛":"halberd","盾":"shield","把":"grasp","握":"grip","貢":"tribute","献":"offer","懸":"hang","置":"put","促":"urge","進":"advance","撤":"remove","回":"turn, times","該":"the said","当":"hit, right","顕":"appear","著":"notable","緩":"loose","和":"harmony","抑":"suppress","制":"control","模":"model","索":"search","是":"correct","脆":"fragile","覆":"overturn","携":"carry","培":"cultivate","慈":"mercy","滞":"stagnate","潔":"pure","煩":"annoy","甚":"very","論":"theory","兆":"sign, trillion","傍":"beside","示":"show","唆":"tempt","覧":"look","既":"already","存":"exist"};const STORY={"花火":"Fire flowers 🌸🔥 blooming in the night sky = fireworks 🎆","電車":"A car that runs on electricity ⚡🚗 = train","電話":"Talking through electricity ⚡🗣️ = telephone","入口":"The \"mouth\" you go into 🚪 = entrance","出口":"The \"mouth\" you go out of = exit","学生":"Someone whose life is all about study 📚 = student","先生":"Someone born before you, who walks ahead = teacher","外国":"A country outside your own ✈️ = foreign country","会社":"A place where people meet to work 🏢 = company","名前":"The name that goes in front of you 📛","上手":"Your hand is \"up\" there 🙌 = skillful","下手":"Your hand is \"down\" there 👎 = bad at","一人":"One person 🧍 = alone","二人":"Two people 👫","右手":"Right + hand ✋","毎日":"Every + day 📅","午前":"Before noon 🌅 = a.m.","午後":"After noon 🌇 = p.m.","半分":"Half + part 🍕","今日":"\"Now\" day = today","明日":"The next bright day ☀️ = tomorrow","昨日":"The previous day = yesterday","天気":"The mood (spirit) of the sky ☁️ = weather","元気":"Your original spirit is full 💪 = healthy, energetic","大学":"Big study 🎓 = university","日本語":"The language of Japan (sun-origin country) 🇯🇵","子供":"A child and their companion 🧒 = child(ren)","男の人":"A man person 👨","女の人":"A woman person 👩","水曜日":"Water day 💧 = Wednesday","映画":"A picture projected on a screen 🎬 = movie","音楽":"Fun sounds 🎶 = music","写真":"A copy of the truth 📸 = photo","旅行":"Travel + go 🧳 = trip","図書館":"A building of maps and books 📚 = library","空港":"A harbor for the sky ✈️ = airport","自分":"My own part 🙋 = oneself","家族":"The tribe in your house 👨‍👩‍👧 = family","兄弟":"Big brother + little brother = siblings","宿題":"A topic you take home 🏠📝 = homework","試験":"Try + test 📝 = exam","意味":"The \"taste\" a word leaves in your mind 🧠 = meaning","質問":"A quality question ❓","便利":"Convenience + benefit = convenient 👍","親切":"Cutting close to someone's heart 💗 = kind","有名":"Having a name everyone knows 🌟 = famous","約束":"A bundle of promises tied together 🤙 = promise","自然":"Things being \"so\" by themselves 🌿 = nature","安全":"Peaceful and whole 🛡️ = safety","危険":"Dangerous + steep cliff ⚠️ = danger","簡単":"Simple + single 👌 = easy","最近":"The most recent, nearest time 🕐 = recently","将来":"What will come ahead 🔮 = future","普通":"What universally passes through 🚶 = normal","突然":"Suddenly, just like that 💥","経験":"Passing through a test 🧗 = experience","残念":"A thought that remains 😞 = too bad","必要":"Certainly needed ✅ = necessary","環境":"The ring and border around you 🌍 = environment","努力":"Toil with power 💪 = effort","価値":"Price + value 💎 = worth","証拠":"Proof + basis 🔍 = evidence","需要":"Demand + need 📈 = demand","供給":"Offer + supply 📦 = supply","矛盾":"A merchant sold a spear (矛) that pierces anything and a shield (盾) nothing can pierce. Impossible! 🛡️⚔️ = contradiction","把握":"Grasp + grip 🤲 = to fully understand","曖昧":"Hazy + dark 🌫️ = vague","既存":"Already exists ✔️ = existing","脆弱":"Fragile + weak 🥚 = vulnerable"};
+/* ================= MEMORY TRICKS + TAP-ANY-WORD DICTIONARY ================= */
+const ALLK={},ALLV={};LEVELS.forEach(l=>{K[l].forEach(k=>ALLK[k.c]=k);V[l].forEach(v=>ALLV[v.c]=v)});
+const VW=Object.keys(ALLV).sort((a,b)=>b.length-a.length);
+const isKj=ch=>ch>="一"&&ch<="鿿";
+function esc(t){return String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function kMean(ch){return ALLK[ch]?ALLK[ch].m:EXK[ch]||""}
+function jlink(t){t=String(t);let o="",i=0;while(i<t.length){const w=VW.find(v=>t.startsWith(v,i));if(w){o+=`<span class="jw" data-w="${esc(w)}">${esc(w)}</span>`;i+=w.length;continue}
+ const ch=t[i];if(isKj(ch)&&(ALLK[ch]||EXK[ch]))o+=`<span class="jw" data-w="${ch}">${ch}</span>`;else o+=esc(ch);i++}return o}
+function breakdown(w){return[...w].filter(isKj).map(ch=>({c:ch,m:kMean(ch)}))}
+function trick(it){if(!it)return"";if(!it.v)return MN[it.c]||"";if(STORY[it.c])return STORY[it.c];
+ const b=breakdown(it.c).filter(x=>x.m);return b.length>1?b.map(x=>`${x.c} (${x.m.split(",")[0]})`).join(" + ")+` → ${it.m}`:b.length?`${b[0].c} means "${b[0].m.split(",")[0]}" → ${it.m}`:""}
+let peekStack=[];
+function say(t){try{if(!window.speechSynthesis)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="ja-JP";u.rate=.85;speechSynthesis.speak(u)}catch(e){}}
+function openPeek(w,push){const it=ALLV[w]||ALLK[w];const ex=!it&&EXK[w];if(!it&&!ex)return;if(!push)peekStack=[];peekStack.push(w);sfx.pop();
+ const p=$("#peek");const tr=it?trick(it):"";const cnt=it?Math.min(MASTER_N,(S.ks[it.id]||{}).c||0):-1;
+ const used=!it||!it.v?Object.values(ALLV).filter(v=>v.c.includes(w)).slice(0,8):[];
+ const parts=it&&it.v?breakdown(it.c):[];
+ p.querySelector(".pk").innerHTML=`<button class="pkX" id="pkX">✕</button>${peekStack.length>1?'<button class="pkB" id="pkB">← back</button>':""}
+  <div class="pkTag ${it&&it.v?"vw":""}">${it?(it.v?"単語 WORD":"漢字 KANJI")+" · "+it.l:"漢字 KANJI"}</div>
+  <div class="pkC ${w.length>2?"long":""}">${esc(w)}</div>
+  ${it?`<div class="pkR">${esc(it.r)} <button class="pkSay" id="pkSay">🔊</button></div>`:""}
+  <div class="pkM">${esc(it?it.m:ex)}</div>
+  ${cnt>=0?`<div class="pkStar">${"★".repeat(cnt)}${"☆".repeat(MASTER_N-cnt)} <span>${cnt>=MASTER_N?"mastered!":"get it right "+(MASTER_N-cnt)+"× more to master"}</span></div>`:""}
+  ${tr?`<div class="pkTrick"><b>💡 MEMORY TRICK</b><div>${tr}</div></div>`:""}
+  ${parts.length>1||(parts.length===1&&it.c.length>1)?`<div class="pkSub">Made of · tap a kanji</div><div class="pkParts">${parts.map(x=>`<button class="pkPart" data-w="${x.c}"><b>${x.c}</b><span>${esc((x.m||"?").split(",")[0])}</span></button>`).join(`<i>+</i>`)}</div>`:""}
+  ${used.length?`<div class="pkSub">Used in words</div><div class="pkUsed">${used.map(v=>`<button class="pkPart" data-w="${esc(v.c)}"><b>${esc(v.c)}</b><span>${esc(v.m.split(",")[0])}</span></button>`).join("")}</div>`:""}`;
+ p.classList.add("on");$("#pkX").onclick=closePeek;const bb=$("#pkB");if(bb)bb.onclick=()=>{peekStack.pop();const prev=peekStack.pop();openPeek(prev,true)};
+ const sb=$("#pkSay");if(sb){if(!window.speechSynthesis)sb.remove();else sb.onclick=()=>say(it.c)}
+ p.querySelectorAll(".pkPart").forEach(b=>b.onclick=()=>openPeek(b.dataset.w,true))}
+function closePeek(){$("#peek").classList.remove("on");peekStack=[]}
+document.addEventListener("click",e=>{const j=e.target.closest&&e.target.closest(".jw");if(!j)return;const q=j.closest("[data-qwait]");e.stopPropagation();e.preventDefault();if(q&&q.dataset.qwait==="1"){toast("💡 Answer first, then tap to learn it");return}openPeek(j.dataset.w)},true);
+$("#peek").onclick=e=>{if(e.target.id==="peek")closePeek()};
+function tipHTML(k){const t=trick(k);return`<div class="qtip"><span class="jw" data-w="${esc(k.c)}">${esc(k.c)}</span> <b>${esc(k.r)}</b> · ${esc(k.m)}${t?`<div class="qtipT">💡 ${t}</div>`:""}<div class="qtipH">tap the ${k.v?"word":"kanji"} for more</div></div>`}
+let dLv=null;
+function openDict(){dLv=dLv||S.lv;openSheet(`<h2><small>TAP ANY CARD TO LEARN</small>💡 Kanji &amp; Word Tricks</h2><div class="levels" id="dLv" style="margin-bottom:10px"></div><input id="dQ" class="dSearch" placeholder="🔍 Search: 火, fire, ひ..."><div id="dBox"></div>`);
+ const draw=()=>{levelChips($("#dLv"),dLv,l=>{dLv=l;draw()});const q=($("#dQ").value||"").trim().toLowerCase();
+  const f=x=>!q||x.c.includes(q)||x.r.includes(q)||x.m.toLowerCase().includes(q);const src=q?LEVELS:[dLv];
+  const ks=src.flatMap(l=>K[l]).filter(f),vs=src.flatMap(l=>V[l]).filter(f);
+  const card=x=>`<button class="dCard ${isM(x)?"m":""} ${x.v?"v":""}" data-w="${esc(x.c)}"><b>${esc(x.c)}</b><span>${esc(x.m.split(",")[0])}</span></button>`;
+  $("#dBox").innerHTML=(ks.length?`<div class="pkSub">漢字 Kanji · ${ks.length}</div><div class="dGrid">${ks.map(card).join("")}</div>`:"")+(vs.length?`<div class="pkSub" style="margin-top:14px">単語 Words · ${vs.length}</div><div class="dGrid w">${vs.map(card).join("")}</div>`:"")+(!ks.length&&!vs.length?`<p class="muted" style="text-align:center">Nothing found 🙈</p>`:"");
+  $$("#dBox .dCard").forEach(b=>b.onclick=()=>openPeek(b.dataset.w))};
+ $("#dQ").oninput=draw;draw()}
+$("#dictHome").onclick=()=>openDict();
 
 /* ================= STUDY REMINDERS + SESSIONS ================= */
 function remCfg(){S.rem=S.rem||{on:false,t:"20:00",dur:60,pre:[60,15],fired:{}};S.rem.fired=S.rem.fired||{};return S.rem}

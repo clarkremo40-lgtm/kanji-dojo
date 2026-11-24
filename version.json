@@ -1,11 +1,15 @@
 {
-  "build": 21,
-  "version": "2.1",
+  "build": 22,
+  "version": "2.2",
   "file": "app.html",
-  "size": 253194,
+  "size": 286636,
   "minNative": 6,
   "notes": [
-    "🐱 Brand-new app icon: Kanji Cat Sensei with a red hachimaki, holding a 字 card on a candy sunburst"
+    "💡 Memory tricks for all 194 kanji (口 is a square, wide-open mouth 👄) and stories for words (花 + 火 = 花火 fireworks 🎆)",
+    "👆 Tap any kanji or word to see its reading, meaning, trick, the kanji it's made of and words that use it, plus 🔊 pronunciation",
+    "📖 New 'Kanji & Word Tricks' dictionary on Home with search",
+    "🎵 New sounds: sparkly bells for correct answers (they go higher with each streak) and a soft boop-boop for wrong ones",
+    "After each answer you see the trick. Wrong answers wait so you can read it"
   ],
   "native": {
     "build": 8,
