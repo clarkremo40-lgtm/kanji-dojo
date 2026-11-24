@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <script>
-var KD_BUILD=23,KD_VER="2.3",KD_NATIVE=8;
+var KD_BUILD=24,KD_VER="2.4",KD_NATIVE=8;
 (function(){try{if(window.__KD_SWAP)return;var ls=localStorage;
  if(location.href.indexOf("file:///android_asset")===0)ls.setItem("kd_native",String(KD_NATIVE));
  var b=+(ls.getItem("kd_build")||0),h=ls.getItem("kd_html");
@@ -361,6 +361,70 @@ select{font-family:inherit;font-size:15px;font-weight:700;background:var(--ink3)
 .lsJ{font-size:18px;font-weight:800;line-height:1.55}.lsEn{font-size:13.5px;color:#6b5f94;margin-top:3px;line-height:1.4}
 .lsSay{position:absolute;top:-10px;right:-8px;border:none;background:#fff;border-radius:50%;width:30px;height:30px;font-size:14px;box-shadow:0 3px 8px rgba(0,0,0,.12)}
 .lsQ{background:linear-gradient(135deg,#f0fff8,#fff)}
+.lx{display:flex;flex-direction:column;min-height:72vh}
+.lxTop{display:flex;align-items:center;gap:10px;margin:0 40px 12px 0}
+.lxBar{flex:1;display:flex;gap:5px}.lxBar i{flex:1;height:10px;border-radius:99px;background:#eee6ff;transition:background .4s}
+.lxBar i.on{background:var(--lg)}.lxBar i.now{background:linear-gradient(90deg,#ffb3d0,#e6dcff);animation:barPulse 1.2s ease-in-out infinite}
+@keyframes barPulse{50%{opacity:.55}}
+.lxStars{font-size:18px;color:#ffb800;font-weight:900;letter-spacing:1px;text-shadow:0 2px 6px rgba(255,184,0,.35)}.lxStars span{color:#e3dcf5;text-shadow:none}
+.lxStage{flex:1}.lxStage.in>*{animation:stepIn .5s cubic-bezier(.2,1.2,.4,1) both}.lxStage.in>*:nth-child(2){animation-delay:.08s}.lxStage.in>*:nth-child(3){animation-delay:.16s}
+@keyframes stepIn{from{opacity:0;transform:translateX(40px) scale(.97)}}
+.lxFoot{position:sticky;bottom:0;padding-top:10px;background:linear-gradient(transparent,#fff 26%)}
+.lsCat{display:flex;align-items:flex-end;gap:8px;margin-bottom:10px}
+.lsCatI{width:52px;height:52px;flex:none}.lsCatI svg{width:52px;height:52px}
+.lsCat.talk .lsCatI{animation:catTalk .5s ease 2}.lsCat.yay .lsCatI{animation:catJump .6s cubic-bezier(.3,1.8,.5,1)}.lsCat.oops .lsCatI{animation:shake .45s}
+@keyframes catTalk{50%{transform:scale(1.08) rotate(-4deg)}}@keyframes catJump{40%{transform:translateY(-18px) rotate(8deg) scale(1.1)}}
+.lsCatB{position:relative;background:#fff;border:2px solid #e6dcff;border-radius:18px 18px 18px 4px;padding:9px 13px;font-size:13.5px;font-weight:800;color:#4b3d7a;box-shadow:0 4px 12px rgba(123,92,255,.12);animation:qIn .35s both}
+.lsCat.yay .lsCatB{border-color:#7ee2b8;background:#f0fff8}.lsCat.oops .lsCatB{border-color:#ffb3c6;background:#fff3f6}
+.lxGo{transition:transform .2s,opacity .2s}.lxGo.wait{opacity:.55;filter:saturate(.5)}.lxGo:not(.wait){animation:goPop .4s cubic-bezier(.2,1.6,.4,1)}
+@keyframes goPop{from{transform:scale(.92)}}
+.lxHero{margin-bottom:12px}
+.lxPat .snap{animation:snapIn .5s cubic-bezier(.2,1.8,.4,1) both}
+@keyframes snapIn{from{opacity:0;transform:translateY(-26px) rotate(-12deg) scale(.6)}}
+.lxFlip{perspective:900px;margin:16px 6px 10px;cursor:pointer}
+.lxFI{position:relative;transition:transform .7s cubic-bezier(.3,1.4,.5,1);transform-style:preserve-3d;min-height:150px}
+.lxFlip.open .lxFI{transform:rotateY(180deg)}
+.lxFF,.lxFB{backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.lxFF{position:absolute;inset:0;border-radius:24px;background:linear-gradient(135deg,#ffcf5c,#ff6fa8 60%,#9b7bff);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;box-shadow:0 10px 24px rgba(255,111,168,.35);animation:wiggle 2.4s ease-in-out infinite}
+.lxFF b{font-size:18px}.lxFF span{font-size:12px;opacity:.9}.lxQ{font-size:44px;animation:catBob 1.4s infinite}
+@keyframes wiggle{0%,100%{transform:rotate(0)}10%{transform:rotate(-2deg)}20%{transform:rotate(2deg)}30%{transform:rotate(0)}}
+.lxFB{transform:rotateY(180deg) rotate(-1deg);margin:0!important}
+.lxTr{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;border-radius:16px;border:none;width:100%;font-family:inherit;background:linear-gradient(90deg,#f6f2ff,#fff);box-shadow:0 3px 0 #e6dcff;color:#2d2147;position:relative}
+.lxTr span{font-size:13px;font-weight:700;color:#8a7fae;text-align:left}.lxTr b{font-size:17px;text-align:right;transition:.3s}
+.lxTr b.hid{filter:blur(7px);opacity:.5}.lxTr em{font-style:normal;font-size:14px;margin-left:4px}
+.lxTr.hid2{background:linear-gradient(90deg,#eafff5,#fff);box-shadow:0 3px 0 #b9eed6;animation:popIt .35s}
+@keyframes popIt{50%{transform:scale(1.04)}}
+.lxAll{border:none;border-radius:99px;padding:8px 14px;font:inherit;font-weight:800;font-size:13px;background:#f1ebff;color:#6b4fd8;margin-top:10px;box-shadow:0 3px 0 #ddd0ff}
+.lxB{cursor:pointer;transition:transform .2s}.lxB:active{transform:scale(.97)}
+.lxEn{max-height:0;overflow:hidden;opacity:0;transition:max-height .4s,opacity .4s}.lxB.open .lxEn{max-height:80px;opacity:1}
+.lxTap{font-size:11px;font-weight:800;color:#b09ae8;margin-top:4px;animation:barPulse 1.4s infinite}.lxB.open .lxTap{display:none}
+.lxEnQ{font-size:17px;font-weight:800;color:#3a4fa0;background:#eef6ff;border-radius:16px;padding:12px 14px;margin-bottom:12px;line-height:1.45}
+.lxAns{min-height:58px;border:2.5px dashed #d9ccff;border-radius:18px;padding:8px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;background:#fcfaff}
+.lxAns.shake{animation:shake .45s;border-color:#ff8fab}
+.lxPh{font-size:13px;color:#b3a8d6;font-weight:700;margin:auto}
+.lxPool{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px;min-height:50px}
+.lxTile{border:none;border-radius:14px;padding:10px 14px;font:inherit;font-size:18px;font-weight:800;color:#2d2147;background:#fff;box-shadow:0 4px 0 #d9ccff,0 6px 14px rgba(123,92,255,.12);animation:tileIn .35s cubic-bezier(.2,1.6,.4,1) both}
+.lxTile:active{transform:translateY(3px);box-shadow:0 1px 0 #d9ccff}
+.lxTile.in{background:linear-gradient(135deg,#9b7bff,#ff6fa8);color:#fff;box-shadow:0 4px 0 #6a49d8}
+.lxTile.used{opacity:.18;transform:scale(.9);pointer-events:none;animation:none}
+.lxTile.good{background:linear-gradient(135deg,#34d399,#22b07d);box-shadow:0 4px 0 #15805a;animation:goodHop .5s cubic-bezier(.2,1.8,.4,1) both}
+@keyframes tileIn{from{transform:scale(.4);opacity:0}}@keyframes goodHop{40%{transform:translateY(-12px)}}
+@keyframes shake{20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
+.lxDoneTxt{font-size:20px;font-weight:800;color:#15805a;text-align:center;padding:6px}
+.lxBig{font-size:24px;font-weight:800;text-align:center;line-height:1.6;margin:6px 0 4px}
+.lxOpts{display:grid;gap:8px;margin-top:12px}.lxOpt{font-size:14.5px!important;text-align:left;padding:13px 14px!important}
+.lxWin{position:relative;text-align:center;padding:10px 0 6px;overflow:hidden}
+.lxRays{position:absolute;left:50%;top:80px;width:600px;height:600px;margin:-300px;background:repeating-conic-gradient(rgba(255,200,80,.16) 0 10deg,transparent 10deg 20deg);animation:spin 16s linear infinite;pointer-events:none}
+.lxCatBig{position:relative;width:110px;height:110px;margin:0 auto;animation:catJump 1s cubic-bezier(.3,1.8,.5,1) .2s both,catBob 2s ease-in-out 1.2s infinite}.lxCatBig svg{width:110px;height:110px}
+.lxStarRow{position:relative;display:flex;justify-content:center;gap:10px;margin:6px 0}
+.lxS{font-size:52px;color:#e6e0f5;transform:scale(0);animation:starIn .55s cubic-bezier(.2,1.8,.4,1) both}.lxS.on{color:#ffc93c;text-shadow:0 4px 14px rgba(255,180,0,.55)}
+.lxS:nth-child(2){font-size:64px;margin-top:-10px}
+@keyframes starIn{from{transform:scale(0) rotate(-90deg)}to{transform:scale(1) rotate(0)}}
+.lxWin h2{position:relative;margin:4px 0;font-size:26px}.lxWin p{position:relative;margin:0 0 10px;font-weight:700;color:#6b5f94}
+.lxXp{position:relative;display:inline-block;background:linear-gradient(135deg,#ffb800,#ff6fa8);color:#fff;font-weight:900;border-radius:99px;padding:6px 16px;margin-bottom:12px;animation:lvPop .6s cubic-bezier(.2,1.8,.4,1) 1.2s both}
+.lxProg{position:relative;height:12px;border-radius:99px;background:#eee6ff;overflow:hidden;margin:4px 20px 6px}.lxProg div{height:100%;background:linear-gradient(90deg,#ff6fa8,#9b7bff);border-radius:99px;transition:width 1s}
+.lxBeltWin{position:relative;margin-top:14px;padding:14px;border-radius:20px;background:linear-gradient(135deg,#fff7c4,#ffe0ef);display:flex;flex-direction:column;align-items:center;gap:4px;animation:lvPop .8s cubic-bezier(.2,1.8,.4,1) 1.6s both}
+.gnStars{position:absolute;top:-17px;left:50%;transform:translateX(-50%);font-size:11px;color:#ffb800;letter-spacing:-1px;white-space:nowrap;font-style:normal}.gnStars span{color:#ddd5f2}
 /* ===== GORGEOUS LOCK SCREEN ===== */
 #lock{background:#120b2e!important}
 #lock .aur{position:absolute;inset:-20%;pointer-events:none;filter:blur(55px) saturate(1.3);opacity:.85}
@@ -1965,7 +2029,7 @@ function renderGram(){glLv=glLv||S.lv;S.gl=S.gl||{};const L=GLES[glLv],tot=LEVEL
  const H=pts[pts.length-1][1]+120;
  let h=`<svg class="gpSvg" width="${W}" height="${H}"><path d="${d}" fill="none" stroke="rgba(155,123,255,.18)" stroke-width="22" stroke-linecap="round"/><path d="${d}" fill="none" stroke="url(#gpG)" stroke-width="6" stroke-linecap="round" stroke-dasharray="2 14"/><defs><linearGradient id="gpG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff6fa8"/><stop offset="1" stop-color="#7b5cff"/></linearGradient></defs></svg>`;
  L.forEach((x,i)=>{const [px,py]=pts[i],st=glDone(x.id)?"done":i===cur?"cur":"";
-  h+=`<button class="gNode ${st}" style="left:${px}px;top:${py}px;--d:${i*40}ms" data-i="${i}"><span class="gnE">${x.e}</span>${st==="done"?'<i class="gnS">★</i>':""}<em class="gnN">${i+1}</em></button><div class="gLbl ${st}" style="left:${px}px;top:${py+46}px">${esc(x.t.split(" · ")[0])}</div>`;
+  h+=`<button class="gNode ${st}" style="left:${px}px;top:${py}px;--d:${i*40}ms" data-i="${i}"><span class="gnE">${x.e}</span>${st==="done"?'<i class="gnS">★</i>':""}${st==="done"&&(S.gls||{})[x.id]?`<i class="gnStars">${"★".repeat(S.gls[x.id])}<span>${"★".repeat(3-S.gls[x.id])}</span></i>`:""}<em class="gnN">${i+1}</em></button><div class="gLbl ${st}" style="left:${px}px;top:${py+46}px">${esc(x.t.split(" · ")[0])}</div>`;
   if(st==="cur")h+=`<div class="gCat" style="left:${px+(px<=cx?72:-72)}px;top:${py-34}px">${CATSVG}<span>Next!</span></div>`});
  const [bx,by]=pts[pts.length-1];
  h+=`<button class="gBoss" style="left:${bx}px;top:${by}px" id="gBossB"><span>🏯</span><b>BOSS · ${glLv} Test</b><small>${S.gBest[glLv]!=null?"Best "+S.gBest[glLv]+"/"+GRAM[glLv].length:GRAM[glLv].length+" questions"}</small></button>`;
@@ -1973,7 +2037,7 @@ function renderGram(){glLv=glLv||S.lv;S.gl=S.gl||{};const L=GLES[glLv],tot=LEVEL
  $$("#gPath .gNode").forEach(n=>n.onclick=()=>openLesson(glLv,+n.dataset.i));$("#gBossB").onclick=()=>{gLv=glLv;openGramTest()}}
 function openGramTest(){openSheet(`<h2><small>BOSS BATTLE · ${gLv}</small>文法テスト 🏯</h2><div id="gBox"></div>`);runGram()}
 function fmtPat(p){return p.split(" / ").map(r=>`<div class="lpRow">${r.split(" + ").map((c,i)=>`${i?'<i class="lpPlus">+</i>':""}<span class="lpChip c${i%4}">${jlink(c)}</span>`).join("")}</div>`).join("")}
-function openLesson(l,i){const L=GLES[l],x=L[i];if(!x)return;const b=BELT[l];sfx.pop();
+function openLessonClassic(l,i){const L=GLES[l],x=L[i];if(!x)return;const b=BELT[l];sfx.pop();
  openSheet(`<div class="lsn">
   <div class="lsHero" style="background:${b.g}"><div class="lsBelt">${beltSVG(l,44)} <span>${l} · ${b.jp} · Lesson ${i+1}/${L.length}</span></div><div class="lsEmo">${x.e}</div><h2 class="lsT">${jlink(x.t)}</h2>${glDone(x.id)?'<div class="lsDone">★ Learned</div>':""}</div>
   <div class="lsCard"><div class="lsH">🧩 Formula</div>${fmtPat(x.p)}</div>
@@ -1984,11 +2048,99 @@ function openLesson(l,i){const L=GLES[l],x=L[i];if(!x)return;const b=BELT[l];sfx
   <div class="lsCard lsQ"><div class="lsH">✅ Check yourself</div><div id="lsQ" class="qwrap"></div></div>
   <div class="row" style="gap:10px;margin-top:6px">${i>0?'<button class="btn" id="lsPrev" style="flex:none">←</button>':""}<button class="btn shu grow" id="lsNext">${i+1<L.length?"Next lesson →":"🏯 Boss test"}</button></div></div>`);
  $$(".lsSay").forEach(s=>s.onclick=()=>say(s.dataset.s));
- const q=x.q;renderQ($("#lsQ"),{sent:true,prompt:q[0],hint:"Choose the right piece for the blank",ans:q[1],opts:shuffle(q.slice(1))},ok=>{if(!ok)return;const first=!glDone(x.id);S.gl=S.gl||{};S.gl[x.id]=1;save();
+ const q=x.q;renderQ($("#lsQ"),{sent:true,prompt:q[0],hint:"Choose the right piece for the blank"+(QEN[x.id]?`<br><button class="enBtn" id="enBtn">🇬🇧 Show English</button><div class="enHint" id="enHint">${esc(QEN[x.id])}</div>`:""),ans:q[1],opts:shuffle(q.slice(1))},ok=>{if(!ok)return;const first=!glDone(x.id);S.gl=S.gl||{};S.gl[x.id]=1;save();
    if(first){addXP(10);stamp("習得");confetti(60);toast(`🎉 Lesson learned! ${glCount(l)}/${L.length} in ${l}`);if(glCount(l)===L.length)setTimeout(()=>{stamp(BELT[l].jp);sfx.win();toast(`🥋 ${BELT[l].n} earned! All ${l} grammar learned!`)},1400)}
    const dn=document.querySelector(".lsHero");if(dn&&!dn.querySelector(".lsDone"))dn.insertAdjacentHTML("beforeend",'<div class="lsDone">★ Learned</div>');try{renderGram()}catch(e){}},{retry:true,noTip:true});
  const pv=$("#lsPrev");if(pv)pv.onclick=()=>openLesson(l,i-1);$("#lsNext").onclick=()=>{if(i+1<L.length)openLesson(l,i+1);else{gLv=l;openGramTest()}};
  const sb=$("#sheetBody");if(sb)sb.scrollTop=0}
+
+const QEN={"N5_desu":"Mr. Tanaka is a teacher.","N5_wa":"I am a student.","N5_ga":"Who is going?","N5_wo":"I drink coffee every morning.","N5_ni":"I get up at 6 every day.","N5_e":"I'm going to Kyoto next week.","N5_de":"I eat rice with chopsticks.","N5_to":"I go shopping with my mother.","N5_mo":"Mr. Tanaka is a student. I'm a student too.","N5_no":"Whose bag is this?","N5_ka":"What is this?","N5_yone":"Nice weather, isn't it?","N5_karamade":"I have school from Monday to Friday.","N5_yanado":"I bought things like bread and juice.","N5_kosoado":"This book is mine.","N5_aruiru":"The teacher is in the classroom.","N5_masu":"I watched a movie yesterday.","N5_groups":"I go home at 10 every night.","N5_future":"I will meet my friend tomorrow.","N5_past":"I ate sushi yesterday.","N5_nai":"I don't drink alcohol.","N5_teform":"I wrote a letter and sent it.","N5_tekudasai":"Please wait a moment.","N5_teiru":"My little brother is sleeping in his room.","N5_temoii":"May I use this pen?","N5_iadj":"Yesterday's movie was interesting.","N5_naadj":"I went to a famous restaurant.","N5_adverb":"Please write it bigger.","N5_tai":"I want to drink water.","N5_hoshii":"I want a new car.","N5_mashou":"Let's take a little rest.","N5_masenka":"Won't you have some tea with me?","N5_compare":"Summer is hotter than winter.","N5_suki":"Do you understand Japanese?","N5_kara":"It's raining, so I'll take an umbrella.","N5_ga2":"This shop is expensive, but it's tasty.","N5_maeato":"After eating, I take a walk.","N5_counters":"Two sheets of paper, please.","N5_qwords":"When is your birthday?","N4_plain":"What did you eat yesterday?","N4_omou":"I think this book is interesting.","N4_potential":"I can speak Japanese.","N4_kotogadekiru":"I can swim 100 meters.","N4_volitional":"It's late, so let's go home.","N4_tsumori":"I plan to enter university next year.","N4_kotogaaru":"Have you ever climbed Mt. Fuji?","N4_passive":"I got scolded by my mother.","N4_causative":"My mother made my little brother clean his room.","N4_causpass":"I was made to drink alcohol by my senior.","N4_ba":"If I have time, I'll go.","N4_tara":"If I go to Japan, I want to eat sushi.","N4_to2":"When you turn right, there's the station.","N4_nara":"If you're going to Tokyo, the shinkansen is convenient.","N4_temo":"Even if it's expensive, I want to buy it.","N4_nakereba":"I have to take my medicine.","N4_hougaii":"You'd better go to the hospital.","N4_soudesu1":"This bag looks expensive, doesn't it?","N4_soudesu2":"According to the news, I heard the trains stopped.","N4_youda":"The room light is off. It seems he has already gone to bed.","N4_rashii":"Apparently that shop is closing next month.","N4_kamo":"Mr. Tanaka might not come.","N4_deshou":"It will probably get cold tomorrow.","N4_teshimau":"I (went and) left my umbrella on the train.","N4_teoku":"I'll buy drinks before the party.","N4_temiru":"I tried playing the new game.","N4_giving":"My father gave me a watch for my birthday.","N4_nagara":"I eat dinner while watching TV.","N4_tame":"I walk every day for my health.","N4_youni":"I take notes so that I won't forget.","N4_node":"Even though he promised, he didn't come.","N4_shi":"The room is spacious, and it's also close to the station.","N4_sugiru":"This bag is too expensive.","N4_yasui":"These shoes are easy to walk in.","N4_keigo":"Sir (President), what would you like to eat?","N3_wake":"He practices every day. No wonder he's good.","N3_wakedewanai":"It's not that I hate studying. I just don't have time.","N3_hazu":"He left at 3, so he should have arrived by now.","N3_bakari":"I've just woken up.","N3_tokoro":"I've just arrived at the station right now.","N3_kotonisuru":"I decided to quit smoking for my health.","N3_youtosuru":"Just as I was about to go out, it started raining.","N3_okage":"Because the train was late (its fault), I was late.","N3_mama":"I went out with the window left open.","N3_totan":"The moment I opened the window, a bug came in.","N3_uchini":"While I'm young, I want to travel a lot.","N3_nitsuite":"I wrote a report about environmental problems.","N3_niyotte":"Ways of thinking differ from person to person.","N3_toshite":"I work as an interpreter.","N3_kurai":"I was so happy I wanted to cry.","N3_wari":"Considering how much I studied, my score was bad.","N3_dakedenaku":"It's a movie not only kids but adults can enjoy too.","N3_sae":"I can't even write hiragana.","N3_koso":"This time for sure, I won't lose!","N3_monoda":"When I was a child, I used to swim in this river a lot.","N3_ppoi":"I'm forgetful, so I take notes.","N3_ippou":"This job is hard, but on the other hand it's rewarding.","N3_bahodo":"The more you practice, the better you get.","N3_chigainai":"The light is on. He must be home.","N3_kawari":"I attended the meeting in place of the department manager.","N3_tabini":"Every time I meet him, he's grown taller.","N2_karakoso":"It's precisely because I trust you that I'm asking you to do this job.","N2_karaniwa":"Now that I've come to Japan, I want to become able to speak Japanese.","N2_nimokakawarazu":"Despite it being late at night, lots of people gathered.","N2_nitsurete":"As time passed, the sadness faded.","N2_nitotte":"For students, summer vacation is something to look forward to.","N2_monono":"Although I learned Japanese, I have no chance to speak it.","N2_ueni":"This room is small, and on top of that the rent is high.","N2_bakarini":"Just because I overslept, I missed my flight.","N2_wakeniwaikanai":"It's an important meeting, so I can't take the day off.","N2_zaruwoenai":"I have a fever, so I have no choice but to rest.","N2_nikagiru":"When you have a cold, nothing beats resting.","N2_kkonai":"There's no way I can memorize everything in one day.","N2_kotoka":"How many times have I thought about quitting!","N2_shidai":"As soon as we know the results, we'll contact you.","N2_sueni":"After a long discussion, a conclusion was reached.","N2_nisotte":"Please work according to the manual.","N2_wotowazu":"You can apply regardless of experience.","N2_tsutsuaru":"The economy is in the process of recovering.","N2_youganai":"I don't know the address, so there's no way to send a letter.","N2_saini":"In case of emergency, please press this button.","N2_nikagirazu":"It's popular not only in Japan but in countries across Asia.","N2_kawarini2":"Living alone is free, but on the other hand it can be lonely.","N2_okiwanakeba":"It's not that I can't go, but I don't really want to.","N1_toiedomo":"Even experts make mistakes.","N1_nari":"The moment the child saw his mother's face, he started running.","N1_nagarani":"The victim spoke about the incident in tears.","N1_tomonaruto":"Once you're a university student, you should think and act for yourself.","N1_kiwamarinai":"This method is extremely inefficient.","N1_nikatakunai":"His sadness is not hard to imagine.","N1_madeumonai":"It goes without saying that health is important.","N1_yougamaiga":"Whether he agrees or not, we'll go ahead with the plan.","N1_wotomonosezu":"Defying the heat, the players kept practicing.","N1_zunihaokanai":"His speech is bound to move the audience.","N1_teyamanai":"I pray for peace with all my heart.","N1_nitaenai":"That show is so bad it's unbearable to watch.","N1_wokinjienai":"I can't help feeling sympathy for his unfortunate life.","N1_beku":"I'm working part-time in order to save money for studying abroad.","N1_ngatame":"He left his hometown for the sake of making his dream come true.","N1_naimademo":"Even if we can't win the championship, I at least want to reach the final.","N1_woyosoni":"Ignoring the opposition around him, he quit his company.","N1_katawara":"Alongside her work as a teacher, she paints pictures.","N1_nisokushite":"We make a plan that fits reality.","N1_naradewa":"This scenery is something you can only see in Hokkaido.","N1_zukume":"Passing my exam and getting married: this year has been nothing but good things.","N1_womotte":"I will retire as of March 31."};
+/* ================= INTERACTIVE LESSON (v2.4): step-by-step, games, stars ================= */
+function segJP(s){s=s.replace(/[。！？!?]+$/,"");const isK=c=>/[一-鿿゠-ヿー0-9A-Za-z々]/.test(c);
+ const P2=["から","まで","より","には","では","にも","への","での","とは"];const P1="はがをにでへともや";const PRE=["これ","それ","あれ","どれ","ここ","そこ","あそこ","どこ","だれ","いつ","この","その","あの"];
+ const NO={"で":["す","し","き"],"に":["よっ","とっ","つい","つれ","かか","かた","たえ","対し","限","沿","違","即","伴","よる","わた","なり","なる"],"と":["して","いう","も","は","し","いえ"],"が":["ら"],"は":["ず"]};
+ const out=[];let cur="";for(let i=0;i<s.length;i++){const c=s[i];
+  const two=s.substr(i,2);const prevK=i>0&&isK(s[i-1]);
+  if(P2.includes(two)&&(prevK||PRE.some(p=>cur.endsWith(p)))&&i+2<s.length&&!(NO[two[0]]||[]).some(n=>s.startsWith(n,i+1))){cur+=two;out.push(cur);cur="";i++;continue}
+  cur+=c;
+  if(c==="、"){out.push(cur);cur="";continue}
+  if(P1.includes(c)&&(prevK||PRE.some(p=>cur.slice(0,-1).endsWith(p)))&&i+1<s.length&&!/[ぁぃぅぇぉゃゅょっ、。]/.test(s[i+1])&&!(NO[c]||[]).some(n=>s.startsWith(n,i+1))){out.push(cur);cur=""}}
+ if(cur)out.push(cur);
+ let t=out.filter(x=>x);
+ for(let r=0;r<2&&t.length<3;r++){const ends=["ませんでした","ませんか","ましょう","ません","ました","ます","でした","ですか","です","ください","ています","ている","てしまった","だ"];
+  let li=-1,bl=0;t.forEach((x,i)=>{const e=ends.find(e=>x.endsWith(e)&&x.length>e.length+1);if(e&&x.length>bl){bl=x.length;li=i}});if(li<0)break;const x=t[li];const e=ends.find(e=>x.endsWith(e)&&x.length>e.length+1);t.splice(li,1,x.slice(0,-e.length),e)}
+ while(t.length>6){let bi=0,bl=1e9;for(let i=0;i<t.length-1;i++){const l=t[i].length+t[i+1].length;if(l<bl){bl=l;bi=i}}t.splice(bi,2,t[bi]+t[bi+1])}
+ return t}
+
+const CAT_YAY=["Sugoi! ✨","Yatta! 🎉","Perfect! 💯","Kanpeki! 🌟","You're on fire! 🔥","Nice one! 😺"];
+const CAT_OOPS=["Almost! Try again 😺","Daijoubu! You got this 💪","So close! 🤏","Mou ichido! 🔁"];
+function catSay(t,mood){const b=$("#lsCatT");if(!b)return;b.textContent=t;const w=$("#lsCat");w.classList.remove("yay","oops","talk");void w.offsetWidth;w.classList.add(mood||"talk")}
+function openLesson(l,i){const L=GLES[l],x=L[i];if(!x)return;const b=BELT[l];sfx.pop();
+ const ex=x.x.map(e=>({j:e[0],en:e[1],t:segJP(e[0])}));const bx=ex.find(e=>e.t.length>=3);
+ const steps=["intro","learn"];if(x.c)steps.push("forms");steps.push("examples",bx?"build":"match","check","done");
+ let st=0,stars=3,lostB=false,lostC=false;
+ openSheet(`<div class="lx" style="--lg:${b.g}"><div class="lxTop"><div class="lxBar">${steps.slice(0,-1).map((_,k)=>`<i data-k="${k}"></i>`).join("")}</div><div class="lxStars" id="lxStars">★★★</div></div>
+  <div class="lxStage" id="lxStage"></div>
+  <div class="lxFoot"><div class="lsCat" id="lsCat"><div class="lsCatI">${CATSVG}</div><div class="lsCatB" id="lsCatT"></div></div><button class="btn shu full lxGo" id="lxGo">Continue →</button></div></div>`);
+ const stage=$("#lxStage"),go=$("#lxGo");
+ const setBar=()=>$$(".lxBar i").forEach((e,k)=>{e.classList.toggle("on",k<st);e.classList.toggle("now",k===st)});
+ const setStars=()=>{$("#lxStars").innerHTML="★".repeat(stars)+'<span>'+"★".repeat(3-stars)+"</span>"};
+ const lock=(on,txt)=>{go.disabled=!!on;go.classList.toggle("wait",!!on);go.textContent=txt||(on?"Tap to explore ✨":"Continue →")};
+ const next=()=>{st++;sfx.pop();show()};go.onclick=()=>{if(!go.disabled)next()};
+ function show(){setBar();const s=steps[st];stage.classList.remove("in");void stage.offsetWidth;stage.classList.add("in");const sb=$("#sheetBody");if(sb)sb.scrollTop=0;
+  if(s==="intro"){stage.innerHTML=`<div class="lsHero lxHero" style="background:${b.g}"><div class="lsBelt">${beltSVG(l,44)} <span>${l} · ${b.jp} · Lesson ${i+1}/${L.length}</span></div><div class="lsEmo">${x.e}</div><h2 class="lsT">${jlink(x.t)}</h2>${glDone(x.id)?'<div class="lsDone">★ Learned</div>':""}</div>
+    <div class="lsCard"><div class="lsH">🧩 The formula <small>watch it snap together</small></div><div class="lxPat">${fmtPat(x.p)}</div></div>`;
+   $$(".lxPat .lpChip,.lxPat .lpPlus").forEach((c,k)=>{c.style.animationDelay=(k*.18)+"s";c.classList.add("snap")});
+   setTimeout(()=>{if(steps[st]==="intro")sfx.pop()},400);catSay(`Let's learn ${x.t.split(" · ")[0]}! Ready? 💪`);lock(false,"Let's go! 🚀")}
+  else if(s==="learn"){stage.innerHTML=`<div class="lsCard"><div class="lsH">📖 How it works</div><p>${jlink(x.ex)}</p></div>
+    <div class="lxFlip" id="lxFlip"><div class="lxFI"><div class="lxFF"><div class="lxQ">💡</div><b>Secret trick inside!</b><span>Tap to reveal</span></div><div class="lxFB lsNote"><div class="lsTape"></div><div class="lsH">💡 Easy way to remember</div><p>${jlink(x.t2)}</p></div></div></div>`;
+   catSay("Read this, then tap the card to get my secret trick 🤫");lock(true);
+   $("#lxFlip").onclick=e=>{if(e.target.closest(".jw"))return;const f=$("#lxFlip");if(f.classList.contains("open"))return;f.classList.add("open");sfx.ok();buzz(15);catSay(rnd(["Neat, right? 😺","Easy peasy! 🍡","Now you'll never forget! 🧠"]),"yay");lock(false)}}
+  else if(s==="forms"){stage.innerHTML=`<div class="lsCard"><div class="lsH">🔁 Forms <small>guess first, then tap to flip</small></div><div class="lsTbl">${x.c.map((r,k)=>`<button class="lxTr" data-k="${k}"><span>${esc(r[0])}</span><b class="hid">${jlink(r[1])}</b><em>❔</em></button>`).join("")}</div><button class="lxAll" id="lxAll">Reveal all</button></div>`;
+   let seen=0;const tot=x.c.length;catSay(`Can you guess each form? Tap to check! 0/${tot}`);lock(true);
+   const rev=t=>{if(!t.classList.contains("hid2")){t.classList.add("hid2");t.querySelector("b").classList.remove("hid");t.querySelector("em").textContent="✓";seen++;sfx.ok();catSay(seen<tot?`${seen}/${tot} · keep going! 👀`:"All forms unlocked! 🔓","yay");if(seen>=tot)lock(false)}};
+   $$(".lxTr").forEach(t=>t.onclick=e=>{if(e.target.closest(".jw")&&t.classList.contains("hid2"))return;rev(t)});$("#lxAll").onclick=()=>$$(".lxTr").forEach((t,k)=>setTimeout(()=>rev(t),k*120))}
+  else if(s==="examples"){stage.innerHTML=`<div class="lsCard"><div class="lsH">💬 Examples <small>tap a bubble to translate · 🔊 listen</small></div>${ex.map((e,k)=>`<div class="lsEx ${k%2?"r":""}"><div class="lsAv">${k%2?"🧑":CATSVG}</div><div class="lsB lxB" data-k="${k}"><div class="lsJ">${jlink(e.j)}</div><div class="lsEn lxEn">${esc(e.en)}</div><div class="lxTap">👆 tap to translate</div>${window.speechSynthesis?`<button class="lsSay" data-s="${esc(e.j)}">🔊</button>`:""}</div></div>`).join("")}</div>`;
+   let seen=0;catSay("What do they mean? Guess, then tap the bubbles! 🫧");lock(true);
+   $$(".lsSay").forEach(s=>s.onclick=e=>{e.stopPropagation();say(s.dataset.s)});
+   $$(".lxB").forEach(bb=>bb.onclick=e=>{if(e.target.closest(".jw")||bb.classList.contains("open"))return;bb.classList.add("open");seen++;sfx.ok();if(window.speechSynthesis)say(ex[+bb.dataset.k].j);if(seen>=ex.length){lock(false);catSay(rnd(CAT_YAY),"yay")}else catSay(`${seen}/${ex.length} · one more! 🫧`)})}
+  else if(s==="build"){const tgt=bx.t,pool=shuffle(tgt.map((w,k)=>({w,k})));let ans=[];let tries=0;
+   stage.innerHTML=`<div class="lsCard lxBuild"><div class="lsH">🧱 Build the sentence</div><div class="lxEnQ">“${esc(bx.en)}”</div><div class="lxAns" id="lxAns"><span class="lxPh">tap the blocks in order ⬇️</span></div><div class="lxPool" id="lxPool"></div><div class="row" style="gap:8px;margin-top:12px"><button class="lxAll" id="lxHint">💡 Hint</button><button class="lxAll" id="lxClr">↺ Clear</button></div></div>`;
+   catSay("Put the blocks in the right order! 🧱");lock(true);
+   const draw=()=>{$("#lxAns").innerHTML=ans.length?ans.map((p,k)=>`<button class="lxTile in" data-a="${k}">${esc(p.w)}</button>`).join(""):'<span class="lxPh">tap the blocks in order ⬇️</span>';
+    $("#lxPool").innerHTML=pool.map((p,k)=>`<button class="lxTile ${ans.includes(p)?"used":""}" data-p="${k}">${esc(p.w)}</button>`).join("");
+    $$("#lxPool .lxTile").forEach(t=>t.onclick=()=>{const p=pool[+t.dataset.p];if(ans.includes(p))return;ans.push(p);sfx.pop();draw();chk()});
+    $$("#lxAns .lxTile").forEach(t=>t.onclick=()=>{ans.splice(+t.dataset.a,1);draw()})};
+   const chk=()=>{if(ans.length<tgt.length)return;const ok=ans.map(p=>p.w).join("")===tgt.join("");
+    if(ok){$$("#lxAns .lxTile").forEach((t,k)=>{t.classList.add("good");t.style.animationDelay=(k*.07)+"s"});sfx.ok(true);buzz(25);confetti(40);catSay(rnd(CAT_YAY),"yay");if(window.speechSynthesis)setTimeout(()=>say(bx.j),500);lock(false,"Continue →");$("#lxPool").innerHTML=`<div class="lxDoneTxt">${jlink(bx.j)}</div>`}
+    else{tries++;if(!lostB){lostB=true;stars=Math.max(1,stars-1);setStars()}const a=$("#lxAns");a.classList.remove("shake");void a.offsetWidth;a.classList.add("shake");sfx.no();buzz([40,30,40]);catSay(rnd(CAT_OOPS),"oops");
+     setTimeout(()=>{let k=0;while(k<ans.length&&ans[k].w===tgt[k])k++;ans=ans.slice(0,k);draw()},700)}};
+   $("#lxClr").onclick=()=>{ans=[];draw()};
+   $("#lxHint").onclick=()=>{let k=0;while(k<ans.length&&ans[k].w===tgt[k])k++;ans=ans.slice(0,k);const p=pool.find(p=>!ans.includes(p)&&p.w===tgt[k]);if(p){ans.push(p);if(!lostB&&k===0){}sfx.pop();draw();chk();catSay("Here's a little push 👉")}};
+   draw()}
+  else if(s==="match"){const e=ex[0];const others=shuffle(Object.values(GLES).flat().filter(y=>y.id!==x.id).map(y=>y.x[0][1])).slice(0,2);const opts=shuffle([e.en,...others]);
+   stage.innerHTML=`<div class="lsCard"><div class="lsH">🎯 What does it mean?</div><div class="lxBig">${jlink(e.j)}</div>${window.speechSynthesis?`<button class="lxAll" id="lxSay">🔊 Listen</button>`:""}<div class="lxOpts">${opts.map(o=>`<button class="opt lxOpt">${esc(o)}</button>`).join("")}</div></div>`;
+   catSay("Pick the right meaning! 🎯");lock(true);const sy=$("#lxSay");if(sy)sy.onclick=()=>say(e.j);
+   $$(".lxOpt").forEach(o=>o.onclick=()=>{if(!go.disabled)return;if(o.textContent===e.en){o.classList.add("ok");sfx.ok();confetti(30);catSay(rnd(CAT_YAY),"yay");lock(false)}else{o.classList.add("no");sfx.no();buzz([40,30,40]);if(!lostB){lostB=true;stars=Math.max(1,stars-1);setStars()}catSay(rnd(CAT_OOPS),"oops")}})}
+  else if(s==="check"){const q=x.q,en=QEN[x.id]||"";
+   stage.innerHTML=`<div class="lsCard lsQ"><div class="lsH">✅ Final check</div><div id="lsQ" class="qwrap"></div></div>`;catSay("Last one! Show me what you learned 🥋");lock(true);
+   renderQ($("#lsQ"),{sent:true,prompt:q[0],hint:"Choose the right piece for the blank"+(en?`<br><button class="enBtn" id="enBtn">🇬🇧 Show English</button><div class="enHint" id="enHint">${esc(en)}</div>`:""),ans:q[1],opts:shuffle(q.slice(1))},ok=>{
+    if(!ok){if(!lostC){lostC=true;stars=Math.max(1,stars-1);setStars()}catSay(rnd(CAT_OOPS),"oops");return}
+    const hb=$("#enBtn");if(hb)hb.remove();const hh=$("#enHint");if(hh)hh.remove();
+    const tr=document.createElement("div");tr.className="gTrans";tr.innerHTML=`<div class="gJa">${jlink(q[0].replace("___",q[1]))}</div>${en?`<div class="gEn">🇬🇧 ${esc(en)}</div>`:""}<div class="gTap">tap any word for its meaning</div>`;$("#lsQ .expl").before(tr);
+    catSay(rnd(CAT_YAY),"yay");lock(false,"Finish lesson 🏁")},{retry:true,noTip:true})}
+  else if(s==="done"){const first=!glDone(x.id);S.gl=S.gl||{};S.gl[x.id]=1;S.gls=S.gls||{};const best=Math.max(S.gls[x.id]||0,stars);S.gls[x.id]=best;save();
+   const xp=first?10+stars*5:stars*2;addXP(xp);const allDone=glCount(l)===L.length;
+   stage.innerHTML=`<div class="lxWin"><div class="lxRays"></div><div class="lxCatBig">${CATSVG}</div><div class="lxStarRow">${[0,1,2].map(k=>`<span class="lxS ${k<stars?"on":""}" style="animation-delay:${.3+k*.35}s">★</span>`).join("")}</div>
+    <h2>${stars===3?"Perfect lesson!":stars===2?"Great job!":"Lesson cleared!"}</h2><p>${jlink(x.t)}</p><div class="lxXp">+${xp} XP${first?" · NEW!":""}</div>
+    <div class="lxProg"><div style="width:${glCount(l)/L.length*100}%"></div></div><div class="tiny muted">${glCount(l)} / ${L.length} ${l} lessons · ${BELT[l].n}</div>
+    ${allDone&&first?`<div class="lxBeltWin">${beltSVG(l,90)}<b>${BELT[l].n} earned! 🥋</b></div>`:""}</div>`;
+   [0,1,2].forEach(k=>{if(k<stars)setTimeout(()=>{const a=ac();if(a&&S.sound)bell(a,[1047,1319,1568][k],0,.16,1.2)},300+k*350)});
+   setTimeout(()=>{confetti(stars*45);if(allDone&&first){stamp(BELT[l].jp);sfx.win()}else stamp(stars===3?"満点":"習得")},1300);
+   $("#lsCat").style.display="none";
+   go.disabled=false;go.classList.remove("wait");go.textContent=i+1<L.length?"Next lesson →":"🏯 Boss test";go.onclick=()=>{if(i+1<L.length)openLesson(l,i+1);else{gLv=l;openGramTest()}};
+   const back=document.createElement("button");back.className="btn full";back.style.marginTop="10px";back.textContent="Back to path 🗺️";back.onclick=closeSheet;go.after(back);try{renderGram()}catch(e){}}}
+ setStars();show()}
 
 /* ================= STUDY REMINDERS + SESSIONS ================= */
 function remCfg(){S.rem=S.rem||{on:false,t:"20:00",dur:60,pre:[60,15],fired:{}};S.rem.fired=S.rem.fired||{};return S.rem}

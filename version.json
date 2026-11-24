@@ -1,14 +1,15 @@
 {
-  "build": 23,
-  "version": "2.3",
+  "build": 24,
+  "version": "2.4",
   "file": "app.html",
-  "size": 391089,
+  "size": 420283,
   "minNative": 6,
   "notes": [
-    "🥋 New Grammar Dojo: 145 grammar lessons from N5 to N1 on a fun lesson path. Earn every belt from white to black!",
-    "📖 Each lesson has a color formula, a simple explanation, an easy memory trick, a forms table, examples with 🔊 and a check question",
-    "N5 covers particles (は が を に で へ と も の), です, ます, verb groups, て-form, past, negative, future, い/な-adjectives and more",
-    "🇬🇧 English translation in the grammar test (Show English hint, and the full translation after you answer)"
+    "🎮 Grammar lessons are now interactive step-by-step adventures with a progress bar and your cat coach cheering you on",
+    "🧩 Formula blocks snap together, 💡 flip the secret-trick card, 🔁 guess each form then flip to check, 🫧 tap bubbles to translate",
+    "🧱 New 'Build the sentence' game: put the blocks in the right order (with hints)",
+    "⭐ Earn up to 3 stars per lesson, big celebration at the end, stars shown on the path",
+    "🇬🇧 English translation in every Check yourself question"
   ],
   "native": {
     "build": 8,
