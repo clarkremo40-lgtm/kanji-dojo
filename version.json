@@ -1,18 +1,15 @@
 {
-  "build": 20,
-  "version": "2.0",
+  "build": 21,
+  "version": "2.1",
   "file": "app.html",
-  "size": 219584,
+  "size": 253194,
   "minNative": 6,
   "notes": [
-    "📅 Study reminders: pick a daily study time (e.g. 8:00 PM) and how long (30 min to 2 hours)",
-    "⏰ Heads-up reminders before it starts: 1 hour, 30 min, 15 min or 5 min before (choose any)",
-    "📚 1-hour study session with a countdown timer, quick links to quiz, flashcards, writing and grammar, and +60 XP when you finish",
-    "🔔 New app version 2.0: reminders arrive as phone notifications even when the app is closed"
+    "🐱 Brand-new app icon: Kanji Cat Sensei with a red hachimaki, holding a 字 card on a candy sunburst"
   ],
   "native": {
-    "build": 7,
-    "version": "2.0",
+    "build": 8,
+    "version": "2.1",
     "url": "https://github.com/clarkremo40-lgtm/kanji-dojo/raw/main/KanjiDojo.apk"
   }
 }
