@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <script>
-var KD_BUILD=47,KD_VER="4.7",KD_NATIVE=14;
+var KD_BUILD=48,KD_VER="4.8",KD_NATIVE=14;
 (function(){try{if(window.__KD_SWAP)return;var ls=localStorage;
  if(location.href.indexOf("file:///android_asset")===0)ls.setItem("kd_native",String(KD_NATIVE));
  var b=+(ls.getItem("kd_build")||0),h=ls.getItem("kd_html");
@@ -658,6 +658,20 @@ nav .navAI:active .navAIc{transform:scale(.92)}
 .mSide{flex:1;min-width:0}.mRank{font-size:14px;margin-bottom:6px}.mRank span{font-size:12px;opacity:.6}
 .mBar{margin:5px 0}.mBarT{display:flex;justify-content:space-between;font-size:12px;font-weight:700}.mBarT b{font-size:12px}.mBarB{height:8px;border-radius:99px;background:#f0ebff;overflow:hidden;margin-top:2px}.mBarB i{display:block;height:100%;border-radius:99px;transition:width .6s}
 .mFoot{margin-top:12px;font-size:12.5px;line-height:1.5;background:#faf7ff;border-radius:14px;padding:8px 12px;color:#4b3c8f}
+#tour{position:fixed;inset:0;z-index:90;display:none}#tour.on{display:block}
+#tourHole{position:fixed;border-radius:20px;box-shadow:0 0 0 9999px rgba(20,10,45,.72),0 0 0 4px #ffcf5c,0 0 30px 6px rgba(255,207,92,.6);transition:all .35s cubic-bezier(.3,1.2,.4,1);pointer-events:none}
+.tourBox{position:fixed;left:14px;right:14px;max-width:440px;margin:0 auto;background:#fff;color:#2d2147;border-radius:24px;padding:16px 16px 12px;box-shadow:0 18px 40px rgba(0,0,0,.35);animation:qIn .35s both}
+.tourBox.mid{top:50%;transform:translateY(-50%)}
+.tourBox b#tourT{display:block;font-size:18px;margin-bottom:6px}.tourBox p{margin:0;font-size:14px;line-height:1.55;color:#4b3c8f}
+.tourCat{position:absolute;top:-34px;right:18px;font-size:44px;filter:drop-shadow(0 4px 8px rgba(0,0,0,.25))}
+#tourDots{display:flex;gap:5px;justify-content:center;margin:12px 0 10px}#tourDots i{width:7px;height:7px;border-radius:50%;background:#e2d8ff}#tourDots i.on{width:20px;border-radius:4px;background:#ff6fa8}
+.tourBtns{display:flex;align-items:center;gap:8px}.tourBtns button{border:none;font:inherit;font-weight:900;border-radius:99px;padding:10px 16px}
+#tourSkip{background:transparent;color:#9b90bd}#tourBack{background:#f1ebff;color:#6b4fd8}#tourNext{margin-left:auto;color:#fff;background:linear-gradient(135deg,#ff6fa8,#7b5cff);box-shadow:0 4px 0 #c9417f}
+header .logo{white-space:nowrap;flex:none}header{gap:6px!important}header .xpchip{flex:none;white-space:nowrap;gap:6px!important;padding-left:10px!important;padding-right:10px!important}header .xpchip>span{white-space:nowrap}header .xpchip .flame{display:inline-flex;align-items:center}@media(max-width:420px){#hXp small{display:none}#hXp::after{content:"✦";font-size:10px;margin-left:2px;color:#ffb300}}@media(max-width:385px){header .logo{font-size:16px!important}header .logo .hanko{width:32px!important;height:32px!important}header .xpchip{font-size:12px!important}}#hUpd{width:34px!important;height:34px!important;font-size:15px!important}
+#hHelp{flex:none;width:34px;height:34px;border-radius:50%;background:#fff;border:0;box-shadow:0 4px 0 rgba(150,120,210,.25);font-size:16px;font-weight:900;color:#7b5cff;margin-left:0}
+.hSec{background:#faf7ff;border-radius:16px;margin:7px 0;overflow:hidden}.hSec summary{list-style:none;display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer}.hSec summary::-webkit-details-marker{display:none}
+.hSec summary span{width:32px;height:32px;border-radius:10px;background:#fff;display:grid;place-items:center;font-size:17px;box-shadow:0 2px 0 #eee6ff}.hSec summary b{flex:1;font-size:15px}.hSec summary i{font-style:normal;font-weight:900;color:#7b5cff;transition:.25s}.hSec[open] summary i{transform:rotate(90deg)}
+.hSec ul{margin:0;padding:0 16px 12px 36px;font-size:13.5px;line-height:1.55;color:#4b3c8f}.hSec li{margin:4px 0}
 /* ===== GORGEOUS LOCK SCREEN ===== */
 #lock{background:#120b2e!important}
 #lock .aur{position:absolute;inset:-20%;pointer-events:none;filter:blur(55px) saturate(1.3);opacity:.85}
@@ -789,7 +803,7 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
 <div id="app">
   <header>
     <div class="logo"><div class="hanko">道</div>Kanji Dojo</div>
-    <div class="xpchip" style="margin-left:auto"><span class="flame">🔥<span id="hStreak">0</span></span><span class="lv" id="hLv">N5</span><span id="hXp">0 XP</span></div><button id="hUpd" title="Check for updates" style="flex:none;width:38px;height:38px;border-radius:50%;background:var(--ink2);border:1px solid var(--line);font-size:17px">🔄</button>
+    <div class="xpchip" style="margin-left:auto"><span class="flame">🔥<span id="hStreak">0</span></span><span class="lv" id="hLv">N5</span><span id="hXp">0 XP</span></div><button id="hUpd" title="Check for updates" style="flex:none;width:38px;height:38px;border-radius:50%;background:var(--ink2);border:1px solid var(--line);font-size:17px">🔄</button><button id="hHelp" title="Help">?</button>
   </header>
 
   <main id="main">
@@ -944,6 +958,7 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
     <!-- PROGRESS -->
     <section class="view" id="v-prog">
       <h2><small>YOUR JOURNEY</small>進歩</h2>
+      <button class="card" id="pHelp" style="display:flex;align-items:center;gap:12px;width:100%;text-align:left;font:inherit;color:inherit;border:none"><div style="font-size:30px">❓</div><div class="grow"><b>Help guide &amp; app tour</b><div class="tiny muted">Everything the app can do, step by step</div></div><div style="font-size:22px">›</div></button>
       <div class="card" id="acCard"></div>
       <div class="card" style="display:flex;align-items:center;gap:16px">
         <svg width="96" height="96" class="ringsvg"><circle cx="48" cy="48" r="40" stroke="rgba(255,255,255,.08)" stroke-width="10" fill="none"/><circle id="pRing" cx="48" cy="48" r="40" stroke="url(#gr)" stroke-width="10" fill="none" stroke-linecap="round" stroke-dasharray="251" stroke-dashoffset="251" style="transition:stroke-dashoffset 1s"/><defs><linearGradient id="gr"><stop offset="0" stop-color="#ffb7c5"/><stop offset="1" stop-color="#e8452c"/></linearGradient></defs></svg>
@@ -1029,7 +1044,8 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
       <div class="row" style="gap:8px;margin-top:16px"><button class="btn grow" id="aiClear">🧹 Clear chat</button><button class="btn grow" id="aiForget">🗝️ Remove key</button></div>
     </div>
   </div>
-</div>
+</div><div id="tour"><div id="tourHole"></div><div class="tourBox mid" id="tourBox"><div class="tourCat">🐱</div><b id="tourT"></b><p id="tourB"></p><div id="tourDots"></div><div class="tourBtns"><button id="tourSkip">Skip</button><button id="tourBack">←</button><button id="tourNext">Next →</button></div></div></div>
+
 <div id="jt"><button class="jtX" id="jtX">✕</button><div id="jtB"></div></div>
 <div id="srs"><div class="srIn" id="srIn"></div></div>
 <div id="peek"><div class="pk"></div></div>
@@ -3453,7 +3469,7 @@ function renderQ(el,q,cb,opts={}){
   cb(ok,b)};box.appendChild(b)})}
 
 /* ================= HEADER / HOME ================= */
-function renderHeader(){$("#hStreak").textContent=S.streak;$("#hLv").textContent=S.lv;$("#hXp").textContent=S.xp+" XP"}
+function renderHeader(){$("#hStreak").textContent=S.streak;$("#hLv").textContent=S.lv;$("#hXp").innerHTML=(S.xp>=10000?(S.xp/1000).toFixed(S.xp>=100000?0:1)+"k":S.xp)+"<small> XP</small>"}
 function levelChips(el,cur,onPick){el.innerHTML="";LEVELS.forEach(l=>{const b=document.createElement("button");b.className="lvchip"+(l===cur?" on":"");b.textContent=l;b.onclick=()=>{sfx.pop();onPick(l)};el.appendChild(b)})}
 
 /* ===== LEVEL OF MASTERY: first thing on Learn, pick N5–N1 ===== */
@@ -5200,6 +5216,57 @@ rtSync.last=+(localStorage.getItem("kd_rtn")||30);
 /* in-app nudge when a block starts */
 let rtLastPing="";setInterval(()=>{if(GATE||STUDY||location.hash==="#ring"||window.__KD_ASLEEP)return;const r=S.rt;if(!r||!r.notify)return;const n=new Date(),t=String(n.getHours()).padStart(2,"0")+":"+String(n.getMinutes()).padStart(2,"0");const it=rtToday().find(x=>x.t===t);if(it&&rtLastPing!==today()+t){rtLastPing=today()+t;toast("⏰ "+(RT_CATS[it.c]||RT_CATS.rest)[0]+" "+it.n+" · now!");buzz&&buzz([80,60,80])}if($("#v-alarm").classList.contains("on")&&n.getSeconds()===0)renderRoutine()},1000);
 setTimeout(()=>{try{rtSync()}catch(e){}},2500);
+
+
+/* ================= FIRST-TIME TOUR + HELP GUIDE ================= */
+const TOUR=[
+ {t:"ようこそ！ Welcome to Kanji Dojo 漢字道場",b:"Your pocket dojo for Japanese: kanji, vocab, grammar, JLPT practice, podcasts, games and a study routine. Let me show you around. It takes 1 minute! 🐱",v:"home"},
+ {s:"#mastC",v:"home",t:"📊 Level of Mastery",b:"Your progress at a glance. Tap N5–N1 to check each level, or 全部 to see everything you've learned. Answer an item right 3 times (★★★) and it counts as learned."},
+ {s:"#levels",v:"home",t:"🎌 Choose your level",b:"Start at N5 if you're new. When you master 80% of a level, the app moves you up automatically."},
+ {s:"#v-home .grid2",v:"home",t:"📚 Ways to learn",b:"Flashcards, Quick Quiz, Grammar Dojo (145 lessons), Writing practice, the Lock Screen quiz and Kanji Rush. Tip: tap any underlined word to see its meaning and a memory trick."},
+ {s:'nav button[data-v="jlpt"]',t:"験 JLPT",b:"Real-format JLPT mock tests from N5 to N1 with a timer, listening, scoring like the real exam, a review mode for your mistakes and a certificate when you pass."},
+ {s:'nav button[data-v="pod"]',t:"聴 Podcast",b:"Natural Japanese conversations for your level with a live transcript, tap-to-translate and English. It keeps playing in the background, plus links to great free podcasts."},
+ {s:'nav button[data-v="game"]',t:"遊 Game",b:"Kanji Rush: a runner game where you answer kanji to keep going. Learning that feels like playing!"},
+ {s:'nav button[data-v="alarm"]',t:"時 Routine",b:"Plan your day with the Routine Checker, set the Kanji Alarm (answer 10 questions to stop it), study reminders, and Study Lock that pops up quizzes over other apps."},
+ {s:'nav button[data-v="prog"]',t:"進 Progress",b:"Your rank, streak, accuracy and stats. Log in here to save your progress to the cloud."},
+ {s:"#hUpd",t:"🔄 Updates",b:"Tap to check for new features. Updates install right inside the app."},
+ {s:"#hHelp",t:"❓ Help is always here",b:"Open the guide anytime to see everything the app can do, or replay this tour. Ganbatte! がんばって！ 🎉",last:1}];
+let TR={i:0,on:false};
+function tourStart(){if(GATE||STUDY||location.hash==="#ring")return;closeSheet&&$("#sheet").classList.contains("on")&&closeSheet();TR={i:0,on:true};$("#tour").classList.add("on");tourShow()}
+function tourEnd(done){TR.on=false;$("#tour").classList.remove("on");S.toured=1;save();if(done){sfx.win();stamp&&stamp("完了");toast("🎉 You're ready! Tap ❓ anytime for help")}go("home")}
+function tourShow(){const st=TOUR[TR.i];if(st.v)go(st.v);const hole=$("#tourHole"),box=$("#tourBox");
+ $("#tourT").textContent=st.t;$("#tourB").textContent=st.b;$("#tourDots").innerHTML=TOUR.map((_,k)=>`<i class="${k===TR.i?"on":""}"></i>`).join("");
+ $("#tourBack").style.visibility=TR.i?"visible":"hidden";$("#tourNext").textContent=st.last?"Let's go! 🚀":TR.i?"Next →":"Show me →";
+ const place=()=>{const el=st.s&&$(st.s);if(!el){hole.style.cssText="left:50%;top:40%;width:0;height:0";box.className="tourBox mid";return}
+  el.scrollIntoView({block:"center",behavior:"instant"});const r=el.getBoundingClientRect(),p=6;
+  hole.style.cssText=`left:${r.left-p}px;top:${r.top-p}px;width:${r.width+p*2}px;height:${r.height+p*2}px`;
+  const below=r.top+r.height/2<innerHeight/2;box.className="tourBox "+(below?"below":"above");
+  box.style.top=below?Math.min(innerHeight-230,r.bottom+16)+"px":"";box.style.bottom=below?"":Math.max(16,innerHeight-r.top+16)+"px"};
+ setTimeout(place,st.v?260:30)}
+function helpOpen(){const sec=(ic,t,items)=>`<details class="hSec"><summary><span>${ic}</span><b>${t}</b><i>›</i></summary><ul>${items.map(x=>`<li>${x}</li>`).join("")}</ul></details>`;
+ openSheet(`<h2 style="text-align:center"><small>HELP GUIDE</small>使い方 · How to use</h2>
+ <button class="btn shu full" id="hTour" style="margin:6px 0 12px">▶ Replay the tour</button>
+ ${sec("🚀","Getting started",["Pick your level on <b>Learn</b> (start with N5 if you're new).","Do a few <b>Flashcards</b> and a <b>Quick Quiz</b> every day.","Answer an item right <b>3 times</b> to master it (★★★).","Master <b>80%</b> of a level and you move up automatically."])}
+ ${sec("📊","Level of Mastery",["The card at the top of Learn shows your % and rank (Beginner → Legend).","Tap <b>N5–N1</b> to see each level, or <b>全部</b> for your total kanji, words and grammar learned.","All 2,222 JLPT kanji (N5–N1) are in the app."])}
+ ${sec("📚","Learn tools",["<b>Flashcards</b>: flip to see reading and meaning.","<b>Quick Quiz</b>: 10 questions for XP.","<b>Grammar Dojo</b>: 145 interactive lessons from N5 to N1 with English.","<b>Writing</b>: draw kanji with your finger.","Tap any <u>underlined word</u> for its meaning and a memory trick.","Stuck after 5 mistakes? A <b>Study</b> button appears so you can review first."])}
+ ${sec("験","JLPT mock tests",["Real exam format and time limits for each level.","Includes reading and listening, scored like the real JLPT.","<b>Review</b> shows what you got wrong and why.","Pass to get a certificate (practice certificate, not official)."])}
+ ${sec("聴","Podcast",["Episodes for every level with a transcript; tap words to translate, tap <b>EN</b> for English.","Keeps playing in the background; control it from the notification.","More free podcasts for your level are linked at the bottom."])}
+ ${sec("遊","Game",["<b>Kanji Rush</b>: answer kanji to keep running. Beat your high score!"])}
+ ${sec("🗓️","Routine Checker",["Open the <b>Routine</b> tab and pick a template (Student, Working, JLPT sprint, Light) or build your own.","Check off each block; see what's <b>NOW</b> and next.","Keep your routine streak by finishing 80% of your day.","Turn on reminders to get a notification when each block starts.","Tap ▶ on a study block to start a focused study session."])}
+ ${sec("⏰","Kanji Alarm",["Set it in the <b>Routine</b> tab. It's added to your phone's alarm, so it rings even if the app is closed.","Answer <b>10 questions</b> correctly to turn it off.","Clear 3 alarms with 1 or fewer mistakes to level up the alarm.","If it doesn't pop up on your phone, allow <b>Display over other apps</b> (button in Study Lock)."])}
+ ${sec("📵","Study Lock & lock screen quiz",["<b>Study Lock</b>: every interval, kanji questions pop up over any app.","<b>Lock screen quiz</b>: answer 3 kanji when you unlock your phone.","<b>Emergency</b> button gives you 15 minutes without quizzes."])}
+ ${sec("📅","Study reminders",["Set your daily study time and get heads-up reminders before it starts.","Sessions show a timer pill while you study."])}
+ ${sec("☁️","Progress, account & updates",["<b>Progress</b> tab: rank, streak, accuracy and stats.","Log in to save progress to the cloud and use it on another phone.","Tap 🔄 to check for updates; they install inside the app."])}
+ ${sec("📴","Offline",["Lessons, quizzes, games, alarm and routine work without internet.","Podcast and listening audio you've played before are saved for offline."])}
+ <p class="tiny muted" style="text-align:center;margin-top:12px">Questions or ideas? Tell the developer. がんばってね！🐱</p>`);
+ $("#hTour").onclick=()=>{closeSheet();setTimeout(tourStart,250)};
+ $$("#sheetBody .hSec").forEach(d=>d.addEventListener("toggle",()=>{if(d.open)$$("#sheetBody .hSec").forEach(o=>{if(o!==d)o.open=false})}))}
+$("#tourNext").onclick=()=>{sfx.pop();if(TOUR[TR.i].last){tourEnd(true);return}TR.i++;tourShow()};
+$("#tourBack").onclick=()=>{if(TR.i>0){TR.i--;tourShow()}};
+$("#tourSkip").onclick=()=>tourEnd(false);
+$("#hHelp").onclick=()=>{sfx.pop();helpOpen()};$("#pHelp").onclick=()=>{sfx.pop();helpOpen()};
+addEventListener("resize",()=>{if(TR.on)tourShow()});
+setTimeout(()=>{if(!S.toured&&!GATE&&!STUDY&&location.hash!=="#ring"&&!document.querySelector("#upd.on"))tourStart()},1400);
 
 /* ================= STUDY REMINDERS + SESSIONS ================= */
 function remCfg(){S.rem=S.rem||{on:false,t:"20:00",dur:60,pre:[60,15],fired:{}};S.rem.fired=S.rem.fired||{};return S.rem}
