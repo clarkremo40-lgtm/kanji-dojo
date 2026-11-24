@@ -1,12 +1,12 @@
 {
-  "build": 46,
-  "version": "4.6",
+  "build": 47,
+  "version": "4.7",
   "file": "app.html",
-  "size": 616278,
+  "size": 710815,
   "minNative": 6,
   "notes": [
-    "📊 NEW Level of Mastery at the top of Learn: big mastery ring, rank (Beginner → Legend), kanji / vocab / grammar progress",
-    "🎌 Tap N5–N1 to see your mastery for any level, and switch your study level from there"
+    "🈶 Complete kanji list: all 2,222 JLPT kanji from N5 to N1 (N5 79 · N4 167 · N3 367 · N2 367 · N1 1,242), each with readings and meaning",
+    "📊 NEW 全部 (All levels) view in Level of Mastery: total kanji, words and grammar you've learned across everything"
   ],
   "native": {
     "build": 14,

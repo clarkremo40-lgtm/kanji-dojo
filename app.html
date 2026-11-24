@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <script>
-var KD_BUILD=46,KD_VER="4.6",KD_NATIVE=14;
+var KD_BUILD=47,KD_VER="4.7",KD_NATIVE=14;
 (function(){try{if(window.__KD_SWAP)return;var ls=localStorage;
  if(location.href.indexOf("file:///android_asset")===0)ls.setItem("kd_native",String(KD_NATIVE));
  var b=+(ls.getItem("kd_build")||0),h=ls.getItem("kd_html");
@@ -648,7 +648,8 @@ nav .navAI:active .navAIc{transform:scale(.92)}
 .mastC{padding:16px!important;background:#fff!important;color:#2d2147}
 .mTop{display:flex;align-items:center;justify-content:space-between}.mTop small{display:block;font-size:10.5px;letter-spacing:2px;font-weight:900;color:#ff4f8b}.mTop b{font-size:19px}
 .mCur{font-size:11px;font-weight:800;background:#f1ebff;color:#6b4fd8;border-radius:99px;padding:5px 10px}.mSet{border:none;font:inherit;font-size:12px;font-weight:900;color:#fff;background:linear-gradient(135deg,#ff6fa8,#7b5cff);border-radius:99px;padding:7px 12px}
-.mLvs{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:12px 0}
+.mLvs{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;margin:12px 0}.mLv.all b{font-size:13px}
+.mTot{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:12px}.mTot div{text-align:center;background:#f6f2ff;border-radius:14px;padding:8px 2px}.mTot b{display:block;font-size:18px}.mTot span{font-size:10px;font-weight:700;opacity:.65;line-height:1.25;display:block}.mTot .hl{background:linear-gradient(135deg,#ff6fa8,#7b5cff);color:#fff}.mTot .hl span{opacity:.9}
 .mLv{border:none;font:inherit;border-radius:14px;padding:7px 4px 6px;background:#f6f2ff;color:#4b3c8f;box-shadow:0 3px 0 #e6deff}.mLv b{display:block;font-size:14px}.mLv i{display:block;height:4px;border-radius:2px;background:#e6deff;margin:4px 6px 2px;overflow:hidden}.mLv em{display:block;height:100%;background:#7b5cff}.mLv span{font-size:10px;font-weight:800;opacity:.7}
 .mLv.on{background:linear-gradient(135deg,#ff6fa8,#7b5cff);color:#fff;box-shadow:0 3px 0 #c9417f}.mLv.on i{background:rgba(255,255,255,.35)}.mLv.on em{background:#fff}
 .mMain{display:flex;gap:14px;align-items:center}
@@ -1085,11 +1086,6 @@ N5:`日|にち・ひ|day, sun
 山|さん・やま|mountain
 川|せん・かわ|river
 人|じん・ひと|person
-口|こう・くち|mouth
-目|もく・め|eye
-耳|じ・みみ|ear
-手|しゅ・て|hand
-足|そく・あし|foot, leg
 上|じょう・うえ|up, above
 下|か・した|down, below
 中|ちゅう・なか|middle, inside
@@ -1112,7 +1108,6 @@ N5:`日|にち・ひ|day, sun
 電|でん|electricity
 車|しゃ・くるま|car, vehicle
 食|しょく・た|eat, food
-飲|いん・の|drink
 見|けん・み|see, look
 行|こう・い|go
 来|らい・く|come
@@ -1130,7 +1125,36 @@ N5:`日|にち・ひ|day, sun
 語|ご・かた|language, word
 長|ちょう・なが|long, chief
 高|こう・たか|tall, expensive
-安|あん・やす|cheap, peaceful`,
+一|いち・いつ・ひと|one
+十|じゅう・じっ・とお・と|ten
+二|に・じ・ふた・ふたたび|two
+本|ほん・もと|book, present, main
+出|しゅつ・すい・で・だ|exit, leave, go out
+時|じ・とき・どき|time, hour
+後|ご・こう・のち・うし|behind, back, later
+前|ぜん・まえ|in front, before
+五|ご・いつ|five
+間|かん・けん・あいだ・ま|interval, space
+東|とう・ひがし|east
+四|し・よ・よっ|four
+今|こん・きん・いま|now
+入|にゅう・じゅ・い・はい|enter, insert
+八|はち・や・やっ|eight
+気|き・け・いき|spirit, mind, air
+七|しち・なな・なの|seven
+北|ほく・きた|north
+午|ご・うま|noon, sign of the horse, 11am-1pm
+書|しょ・か・が|write
+半|はん・なか|half, middle, odd number
+西|せい・さい・にし|west, spain
+聞|ぶん・もん・き|hear, ask, listen
+南|なん・な・みなみ|south
+毎|まい・ごと|every
+母|ぼ・はは・も|mother
+右|う・ゆう・みぎ|right
+読|どく・とく・よ|read
+左|さ・しゃ・ひだり|left
+父|ふ・ちち|father`,
 N4:`会|かい・あ|meet
 社|しゃ|company, shrine
 自|じ・みずか|oneself
@@ -1139,7 +1163,6 @@ N4:`会|かい・あ|meet
 新|しん・あたら|new
 古|こ・ふる|old
 強|きょう・つよ|strong
-弱|じゃく・よわ|weak
 思|し・おも|think
 知|ち・し|know
 教|きょう・おし|teach
@@ -1171,7 +1194,134 @@ N4:`会|かい・あ|meet
 字|じ・あざ|character, letter
 送|そう・おく|send
 借|しゃく・か|borrow
-貸|たい・か|lend`,
+貸|たい・か|lend
+同|どう・おな|same, agree, equal
+事|じ・ず・こと・つか|matter, thing, fact
+発|はつ・ほつ・た・あば|departure, discharge, publish
+者|しゃ・もの|someone, person
+地|ち・じ|ground, earth
+業|ぎょう・ごう・わざ|business, vocation, arts
+方|ほう・かた・がた|direction, person, alternative
+場|じょう・ちょう・ば|location, place
+員|いん|employee, member, number
+立|りつ・りゅう・た・たて|stand up, rise, set up
+開|かい・ひら・びら|open, unfold, unseal
+手|しゅ・て|hand
+力|りょく・りき・ちから|power, strength, strong
+問|もん・と・とん|question, ask, problem
+代|だい・たい・か・かわ|substitute, change, convert
+明|めい・みょう・あ・あか|bright, light
+動|どう・うご|move, motion, change
+京|きょう・けい・みやこ|capital, 10**16
+目|もく・め|eye
+通|つう・つ・とお・どお|traffic, pass through, avenue
+言|げん・ごん・い・こと|say, word
+体|たい・てい・からだ・かたち|body, substance, object
+田|でん・た|rice field, rice paddy
+主|しゅ・す・ぬし・おも|lord, chief, master
+題|だい|topic, subject
+意|い|idea, mind, heart
+不|ふ・ぶ|negative, non-, bad
+作|さく・さ・つく・づく|make, production, prepare
+用|よう・もち|utilize, business, service
+度|ど・と・たび・た|degrees, occurrence, time
+公|こう・く・おおやけ|public, prince, official
+持|じ・も|hold, have
+野|や・しょ・の|plains, field, rustic
+以|い・もっ|by means of, because, in view of
+多|た・おお・まさ|many, frequent, much
+正|せい・しょう・ただ・まさ|correct, justice, righteous
+安|あん・やす|cheap, peaceful
+院|いん|inst., institution, temple
+心|しん・こころ・ごころ|heart, mind, spirit
+界|かい|world, boundary
+元|げん・がん・もと|beginning, former time, origin
+重|じゅう・ちょう・え・おも|heavy, important, esteem
+近|きん・こん・ちか|near, early, akin
+考|こう・かんが|consider, think over
+売|ばい・う|sell
+道|どう・とう・みち・いう|road-way, street, district
+集|しゅう・あつ・つど|gather, meet, congregate
+別|べつ・わか・わ|separate, branch off, diverge
+物|ぶつ・もつ・もの|thing, object, matter
+使|し・つか・づか|use, send on a mission, order
+品|ひん・ほん・しな|goods, refinement, dignity
+計|けい・はか|plot, plan, scheme
+死|し・し|death, die
+特|とく|special
+私|し・わたくし・わたし|private, i, me
+始|し・はじ|commence, begin
+運|うん・はこ|carry, luck, destiny
+終|しゅう・お・おわ|end, finish
+台|だい・たい・うてな・われ|pedestal, a stand, counter for machines and vehicles
+広|こう・ひろ|wide, broad, spacious
+住|じゅう・ぢゅう・す・ず|dwell, reside, live
+真|しん・ま・まこと|true, reality, buddhist sect
+有|ゆう・う・あ|possess, have, exist
+口|こう・くち|mouth
+少|しょう・すく・すこ|few, little
+工|こう・く|craft, construction
+建|けん・こん・た・だ|build
+急|きゅう・いそ・せ|hurry, emergency, sudden
+止|し・と・ど|stop, halt
+切|せつ・さい・き・ぎ|cut, cutoff, be sharp
+転|てん・ころ・まろ|revolve, turn around, change
+研|けん・と|polish, study of, sharpen
+足|そく・あし|foot, leg
+究|きゅう・く・きわ|research, study
+楽|がく・らく・たの・この|music, comfort, ease
+起|き・お・おこ|rouse, wake up, get up
+着|ちゃく・じゃく・き・ぎ|don, arrive, wear
+質|しつ・しち・たち・ただ|substance, quality, matter
+待|たい・ま|wait, depend on
+試|し・こころ・ため|test, try, attempt
+族|ぞく|tribe, family
+銀|ぎん・しろがね|silver
+親|しん・おや・した|parent, intimacy, relative
+験|けん・げん・あかし・しるし|verification, effect, testing
+英|えい・はなぶさ|england, english, hero
+仕|し・じ・つか|attend, doing, official
+去|きょ・こ・さ|gone, past, quit
+味|み・あじ|flavor, taste
+写|しゃ・じゃ・うつ|copy, be photographed, describe
+答|とう・こた|solution, answer
+音|おん・いん・おと・ね|sound, noise
+注|ちゅう・そそ・さ|pour, irrigate, shed (tears)
+帰|き・かえ・おく|homecoming, arrive at, lead to
+歌|か・うた|song, sing
+買|ばい・か|buy
+悪|あく・お・わる・あ|bad, vice, rascal
+図|ず・と・え・はか|map, drawing, plan
+週|しゅう|week
+室|しつ・むろ|room, apartment, chamber
+風|ふう・ふ・かぜ・かざ|wind, air, style
+紙|し・かみ|paper
+黒|こく・くろ|black
+花|か・け・はな|flower
+赤|せき・しゃく・あか|red
+青|せい・しょう・あお|blue, green
+館|かん・やかた・たて|building, mansion, large building
+屋|おく・や|roof, house, shop
+駅|えき|station
+旅|りょ・たび|trip, travel
+服|ふく|clothing, admit, obey
+夕|せき・ゆう|evening
+曜|よう|weekday
+飲|いん・の|drink
+肉|にく・しし|meat
+堂|どう|public chamber, hall
+鳥|ちょう・とり|bird, chicken
+飯|はん・めし|meal, boiled rice
+勉|べん・つと|exertion, endeavour, encourage
+昼|ちゅう・ひる|daytime, noon
+茶|ちゃ・さ|tea
+弟|てい・だい・おとうと|younger brother, faithful service to elders
+魚|ぎょ・うお・さかな|fish
+兄|けい・きょう・あに|elder brother, big brother
+犬|けん・いぬ|dog
+妹|まい・いもうと|younger sister
+姉|し・あね・はは|elder sister
+漢|かん|sino-, china`,
 N3:`感|かん|feeling
 想|そう|idea, concept
 情|じょう・なさ|emotion, sympathy
@@ -1186,7 +1336,6 @@ N3:`感|かん|feeling
 争|そう・あらそ|conflict, dispute
 役|やく|role, service
 危|き・あぶ|dangerous
-届|とど|deliver, reach
 願|がん・ねが|wish, request
 許|きょ・ゆる|permit, forgive
 夢|む・ゆめ|dream
@@ -1196,49 +1345,717 @@ N3:`感|かん|feeling
 任|にん・まか|entrust, duty
 庭|てい・にわ|garden
 喜|き・よろこ|rejoice
-泣|きゅう・な|cry
 笑|しょう・わら|laugh
 疲|ひ・つか|tired
 痛|つう・いた|pain
-恋|れん・こい|romantic love
-星|せい・ほし|star
-宇|う|eaves, universe
-宙|ちゅう|mid-air, space
 優|ゆう・やさ|gentle, superior
 決|けつ・き|decide
 晴|せい・は|clear weather
-準|じゅん|standard, semi-
-備|び・そな|prepare`,
-N2:`概|がい|general, approximate
-傾|けい・かたむ|lean, tilt
-継|けい・つ|inherit, continue
+備|び・そな|prepare
+議|ぎ|deliberation, consultation, debate
+民|みん・たみ|people, nation, subjects
+連|れん・つら・つ|take along, lead, join
+対|たい・つい・あいて・こた|vis-a-vis, opposite, even
+部|ぶ・べ|section, bureau, dept
+合|ごう・がっ・あ・あい|fit, suit, join
+市|し・いち|market, city, town
+内|ない・だい・うち|inside, within, between
+相|そう・しょう・あい|inter-, mutual, together
+定|てい・じょう・さだ|determine, fix, establish
+回|かい・え・まわ・もとお|-times, round, game
+選|せん・えら|elect, select, choose
+米|べい・まい・こめ・よね|rice, usa, metre
+実|じつ・しつ・み・みの|reality, truth
+関|かん・せき・ぜき|connection, barrier, gateway
+全|ぜん・まった・すべ|whole, entire, all
+表|ひょう・おもて・あらわ|surface, table, chart
+最|さい・しゅ・もっと・つま|utmost, most, extreme
+現|げん・あらわ・うつつ|present, existing, actual
+調|ちょう・しら・ととの|tune, tone, meter
+化|か・け・ば・ふ|change, take the form of, influence
+当|とう・あ・まさ|hit, right, appropriate
+約|やく・つづ・つづま|promise, approximately, shrink
+首|しゅ・くび|neck, counter for songs and poems
+法|ほう・はっ・のり|method, law, rule
+性|せい・しょう・さが|sex, gender, nature
+要|よう・い・かなめ|need, main point, essence
+制|せい|system, law, rule
+治|じ・ち・おさ・なお|reign, be at peace, calm down
+務|む・つと|task, duties
+成|せい・じょう・な|turn into, become, get
+期|き・ご|period, time, date
+取|しゅ・と・とり|take, fetch, take up
+都|と・つ・みやこ|metropolis, capital, all
+和|わ・お・やわ・なご|harmony, japanese style, peace
+機|き・はた|loom, mechanism, machine
+平|へい・びょう・たい・だいら|even, flat, peace
+加|か・くわ|add, addition, increase
+受|じゅ・う|accept, undergo, answer (phone)
+続|ぞく・しょく・つづ・つぐ|continue, series, sequel
+進|しん・すす|advance, proceed, progress
+数|すう・す・かず・かぞ|number, strength, fate
+記|き・しる|scribe, account, narrative
+初|しょ・はじ・はつ|first time, beginning
+指|し・ゆび・さ|finger, point to, indicate
+権|けん・ごん・おもり・かり|authority, power, rights
+支|し・ささ・つか|branch, support, sustain
+産|さん・う・うぶ|products, bear, give birth
+点|てん・つ・た|spot, point, mark
+報|ほう・むく|report, news, reward
+活|かつ・い|lively, resuscitation, being helped
+原|げん・はら|meadow, original, primitive
+共|きょう・とも・ども|together, both, neither
+得|とく・え・う|gain, get, find
+解|かい・げ・と・ほど|unravel, notes, key
+交|こう・まじ・ま|mingle, mixing, association
+資|し|assets, resources, capital
+予|よ・しゃ・あらかじ|beforehand, previous, myself
+向|こう・む・むこ|yonder, facing, beyond
+勝|しょう・か・が|victory, win, prevail
+面|めん・べん・おも・おもて|mask, face, features
+告|こく・つ|revelation, tell, inform
+反|はん・ほん・そ・かえ|anti-
+参|さん・しん・まい・まじわる|nonplussed, three (in documents), going
+利|り・き|profit, advantage, benefit
+組|そ・く・くみ|association, braid, plait
+信|しん|faith, truth, fidelity
+在|ざい・あ|exist, outskirts, suburbs
+件|けん・くだん|affair, case, matter
+側|そく・かわ・がわ|side, lean, oppose
+引|いん・ひ・び|pull, tug, jerk
+求|きゅう・ぐ・もと|request, want, wish for
+所|しょ・ところ・どころ|place, extent
+次|じ・し・つ・つぎ|next, order, sequence
+昨|さく|yesterday, previous
+論|ろん|argument, discourse
+官|かん|bureaucrat, the government, organ
+増|ぞう・ま・ふ|increase, add, augment
+係|けい・かか・かかり|person in charge, connection, duty
+投|とう・な|throw, discard, abandon
+示|じ・し・しめ|show, indicate, point out
+変|へん・か|unusual, change, strange
+打|だ・だあす・う・ぶ|strike, hit, knock
+直|ちょく・じき・ただ・なお|straightaway, honesty, frankness
+両|りょう・てる・ふたつ|both, old japanese coin, counter for carriages (e.g., in a train)
+式|しき|style, ceremony, rite
+確|かく・こう・たし|assurance, firm, tight
+果|か・は・はた|fruit, reward, carry out
+容|よう・い|contain, form, looks
+必|ひつ・かなら|invariably, certain, inevitable
+演|えん|performance, act, play
+歳|さい・せい・とし・とせ|year-end, age, occasion
+談|だん|discuss, talk
+能|のう・よ|ability, talent, skill
+位|い・くらい・ぐらい|rank, grade, throne
+置|ち・お|placement, put, set
+流|りゅう・る・なが|current, a sink, flow
+格|かく・こう|status, rank, capacity
+疑|ぎ・うたが|doubt, distrust, be suspicious
+過|か・す・あやま|overdo, exceed, go beyond
+局|きょく・つぼね|bureau, board, office
+放|ほう・はな・っぱな|set free, release, fire
+常|じょう・つね・とこ|usual, ordinary, normal
+状|じょう|status quo, conditions, circumstances
+球|きゅう・たま|ball, sphere
+職|しょく・そく|post, employment, work
+与|よ・あた・あずか|bestow, participate in, give
+供|きょう・く・そな・とも|submit, offer, present
+構|こう・かま|posture, build, pretend
+割|かつ・わ・わり|proportion, comparatively, divide
+費|ひ・つい|expense, cost, spend
+付|ふ・つ・づ|adhere, attach, refer to
+由|ゆ・ゆう・よし・よ|wherefore, a reason
+説|せつ・ぜい・と|opinion, theory, explanation
+難|なん・かた・がた|difficult, impossible, trouble
+夫|ふ・ふう・おっと・それ|husband, man
+収|しゅう・おさ|income, obtain, reap
+石|せき・しゃく・いし|stone
+消|しょう・き・け|extinguish, blow out, turn off
+神|しん・じん・かみ・かん|gods, mind, soul
+番|ばん・つが|turn, number in a series
+規|き|standard, measure
+術|じゅつ・すべ|art, technique, skill
+宅|たく|home, house, residence
+害|がい|harm, injury
+配|はい・くば|distribute, spouse, exile
+警|けい・いまし|admonish, commandment
+育|いく・そだ・はぐく|bring up, grow up, raise
+席|せき・むしろ|seat, mat, occasion
+訪|ほう・おとず・たず|call on, visit, look up
+乗|じょう・しょう・の|ride, power, multiplication
+残|ざん・さん・のこ・そこな|remainder, leftover, balance
+声|せい・しょう・こえ・こわ|voice
+念|ねん|wish, sense, idea
+助|じょ・たす・す|help, rescue, assist
+労|ろう・ろう・いたわ|labor, thank for, reward for
+例|れい・たと|example, custom, usage
+然|ぜん・ねん・しか・さ|sort of thing, so, if so
+限|げん・かぎ|limit, restrict, to best of ability
+追|つい・お|chase, drive away, follow
+商|しょう・あきな|make a deal, selling, dealing in
+葉|よう・は|leaf, plane, lobe
+伝|でん・てん・つた・つだ|transmit, go along, walk along
+働|どう・はたら|work, (kokuji)
+形|けい・ぎょう・かた・がた|shape, form, style
+景|けい|scenery, view
+落|らく・お|fall, drop, come down
+好|こう・この・す|fond, pleasing, like something
+退|たい・しりぞ・ひ|retreat, withdraw, retire
+頭|とう・ず・あたま・かしら|head, counter for large animals
+負|ふ・ま・お|defeat, negative, -
+渡|と・わた|transit, ford, ferry
+失|しつ・うしな・う|lose, error, fault
+差|さ・さ|distinction, difference, variation
+末|まつ・ばつ・すえ|end, close, tip
+守|しゅ・す・まも・もり|guard, protect, defend
+若|じゃく・にゃく・わか・も|young, if, perhaps
+美|び・み・うつく|beauty, beautiful
+命|めい・みょう・いのち|fate, command, decree
+福|ふく|blessing, fortune, luck
+望|ぼう・もう・のぞ・もち|ambition, full moon, hope
+非|ひ・あら|un-, mistake, negative
+観|かん・み・しめ|outlook, look, appearance
+察|さつ|guess, presume, surmise
+段|だん・たん|grade, steps, stairs
+横|おう・よこ|sideways, side, horizontal
+深|しん・ふか・ぶか|deep, heighten, intensify
+申|しん・もう・さる|have the honor to, sign of the monkey, 3-5pm
+様|よう・しょう・さま・さん|esq., way, manner
+財|ざい・さい・たから|property, money, wealth
+港|こう・みなと|harbor
+識|しき・し・しる|discriminating, know, write
+呼|こ・よ|call, call out to, invite
+達|たつ・だ・たち|accomplished, reach, arrive
+良|りょう・よ・い|good, pleasing, skilled
+候|こう・そうろう|climate, season, weather
+程|てい・ほど|extent, degree, law
+満|まん・ばん・み|full, fullness, enough
+敗|はい・やぶ|failure, defeat, reversal
+値|ち・ね・あたい|price, cost, value
+突|とつ・か・つ|stab, protruding, thrust
+光|こう・ひか・ひかり|ray, light
+路|ろ・る・じ・みち|path, route, road
+科|か|department, course, section
+積|せき・つ・づ|volume, product (x*y), acreage
+他|た・ほか|other, another, the others
+処|しょ・ところ・こ|dispose, manage, deal with
+太|たい・た・ふと|plump, thick, big around
+客|きゃく・かく|guest, visitor, customer
+否|ひ・いな・いや|negate, no, noes
+師|し・いくさ|expert, teacher, master
+登|とう・と・のぼ・あ|ascend, climb up
+易|えき・い・やさ・やす|easy, ready to, simple
+速|そく・はや・すみ|quick, fast
+存|そん・ぞん・ながら・あ|exist, suppose, be aware of
+飛|ひ・と|fly, skip (pages), scatter
+殺|さつ・さい・ころ・ごろ|kill, murder, butcher
+号|ごう・さけ・よびな|nickname, number, item
+単|たん・ひとえ|simple, one, single
+座|ざ・すわ|squat, seat, cushion
+破|は・やぶ・わ|rend, rip, tear
+除|じょ・じ・のぞ・よ|exclude, division (x/3), remove
+完|かん|perfect, completion, end
+降|こう・ご・お・ふ|descend, precipitate, fall
+捕|ほ・と・とら|catch, capture
+給|きゅう・たま・たも|salary, wage, gift
+苦|く・くる・ぐる|suffering, trial, worry
+迎|げい・むか|welcome, meet, greet
+園|えん・その|park, garden, yard
+具|ぐ・そな・つぶさ|tool, utensil, means
+辞|じ・や・いな|resign, word, term
+因|いん・よ・ちな|cause, factor, be associated with
+馬|ば・うま・ま|horse
+愛|あい・いと・かな|love, affection, favourite
+富|ふ・ふう・と・とみ|wealth, enrich, abundant
+彼|ひ・かれ・かの|he, that, the
+未|み・び・いま・ま|un-, not yet, hitherto
+舞|ぶ・ま・まい|dance, flit, circle
+亡|ぼう・もう・な・ほろ|deceased, the late, dying
+冷|れい・つめ・ひ|cool, cold (beer, person), chill
+適|てき・かな|suitable, occasional, rare
+婦|ふ・よめ|lady, woman, wife
+寄|き・よ|draw near, stop in, bring near
+込|こ|crowded, mixture, in bulk
+顔|がん・かお|face, expression
+類|るい・たぐ|sort, kind, variety
+余|よ・あま・あんま|too much, myself, surplus
+王|おう・-のう|king, rule, magnate
+返|へん・かえ|return, answer, fade
+妻|さい・つま|wife, spouse
+背|はい・せ・せい|stature, height, back
+熱|ねつ・あつ|heat, temperature, fever
+宿|しゅく・やど|inn, lodging, relay station
+薬|やく・くすり|medicine, chemical, enamel
+険|けん・けわ|precipitous, inaccessible place, impregnable position
+頼|らい・たの・たよ|trust, request
+覚|かく・おぼ・さ|memorize, learn, remember
+船|せん・ふね・ふな|ship, boat
+途|と・みち|route, way, road
+抜|ばつ・はつ・ぬ|slip out, extract, pull out
+便|べん・びん・たよ|convenience, facility, excrement
+留|りゅう・る・と・とど|detain, fasten, halt
+罪|ざい・つみ|guilt, sin, crime
+努|ど・つと|toil, diligent, as much as possible
+精|せい・しょう・しら・くわ|refined, ghost, fairy
+散|さん・ち・ばら|scatter, disperse, spend
+静|せい・じょう・しず|quiet
+婚|こん|marriage
+浮|ふ・う・む|floating, float, rise to surface
+絶|ぜつ・た|discontinue, sever, cut off
+幸|こう・さいわ・さち|happiness, blessing, fortune
+押|おう・お・おさ|push, stop, check
+倒|とう・たお・だお|overthrow, fall, collapse
+等|とう・ひと・など|etc., and so forth, class (first)
+老|ろう・お・ふ|old man, old age, grow old
+曲|きょく・ま・くま|bend, music, melody
+払|ふつ・ひつ・はら・ばら|pay, clear out, prune
+徒|と・いたずら・あだ|on foot, junior, emptiness
+勤|きん・ごん・つと・づと|diligence, become employed, serve
+遅|ち・おく・おそ|slow, late, back
+居|きょ・こ・い・お|reside, to be, exist
+雑|ざつ・ぞう・まじ|miscellaneous
+招|しょう・まね|beckon, invite, summon
+困|こん・こま|quandary, become distressed, annoyed
+欠|けつ・けん・か|lack, gap, fail
+更|こう・さら・ふ|grow late, night watch, sit up late
 刻|こく・きざ|engrave, moment
+賛|さん・たす・たた|approve, praise, title or inscription on picture
+抱|ほう・だ・いだ|embrace, hug, hold in arms
+犯|はん・ぼん・おか|crime, sin, offense
+恐|きょう・おそ・こわ|fear, dread, awe
+息|そく・いき|breath, respiration, son
+遠|えん・おん・とお|distant, far
+戻|れい・もど|re-, return, revert
+絵|かい・え|picture, drawing, painting
+越|えつ・おつ・こ・ご|surpass, cross over, move to
+欲|よく・ほっ・ほ|longing, covetousness, greed
+互|ご・たが・かたみ|mutually, reciprocally, together
+束|そく・たば・つか|bundle, sheaf, ream
+似|じ・に・ひ|becoming, resemble, counterfeit
+列|れつ・れ|file, row, rank
+探|たん・さぐ・さが|grope, search, look for
+逃|とう・に・のが|escape, flee, shirk
+遊|ゆう・ゆ・あそ|play
+迷|めい・まよ|astray, be perplexed, in doubt
+君|くん・きみ・ぎみ|mister, you, ruler
+閉|へい・と・し|closed, shut
+緒|しょ・ちょ・お・いとぐち|thong, beginning, inception
+折|せつ・しゃく・お・おり|fold, break, fracture
+草|そう・くさ・ぐさ|grass, weeds, herbs
+暮|ぼ・く|evening, twilight, season's end
+酒|しゅ・さけ・さか|sake, alcohol
+悲|ひ・かな|grieve, sad, deplore
+掛|かい・けい・か・が|hang, suspend, depend
+到|とう・いた|arrival, proceed, reach
+寝|しん・ね・い|lie down, sleep, rest
+暗|あん・くら・くれ|darkness, disappear, shade
+盗|とう・ぬす|steal, rob, pilfer
+吸|きゅう・す|suck, imbibe, inhale
+陽|よう・ひ|sunshine, yang principle, positive
+御|ぎょ・ご・おん・お|honorable, manipulate, govern
+歯|し・よわい・は|tooth, cog
+忘|ぼう・わす|forget
+雪|せつ・ゆき|snow
+吹|すい・ふ|blow, breathe, puff
+娘|じょう・むすめ・こ|daughter, girl
+誤|ご・あやま|mistake, err, do wrong
+洗|せん・あら|wash, inquire into, probe
+慣|かん・な|accustomed, get used to, become experienced
+礼|れい・らい|salute, bow, ceremony
+窓|そう・す・まど・てんまど|window, pane
+昔|せき・しゃく・むかし|once upon a time, antiquity, old times
+貧|ひん・びん・まず|poverty, poor
+怒|ど・ぬ・いか・おこ|angry, be offended
+泳|えい・およ|swim
+祖|そ|ancestor, pioneer, founder
+杯|はい・さかずき|counter for cupfuls, wine glass, glass
+皆|かい・みな・みんな|all, everything
+鳴|めい・な|chirp, cry, bark
+腹|ふく・はら|abdomen, belly, stomach
+煙|えん・けむ・けむり|smoke
+眠|みん・ねむ|sleep, die, sleepy
+怖|ふ・ほ・こわ・お|dreadful, be frightened, fearful
+耳|じ・みみ|ear
+頂|ちょう・いただ・いただき|place on the head, receive, top of head
+箱|そう・はこ|box, chest, case
+晩|ばん|nightfall, night
+寒|かん・さむ|cold
+髪|はつ・かみ|hair of the head
+忙|ぼう・もう・いそが・せわ|busy, occupied, restless
+才|さい|genius, years old, cubic shaku
+靴|か・くつ|shoes
+恥|ち・は・はじ|shame, dishonor
+偶|ぐう・たま|accidentally, even number, couple
+偉|い・えら|admirable, greatness, remarkable
+猫|びょう・ねこ|cat
+幾|き・いく|how many, how much, how far`,
+N2:`傾|けい・かたむ|lean, tilt
 患|かん・わずら|patient, suffer
-縮|しゅく・ちぢ|shrink
-微|び|slight, delicate
 柔|じゅう・やわ|soft, gentle
 濃|のう・こ|dense, thick
 沈|ちん・しず|sink
 劇|げき|drama
 鋭|えい・するど|sharp
-揺|よう・ゆ|shake, sway
 臓|ぞう|internal organ
-稼|か・かせ|earn
-粘|ねん・ねば|sticky
-獲|かく・え|seize, obtain
 掘|くつ・ほ|dig
 祈|き・いの|pray
 腕|わん・うで|arm, skill
-嫁|か・よめ|bride
-謝|しゃ・あやま|apologize, thank
 豊|ほう・ゆた|abundant
-穏|おん・おだ|calm, peaceful
-撮|さつ・と|take a photo
 柱|ちゅう・はしら|pillar
 召|しょう・め|summon, eat (polite)
-憲|けん|constitution
-励|れい・はげ|encourage
-輸|ゆ|transport`,
+輸|ゆ|transport
+党|とう・なかま・むら|party, faction, clique
+協|きょう|co-, cooperation
+総|そう・す・すべ|general, whole, all
+区|く・おう|ward, district
+領|りょう・えり|jurisdiction, dominion, territory
+県|けん・か|prefecture
+設|せつ・もう|establishment, provision, prepare
+改|かい・あらた|reformation, change, modify
+府|ふ|borough, urban prefecture, govt office
+査|さ|investigate
+委|い・ゆだ|committee, entrust to, leave to
+軍|ぐん・いくさ|army, force, troops
+団|だん・とん・かたまり・まる|group, association
+各|かく・おのおの|each, every, either
+島|とう・しま|island
+革|かく・かわ|leather, skin, reform
+村|そん・むら|village, town
+勢|せい・ぜい・いきお・はずみ|forces, energy, military strength
+減|げん・へ|dwindle, decrease, reduce
+再|さい・さ・ふたた|again, twice, second time
+税|ぜい|tax, duty
+営|えい・いとな|occupation, camp, perform
+比|ひ・くら|compare, race, ratio
+防|ぼう・ふせ|ward off, defend, protect
+補|ほ・おぎな|supplement, supply, make good
+境|きょう・けい・さかい|boundary, border, region
+導|どう・みちび|guidance, leading, conduct
+副|ふく|vice-, assistant, aide
+算|さん・そろ|calculate, divining, number
+述|じゅつ・の|mention, state, speak
+線|せん・すじ|line, track
+農|のう|agriculture, farmers
+州|しゅう・す・す|state, province
+武|ぶ・む・たけ|warrior, military, chivalry
+象|しょう・ぞう・かたど|elephant, pattern after, imitate
+域|いき|range, region, limits
+額|がく・ひたい|forehead, tablet, plaque
+欧|おう・うた・は|europe
+担|たん・かつ・にな|shouldering, carry, raise
+準|じゅん|standard, semi-
+賞|しょう・ほ|prize, reward, praise
+辺|へん・あた・ほと|environs, boundary, border
+造|ぞう・つく・づく|create, make, structure
+被|ひ・こうむ・おお|incur, cover, veil
+技|ぎ・わざ|skill, art, craft
+低|てい・ひく|lower, short, humble
+復|ふく・また|restore, return to, revert
+移|い・うつ|shift, move, change
+個|こ・か|individual, counter for articles
+門|もん・かど・と|gate, counter for cannons
+課|か|chapter, lesson, section
+脳|のう・どう・のうずる|brain, memory
+極|きょく・ごく・きわ・き|poles, settlement, conclusion
+含|がん・ふく|contain, include, hold in the mouth
+蔵|ぞう・そう・くら・おさ|storehouse, hide, own
+量|りょう・はか|quantity, measure, weight
+型|けい・かた・がた|mould, type, model
+況|きょう・まし・いわ|condition, situation
+針|しん・はり|needle, pin, staple
+専|せん・もっぱ|specialty, exclusive, mainly
+谷|こく・たに・きわ|valley
+史|し|history, chronicle
+階|かい・きざはし|storey, stair, counter for storeys of a building
+管|かん・くだ|pipe, tube, wind instrument
+兵|へい・ひょう・つわもの|soldier, private, troops
+接|せつ・しょう・つ|touch, contact, adjoin
+細|さい・ほそ・こま|dainty, get thin, taper
+効|こう・き・ききめ|merit, efficacy, efficiency
+丸|がん・まる|round, full (month), perfection
+湾|わん・いりえ|gulf, bay, inlet
+録|ろく・しる・と|record
+省|せい・しょう・かえり・はぶ|focus, government ministry, conserve
+旧|きゅう・ふる・もと|old times, old things, old friend
+橋|きょう・はし|bridge
+岸|がん・きし|beach
+周|しゅう・まわ|circumference, circuit, lap
+材|ざい|lumber, log, timber
+戸|こ・と|door, counter for houses
+央|おう|center, middle
+券|けん|ticket
+編|へん・あ|compilation, knit, plait
+捜|そう・しゅ・さが|search, look for, locate
+竹|ちく・たけ|bamboo
+超|ちょう・こ|transcend, super-, ultra-
+並|へい・ほう・な・なみ|row, and, besides
+療|りょう|heal, cure
+採|さい・と|pick, take, fetch
+森|しん・もり|forest, woods
+競|きょう・けい・きそ・せ|emulate, compete with, bid
+介|かい|jammed in, shellfish, mediate
+根|こん・ね|root, head (pimple)
+販|はん|marketing, sell, trade
+歴|れき・れっき|curriculum, continuation, passage of time
+将|しょう・そう・まさ・はた|leader, commander, general
+幅|ふく・はば|hanging scroll, width
+般|はん|carrier, carry, all
+貿|ぼう|trade, exchange
+講|こう|lecture, club, association
+林|りん・はやし|grove, forest
+装|そう・しょう・よそお|attire, dress, pretend
+諸|しょ・もろ|various, many, several
+河|か・かわ|river
+航|こう|navigate, sail, cruise
+鉄|てつ・くろがね|iron
+児|じ・に・こ・っこ|newborn babe, child, young of animals
+禁|きん|prohibition, ban, forbid
+印|いん・しるし・じるし|stamp, seal, mark
+逆|ぎゃく・げき・さか|inverted, reverse, opposite
+換|かん・か|interchange, period, change
+久|きゅう・く・ひさ|long time, old story
+短|たん・みじか|short, brevity, fault
+油|ゆ・ゆう・あぶら|oil, fat
+暴|ぼう・ばく・あば|outburst, rave, fret
+輪|りん・わ|wheel, ring, circle
+占|せん・し・うらな|fortune-telling, divining, forecasting
+植|しょく・う|plant
+清|せい・しょう・きよ|pure, purify, cleanse
+倍|ばい|double, twice, times
+均|きん・なら|level, average
+億|おく|hundred million, 10**8
+圧|あつ・えん・お・へ|pressure, push, overwhelm
+芸|げい・うん・う・のり|technique, art, craft
+署|しょ|signature, govt office, police station
+伸|しん・の|expand, stretch, extend
+停|てい・と|halt, stopping
+爆|ばく・は|bomb, burst open, pop
+陸|りく・ろく・おか|land, six
+玉|ぎょく・たま・だま|jewel, ball
+波|は・なみ|waves, billows, poland
+帯|たい・お・おび|sash, belt, obi
+延|えん・の|prolong, stretching
+羽|う・は・わ|feathers, counter for birds, rabbits
+固|こ・かた|harden, set, clot
+則|そく・のっと|rule, follow, based on
+乱|らん・ろん・みだ・おさ|riot, war, disorder
+普|ふ・あまね・あまねし|universal, wide(ly), generally
+測|そく・はか|fathom, plan, scheme
+厚|こう・あつ・あか|thick, heavy, rich
+齢|れい・よわい・とし|age
+囲|い・かこ|surround, besiege, store
+卒|そつ・しゅつ・そっ・お|graduate, soldier, private
+略|りゃく・ほぼ・はぶ|abbreviation, omission, outline
+承|しょう・じょう・うけたまわ・う|acquiesce, hear, listen to
+順|じゅん|obey, order, turn
+岩|がん・いわ|boulder, rock, cliff
+練|れん・ね|practice, gloss, train
+軽|けい・きょう・かる・かろ|lightly, trifling, unimportant
+了|りょう|complete, finish
+庁|ちょう・てい・やくしょ|government office
+城|じょう・せい・しろ|castle
+層|そう|stratum, social class, layer
+版|はん|printing block, printing plate, edition
+令|れい|orders, ancient laws, command
+角|かく・かど・つの|angle, corner, square
+絡|らく・から|entwine, coil around, get caught in
+損|そん・そこ・そこな|damage, loss, disadvantage
+募|ぼ・つの|recruit, campaign, gather (contributions)
+裏|り・うら|back, amidst, in
+仏|ぶつ・ふつ・ほとけ|buddha, the dead, france
+績|せき|exploits, achievements, unreeling cocoons
+築|ちく・きず|fabricate, build, construct
+貨|か・たから|freight, goods, property
+混|こん・ま・こ|mix, blend, confuse
+昇|しょう・のぼ|rise up
+池|ち・いけ|pond, cistern, pool
+血|けつ・ち|blood
+温|おん・あたた・ぬく|warm
+季|き|seasons
+星|せい・ほし|star
+永|えい・なが|eternity, long, lengthy
+著|ちょ・ちゃく・あらわ・いちじる|renowned, publish, write
+誌|し|document, records
+庫|こ・く・くら|warehouse, storehouse
+刊|かん|publish, carve, engrave
+像|ぞう|statue, picture, image
+香|こう・きょう・か・かお|incense, smell, perfume
+坂|はん・さか|slope, incline, hill
+底|てい・そこ|bottom, sole, depth
+布|ふ・ぬの|linen, cloth, spread
+寺|じ・てら|buddhist temple
+宇|う|eaves, universe
+巨|きょ|gigantic, big, large
+震|しん・ふる|quake, shake, tremble
+希|き・け・まれ|hope, beg, request
+触|しょく・ふ・さわ|contact, touch, feel
+依|い・え・よ|reliant, depend on, consequently
+籍|せき|enroll, domiciliary register, membership
+汚|お・けが・よご|dirty, pollute, disgrace
+枚|まい・ばい|sheet of..., counter for flat thin objects or sheets
+複|ふく|duplicate, double, compound
+郵|ゆう|mail, stagecoach stop
+仲|ちゅう・なか|go-between, relationship
+栄|えい・よう・さか・は|flourish, prosperity, honor
+札|さつ・ふだ|tag, paper money, counter for bonds
+板|はん・ばん・いた|plank, board, plate
+骨|こつ・ほね|skeleton, bone, remains
+届|とど|deliver, reach
+巻|かん・けん・ま・まき|scroll, volume, book
+燃|ねん・も|burn, blaze, glow
+跡|せき・あと|tracks, mark, print
+包|ほう・つつ・くる|wrap, pack up, cover
+駐|ちゅう|stop-over, reside in, resident
+弱|じゃく・よわ|weak
+紹|しょう|introduce, inherit, help
+雇|こ・やと|employ, hire
+替|たい・か|exchange, spare, substitute
+預|よ・あず|deposit, custody, leave with
+焼|しょう・や|bake, burning
+簡|かん・けん・えら・ふだ|simplicity, brevity
+章|しょう|badge, chapter, composition
+律|りつ・りち|rhythm, law, regulation
+贈|ぞう・そう・おく|presents, send, give to
+照|しょう・て|illuminate, shine, compare
+薄|はく・うす・すすき|dilute, thin, weak (tea)
+群|ぐん・む・むら|flock, group, crowd
+秒|びょう|second (1/60 minute)
+奥|おう・おく・くま|heart, interior
+詰|きつ・きち・つ・づ|packed, close, pressed
+双|そう・ふた・たぐい|pair, set, comparison
+刺|し・さ・さし|thorn, pierce, stab
+純|じゅん|genuine, purity, innocence
+翌|よく|the following, next
+快|かい・こころよ|cheerful, pleasant, agreeable
+片|へん・かた|one-sided, leaf, sheet
+敬|けい・きょう・うやま|awe, respect, honor
+悩|のう・なや・なやみ|trouble, worry, in pain
+泉|せん・いずみ|spring, fountain
+皮|ひ・かわ|pelt, skin, hide
+漁|ぎょ・りょう・あさ|fishing, fishery
+荒|こう・あら・あ|laid waste, rough, rude
+貯|ちょ・た・たくわ|savings, store, lay in
+硬|こう・かた|stiff, hard
+埋|まい・う・うず|bury, be filled up, embedded
+祭|さい・まつ・まつり|ritual, offer prayers, celebrate
+袋|たい・だい・ふくろ|sack, bag, pouch
+筆|ひつ・ふで|writing brush, writing, painting brush
+訓|くん・きん・おし・よ|instruction, japanese character reading, explanation
+浴|よく・あ|bathe, be favored with, bask in
+童|どう・わらべ|juvenile, child
+宝|ほう・たから|treasure, wealth, valuables
+封|ふう・ほう|seal, closing
+胸|きょう・むね・むな|bosom, breast, chest
+砂|さ・しゃ・すな|sand
+塩|えん・しお|salt
+賢|けん・かしこ|intelligent, wise, wisdom
+兆|ちょう・きざ|portent, 10**12, trillion
+床|しょう・とこ・ゆか|bed, counter for beds, floor
+毛|もう・け|fur, hair, feather
+緑|りょく・ろく・みどり|green
+尊|そん・たっと・とうと|revered, valuable, precious
+祝|しゅく・しゅう・いわ|celebrate, congratulate
+殿|でん・てん・との・どの|mr., hall, mansion
+液|えき|fluid, liquid, juice
+衣|い・え・ころも・きぬ|garment, clothes, dressing
+肩|けん・かた|shoulder
+零|れい・ぜろ・こぼ|zero, spill, overflow
+幼|よう・おさな|infancy, childhood
+荷|か・に|baggage, shoulder-pole load, bear (a burden)
+泊|はく・と|overnight stay, put up at, ride at anchor
+黄|こう・おう・き・こ|yellow
+甘|かん・あま・うま|sweet, coax, pamper
+臣|しん・じん|retainer, subject
+浅|せん・あさ|shallow, superficial, frivolous
+掃|そう・しゅ・は|sweep, brush
+雲|うん・くも・ぐも|cloud
+捨|しゃ・す|discard, throw away, abandon
+軟|なん・やわ|soft
+凍|とう・こお・こご|frozen, congeal, refrigerate
+乳|にゅう・ちち・ち|milk, breasts
+恋|れん・こい|romantic love
+紅|こう・く・べに・くれない|crimson, deep red
+郊|こう|outskirts, suburbs, rural area
+腰|よう・こし|loins, hips, waist
+炭|たん・すみ|charcoal, coal
+踊|よう・おど|jump, dance, leap
+冊|さつ・さく・ふみ|tome, counter for books, volume
+勇|ゆう・いさ|courage, cheer up, be in high spirits
+械|かい・かせ|contraption, fetter, machine
+菜|さい・な|vegetable, side dish, greens
+珍|ちん・めずら・たから|rare, curious, strange
+卵|らん・たまご|egg, ovum, spawn
+湖|こ・みずうみ|lake
+喫|きつ・の|consume, eat, drink
+干|かん・ほ・ぼ|dry, parch, ebb
+虫|ちゅう・き・むし|insect, bug, temper
+刷|さつ・す・ず|printing, print, brush
+湯|とう・ゆ|hot water, bath, hot spring
+溶|よう・と|melt, dissolve, thaw
+鉱|こう・あらがね|mineral, ore
+涙|るい・れい・なみだ|tears, sympathy
+匹|ひつ・ひき|equal, head, counter for small animals
+孫|そん・まご|grandchild, descendants
+枝|し・えだ|bough, branch, twig
+塗|と・ぬ・まみ|paint, plaster, daub
+軒|けん・のき|flats, counter for houses, eaves
+毒|どく|poison, virus, venom
+叫|きょう・さけ|shout, exclaim, yell
+拝|はい・おが・おろが|worship, adore, pray to
+氷|ひょう・こおり・ひ|icicle, ice, hail
+乾|かん・けん・かわ・ほ|drought, dry, dessicate
+棒|ぼう|rod, stick, cane
+拾|しゅう・じゅう・ひろ|pick up, gather, find
+粉|ふん・デシメートル・こ|flour, powder, dust
+糸|し・いと|thread
+綿|めん・わた|cotton
+汗|かん・あせ|sweat, perspire
+銅|どう・あかがね|copper
+湿|しつ・しゅう・しめ・うるお|damp, wet, moist
+瓶|びん・かめ|bottle, vial, jar
+咲|しょう・さ・ざき|blossom, bloom
+缶|かん・かま|tin can, container
+隻|せき|vessels, counter for ships, fish
+脂|し・あぶら|fat, grease, tallow
+蒸|じょう・せい・む|steam, heat, sultry
+肌|き・はだ|texture, skin, body
+耕|こう・たがや|till, plow, cultivate
+鈍|どん・にぶ・なま|dull, slow, foolish
+泥|でい・ない・どろ・なず|mud, mire, adhere to
+隅|ぐう・すみ|corner, nook
+灯|とう・ひ・ほ|lamp, a light, light
+辛|しん・から・つら|spicy, bitter, hot
+磨|ま・みが・す|grind, polish, scour
+麦|ばく・むぎ|barley, wheat
+姓|せい・しょう|surname
+筒|とう・つつ|cylinder, pipe, tube
+鼻|び・はな|nose, snout
+粒|りゅう・つぶ|grains, drop, counter for tiny particles
+詞|し・ことば|part of speech, words, poetry
+胃|い|stomach, paunch, crop
+畳|じょう・ちょう・たた・たたみ|tatami mat, counter for tatami mats, fold
+机|き・つくえ|desk, table
+膚|ふ・はだ|skin, body, grain
+濯|たく・すす・ゆす|laundry, wash, pour on
+塔|とう|pagoda, tower, steeple
+沸|ふつ・わ|seethe, boil, ferment
+灰|かい・はい|ashes, puckery juice, cremate
+菓|か|candy, cakes, fruit
+帽|ぼう・もう・ずきん・おお|cap, headgear
+枯|こ・か|wither, die, dry up
+涼|りょう・すず・うす|refreshing, nice and cool
+舟|しゅう・ふね・ふな|boat, ship
+貝|ばい・かい|shellfish
+符|ふ|token, sign, mark
+憎|ぞう・にく|hate, detest
+皿|べい・さら|dish, a helping, plate
+肯|こう・がえんじ|agreement, consent, comply with
+燥|そう・はしゃ|parch, dry up
+畜|ちく|livestock, domestic fowl and animals
+挟|きょう・しょう・はさ・わきばさ|pinch, between
+曇|どん・くも|cloudy weather, cloud up
+滴|てき・しずく・したた|drip, drop
+伺|し・うかが|pay respects, visit, ask`,
 N1:`曖|あい|unclear
 昧|まい|dark, foolish
 慄|りつ|shiver, fear
@@ -1268,7 +2085,1219 @@ N1:`曖|あい|unclear
 詐|さ|deceive
 窮|きゅう・きわ|extreme, distress
 斡|あつ|mediate
-旋|せん|rotate, revolve`};
+旋|せん|rotate, revolve
+氏|し・うじ|family name, surname, clan
+統|とう・す・ほび|overall, relationship, ruling
+保|ほ・ほう・たも|protect, guarantee, keep
+第|だい・てい|no., residence
+結|けつ・けち・むす・ゆ|tie, bind, contract
+派|は|faction, group, party
+案|あん・つくえ|plan, suggestion, draft
+策|さく|scheme, plan, policy
+基|き・もと・もとい|fundamentals, counter for machines, foundation
+価|か・け・あたい|value, price
+提|てい・ちょう・さ|propose, take along, carry in hand
+挙|きょ・あ・こぞ|raise, plan, project
+応|おう・よう・あた・まさに|apply, answer, yes
+企|き・くわだ・たくら|undertake, scheme, design
+検|けん・しら|examination, investigate
+藤|とう・どう・ふじ|wisteria
+沢|たく・さわ・うるお|swamp, marsh, brilliance
+裁|さい・た・さば|tailor, judge, decision
+証|しょう・あかし|evidence, proof, certificate
+援|えん|abet, help, save
+施|し・せ・ほどこ|give, bestow, perform
+井|せい・しょう・い|well, well crib, town
+護|ご・まも|safeguard, protect
+展|てん|unfold, expand
+態|たい・わざ|attitude, condition, figure
+鮮|せん・あざ|fresh, vivid, clear
+視|し・み|inspection, regard as, see
+条|じょう・ちょう・えだ・すじ|article, clause, item
+幹|かん・みき|tree trunk, main part, talent
+独|どく・とく・ひと|single, alone, spontaneously
+宮|きゅう・ぐう・みや|shinto shrine, constellations, palace
+率|そつ・りつ・ひき|ratio, rate, proportion
+衛|えい・え|defense, protection
+張|ちょう・は・ば|lengthen, counter for bows & stringed instruments, stretch
+監|かん|oversee, official, govt office
+環|かん・わ|ring, circle, link
+審|しん・つまび・つぶさ|hearing, judge, trial
+義|ぎ|righteousness, justice, morality
+訴|そ・うった|accusation, sue, complain of pain
+株|しゅ・かぶ|stocks, stump, shares
+姿|し・すがた|figure, form, shape
+閣|かく|tower, tall building, palace
+衆|しゅう・しゅ・おお|masses, great numbers, multitude
+評|ひょう|evaluate, criticism, comment
+影|えい・かげ|shadow, silhouette, phantom
+松|しょう・まつ|pine tree
+撃|げき・う|beat, attack, defeat
+佐|さ|assistant, help
+核|かく|nucleus, core, kernel
+整|せい・ととの|organize, arranging, tune
+融|ゆう・と|dissolve, melt
+製|せい|made in..., manufacture
+票|ひょう|ballot, label, ticket
+渉|しょう・わた|ford, go cross, transit
+響|きょう・ひび|echo, sound, resound
+推|すい・お|conjecture, infer, guess
+請|せい・しん・こ・う|solicit, invite, ask
+器|き・うつわ|utensil, vessel, receptacle
+士|し・さむらい|gentleman, scholar, samurai
+討|とう・う|chastise, attack, defeat
+攻|こう・せ|aggression, attack, criticize
+崎|き・さき・さい|promontory, cape, spit
+督|とく|coach, command, urge
+授|じゅ・さず|impart, instruct, grant
+催|さい・もよう・もよお|sponsor, hold (a meeting), give (a dinner)
+及|きゅう・およ・および|reach out, exert, exercise
+憲|けん|constitution
+離|り・はな|detach, separation, disjoin
+激|げき・はげ|violent, get excited, enraged
+摘|てき・つ|pinch, pick, pluck
+系|けい|lineage, system
+批|ひ|criticism, strike
+郎|ろう・りょう・おとこ|son, counter for sons
+健|けん・すこ|healthy, health, strength
+盟|めい|alliance, oath
+従|じゅう・しょう・したが・より|accompany, obey, submit to
+修|しゅう・しゅ・おさ|discipline, conduct oneself well, study
+隊|たい|regiment, party, company
+織|しょく・しき・お・おり|weave, fabric
+拡|かく・こう・ひろ|broaden, extend, expand
+故|こ・ゆえ・ふる|happenstance, especially, intentionally
+振|しん・ふ・ぶ|shake, wave, wag
+弁|べん・へん・かんむり・わきま|valve, petal, braid
+就|しゅう・じゅ・つ|concerning, settle, take position
+異|い・こと・け|uncommon, different, queerness
+献|けん・こん・たてまつ|offering, counter for drinks, present
+厳|げん・ごん・おごそ・きび|stern, strictness, severity
+維|い|fiber, tie, rope
+浜|ひん・はま|seacoast, beach, seashore
+遺|い・ゆい・のこ|bequeath, leave behind, reserve
+塁|るい・らい・とりで|bases, fort, rampart
+邦|ほう・くに|home country, country, japan
+素|そ・す・もと|elementary, principle, naked
+遣|けん・つか・づか|dispatch, despatch, send
+抗|こう・あらが|confront, resist, defy
+模|も・ぼ|imitation, copy, mock
+雄|ゆう・お・おす|masculine, male, hero
+益|えき・やく・ま|benefit, gain, profit
+緊|きん・し|tense, solid, hard
+標|ひょう・しるべ・しるし|signpost, seal, mark
+宣|せん・のたま|proclaim, say, announce
+昭|しょう|shining, bright
+廃|はい・すた|abolish, obsolete, cessation
+伊|い・かれ|italy, that one
+江|こう・え|creek, inlet, bay
+僚|りょう|colleague, official, companion
+吉|きち・きつ・よし|good luck, joy, congratulations
+盛|せい・じょう・も・さか|boom, prosper, copulate
+皇|こう・おう|emperor
+臨|りん・のぞ|look to, face, meet
+踏|とう・ふ|step, trample, carry through
+壊|かい・え・こわ・やぶ|demolition, break, destroy
+債|さい|bond, loan, debt
+興|こう・きょう・おこ|entertain, revive, retrieve
+源|げん・みなもと|source, origin
+儀|ぎ|ceremony, rule, affair
+創|そう・しょう・つく・はじ|genesis, wound, injury
+障|しょう・さわ|hinder, hurt, harm
+継|けい・つ|inherit, continue
+筋|きん・すじ|muscle, sinew, tendon
+闘|とう・たたか・あらそ|fight, war
+葬|そう・ほうむ|interment, bury, shelve
+避|ひ・さ・よ|evade, avoid, avert
+司|し・つかさど|director, official, govt office
+康|こう|ease, peace
+善|ぜん・よ・い|virtuous, good, goodness
+逮|たい|apprehend, chase
+迫|はく・せま|urge, force, imminent
+惑|わく・まど|beguile, delusion, perplexity
+崩|ほう・くず|crumble, die, demolish
+紀|き|chronicle, account, narrative
+聴|ちょう・てい・き・ゆる|listen, headstrong, naughty
+脱|だつ・ぬ|undress, removing, escape from
+級|きゅう|class, rank, grade
+博|はく・ばく|dr., command, esteem
+締|てい・し・じ|tighten, tie, shut
+救|きゅう・すく|salvation, save, help
+執|しつ・しゅう・と|tenacious, take hold, grasp
+房|ぼう・ふさ|tassel, tuft, fringe
+撤|てつ|remove, withdraw, disarm
+削|さく・けず・はつ|plane, sharpen, whittle
+密|みつ・ひそ|secrecy, density (pop), minuteness
+志|し・シリング・こころざ|intention, plan, resolve
+載|さい・の|ride, board, get on
+陣|じん|camp, battle array, ranks
+我|が・われ・わ|ego, i, selfish
+為|い・ため・な|do, change, make
+抑|よく・おさ|repress, well, now
+幕|まく・ばく・とばり|curtain, bunting, act of play
+染|せん・そ・ぞ|dye, color, paint
+奈|な・ない・いかん・からなし|nara, what?
+傷|しょう・きず・いた|wound, hurt, injure
+択|たく・えら|choose, select, elect
+秀|しゅう・ひい|excel, excellence, beauty
+徴|ちょう・ち・しるし|indications, sign, omen
+弾|だん・たん・ひ・はず|bullet, twang, flip
+償|しょう・つぐな|reparation, make up for, recompense
+功|こう・く・いさお|achievement, merits, success
+拠|きょ・こ・よ|foothold, based on, follow
+秘|ひ・ひ・ひそ|secret, conceal
+拒|きょ・ご・こば|repel, refuse, reject
+刑|けい|punish, penalty, sentence
+塚|ちょう・つか・づか|hillock, mound
+致|ち・いた|doth, do, send
+繰|そう・く|winding, reel, spin
+尾|び・お|tail, end, counter for fish
+描|びょう・えが・か|sketch, compose, write
+鈴|れい・りん・すず|small bell, buzzer
+盤|ばん|tray, shallow bowl, platter
+項|こう・うなじ|paragraph, nape of neck, clause
+喪|そう・も|miss, mourning
+伴|はん・ばん・ともな|consort, accompany, bring with
+養|よう・りょう・やしな|foster, bring up, rear
+懸|けん・け・か|state of suspension, hang, depend
+街|がい・かい・まち|boulevard, street, town
+契|けい・ちぎ|pledge, promise, vow
+掲|けい・かか|put up (a notice), put up, hoist
+躍|やく・おど|leap, dance, skip
+棄|き・す|abandon, throw away, discard
+邸|てい・やしき|residence, mansion
+縮|しゅく・ちぢ|shrink
+還|かん・かえ|send back, return
+属|ぞく・しょく・さかん・つく|belong, genus, subordinate official
+慮|りょ・おもんぱく・おもんぱか|prudence, thought, concern
+枠|わく|frame, framework, spindle
+恵|けい・え・めぐ|favor, blessing, grace
+露|ろ・ろう・つゆ|dew, tears, expose
+沖|ちゅう・おき・おきつ|open sea, offing, rise high into sky
+緩|かん・ゆる|slacken, loosen, relax
+節|せつ・せち・ふし・ぶし|node, season, period
+需|じゅ|demand, request, need
+射|しゃ・い・さ|shoot, shine into, onto
+購|こう|subscription, buy
+揮|き・ふる|brandish, wave, wag
+充|じゅう・あ・み|allot, fill
+貢|こう・く・みつ|tribute, support, finance
+鹿|ろく・しか・か|deer
+却|きゃく・かえ・しりぞ|instead, on the contrary, rather
+端|たん・はし・は|edge, origin, end
+賃|ちん|fare, fee, hire
+獲|かく・え|seize, obtain
+郡|ぐん・こおり|county, district
+併|へい・あわ|join, get together, unite
+徹|てつ|penetrate, clear, pierce
+貴|き・たっと・とうと|precious, value, prize
+衝|しょう・つ|collide, brunt, highway
+焦|しょう・こ・あせ|char, hurry, impatient
+奪|だつ・うば|rob, take by force, snatch away
+災|さい・わざわ|disaster, calamity, woe
+浦|ほ・うら|bay, creek, inlet
+析|せき|chop, divide, tear
+譲|じょう・ゆず|defer, turnover, transfer
+称|しょう・たた・とな|appellation, praise, admire
+納|のう・なっ・おさ|settlement, obtain, reap
+樹|じゅ・き|timber, trees, wood
+挑|ちょう・いど|challenge, contend for, make love to
+誘|ゆう・さそ・いざな|entice, lead, tempt
+紛|ふん・まぎ|distract, be mistaken for, go astray
+至|し・いた|climax, arrive, proceed
+宗|しゅう・そう・むね|religion, sect, denomination
+促|そく・うなが|stimulate, urge, press
+慎|しん・つつし・つつ|humility, be careful, discreet
+控|こう・ひか|withdraw, draw in, hold back
+智|ち|wisdom, intellect, reason
+握|あく・にぎ|grip, hold, mould sushi
+宙|ちゅう|mid-air, space
+俊|しゅん|sagacious, genius, excellence
+銭|せん・ぜん・ぜに・すき|coin, .01 yen, money
+渋|じゅう・しゅう・しぶ|astringent, hesitate, reluctant
+銃|じゅう・つつ|gun, arms
+操|そう・さん・みさお・あやつ|maneuver, manipulate, operate
+携|けい・たずさ|portable, carry (in hand), armed with
+診|しん・み|checkup, seeing, diagnose
+託|たく・かこつ・かこ|consign, requesting, entrusting with
+撮|さつ・と|take a photo
+誕|たん|nativity, be born, declension
+侵|しん・おか|encroach, invade, raid
+括|かつ・くく|fasten, tie up, arrest
+謝|しゃ・あやま|apologize, thank
+駆|く・か|drive, run, gallop
+透|とう・す・とう|transparent, permeate, filter
+津|しん・つ|haven, port, harbor
+壁|へき・かべ|wall, lining (stomach), fence
+稲|とう・て・いね・いな|rice plant
+仮|か・け・かり|sham, temporary, interim
+裂|れつ・さ・ぎ|split, rend, tear
+敏|びん・さとい|cleverness, agile, alert
+是|ぜ・し・これ・この|just so, this, right
+排|はい|repudiate, exclude, expel
+裕|ゆう|abundant, rich, fertile
+堅|けん・かた・がた|strict, hard, solid
+訳|やく・わけ|translate, reason, circumstance
+芝|し・しば|turf, lawn
+綱|こう・つな|hawser, class (genus), rope
+典|てん・でん|code, ceremony, law
+賀|が|congratulations, joy
+扱|そう・きゅう・あつか・こ|handle, entertain, thresh
+顧|こ・かえり|look back, review, examine oneself
+弘|こう・ぐ・ひろ|vast, broad, wide
+看|かん・み|watch over, see
+訟|しょう|sue, accuse
+戒|かい・いまし|commandment
+祉|し|welfare, happiness
+誉|よ・ほま・ほ|reputation, praise, honor
+歓|かん・よろこ|delight, joy
+奏|そう・かな|play music, speak to a ruler, complete
+勧|かん・けん・すす|persuade, recommend, advise
+騒|そう・さわ・うれい|boisterous, make noise, clamor
+閥|ばつ|clique, lineage, pedigree
+甲|こう・かん・きのえ|armor, high (voice), a grade
+縄|じょう・なわ・ただ|straw rope, cord
+郷|きょう・ごう・さと|home town, village, native place
+揺|よう・ゆ|shake, sway
+免|めん・まぬか・まぬが|excuse, dismissal
+既|き・すで|previously, already, long ago
+薦|せん・すす|recommend, mat, advise
+隣|りん・とな・となり|neighboring
+華|か・け・はな|splendor, flower, petal
+範|はん|pattern, example, model
+隠|いん・おん・かく・かか|conceal, hide, cover
+徳|とく|benevolence, virtue, goodness
+哲|てつ・さとい・あきらか|philosophy, clear
+杉|さん・すぎ|cedar, cryptomeria
+釈|しゃく・せき・とく・す|explanation
+己|こ・き・おのれ・つちのと|self
+妥|だ|gentle, peace, depravity
+威|い・おど|intimidate, dignity, majesty
+豪|ごう・えら|overpowering, great, powerful
+熊|ゆう・くま|bear
+滞|たい・てい・とどこお|stagnate, be delayed, overdue
+微|び|slight, delicate
+隆|りゅう|hump, high, noble
+症|しょう|symptoms, illness
+暫|ざん・しばら|temporarily, a while, moment
+忠|ちゅう|loyalty, fidelity, faithfulness
+倉|そう・くら|godown, warehouse, storehouse
+彦|げん・ひこ|lad, boy (ancient)
+肝|かん・きも|liver, pluck, nerve
+喚|かん・わめ|yell, cry, call
+沿|えん・そ・ぞ|run alongside, follow along, run along
+妙|みょう・びょう・たえ|exquisite, strange, queer
+唱|しょう・とな|chant, recite, call upon
+阿|あ・お・おもね・くま|africa, flatter, fawn upon
+索|さく|cord, rope, searching
+誠|せい・まこと|sincerity, admonish, warn
+襲|しゅう・おそ・かさ|attack, advance on, succeed to
+懇|こん・ねんご|sociable, kind, courteous
+俳|はい|haiku, actor
+柄|へい・がら・え|design, pattern, build
+驚|きょう・おどろ|wonder, be surprised, frightened
+麻|ま・まあ・あさ|hemp, flax, numb
+李|り・すもも|plum
+浩|こう・おおき・ひろ|wide expanse, abundance, vigorous
+剤|ざい・すい・かる・けず|dose, medicine, drug
+瀬|らい・せ|rapids, current, torrent
+趣|しゅ・おもむき・おもむ|purport, gist, elegance
+陥|かん・おちい・おとしい|collapse, fall into, cave in
+斎|さい・とき・つつし|purification, buddhist food, room
+貫|かん・つらぬ・ぬ|pierce, 8 1/3lbs, penetrate
+仙|せん・せんと|hermit, wizard, cent
+慰|い・なぐさ|consolation, amusement, seduce
+序|じょ・つい・ついで|preface, beginning, order
+旬|じゅん・しゅん|decameron, ten-day period, season (for specific products)
+兼|けん・か|concurrently, and, beforehand
+聖|せい・しょう・ひじり|holy, saint, sage
+旨|し・むね・うま|delicious, relish, show a liking for
+即|そく・つ・すなわ|instant, namely, as is
+柳|りゅう・やなぎ|willow
+舎|しゃ・せき・やど|cottage, inn, hut
+偽|ぎ・か・いつわ・にせ|falsehood, lie, deceive
+較|かく・こう・くら|contrast, compare
+覇|は・はく・はたがしら|hegemony, supremacy, leadership
+詳|しょう・くわ・つまび|detailed, full, minute
+抵|てい|resist, reach, touch
+脅|きょう・おびや・おど|threaten, coerce
+茂|も・しげ|overgrown, grow thick, be luxuriant
+犠|ぎ・き・いけにえ|sacrifice
+旗|き・はた|national flag, banner, standard
+距|きょ・へだ・けづめ|long-distance, spur, fetlock
+雅|が・みや|gracious, elegant, graceful
+飾|しょく・かざ|decorate, ornament, adorn
+網|もう・あみ|netting, network
+竜|りゅう・りょう・たつ・いせ|dragon, imperial
+詩|し・うた|poem, poetry
+繁|はん・しげ|luxuriant, thick, overgrown
+翼|よく・つばさ|wing, plane, flank
+潟|せき・かた・がた|lagoon
+敵|てき・かたき・あだ|enemy, foe, opponent
+魅|み|fascination, charm, bewitch
+嫌|けん・げん・きら・いや|dislike, detest, hate
+斉|せい・さい・そろ・ひと|adjusted, alike, equal
+敷|ふ・し|spread, pave, sit
+圏|けん・かこ|sphere, circle, radius
+酸|さん・す|acid, bitterness, sour
+罰|ばつ・ばち・ばっ|penalty, punishment
+滅|めつ・ほろ|destroy, ruin, overthrow
+礎|そ・いしずえ|cornerstone, foundation stone
+腐|ふ・くさ|rot, decay, sour
+脚|きゃく・きゃ・あし|skids, leg, undercarriage
+潮|ちょう・しお・うしお|tide, salt water, opportunity
+梅|ばい・うめ|plum
+尽|じん・さん・つ・づ|exhaust, use up, run out of
+僕|ぼく・しもべ|me, i (male), servant
+桜|おう・よう・さくら|cherry
+滑|かつ・こつ・すべ・なめ|slippery, slide, slip
+孤|こ|orphan, alone
+炎|えん・ほのお|inflammation, flame, blaze
+賠|ばい|compensation, indemnify
+句|く|phrase, clause, sentence
+鋼|こう・はがね|steel
+頑|がん・かたく|stubborn, foolish, firmly
+鎖|さ・くさり・とざ|chain, irons, connection
+彩|さい・いろど|coloring, paint, makeup
+摩|ま・ま・さす|chafe, rub, polish
+励|れい・はげ|encourage
+縦|じゅう・たて|vertical, length, height
+輝|き・かがや|radiance, shine, sparkle
+蓄|ちく・たくわ|amass, raise, hoard
+軸|じく|axis, pivot, stem
+巡|じゅん・めぐ|patrol, go around, circumference
+稼|か・かせ|earn
+瞬|しゅん・またた・まじろ|wink, blink, twinkle
+砲|ほう|cannon, gun
+噴|ふん・ふ|erupt, spout, emit
+誇|こ・ほこ|boast, be proud, pride
+祥|しょう・さいわ・きざ|auspicious, happiness, blessedness
+牲|せい|animal sacrifice, offering
+秩|ちつ|regularity, salary, order
+帝|てい・みかど|sovereign, the emperor, god
+宏|こう・ひろ|wide, large
+唆|さ・そそ・そそのか|tempt, seduce, instigate
+阻|そ・はば|thwart, separate from, prevent
+泰|たい|peaceful, calm, peace
+撲|ぼく|slap, strike, hit
+堀|くつ・ほり|ditch, moat, canal
+菊|きく|chrysanthemum
+絞|こう・しぼ・し|strangle, constrict, wring
+縁|えん・-ねん・ふち・ふちど|affinity, relation, connection
+唯|ゆい・い・ただ|solely, only, merely
+膨|ぼう・ふく|swell, get fat, thick
+矢|し・や|dart, arrow
+耐|たい・た|-proof, enduring
+塾|じゅく|cram school, private school
+漏|ろう・も|leak, escape, time
+猛|もう|fierce, rave, rush
+芳|ほう・かんば|perfume, balmy, favorable
+懲|ちょう・こ|penal, chastise, punish
+剣|けん・つるぎ|sabre, sword, blade
+彰|しょう|patent, clear
+棋|き・ご|chess piece, japanese chess, shogi
+丁|ちょう・てい・ひのと|street, ward, town
+恒|こう・つね・つねに|constancy, always
+揚|よう・あ|raise, elevate, hoist
+冒|ぼう・おか|risk, face, defy
+之|し・の・これ|of, this
+倫|りん|ethics, companion
+陳|ちん・ひ|exhibit, state, relate
+憶|おく|recollection, think, remember
+潜|せん・ひそ・もぐ|submerge, conceal, hide
+梨|り・なし|pear tree
+仁|じん・に|humanity, virtue, benevolence
+克|こく・か|overcome, kindly, skillfully
+岳|がく・たけ|point, peak, mountain
+概|がい|general, approximate
+拘|こう・かか|arrest, seize, concerned
+墓|ぼ・はか|grave, tomb
+黙|もく・ぼく・だま・もだ|silence, become silent, stop speaking
+須|す・しゅ・すべから・すべし|ought, by all means, necessarily
+偏|へん・かたよ|partial, side, inclining
+雰|ふん|atmosphere, fog
+遇|ぐう・あ|meet, encounter, interview
+狭|きょう・こう・せま・せば|cramped, narrow, contract
+卓|たく|eminent, table, desk
+亀|き・きゅう・かめ|tortoise, turtle
+糧|りょう・ろう・かて|provisions, food, bread
+簿|ぼ|register, record book
+炉|ろ・いろり|hearth, furnace, kiln
+牧|ぼく・まき|breed, care for, shepherd
+殊|しゅ・こと|particularly, especially, exceptionally
+殖|しょく・ふ|augment, increase, multiply
+艦|かん|warship
+輩|はい・ばら・やから|comrade, fellow, people
+穴|けつ・あな|hole, aperture, slit
+奇|き・く・あや|strange, strangeness, curiosity
+慢|まん|ridicule, laziness
+鶴|かく・つる|crane, stork
+謀|ぼう・む・はか・たばか|conspire, cheat, impose on
+暖|だん・のん・あたた|warmth
+昌|しょう・さかん|prosperous, bright, clear
+拍|はく・ひょう|clap, beat (music)
+朗|ろう・ほが・あき|melodious, clear, bright
+寛|かん・くつろ・ひろ|tolerant, leniency, generosity
+覆|ふく・おお・くつがえ|capsize, cover, shade
+胞|ほう|placenta, sac, sheath
+泣|きゅう・な|cry
+隔|かく・へだ|isolate, alternate, distance
+浄|じょう・せい・きよ|clean, purify, cleanse
+没|ぼつ・もつ・おぼ・しず|drown, sink, hide
+暇|か・ひま・いとま|spare time, rest, leisure
+肺|はい|lungs
+貞|てい・さだ|upright, chastity, constancy
+靖|せい・じょう・やす|peaceful
+鑑|かん・かんが・かがみ|specimen, take warning from, learn from
+飼|し・か|domesticate, raise, keep
+陰|いん・かげ|shade, yin, negative
+銘|めい|inscription, signature (of artisan)
+随|ずい・まにま・したが|follow, though, notwithstanding
+烈|れつ・はげ|ardent, violent, vehement
+尋|じん・たず・ひろ|inquire, fathom, look for
+稿|こう・わら・したがき|draft, copy, manuscript
+丹|たん・に|rust-colored, red, red lead
+啓|けい・ひら・さと|disclose, open, say
+也|や・え・なり・か|to be (classical)
+丘|きゅう・おか|hill, knoll
+棟|とう・むね・むな|ridgepole, ridge
+壌|じょう・つち|lot, earth, soil
+漫|まん・みだり・そぞ|cartoon, involuntarily, unrestrained
+玄|げん・くろ|mysterious, occultness, black
+粘|ねん・ねば|sticky
+悟|ご・さと|enlightenment, perceive, discern
+舗|ほ|shop, store, pave
+妊|にん・じん・はら・みごも|pregnancy
+熟|じゅく・う|mellow, ripen, mature
+旭|きょく・あさひ|rising sun, morning sun
+恩|おん|grace, kindness, goodness
+騰|とう・あが・のぼ|leaping up, jumping up, rising
+往|おう・い・いにしえ|journey, travel, chase away
+豆|とう・ず・まめ|beans, pea, midget
+遂|すい・と・つい|consummate, accomplish, attain
+狂|きょう・くる・くるお|lunatic, insane, crazy
+岐|き・ぎ|branch off, fork in road, scene
+陛|へい|highness, steps (of throne)
+緯|い・よこいと・ぬき|horizontal, woof, left & right
+培|ばい・つちか|cultivate, foster
+衰|すい・おとろ|decline, wane, weaken
+艇|てい|rowboat, small boat
+屈|くつ・かが|yield, bend, flinch
+径|けい・みち・こみち|diameter, path, method
+淡|たん・あわ|thin, faint, pale
+抽|ちゅう・ひき|pluck, pull, extract
+披|ひ|expose, open
+廷|てい|courts, imperial court, government office
+錦|きん・にしき|brocade, fine dress, honors
+准|じゅん|quasi-, semi-, associate
+暑|しょ・あつ|sultry, hot, summer heat
+磯|き・いそ|seashore, beach
+奨|しょう・そう・すす|exhort, urge, encourage
+剰|じょう・あまつさえ・あま|surplus, besides
+胆|たん・きも|gall bladder, courage, pluck
+繊|せん|slender, fine, thin kimono
+駒|く・こま|pony, horse, colt
+虚|きょ・こ・むな・うつ|void, emptiness, unpreparedness
+霊|れい・りょう・たま|spirits, soul
+帳|ちょう・とばり|notebook, account book, album
+悔|かい・く・くや|repent, regret
+諭|ゆ・さと|rebuke, admonish, charge
+惨|さん・ざん・みじ・いた|wretched, disaster, cruelty
+虐|ぎゃく・しいた|tyrannize, oppress
+墜|つい・お|crash, fall (down)
+沼|しょう・ぬま|marsh, lake, bog
+据|きょ・す|set, lay a foundation, install
+肥|ひ・こ・こえ|fertilizer, get fat, fertile
+徐|じょ・おもむ|gradually, slowly, deliberately
+糖|とう|sugar
+搭|とう|board, load (a vehicle), ride
+盾|じゅん・たて|shield, escutcheon, pretext
+脈|みゃく・すじ|vein, pulse, hope
+滝|ろう・そう・たき|waterfall, rapids, cascade
+軌|き|rut, wheel, track
+俵|ひょう・たわら|bag, bale, sack
+妨|ぼう・さまた|disturb, prevent, hamper
+擦|さつ・す・ず|grate, rub, scratch
+鯨|げい・くじら|whale
+荘|そう・しょう・ほうき・おごそ|villa, inn, cottage
+諾|だく|consent, assent, agreement
+雷|らい・かみなり・いかずち|thunder, lightning bolt
+漂|ひょう・ただよ|drift, float (on liquid)
+懐|かい・え・ふところ・なつ|pocket, feelings, heart
+勘|かん|intuition, perception, check
+栽|さい|plantation, planting
+駄|だ・た|burdensome, pack horse, horse load
+添|てん・そ|annexed, accompany, marry
+冠|かん・かんむり|crown, best, peerless
+斜|しゃ・なな・はす|diagonal, slanting, oblique
+鏡|きょう・けい・かがみ|mirror, speculum, barrel-head
+聡|そう・さと・みみざと|wise, fast learner
+浪|ろう|wandering, waves, billows
+亜|あ・つ|asia, rank next, come after
+覧|らん・み|perusal, see
+壇|だん・たん|podium, stage, rostrum
+勲|くん・いさお|meritorious deed, merit
+魔|ま|witch, demon, evil spirit
+酬|しゅう・しゅ・むく|repay, reward, retribution
+紫|し・むらさき|purple, violet
+曙|しょ・あけぼの|dawn, daybreak
+紋|もん|family crest, figures
+卸|しゃ・おろ・おろし|wholesale
+奮|ふん・ふる|stirred up, be invigorated, flourish
+欄|らん・てすり|column, handrail, blank
+逸|いつ・そ・はぐ|deviate, idleness, leisure
+涯|がい・はて|horizon, shore, limit
+拓|たく・ひら|clear (the land), open, break up (land)
+眼|がん・げん・まなこ・め|eyeball
+獄|ごく|prison, jail
+尚|しょう・なお|esteem, furthermore, still
+彫|ちょう・ほ・ぼ|carve, engrave, chisel
+穏|おん・おだ|calm, peaceful
+顕|けん・あきらか・あらわ|appear, existing
+巧|こう・たく・うま|adroit, skilled, ingenuity
+矛|む・ぼう・ほこ|halberd, arms, festival float
+垣|えん・かき|hedge, fence, wall
+欺|ぎ・あざむ|deceit, cheat, delude
+釣|ちょう・つ|angling, fish, catch
+萩|しゅう・はぎ|bush clover
+栗|りつ・り・くり・おののく|chestnut
+愚|ぐ・おろ|foolish, folly, absurdity
+嘉|か・よみ・よい|applaud, praise, esteem
+遭|そう・あ|encounter, meet, party
+架|か・か|erect, frame, mount
+鬼|き・おに|ghost, devil
+庶|しょ|commoner, all, bastard
+稚|ち・じ・いとけない・おさない|immature, young
+滋|じ・し|nourishing, more & more, be luxuriant
+幻|げん・まぼろし|phantasm, vision, dream
+煮|しゃ・に|boil, cook
+姫|き・ひめ|princess
+誓|せい・ちか|vow, swear, pledge
+把|は・わ|grasp, faggot, bunch
+践|せん・ふ|tread, step on, trample
+呈|てい|display, offer, present
+疎|そ・しょ・うと・まば|alienate, rough, neglect
+仰|ぎょう・こう・あお・おお|face-up, look up, depend
+剛|ごう|sturdy, strength
+疾|しつ・はや|rapidly
+征|せい|subjugate, attack the rebellious, collect taxes
+砕|さい・くだ|smash, break, crush
+謡|よう・うた|song, sing, ballad
+嫁|か・よめ|bride
+謙|けん・へりくだ|self-effacing, humble oneself, condescend
+后|こう・ご・きさき|empress, queen, after
+嘆|たん・なげ|sigh, lament, moan
+菌|きん|germ, fungus, bacteria
+鎌|れん・けん・かま|sickle, scythe, trick
+巣|そう・す|nest, rookery, hive
+琴|きん・ごん・こと|harp, koto
+班|はん|squad, corps, unit
+棚|ほう・たな・だな|shelf, ledge, rack
+潔|けつ・いさぎよ|undefiled, pure, clean
+酷|こく・ひど|cruel, severe, atrocious
+宰|さい|superintend, manager, rule
+廊|ろう|corridor, hall, tower
+寂|じゃく・せき・さび・さみ|loneliness, quietly, mellow
+辰|しん・じん・たつ|sign of the dragon, 7-9am, fifth sign of chinese zodiac
+霞|か・げ・かすみ・かす|be hazy, grow dim, blurred
+伏|ふく・ふ|prostrated, bend down, bow
+碁|ご|go
+俗|ぞく|vulgar, customs, manners
+邪|じゃ・よこし|wicked, injustice, wrong
+晶|しょう|sparkle, clear, crystal
+墨|ぼく・すみ|black ink, india ink, ink stick
+鎮|ちん・しず・おさえ|tranquilize, ancient peace-preservation centers
+洞|どう・ほら|den, cave, excavation
+履|り・は|perform, complete, footgear
+劣|れつ・おと|inferiority, be inferior to, be worse
+那|な・だ・なに・なんぞ|what?
+殴|おう・なぐ|assault, hit, beat
+娠|しん|with child, pregnancy
+奉|ほう・ぶ・たてまつ・まつ|observance, offer, present
+朴|ぼく・ほう・ほお|crude, simple, plain
+亭|てい・ちん|pavilion, restaurant, mansion
+淳|じゅん・しゅん・あつ|pure
+怪|かい・け・あや|suspicious, mystery, apparition
+鳩|きゅう・く・はと・あつ|pigeon, dove
+酔|すい・よ|drunk, feel sick, poisoned
+惜|せき・お|pity, be sparing of, frugal
+穫|かく|harvest, reap
+佳|か|excellent, beautiful, good
+潤|じゅん・うるお・うる|wet, be watered, profit by
+悼|とう・いた|lament, grieve over
+乏|ぼう・とぼ・とも|destitution, scarce, limited
+該|がい|above-stated, the said, that specific
+桑|そう・くわ|mulberry
+桂|けい・かつら|japanese judas-tree, cinnamon tree
+髄|ずい|marrow, pith, essence
+虎|こ・とら|tiger, drunkard
+盆|ぼん|basin, lantern festival, tray
+晋|しん・すす|advance
+穂|すい・ほ|ear, ear (grain), head
+壮|そう・さかん|robust, manhood, prosperity
+堤|てい・つつみ|dike, bank, embankment
+飢|き・う|hungry, starve
+傍|ぼう・かたわ・わき|bystander, side, besides
+疫|えき・やく|epidemic
+累|るい|accumulate, involvement, trouble
+痴|ち・し・おろか|stupid, foolish
+搬|はん|conveyor, carry, transport
+晃|こう・あきらか|clear
+癒|ゆ・い・いや|healing, cure, quench (thirst)
+桐|とう・どう・きり|paulownia
+寸|すん|measurement, tenth of a shaku, a little
+郭|かく・くるわ|enclosure, quarters, fortification
+尿|にょう・ゆばり・いばり|urine
+凶|きょう|villain, evil, bad luck
+吐|と・は・つ|spit, vomit, belch
+宴|えん・うたげ|banquet, feast, party
+鷹|よう・おう・たか|hawk
+賓|ひん|v.i.p., guest
+虜|りょ・ろ・とりこ・とりく|captive, barbarian, low epithet for the enemy
+陶|とう・すえ|pottery, porcelain
+鐘|しょう・かね|bell, gong, chimes
+憾|かん・うら|remorse, regret, be sorry
+猪|ちょ・い・いのしし|boar
+紘|こう・おおづな・つな|large
+磁|じ|magnet, porcelain
+弥|み・び・や・いや|all the more, increasingly
+昆|こん|descendants, elder brother, insect
+粗|そ・あら|coarse, rough, rugged
+訂|てい・ただ|revise, correct, decide
+芽|が・め|bud, sprout, spear
+庄|しょう・そ|level, in the country, manor
+傘|さん・かさ|umbrella
+敦|とん・たい・あつ|industry, kindliness
+騎|き|equestrian, riding on horses, counter for equestrians
+寧|ねい・むし|rather, preferably, peaceful
+循|じゅん|sequential, follow
+忍|にん・しの|endure, bear, put up with
+怠|たい・おこた・なま|neglect, laziness
+如|じょ・にょ・ごと|likeness, like, such as
+寮|りょう|dormitory, hostel, villa
+祐|ゆう・う・たす|help
+鵬|ほう・おおとり|phoenix
+鉛|えん・なまり|lead
+珠|しゅ・たま|pearl, gem, jewel
+凝|ぎょう・こ・こご|congeal, freeze, stiff
+苗|びょう・みょう・なえ・なわ|seedling, sapling, shoot
+獣|じゅう・けもの・けだもの|animal, beast
+哀|あい・あわ・かな|pathetic, grief, sorrow
+跳|ちょう・は・と|hop, leap up, spring
+匠|しょう・たくみ|artisan, workman, carpenter
+垂|すい・た・なんなんと|droop, suspend, hang
+蛇|じゃ・だ・へび|snake, serpent, hard drinker
+澄|ちょう・す|lucidity, be clear, clear
+縫|ほう・ぬ|sew, stitch, embroider
+僧|そう|buddhist priest, monk
+眺|ちょう・なが|stare, watch, look at
+亘|こう・かん・わた・もと|span, range, extend over
+呉|ご・く・くれ|give, do something for, kingdom of wu
+凡|ぼん・はん・およ・おうよ|commonplace, ordinary, mediocre
+憩|けい・いこ|recess, rest, relax
+媛|えん・ひめ|beautiful woman, princess
+溝|こう・みぞ|gutter, ditch, sewer
+恭|きょう・うやうや|respect, reverent
+刈|がい・かい・か|reap, cut, clip
+睡|すい・ねむ|drowsy, sleep, die
+伯|はく|chief, count, earl
+笹|ささ|bamboo grass, (kokuji)
+穀|こく|cereals, grain
+陵|りょう・みささぎ|mausoleum, imperial tomb, mound
+霧|む・ぼう・きり|fog, mist
+魂|こん・たましい・たま|soul, spirit
+弊|へい|abuse, evil, vice
+妃|ひ・きさき|queen, princess
+舶|はく|liner, ship
+餓|が・う|starve, hungry, thirst
+掌|しょう・てのひら・たなごころ|manipulate, rule, administer
+麗|れい・うるわ・うら|lovely, beautiful, graceful
+綾|りん・あや|design, figured cloth, twill
+臭|しゅう・くさ・にお|stinking, ill-smelling, suspicious looking
+悦|えつ・よろこ|ecstasy, joy, rapture
+刃|じん・にん・は・やいば|blade, sword, edge
+縛|ばく・しば|truss, arrest, bind
+暦|れき・りゃく・こよみ|calendar, almanac
+宜|ぎ・よろ|best regards, good
+盲|もう・めくら|blind, blind man, ignoramus
+粋|すい・いき|chic, style, purity
+辱|じょく・はずかし|embarrass, humiliate, shame
+毅|き・ぎ・つよ|strong
+轄|かつ・くさび|control, wedge
+猿|えん・さる|monkey
+弦|げん・つる|bowstring, chord, hypotenuse
+稔|ねん・じん・みの・みのり|harvest, ripen
+窒|ちつ|plug up, obstruct
+炊|すい・た・だ|cook, boil
+洪|こう|deluge, flood, vast
+摂|せつ・しょう・おさ・かね|vicarious, surrogate, act in addition to
+飽|ほう・あ|sated, tired of, bored
+冗|じょう|superfluous, uselessness
+桃|とう・もも|peach
+狩|しゅ・か・が|hunt, raid, gather
+朱|しゅ・あけ|vermilion, cinnabar, scarlet
+渦|か・うず|whirlpool, eddy, vortex
+紳|しん|sire, good belt, gentleman
+枢|すう・しゅ・とぼそ・からくり|hinge, pivot, door
+碑|ひ・いしぶみ|tombstone, monument
+鍛|たん・きた|forge, discipline, train
+刀|とう・かたな・そり|sword, saber, knife
+鼓|こ・つづみ|drum, beat, rouse
+裸|ら・はだか|naked, nude, uncovered
+猶|ゆう・ゆ・なお|furthermore, still, yet
+塊|かい・け・かたまり・つちくれ|clod, lump, chunk
+弓|きゅう・ゆみ|bow, bow (archery, violin)
+幣|へい・ぬさ|cash, bad habit, humble prefix
+膜|まく|membrane
+扇|せん・おうぎ|fan, folding fan
+腸|ちょう・はらわた・わた|intestines, guts, bowels
+槽|そう・ふね|vat, tub, tank
+慈|じ・いつく|mercy
+楊|よう・やなぎ|willow
+伐|ばつ・はつ・き・そむ|fell, strike, attack
+駿|しゅん・すん・すぐ|a good horse, speed, a fast person
+漬|し・つ・づ|pickling, soak, moisten
+糾|きゅう・ただ|twist, ask, investigate
+亮|りょう・あきらか|clear, help
+墳|ふん|tomb, mound
+坪|へい・つぼ|two-mat area, approx. thirty-six sq ft
+紺|こん|dark blue, navy
+娯|ご|recreation, pleasure
+椿|ちん・ちゅん・つばき|camellia
+舌|ぜつ・した|tongue, reed, clapper
+羅|ら・うすもの|gauze, thin silk, rome
+峡|きょう・こう・はざま|gorge, ravine
+俸|ほう|stipend, salary
+厘|りん|rin, 1/10 sen, 1/10 bu
+峰|ほう・みね・ね|summit, peak
+圭|けい・け|square jewel, corner, angle
+醸|じょう・かも|brew, cause
+蓮|れん・はす・はちす|lotus
+乙|おつ・いつ・おと・きのと|the latter, duplicate, strange
+汁|じゅう・しる・つゆ|soup, juice, broth
+尼|に・あま|nun
+遍|へん・あまね|everywhere, times, widely
+衡|こう|equilibrium, measuring rod, scale
+薫|くん・かお|send forth fragrance, fragrant, be scented
+猟|りょう・かり・か|game-hunting, shooting, game
+羊|よう・ひつじ|sheep
+款|かん|goodwill, article, section
+偵|てい|spy
+喝|かつ|hoarse, scold
+敢|かん・あ|daring, brave, bold
+胎|たい|womb, uterus
+酵|こう|fermentation
+憤|ふん・いきどお|aroused, resent, be indignant
+豚|とん・ぶた|pork, pig
+遮|しゃ・さえぎ|intercept, interrupt, obstruct
+扉|ひ・とびら|front door, title page, front page
+硫|りゅう|sulphur
+赦|しゃ|pardon, forgiveness
+窃|せつ・ぬす・ひそ|stealth, steal, secret
+泡|ほう・あわ|bubbles, foam, suds
+瑞|ずい・すい・みず・しるし|congratulations
+又|ゆう・また|or again, furthermore, on the other hand
+慨|がい|rue, be sad, sigh
+紡|ぼう・つむ|spinning
+恨|こん・うら|regret, bear a grudge, resentment
+肪|ぼう|obese, fat
+扶|ふ・たす|aid, help, assist
+戯|ぎ・げ・たわむ・ざ|frolic, play, sport
+伍|ご・いつつ|five, five-man squad, file
+忌|き・い|mourning, abhor, detestable
+濁|だく・じょく・にご|voiced, uncleanness, wrong
+奔|ほん・はし|run, bustle
+斗|と・とう|big dipper, ten sho (vol), sake dipper
+蘭|らん・ら|orchid, holland
+迅|じん|swift, fast
+肖|しょう・あやか|resemblance
+鉢|はち・はつ|bowl, rice tub, pot
+朽|きゅう・く|decay, rot, remain in seclusion
+殻|かく・こく・から・がら|husk, nut shell
+享|きょう・こう・う|enjoy, receive, undergo
+秦|しん・はた|manchu dynasty, name given to naturalized foreigners
+茅|ぼう・みょう・かや・ちがや|miscanthus reed
+藩|はん|clan, enclosure
+沙|さ・しゃ・すな・よなげる|sand
+輔|ほ・ふ・たす|help
+媒|ばい・なこうど|mediator, go-between
+鶏|けい・にわとり・とり|chicken
+禅|ぜん・せん・しずか・ゆず|zen, silent meditation
+嘱|しょく・しょく・たの|entrust, request, send a message
+胴|どう|trunk, torso, hull (ship)
+迭|てつ|transfer, alternation
+挿|そう・さ・はさ|insert, put in, graft
+嵐|らん・あらし|storm, tempest
+椎|つい・すい・つち・う|chinquapin, mallet, spine
+絹|けん・きぬ|silk
+陪|ばい|obeisance, follow, accompany
+剖|ぼう|divide
+譜|ふ|musical score, music, note
+郁|いく|cultural progress, perfume
+悠|ゆう|permanence, distant, long time
+淑|しゅく・しと|graceful, gentle, pure
+帆|はん・ほ|sail
+暁|ぎょう・きょう・あかつき・さと|daybreak, dawn, in the event
+傑|けつ・すぐ|greatness, excellence
+楠|なん・だん・くす・くすのき|camphor tree
+笛|てき・ふえ|flute, clarinet, pipe
+玲|れい|sound of jewels
+奴|ど・やつ・やっこ|guy, slave, manservant
+錠|じょう|lock, fetters, shackles
+拳|けん・げん・こぶし|fist
+翔|しょう・かけ・と|soar, fly
+遷|せん・うつ・みやこがえ|transition, move, change
+侍|じ・し・さむらい・はべ|waiter, samurai, wait upon
+尺|しゃく|shaku, japanese foot, measure
+峠|とうげ|mountain peak, mountain pass, climax
+篤|とく・あつ|fervent, kind, cordial
+肇|ちょう・じょう・はじ・はじめ|beginning
+渇|かつ・かわ|thirst, dry up, parch
+叔|しゅく|uncle, youth
+雌|し・め・めす|feminine, female
+亨|こう・きょう・とお|pass through, go smoothly
+堪|かん・たん・た・たま|withstand, endure, support
+叙|じょ・つい・ついで|confer, relate, narrate
+酢|さく・す|vinegar, sour, acid
+吟|ぎん|versify, singing, recital
+逓|てい・かわ・たがいに|relay, in turn, sending
+嶺|れい・りょう・みね|peak, summit
+甚|じん・はなは|tremendously, very, great
+喬|きょう・たか|high, boasting
+崇|すう・あが|adore, respect, revere
+漆|しつ・うるし|lacquer, varnish, seven
+岬|こう・みさき|headland, cape, spit
+癖|へき・くせ|mannerism, habit, vice
+愉|ゆ・たの|pleasure, happy, rejoice
+寅|いん・とら|sign of the tiger, 3-5am, third sign of chinese zodiac
+礁|しょう|reef, sunken rock
+乃|ない・だい・の・すなわ|from, possessive particle, whereupon
+洲|しゅう・す・しま|continent, sandbar, island
+屯|とん・たむろ|barracks, police station, camp
+樺|か・かば・かんば|birch, dark red
+槙|てん・しん・まき・こずえ|twig, ornamental evergreen
+姻|いん|matrimony, marry
+巌|がん・いわ・いわお|rock, crag, boulder
+擬|ぎ・まが・もど|mimic, aim (a gun) at, nominate
+塀|へい・べい|fence, wall, (kokuji)
+唇|しん・くちびる|lips
+睦|ぼく・もく・むつ|intimate, friendly, harmonious
+閑|かん|leisure
+胡|う・こ・なんぞ|barbarian, foreign
+幽|ゆう・ふか・かす|seclude, confine to a room, deep
+峻|しゅん・けわ・たか|high, steep
+曹|そう・ぞう|office, official, comrade
+詠|えい・よ・うた|recitation, poem, song
+卑|ひ・いや|lowly, base, vile
+侮|ぶ・あなど・あなず|scorn, despise, make light of
+鋳|ちゅう・い・い|casting, mint
+抹|まつ|rub, paint, erase
+尉|い・じょう|military officer, jailer, old man
+槻|き・つき|zelkova tree
+隷|れい・したが・しもべ|slave, servant, prisoner
+禍|か・わざわい|calamity, misfortune, evil
+蝶|ちょう|butterfly
+酪|らく|dairy products, whey, broth
+茎|けい・きょう・くき|stalk, stem
+帥|すい|commander, leading troops, governor
+逝|せい・ゆ・い|departed, die
+汽|き|vapor, steam
+琢|たく・みが|polish
+匿|とく・かくま|hide, shelter, shield
+襟|きん・えり|collar, neck, lapel
+蛍|けい・ほたる|lightning-bug, firefly
+蕉|しょう|banana, plantain
+寡|か|widow, minority, few
+琉|りゅう・る|precious stone, gem, lapis lazuli
+痢|り|diarrhea
+庸|よう|commonplace, ordinary, employment
+朋|ほう・とも|companion, friend
+坑|こう|pit, hole
+藍|らん・あい|indigo
+賊|ぞく|burglar, rebel, traitor
+搾|さく・しぼ|squeeze
+畔|はん・あぜ・くろ|paddy ridge, levee
+遼|りょう|distant
+唄|ばい・うた|song, ballad
+孔|こう・く・あな|cavity, hole, slit
+橘|きつ・たちばな|mandarin orange
+漱|そう・しゅう・くちすす・くちそそ|gargle, rinse mouth
+呂|ろ・りょ・せぼね|spine, backbone
+拷|ごう|torture, beat
+嬢|じょう・むすめ|lass, girl, miss
+苑|えん・おん・その・う|garden, farm, park
+巽|そん・たつみ|southeast
+杜|と・とう・もり・ふさ|woods, grove
+渓|けい・たに・たにがわ|mountain stream, valley
+翁|おう・おきな|venerable old man
+廉|れん|bargain, reason, charge
+謹|きん・つつし|discreet, reverently, humbly
+瞳|どう・とう・ひとみ|pupil (of eye)
+湧|ゆう・よう・わ|boil, ferment, seethe
+欣|きん・ごん・よろこ|take pleasure in, rejoice
+窯|よう・かま|kiln, oven, furnace
+褒|ほう・ほ|praise, extol
+醜|しゅう・みにく・しこ|ugly, unclean, shame
+升|しょう・ます|measuring box, 1.8 liter
+殉|じゅん|martyrdom, follow by resigning
+煩|はん・ぼん・わずら・うるさ|anxiety, trouble, worry
+巴|は・ともえ・うずまき|comma-design
+禎|てい・さいわ|happiness, blessed, good fortune
+劾|がい|censure, criminal investigation
+堕|だ・お・くず|degenerate, descend to, lapse into
+租|そ|tariff, crop tax, borrowing
+稜|りょう・ろう・いつ・かど|angle, edge, corner
+桟|さん・せん・かけはし|scaffold, cleat, frame
+倭|わ・い・やまと・したが|yamato, ancient japan
+婿|せい・むこ|bridegroom, son-in-law
+慕|ぼ・した|pining, yearn for, love dearly
+斐|ひ・い|beautiful, patterned
+罷|ひ・まか・や|quit, stop, leave
+矯|きょう・た|rectify, straighten, correct
+某|ぼう・それがし・なにがし|so-and-so, one, a certain
+囚|しゅう・とら|captured, criminal, arrest
+魁|かい・さきがけ・かしら|charging ahead of others
+虹|こう・にじ|rainbow
+鴻|こう・ごう・おおとり・ひしくい|large bird, wild goose, large
+泌|ひつ・ひ|ooze, flow, soak in
+於|お・よ・おい・お|at, in, on
+赳|きゅう|strong and brave
+漸|ぜん・ようや・やや|steadily, gradually advancing, finally
+蚊|ぶん・か|mosquito
+葵|き・あおい|hollyhock
+厄|やく|unlucky, misfortune, bad luck
+藻|そう・も|seaweed, duckweed
+禄|ろく・さいわ・ふち|fief, allowance, pension
+孟|もう・ぼう・かしら|chief, beginning
+嫡|ちゃく・てき|legitimate wife, direct descent (non-bastard)
+尭|ぎょう・たか|high, far
+嚇|かく・おど|menacing, dignity, majesty
+巳|し・み|sign of the snake or serpent, 9-11am, sixth sign of chinese zodiac
+凸|とつ・でこ|convex, beetle brow, uneven
+暢|ちょう・のび|stretch
+韻|いん|rhyme, elegance, tone
+霜|そう・しも|frost
+硝|しょう|nitrate, saltpeter
+勅|ちょく・いまし・みことのり|imperial order
+芹|きん・せり|parsley
+杏|きょう・あん・あんず|apricot
+棺|かん|coffin, casket
+儒|じゅ|confucian
+鳳|ほう・ふう|male mythical bird
+馨|けい・きょう・かお・かおり|fragrant, balmy, favourable
+慧|けい・え・さとい|wise
+愁|しゅう・うれ|distress, grieve, lament
+楼|ろう・たかどの|watchtower, lookout, high building
+彬|ひん・ふん・うるわ・あき|refined, gentle
+匡|きょう・おう・すく|correct, save, assist
+眉|び・み・まゆ|eyebrow
+欽|きん・こん・つつし|respect, revere, long for
+薪|しん・たきぎ・まき|fuel, firewood, kindling
+褐|かつ|brown, woollen kimono
+賜|し・たまわ・たま|grant, gift, boon
+嵯|さ・し|steep, craggy, rugged
+綜|そう・おさ・す|rule, synthesize
+繕|ぜん・つくろ|darning, repair, mend
+栓|せん|plug, bolt, cork
+翠|すい・かわせみ・みどり|green, kingfisher
+鮎|でん・ねん・あゆ・なまず|freshwater trout, smelt
+榛|しん・はん・はしばみ・はり|hazelnut, filbert
+凹|おう・くぼ・へこ|concave, hollow, sunken
+艶|えん・つや・なま|glossy, luster, glaze
+惣|そう・すべ|all
+蔦|ちょう・つた|vine, ivy
+錬|れん・ね|tempering, refine, drill
+隼|しゅん・じゅん・はやぶさ|falcon
+渚|しょ・なぎさ|strand, beach, shore
+衷|ちゅう|inmost, heart, mind
+逐|ちく|pursue, drive away, chase
+斥|せき・しりぞ|reject, retreat, recede
+稀|き・け・まれ・まばら|rare, phenomenal, dilute (acid)
+芙|ふ|lotus, mt fuji
+詔|しょう・みことのり|imperial edict
+皐|こう・さつき|swamp, shore
+雛|すう・す・ひな・ひよこ|chick, squab, duckling
+惟|い・ゆい・おも・これ|consider, reflect, think
+佑|ゆう・う・たす|help, assist
+耀|よう・かがや・ひかり|shine, sparkle, gleam
+黛|たい・まゆずみ|blackened eyebrows
+渥|あく・あつ・うるお|kindness, moisten
+憧|しょう・とう・あこが|yearn after, long for, aspire to
+宵|しょう・よい|wee hours, evening, early night
+妄|もう・ぼう・みだ|delusion, unnecessarily, without authority
+惇|しゅん・じゅん・あつ|sincere, kind, considerate
+脩|しゅう・おさ・なが|dried meat
+甫|ほ・ふ・はじ|for the first time, not until
+酌|しゃく・く|bar-tending, serving sake, the host
+蚕|さん・てん・かいこ・こ|silkworm
+嬉|き・うれ・たの|glad, pleased, rejoice
+蒼|そう・あお|blue, pale
+暉|き・かが|shine, light
+頒|はん・わか|distribute, disseminate, partition
+只|し・ただ|only, free, in addition
+肢|し|limb, arms & legs
+檀|だん・たん・まゆみ|cedar, sandlewood, spindle tree
+凱|がい・かい・かちどき・やわらぐ|victory song
+彗|すい・え・ほうき|comet
+謄|とう|mimeograph, copy
+梓|し・あずさ|catalpa tree, woodblock printing
+丑|ちゅう・うし|sign of the ox or cow, 1-3am, second sign of chinese zodiac
+嗣|し|heir, succeed
+叶|きょう・かな|grant, answer
+汐|せき・しお・うしお|eventide, tide, salt water
+絢|けん|brilliant fabric design
+朔|さく・ついたち|conjunction (astronomy), first day of month, north
+伽|か・が・とぎ|nursing, attending, entertainer
+畝|ぼう・ほ・せ・うね|furrow, thirty tsubo, ridge
+抄|しょう|extract, selection, summary
+爽|そう・あき・さわ|refreshing, bracing, resonant
+黎|れい・り・くろ|dark, black, many
+惰|だ|lazy, laziness
+蛮|ばん・えびす|barbarian
+冴|ご・こ・さ・こお|be clear, serene, cold
+旺|おう・きょう・かがや・うつくし|flourishing, successful, beautiful
+萌|ほう・も・きざ|show symptoms of, sprout, bud
+偲|さい・し・しの|recollect, remember
+壱|いち・いつ・ひとつ|one (in documents)
+瑠|る・りゅう|lapis lazuli
+允|いん・じょう・まこと|license, sincerity, permit
+侯|こう|marquis, lord, daimyo
+蒔|し・じ・う・ま|sow (seeds)
+鯉|り・こい|carp
+弧|こ|arc, arch, bow
+遥|よう・はる|far off, distant, long ago
+舜|しゅん|type of morning glory, rose of sharon, althea
+瑛|えい|sparkle of jewelry, crystal
+附|ふ・つ|affixed, attach, refer to
+彪|ひょう・ひゅう・あや|spotted, mottled, patterned
+卯|ぼう・もう・う|sign of the hare or rabbit, fourth sign of chinese zodiac, 5-7am
+但|たん・ただ|however, but
+綺|き・あや|figured cloth, beautiful
+芋|う・いも|potato
+茜|せん・あかね|madder, red dye, turkey red
+凌|りょう・しの|endure, keep (rain)out, stave off
+皓|こう・しろ・ひか|white, clear
+洸|こう|sparkling water
+毬|きゅう・いが・まり|burr, ball
+婆|ば・ばば・ばあ|old woman, grandma, wet nurse
+緋|ひ・あけ・あか|scarlet, cardinal
+鯛|ちょう・たい|sea bream, red snapper
+怜|れい・れん・あわ・さと|wise
+邑|ゆう・むら|village, rural community
+倣|ほう・なら|emulate, imitate
+碧|へき・ひゃく|blue, green
+啄|たく・つく・ついば・つつ|peck, pick up
+穣|じょう・わら・ゆたか|good crops, prosperity, 10**28
+酉|ゆう・とり|west, bird, sign of the bird
+悌|てい・だい|serving our elders
+倹|けん・つま・つづまやか|frugal, economy, thrifty
+柚|ゆ・ゆう・ゆず|citron
+繭|けん・まゆ・きぬ|cocoon
+且|しょ・そ・か|moreover, also, furthermore
+丙|へい・ひのえ|third class, 3rd, 3rd calendar sign
+丞|じょう・しょう・すく・たす|help
+亥|がい・かい・い|sign of the hog, 9-11pm, twelfth sign of the chinese zodiac
+亦|えき・やく・また|also, again
+伎|ぎ・き・わざ・わざおぎ|deed, skill
+伶|れい・りょう・わざおぎ|actor
+侃|かん・つよ|strong, just, righteous
+侑|ゆう・う・すす・たす|urge to eat
+倖|こう・しあわ・さいわ|happiness, luck
+冶|や・い|melting, smelting
+凜|りん・きびし|cold, strict, severe
+凪|なぎ・な|lull, calm, (kokuji)
+勁|けい・つよ|strong
+勺|しゃく|ladle, one tenth of a go, dip
+匁|もんめ・め|monme, 3.75 grams, (kokuji)
+叡|えい・あき|intelligence, imperial
+吏|り|officer, an official
+哉|さい・かな・や|how, what, alas
+塑|そ・でく|model, molding
+墾|こん・は・ひら|ground-breaking, open up farmland
+奎|けい・き|star, god of literature
+宥|ゆう・なだ・ゆる|soothe, calm, pacify
+崚|りょう|mountains towering in a row
+嵩|すう・しゅう・かさ・たか|be aggravated, grow worse, grow bulky
+弐|に・じ・ふた・そえ|ii, two, second
+恕|じょ・しょ・ゆる|excuse, tolerate, forgive
+捷|しょう・そう・はや|victory, fast
+捺|なつ・だつ・さ・お|press, print, affix a seal
+斤|きん|axe, 1.32 lb, catty
+旦|たん・だん・あき・あきら|daybreak, dawn, morning
+昂|こう・ごう・あ・たか|rise
+昴|こう・ぼう・すばる|the pleiades
+晏|あん・おそ|late, quiet, sets (sun)
+晟|せい・じょう・あきらか|clear
+晨|しん・あした・とき|morning, early
+朕|ちん|majestic plural, imperial we
+柊|しゅ・しゅう・ひいらぎ|holly
+柾|まさ・まさめ|straight grain, spindle tree, (kokuji)
+栞|かん・しおり|bookmark, guidebook
+梢|しょう・こずえ・くすのき|treetops, twig
+梧|ご・あおぎり|chinese parasol tree, phoenix tree
+椋|りょう・むく|type of deciduous tree, grey starling
+椰|や・やし|coconut tree
+楓|ふう・かえで|maple
+汰|た・たい・おご・にご|washing, sieving, filtering
+洵|じゅん・しゅん・の・まこと|alike, truth
+滉|こう・ひろ|deep and broad
+澪|れい・みお|water route, shipping channel
+濫|らん・みだ|excessive, overflow, spread out
+熙|き・たのし・ひか|bright, sunny, prosperous
+燎|りょう・かがりび|burn, bonfire
+燦|さん・さん・あき|brilliant
+燿|よう・かがや・ひかり|shine
+爵|しゃく|baron, peerage, court rank
+爾|じ・に・なんじ・しかり|you, thou, second person
+玖|きゅう・く|beautiful black jewel, nine
+琳|りん|jewel, tinkling of jewelry
+瑚|こ・ご|ancestral offering receptacle, coral
+瑳|さ・みが|polish, brilliant white luster of a gem, artful smile
+瑶|よう・たま|beautiful as a jewel
+璃|り|glassy, lapis lazuli
+痘|とう|pox, smallpox
+眸|ぼう・む・ひとみ|pupil of the eye
+瞭|りょう・あきらか|clear
+碩|せき・おお|large, great, eminent
+竣|どう・しゅん・わらわ・わらべ|end, finish
+笙|しょう・そう・ふえ|a reed instrument
+箇|か・こ|counter for articles
+紗|さ・しゃ・うすぎぬ|gauze, gossamer
+紬|ちゅう・つむぎ・つむ|pongee (a knotted silk cloth)
+絃|げん・いと|string, cord, samisen music
+綸|りん・かん・いと|thread, silk cloth
+耗|もう・こう|decrease
+耶|や・じゃ・か|question mark
+胤|いん・たね|descendent, issue, offspring
+脹|ちょう・は・ふく|dilate, distend, bulge
+茄|か|eggplant
+茉|まつ・ばつ|jasmine
+莉|り・らい|jasmine
+莞|かん・い|smiling, reed used to cover tatami
+菖|しょう|iris
+菫|きん・すみれ|the violet
+蓉|よう|lotus
+蕗|ろ・る・ふき|butterbur, bog rhubarb
+虞|ぐ・おそれ・おもんぱか|fear, uneasiness, anxiety
+衿|きん・こん・えり|neck, collar, lapel
+袈|け・か|a coarse camlet
+裟|さ・しゃ|buddhist surplice
+詢|じゅん・しゅん・はか・まこと|consult with
+誼|ぎ・よしみ・よい|friendship, intimacy
+諄|しゅん・ひちくど・くど|tedious
+諒|りょう・あきら・まことに|fact, reality, understand
+謁|えつ|audience, audience (with king)
+賦|ふ・ぶ|levy, ode, prose
+迪|てき・みち・みちび|edify, way, path
+遵|じゅん|abide by, follow, obey
+采|さい・と・いろどり|dice, form, appearance
+銑|せん|pig iron
+錘|すい・つむ・おもり|weight, plumb bob, sinker
+鞠|きく・きゅう・まり|ball
+頌|しょう・じゅ・かたち・たた|eulogy
+颯|さつ・そう・さっ|sudden, quick, sound of the wind
+麟|りん|chinese unicorn, genius, giraffe
+麿|まろ|i, you, (kokuji)`};
 const LEVELS=["N5","N4","N3","N2","N1"];
 const K={};LEVELS.forEach(l=>K[l]=RAW[l].trim().split("\n").map(s=>{const[c,r,m]=s.split("|");return{c,r,m,l,id:c}}));
 const RAWV={"N5": "学生|がくせい|student\n先生|せんせい|teacher\n友達|ともだち|friend\n学校|がっこう|school\n電車|でんしゃ|train\n今日|きょう|today\n明日|あした|tomorrow\n昨日|きのう|yesterday\n時間|じかん|time, hours\nお金|おかね|money\n水曜日|すいようび|Wednesday\n天気|てんき|weather\n元気|げんき|healthy, energetic\n食べる|たべる|to eat\n飲む|のむ|to drink\n見る|みる|to see, to watch\n行く|いく|to go\n来る|くる|to come\n読む|よむ|to read\n書く|かく|to write\n話す|はなす|to speak\n聞く|きく|to listen, to ask\n買う|かう|to buy\n休む|やすむ|to rest\n大きい|おおきい|big\n小さい|ちいさい|small\n新しい|あたらしい|new\n古い|ふるい|old (things)\n高い|たかい|tall, expensive\n安い|やすい|cheap\n白い|しろい|white\n長い|ながい|long\n半分|はんぶん|half\n毎日|まいにち|every day\n午前|ごぜん|morning, a.m.\n午後|ごご|afternoon, p.m.\n名前|なまえ|name\n外国|がいこく|foreign country\n会社|かいしゃ|company\n子供|こども|child\n男の人|おとこのひと|man\n女の人|おんなのひと|woman\n電話|でんわ|telephone\n大学|だいがく|university\n日本語|にほんご|Japanese language\n先週|せんしゅう|last week\n来年|らいねん|next year\n今年|ことし|this year\n一人|ひとり|one person, alone\n二人|ふたり|two people\n上手|じょうず|skillful, good at\n下手|へた|unskillful, bad at\n入口|いりぐち|entrance\n出口|でぐち|exit\n右手|みぎて|right hand\n花火|はなび|fireworks", "N4": "映画|えいが|movie\n音楽|おんがく|music\n写真|しゃしん|photo\n旅行|りょこう|trip, travel\n料理|りょうり|cooking, cuisine\n病院|びょういん|hospital\n医者|いしゃ|doctor\n銀行|ぎんこう|bank\n図書館|としょかん|library\n空港|くうこう|airport\n世界|せかい|world\n自分|じぶん|oneself\n家族|かぞく|family\n兄弟|きょうだい|siblings\n授業|じゅぎょう|class, lesson\n宿題|しゅくだい|homework\n試験|しけん|exam\n意味|いみ|meaning\n質問|しつもん|question\n答え|こたえ|answer\n特に|とくに|especially\n急ぐ|いそぐ|to hurry\n走る|はしる|to run\n歩く|あるく|to walk\n働く|はたらく|to work\n始める|はじめる|to begin\n終わる|おわる|to end\n教える|おしえる|to teach\n習う|ならう|to learn (from someone)\n借りる|かりる|to borrow\n貸す|かす|to lend\n送る|おくる|to send\n思う|おもう|to think\n知る|しる|to know\n住む|すむ|to live (reside)\n重い|おもい|heavy\n軽い|かるい|light (weight)\n暑い|あつい|hot (weather)\n寒い|さむい|cold (weather)\n近い|ちかい|near\n遠い|とおい|far\n早い|はやい|early\n暗い|くらい|dark\n便利|べんり|convenient\n親切|しんせつ|kind\n有名|ゆうめい|famous", "N3": "経験|けいけん|experience\n説明|せつめい|explanation\n準備|じゅんび|preparation\n約束|やくそく|promise\n関係|かんけい|relationship, connection\n結果|けっか|result\n理由|りゆう|reason\n必要|ひつよう|necessary\n注意|ちゅうい|caution, attention\n連絡|れんらく|contact\n相談|そうだん|consultation, advice\n予定|よてい|plan, schedule\n残念|ざんねん|too bad, regrettable\n最近|さいきん|recently\n将来|しょうらい|future\n自然|しぜん|nature\n社会|しゃかい|society\n政治|せいじ|politics\n経済|けいざい|economy\n技術|ぎじゅつ|technology, skill\n増える|ふえる|to increase\n減る|へる|to decrease\n決める|きめる|to decide\n比べる|くらべる|to compare\n選ぶ|えらぶ|to choose\n集める|あつめる|to collect\n届ける|とどける|to deliver\n助ける|たすける|to help, to save\n信じる|しんじる|to believe\n忘れる|わすれる|to forget\n感じる|かんじる|to feel\n続ける|つづける|to continue\n危険|きけん|danger\n安全|あんぜん|safety\n複雑|ふくざつ|complicated\n簡単|かんたん|easy, simple\n正確|せいかく|accurate\n完全|かんぜん|complete\n普通|ふつう|normal, usual\n突然|とつぜん|suddenly", "N2": "影響|えいきょう|influence\n環境|かんきょう|environment\n状況|じょうきょう|situation\n条件|じょうけん|condition, terms\n責任|せきにん|responsibility\n判断|はんだん|judgment\n努力|どりょく|effort\n価値|かち|value, worth\n解決|かいけつ|solution\n改善|かいぜん|improvement\n削減|さくげん|reduction, cut\n確認|かくにん|confirmation\n提案|ていあん|proposal\n対象|たいしょう|target, subject\n傾向|けいこう|tendency\n印象|いんしょう|impression\n批判|ひはん|criticism\n妥協|だきょう|compromise\n需要|じゅよう|demand\n供給|きょうきゅう|supply\n維持|いじ|maintenance\n証拠|しょうこ|evidence\n訪れる|おとずれる|to visit\n与える|あたえる|to give, to grant\n防ぐ|ふせぐ|to prevent\n認める|みとめる|to admit, to recognize\n迷う|まよう|to get lost, to hesitate\n訴える|うったえる|to sue, to appeal\n諦める|あきらめる|to give up\n抱える|かかえる|to hold, to carry (problems)\n厳しい|きびしい|strict, severe\n詳しい|くわしい|detailed\n鋭い|するどい|sharp\n贅沢|ぜいたく|luxury\n曖昧|あいまい|vague\n貴重|きちょう|precious", "N1": "概念|がいねん|concept\n矛盾|むじゅん|contradiction\n把握|はあく|grasp, understanding\n貢献|こうけん|contribution\n懸念|けねん|concern, worry\n措置|そち|measure, step\n促進|そくしん|promotion, acceleration\n撤回|てっかい|withdrawal, retraction\n該当|がいとう|applicable, corresponding\n顕著|けんちょ|conspicuous, prominent\n緩和|かんわ|easing, relaxation\n抑制|よくせい|suppression, restraint\n模索|もさく|groping, searching\n是正|ぜせい|correction\n脆弱|ぜいじゃく|fragile, vulnerable\n妥当|だとう|valid, appropriate\n覆す|くつがえす|to overturn\n携わる|たずさわる|to be involved in\n培う|つちかう|to cultivate\n賄う|まかなう|to cover (costs), to provide\n慈しむ|いつくしむ|to cherish\n滞る|とどこおる|to stagnate, to be overdue\n赴く|おもむく|to proceed to\n潔い|いさぎよい|graceful, gallant\n著しい|いちじるしい|striking, considerable\n煩わしい|わずらわしい|troublesome\n甚だしい|はなはだしい|extreme, excessive\n目論見|もくろみ|plan, scheme\n兆し|きざし|sign, omen\n傍ら|かたわら|beside, while\n示唆|しさ|suggestion, hint\n閲覧|えつらん|browsing, viewing\n既存|きぞん|existing"};
@@ -1430,18 +3459,19 @@ function levelChips(el,cur,onPick){el.innerHTML="";LEVELS.forEach(l=>{const b=do
 /* ===== LEVEL OF MASTERY: first thing on Learn, pick N5–N1 ===== */
 let mastLv=null;
 const MAST_RANK=[[0,"🌱","Beginner","初心者"],[20,"🌿","Learner","学習者"],[50,"🔥","Skilled","上手"],[80,"🏅","Master","達人"],[100,"👑","Legend","伝説"]];
-function mastStats(l){const k=K[l],v=V[l];let g=[];try{g=GLES[l]||[]}catch(e){setTimeout(renderMastery,50)}const km=k.filter(isM).length,vm=v.filter(isM).length,gd=g.filter(x=>glDone(x.id)).length;
+function mastStats(l){const L=l==="ALL"?LEVELS:[l];const k=L.flatMap(x=>K[x]),v=L.flatMap(x=>V[x]);let g=[];try{g=L.flatMap(x=>GLES[x]||[])}catch(e){setTimeout(renderMastery,50)}const km=k.filter(isM).length,vm=v.filter(isM).length,gd=g.filter(x=>glDone(x.id)).length;
  const tot=k.length+v.length,m=km+vm;const pct=tot?Math.round(m/tot*100):0;const gp=g.length?gd/g.length:0;
  const score=Math.round((m/(tot||1))*80+gp*20);return{km,kt:k.length,vm,vt:v.length,gd,gt:g.length,pct,score}}
-function renderMastery(){const el=$("#mastC");if(!el)return;const l=mastLv||S.lv;const st=mastStats(l);const sc=st.score;const r=MAST_RANK.filter(x=>sc>=x[0]).pop();const nx=MAST_RANK.find(x=>x[0]>sc);
+function renderMastery(){const el=$("#mastC");if(!el)return;const l=mastLv||S.lv;const ALL=l==="ALL";const st=mastStats(l);const sc=st.score;const r=MAST_RANK.filter(x=>sc>=x[0]).pop();const nx=MAST_RANK.find(x=>x[0]>sc);
  const i=LEVELS.indexOf(l),need=Math.ceil((st.kt+st.vt)*LV_UP),have=st.km+st.vm;const jb=(S.jlpt||{})[l];
  const bar=(ic,lab,a,b,c)=>`<div class="mBar"><div class="mBarT"><span>${ic} ${lab}</span><b>${a}/${b}</b></div><div class="mBarB"><i style="width:${b?a/b*100:0}%;background:${c}"></i></div></div>`;
- el.innerHTML=`<div class="mTop"><div><small>LEVEL OF MASTERY</small><b>習熟度 · ${l}</b></div>${l===S.lv?'<span class="mCur">your level</span>':`<button class="mSet" id="mSet">Study ${l}</button>`}</div>
- <div class="mLvs">${LEVELS.map(x=>{const p=mastStats(x).score;return`<button class="mLv ${x===l?"on":""}" data-l="${x}"><b>${x}</b><i><em style="width:${p}%"></em></i><span>${p}%</span></button>`}).join("")}</div>
+ el.innerHTML=`<div class="mTop"><div><small>LEVEL OF MASTERY</small><b>習熟度 · ${ALL?"All levels 全部":l}</b></div>${ALL?'<span class="mCur">N5 → N1</span>':l===S.lv?'<span class="mCur">your level</span>':`<button class="mSet" id="mSet">Study ${l}</button>`}</div>
+ <div class="mLvs">${["ALL"].concat(LEVELS).map(x=>{const p=mastStats(x).score;return`<button class="mLv ${x===l?"on":""} ${x==="ALL"?"all":""}" data-l="${x}"><b>${x==="ALL"?"全部":x}</b><i><em style="width:${p}%"></em></i><span>${p}%</span></button>`}).join("")}</div>
  <div class="mMain"><div class="mRing" style="--p:${sc}"><div><b>${sc}<small>%</small></b><span>${r[1]} ${r[2]}</span></div></div>
   <div class="mSide"><div class="mRank">${r[1]} <b>${r[2]}</b> <span>${r[3]}</span></div>
   ${bar("漢","Kanji",st.km,st.kt,"linear-gradient(90deg,#ff6fa8,#ff9966)")}${bar("語","Vocab",st.vm,st.vt,"linear-gradient(90deg,#7b5cff,#31c8ff)")}${bar("文","Grammar",st.gd,st.gt,"linear-gradient(90deg,#21b889,#9be15d)")}</div></div>
- <div class="mFoot">${nx?`Next rank <b>${nx[1]} ${nx[2]}</b> at ${nx[0]}%`:"Max rank! 🎉"}${i<LEVELS.length-1?` · <b>${Math.max(0,need-have)}</b> more mastered to unlock ${LEVELS[i+1]}`:""}${jb?` · Mock test: <b>${jb.total}/180</b> ${jb.passed?"✅":""}`:""}</div>`;
+ ${ALL?`<div class="mTot"><div><b>${st.km.toLocaleString()}</b><span>kanji learned<br>of ${st.kt.toLocaleString()}</span></div><div><b>${st.vm.toLocaleString()}</b><span>words learned<br>of ${st.vt.toLocaleString()}</span></div><div><b>${st.gd}</b><span>grammar done<br>of ${st.gt}</span></div><div class="hl"><b>${(st.km+st.vm+st.gd).toLocaleString()}</b><span>total<br>learned</span></div></div>`:""}
+ <div class="mFoot">${ALL?`Learned = answered right 3 times (★★★). Every JLPT kanji from N5 to N1 is in the app: ${st.kt.toLocaleString()} kanji.<br><span style="opacity:.6;font-size:10.5px">Kanji lists by level follow the common JLPT study lists (JLPT has no official list since 2010). Meanings &amp; readings: KANJIDIC (EDRDG, CC BY-SA) via kanji-data (MIT).</span>`:""}${ALL?"":nx?`Next rank <b>${nx[1]} ${nx[2]}</b> at ${nx[0]}%`:"Max rank! 🎉"}${ALL?"":i<LEVELS.length-1?` · <b>${Math.max(0,need-have)}</b> more mastered to unlock ${LEVELS[i+1]}`:""}${!ALL&&jb?` · Mock test: <b>${jb.total}/180</b> ${jb.passed?"✅":""}`:""}</div>`;
  $$("#mastC .mLv").forEach(b=>b.onclick=()=>{sfx.pop();mastLv=b.dataset.l;renderMastery()});
  const ms=$("#mSet");if(ms)ms.onclick=()=>{S.lv=l;S.wIdx=0;save();mastLv=null;renderHome();renderHeader();try{renderWrite()}catch(e){}toast("📚 Now studying "+l)}}
 function renderHome(){renderMastery();levelChips($("#levels"),S.lv,l=>{S.lv=l;S.wIdx=0;save();renderHome();renderHeader();renderWrite()});
