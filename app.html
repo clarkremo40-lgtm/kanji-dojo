@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <script>
-var KD_BUILD=44,KD_VER="4.4",KD_NATIVE=13;
+var KD_BUILD=45,KD_VER="4.5",KD_NATIVE=14;
 (function(){try{if(window.__KD_SWAP)return;var ls=localStorage;
  if(location.href.indexOf("file:///android_asset")===0)ls.setItem("kd_native",String(KD_NATIVE));
  var b=+(ls.getItem("kd_build")||0),h=ls.getItem("kd_html");
@@ -623,6 +623,28 @@ nav .navAI:active .navAIc{transform:scale(.92)}
 .podNow .podBar,.podNow .podCtl,.podNow #podSt{grid-column:1/3}.podNow .podBar{margin:12px 2px 10px}
 .podNow .podBig{width:58px;height:58px;font-size:24px}.podNow .podSm{width:42px;height:42px}
 .podNow #podSt{text-align:center;margin-top:4px}
+.rtEmpty{text-align:center;padding:8px 4px 4px}.rtEmpty b{display:block;font-size:17px;margin-top:4px}.rtEmpty span{display:block;font-size:13px;opacity:.75;line-height:1.5;margin-top:4px}
+.rtTpls{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.rtTpl{text-align:left;border:none;border-radius:18px;padding:12px;background:#f4f0ff;color:#2d2147;font-family:inherit;box-shadow:0 3px 0 #e6deff}.rtTpl b{display:block;font-size:14px}.rtTpl span{display:block;font-size:11.5px;color:#6b5f94;margin-top:2px;line-height:1.35}
+.rtHead{display:flex;gap:14px;align-items:center}
+.rtRing{--p:0;width:86px;height:86px;flex:none;border-radius:50%;display:grid;place-content:center;text-align:center;background:radial-gradient(closest-side,#fff 78%,transparent 80%),conic-gradient(#7b5cff calc(var(--p)*1%),#ece6ff 0)}.rtRing b{font-size:20px;line-height:1}.rtRing span{font-size:10px;opacity:.6;font-weight:800}
+.rtStat{font-size:13px;margin:3px 0}
+.rtNow{margin:12px 0 4px;padding:10px 12px;border-radius:16px;background:linear-gradient(135deg,#fff3f8,#f1ecff);font-size:13.5px;line-height:1.4}
+.rtLive{display:inline-block;font-size:10px;font-weight:900;color:#fff;background:#ff4f8b;border-radius:99px;padding:2px 7px;margin-right:4px;animation:pulse 1.4s infinite}
+.rtList{margin-top:10px;position:relative}
+.rtIt{display:flex;align-items:center;gap:10px;padding:9px 8px;border-radius:16px;margin:4px 0;position:relative;transition:.25s}
+.rtIt::before{content:"";position:absolute;left:61px;top:0;bottom:0;width:3px;border-radius:2px;background:var(--c);opacity:.35}
+.rtIt.now{background:#fff;box-shadow:0 6px 18px rgba(123,92,255,.18)}.rtIt.now::before{opacity:1}
+.rtIt.ok{opacity:.55}.rtIt.ok .rtBody b{text-decoration:line-through}
+.rtIt.late .rtBody span{color:#ff6fa8}
+.rtT{width:46px;flex:none;text-align:right}.rtT b{display:block;font-size:14px}.rtT span{font-size:10px;opacity:.6}
+.rtBody{flex:1;min-width:0;padding-left:12px;cursor:pointer}.rtBody b{display:block;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.rtBody span{font-size:11.5px;opacity:.65}
+.rtChk{width:34px;height:34px;flex:none;border-radius:50%;border:2.5px solid var(--c);background:transparent;color:#fff;font-weight:900;font-size:16px}.rtIt.ok .rtChk{background:var(--c)}
+.rtGo{width:30px;height:30px;flex:none;border:none;border-radius:50%;background:linear-gradient(135deg,#ff6fa8,#7b5cff);color:#fff;font-size:12px}
+.rtWeek{display:flex;justify-content:space-between;gap:6px;margin:14px 2px 4px}.rtWd{flex:1;text-align:center;font-size:10px;font-weight:800;opacity:.7}.rtWd.td{opacity:1;color:#7b5cff}
+.rtWb{height:34px;border-radius:8px;background:#f0ebff;position:relative;overflow:hidden;margin-bottom:3px}.rtWb i{position:absolute;left:0;right:0;bottom:0;border-radius:8px}
+.rtBtns{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}.rtBtns .btn{flex:1;white-space:nowrap;font-size:12.5px}
+.rtF{margin:10px 0}.rtF label{display:block;font-size:12px;font-weight:800;opacity:.7;margin-bottom:5px}.rtF input,.rtF select{width:100%}.rtF #rtN,.rtF select{box-sizing:border-box;border:2px solid #e2d8ff;border-radius:14px;padding:12px 14px;font:inherit;font-size:15px;background:#fff;color:#2d2147}.rtF #rtTm{font-size:28px!important;padding:8px 14px!important}
+.rtCats,.rtDays{display:flex;flex-wrap:wrap;gap:6px}.rtCat,.rtDay{border:1.5px solid #e2d8ff;background:#fff;border-radius:99px;padding:7px 11px;font:inherit;font-size:12.5px;font-weight:800;color:#4b3c8f}.rtCat.on,.rtDay.on{background:#7b5cff;border-color:#7b5cff;color:#fff}
 /* ===== GORGEOUS LOCK SCREEN ===== */
 #lock{background:#120b2e!important}
 #lock .aur{position:absolute;inset:-20%;pointer-events:none;filter:blur(55px) saturate(1.3);opacity:.85}
@@ -661,7 +683,7 @@ nav .navAI:active .navAIc{transform:scale(.92)}
 #lock .lockq .opt:active{transform:translateY(3px) scale(.97);box-shadow:0 1px 0 rgba(0,0,0,.18)}
 #lock .lockq .opt.ok{background:linear-gradient(135deg,#4ff0b0,#21b889);border-color:#bfffe6;box-shadow:0 0 24px rgba(79,240,176,.7)}
 #lock .lockq .opt.no{background:linear-gradient(135deg,#ff7a8a,#ff3b5c);border-color:#ffd0d6}
-#lock #lEmerg{position:absolute;bottom:calc(96px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:rgba(255,255,255,.12)!important;border:1px solid rgba(255,255,255,.22)!important;color:#fff;box-shadow:none;z-index:3}
+#lock.on{overflow-y:auto}#lock #lEmerg{position:relative;flex:none;margin:18px auto calc(24px + env(safe-area-inset-bottom,0px));background:rgba(255,255,255,.12)!important;border:1px solid rgba(255,255,255,.22)!important;color:#fff;box-shadow:none;z-index:3}
 #lock .swipe{z-index:2;bottom:calc(30px + env(safe-area-inset-bottom,0px));opacity:1}
 #lock .swipe .chev{display:flex;flex-direction:column;align-items:center;line-height:.55;font-size:20px;margin-bottom:10px}
 #lock .swipe .chev span{animation:chev 1.6s infinite;opacity:.2}
@@ -798,7 +820,6 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
           <span style="opacity:.75">After a full restart, Android asks for your passcode once first. After that, every screen-on shows the quiz.</span>
         </div>
       </div>
-      <button class="card aiCard" id="aiHome"><div class="aiCi"><svg viewBox="0 0 64 64"><path d="M14 22 L18 4 L28 16 Z M50 22 L46 4 L36 16 Z" fill="#2b59c3"/><path d="M17 18 L19 9 L25 16 Z M47 18 L45 9 L39 16 Z" fill="#ff9eb5"/><circle cx="32" cy="32" r="22" fill="#2b59c3"/><ellipse cx="32" cy="37" rx="16" ry="13" fill="#ffe3c7"/><rect x="10" y="20" width="44" height="7" rx="3" fill="#ff4d6d"/><ellipse class="catEye" cx="25" cy="35" rx="3" ry="3.6" fill="#2d2147"/><ellipse class="catEye" cx="39" cy="35" rx="3" ry="3.6" fill="#2d2147"/><circle cx="26" cy="33.8" r="1" fill="#fff"/><circle cx="40" cy="33.8" r="1" fill="#fff"/><ellipse cx="20" cy="41" rx="3" ry="1.8" fill="#ffb3c6"/><ellipse cx="44" cy="41" rx="3" ry="1.8" fill="#ffb3c6"/><path d="M29 41 q3 3 6 0" stroke="#2d2147" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg></div><div class="grow" style="text-align:left"><b>Talk with Hana-sensei 🌸</b><div class="tiny">Your AI tutor: chat or real voice call · she knows your level and weak kanji</div></div><div style="font-size:22px">›</div></button>
       <button class="card podCard" id="podHome"><div class="pIco">🎙️</div><div class="grow" style="text-align:left"><b>Japanese Podcast</b><div class="tiny">Natural conversations for your level (N5→N1) + free shows</div></div><div style="font-size:22px">›</div></button>
       <button class="card jlptCard" id="jlptHome"><div class="jIco">🎌</div><div class="grow" style="text-align:left"><b>JLPT Mock Test &amp; Review</b><div class="tiny">Real JLPT format and scoring · earn your 合格 certificate 🏅</div></div><div style="font-size:22px">›</div></button>
       <button class="card dictCard" id="dictHome"><div class="dIco">💡</div><div class="grow" style="text-align:left"><b>Kanji &amp; Word Tricks</b><div class="tiny">Easy ways to remember: 口 is a square mouth, 花 + 火 = 花火 fireworks 🎆</div></div><div style="font-size:22px">›</div></button>
@@ -869,10 +890,12 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
     <section class="view" id="v-jlpt"><div id="jHub"></div></section>
     <section class="view" id="v-pod"><div id="podB"></div></section>
     <section class="view" id="v-alarm">
-      <h2><small>KANJI ALARM</small>目覚まし</h2>
+      <h2><small>ROUTINE &amp; ALARM</small>一日の計画</h2>
+      <div class="card" id="rtCard"><div class="row" style="margin-bottom:10px"><div class="grow"><b>🗓️ Routine Checker</b><div class="tiny muted">Organize your day so study time actually happens</div></div></div><div id="rtBox"></div></div>
+      <h3 style="margin:18px 4px 8px">⏰ Kanji alarm</h3>
       <div class="card" style="text-align:center">
         <div class="clock" id="aClock">00:00<small>:00</small></div>
-        <div class="muted tiny" style="margin-top:6px">To turn it off you must answer <b>5 kanji</b> correctly</div>
+        <div class="muted tiny" style="margin-top:6px">To turn it off you must answer <b>10 questions</b> correctly</div>
       </div>
       <div class="card">
         <div class="row" style="margin-bottom:12px"><div class="grow"><b>Wake-up time</b><div class="tiny muted" id="aStatus">Off</div></div><button class="switch" id="aSwitch"></button></div>
@@ -932,9 +955,8 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
     <button data-v="home" class="on"><i>学</i>Learn</button>
     <button data-v="jlpt"><i>験</i>JLPT</button>
     <button data-v="pod"><i>聴</i>Podcast</button>
-    <button id="navAI" class="navAI"><span class="navAIc"><svg viewBox="0 0 64 64"><path d="M14 22 L18 4 L28 16 Z M50 22 L46 4 L36 16 Z" fill="#2b59c3"/><path d="M17 18 L19 9 L25 16 Z M47 18 L45 9 L39 16 Z" fill="#ff9eb5"/><circle cx="32" cy="32" r="22" fill="#2b59c3"/><ellipse cx="32" cy="37" rx="16" ry="13" fill="#ffe3c7"/><rect x="10" y="20" width="44" height="7" rx="3" fill="#ff4d6d"/><ellipse class="catEye" cx="25" cy="35" rx="3" ry="3.6" fill="#2d2147"/><ellipse class="catEye" cx="39" cy="35" rx="3" ry="3.6" fill="#2d2147"/><circle cx="26" cy="33.8" r="1" fill="#fff"/><circle cx="40" cy="33.8" r="1" fill="#fff"/><ellipse cx="20" cy="41" rx="3" ry="1.8" fill="#ffb3c6"/><ellipse cx="44" cy="41" rx="3" ry="1.8" fill="#ffb3c6"/><path d="M29 41 q3 3 6 0" stroke="#2d2147" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg><em></em></span>Sensei</button>
     <button data-v="game"><i>遊</i>Game</button>
-    <button data-v="alarm"><i>鳴</i>Alarm</button>
+    <button data-v="alarm"><i>時</i>Routine</button>
     <button data-v="prog"><i>進</i>Progress</button>
   </nav>
 </div>
@@ -943,8 +965,8 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
 
 <div id="ring">
   <div class="wake">起きて！</div>
-  <div style="text-align:center;font-weight:900;font-size:15px;margin:2px 0 10px">WAKE UP · Answer 5 kanji to stop the alarm</div>
-  <div class="row" style="font-weight:900;margin-bottom:8px"><span id="rCount">0 / 5</span><span class="grow"></span><span id="rLv" class="tag" style="color:#fff">N5</span><span>❌ <span id="rMiss">0</span></span></div>
+  <div style="text-align:center;font-weight:900;font-size:15px;margin:2px 0 10px">WAKE UP · Answer 10 questions to stop the alarm</div>
+  <div class="row" style="font-weight:900;margin-bottom:8px"><span id="rCount">0 / 10</span><span class="grow"></span><span id="rLv" class="tag" style="color:#fff">N5</span><span>❌ <span id="rMiss">0</span></span></div>
   <div class="bar"><div id="rBar" style="width:0"></div></div>
   <div id="rQ" class="qwrap" style="margin-top:6px"></div>
   <button class="srBtn" id="rStudy">📚 Struggling? STUDY first, then try again</button>
@@ -2090,23 +2112,30 @@ document.addEventListener("fullscreenchange",()=>{if(!document.fullscreenElement
 
 /* ================= ALARM ================= */
 let ringing=false,ringTimer=null,rState=null;
-function renderAlarm(){const a=S.alarm;$("#aTime").value=a.t;$("#aSwitch").classList.toggle("on",a.on);$("#aStatus").textContent=a.on?"On · rings at "+a.t:"Off";
+function renderAlarm(){const a=S.alarm;$("#aTime").value=a.t;$("#aSwitch").classList.toggle("on",a.on);$("#aStatus").textContent=a.on?"On · rings at "+a.t+(phoneAlarm()?" · 📱 set in your phone's alarm":""):"Off";
  $("#aPath").innerHTML=LEVELS.map((l,i)=>`<div class="node ${i<a.lv?"done":i===a.lv?"cur":""}">${i<a.lv?"✓":l}</div>`).join("");
  $("#aClears").innerHTML=a.lv>=4&&a.clears>=3?"🏯 You've mastered the N1 alarm!":`Current: <b>${LEVELS[a.lv]}</b> · clears ${"●".repeat(a.clears)}${"○".repeat(3-a.clears)}`}
-$("#aSwitch").onclick=()=>{S.alarm.on=!S.alarm.on;S.alarm.fired="";save();ac();renderAlarm();toast(S.alarm.on?"⏰ Alarm set for "+S.alarm.t:"Alarm off")};
-$("#aTime").onchange=e=>{S.alarm.t=e.target.value;S.alarm.fired="";save();renderAlarm()};
+/* phone alarm: on the APK the alarm is set in Android's own alarm system (shows in the status bar / Clock, rings even when the app is closed or the phone restarts) */
+const RINGM=location.hash==="#ring";
+function phoneAlarm(){return IS_APK&&nativeBuild()>=14}
+function alarmNext(){const a=S.alarm;const[h,m]=a.t.split(":").map(Number);const d=new Date();d.setHours(h,m,0,0);if(d.getTime()<=Date.now()+5000||a.fired===today()+" "+a.t)d.setDate(d.getDate()+1);return d}
+function alarmSync(){if(!phoneAlarm()||GATE||STUDY)return;if(S.alarm.on)native("alarm?at="+alarmNext().getTime());else native("alarmoff")}
+$("#aSwitch").onclick=()=>{S.alarm.on=!S.alarm.on;S.alarm.fired="";save();ac();renderAlarm();alarmSync();toast(S.alarm.on?"⏰ Alarm set for "+S.alarm.t+(phoneAlarm()?" · added to your phone's alarm":""):"Alarm off")};
+$("#aTime").onchange=e=>{S.alarm.t=e.target.value;S.alarm.fired="";save();renderAlarm();alarmSync()};
 $("#aTest").onclick=()=>{ac();startRing()};
 function alarmSound(){const a=ac();if(!a)return;[0,.18,.36].forEach(w=>{tone(988,.14,"square",.22,w);tone(1319,.14,"square",.12,w+.07)})}
 let wake=null;async function keepAwake(){try{if(navigator.wakeLock&&S.alarm.on&&!wake)wake=await navigator.wakeLock.request("screen")}catch(e){}}
 function startRing(){if(ringing)return;try{if(typeof LV!=="undefined"&&LV.on)lvStop()}catch(e){}ringing=true;rState={n:0,miss:0,sm:0,missed:[],paused:false,lv:LEVELS[S.alarm.lv]};$("#ring").classList.add("on");$("#rLv").textContent=rState.lv;alarmSound();ringTimer=setInterval(()=>{if(rState.paused)return;alarmSound();buzz([400,200,400])},1200);ringNext()}
-function ringNext(){$("#rCount").textContent=rState.n+" / 5";$("#rMiss").textContent=rState.miss;$("#rBar").style.width=(rState.n/5*100)+"%";if(rState.n>=5)return stopRing();
+const RING_N=10;function ringNext(){$("#rCount").textContent=rState.n+" / "+RING_N;$("#rMiss").textContent=rState.miss;$("#rBar").style.width=(rState.n/RING_N*100)+"%";if(rState.n>=RING_N)return stopRing();
  $("#rStudy").classList.toggle("on",rState.sm>=5);const q=kanjiQ(rState.lv);renderQ($("#rQ"),q,ok=>{if(ok){rState.n++;setTimeout(ringNext,450)}else{rState.miss++;rState.sm++;addMissed(rState.missed,q.k);$("#rMiss").textContent=rState.miss;if(rState.sm>=5)$("#rStudy").classList.add("on");setTimeout(ringNext,2600)}})}
 function stopRing(){clearInterval(ringTimer);ringTimer=null;ringing=false;try{navigator.vibrate&&navigator.vibrate(0)}catch(e){}$("#ring").classList.remove("on");const a=S.alarm;S.alarmsDone++;let msg="おはよう！ Good morning! +40 XP";
  if(rState.miss<=1){a.clears++;if(a.clears>=3&&a.lv<4){a.lv++;a.clears=0;msg="🎊 Alarm level up! Now "+LEVELS[a.lv];setTimeout(()=>confetti(90),300)}}else msg="Good morning! "+rState.miss+" mistakes, so this one doesn't count as a clear (1 or fewer needed).";
- addXP(40);save();renderAlarm();stamp("起床");sfx.win();toast(msg)}
+ addXP(40);save();renderAlarm();stamp("起床");sfx.win();toast(msg);alarmSync();if(RINGM)setTimeout(()=>native("done"),2200)}
 function tick(){const d=new Date(),hh=String(d.getHours()).padStart(2,"0"),mm=String(d.getMinutes()).padStart(2,"0");$("#aClock").innerHTML=`${hh}:${mm}<small>:${String(d.getSeconds()).padStart(2,"0")}</small>`;if($("#lock").classList.contains("on"))lockClock();
- if(GATE||STUDY||window.__KD_ASLEEP)return;const a=S.alarm,key=today()+" "+a.t;const [ah,am]=a.t.split(":").map(Number);const at=new Date();at.setHours(ah,am,0,0);const late=d-at;if(a.on&&late>=0&&late<15*60000&&a.fired!==key){const fresh=loadS();if(fresh&&fresh.alarm.fired===key){S.alarm.fired=key;return}a.fired=key;save();startRing()}}
+ if(GATE||STUDY||RINGM||window.__KD_ASLEEP)return;const a=S.alarm,key=today()+" "+a.t;const [ah,am]=a.t.split(":").map(Number);const at=new Date();at.setHours(ah,am,0,0);const late=d-at;if(a.on&&late>=(phoneAlarm()?60000:0)&&late<15*60000&&a.fired!==key){const fresh=loadS();if(fresh&&fresh.alarm.fired===key){S.alarm.fired=key;return}a.fired=key;save();startRing()}}
 setInterval(tick,1000);
+if(RINGM){document.documentElement.classList.add("ringMode");setTimeout(()=>{S.alarm.fired=today()+" "+S.alarm.t;save();ac();startRing()},300)}
+else setTimeout(alarmSync,1500);
 
 /* ================= PROGRESS ================= */
 function renderProg(){const r=rankOf(S.xp),cur=RANKS[r][0],nxt=RANKS[r+1];$("#pRank").textContent=RANKS[r][1];$("#pXp").textContent=S.xp+" XP";$("#pNext").textContent=nxt?`${nxt[0]-S.xp} XP to ${nxt[1]}`:"Max rank reached 👑";
@@ -2127,11 +2156,11 @@ $("#sReset").onclick=e=>{const b=e.target;if(b.dataset.c){const keep={lockOpen:S
 
 /* ================= NAV ================= */
 function go(v){const nv=(v==="write"||v==="gram")?"home":v;$$("nav button").forEach(b=>b.classList.toggle("on",b.dataset.v===nv));if(v==="jlpt")setTimeout(()=>{try{jHome()}catch(e){}},0);if(v==="pod")setTimeout(()=>{try{podHome()}catch(e){}},0);else if(typeof podStop==="function")podStop();$$(".view").forEach(s=>s.classList.toggle("on",s.id==="v-"+v));$("#main").scrollTop=0;
- if(v==="home")renderHome();if(v==="write")requestAnimationFrame(()=>{sizePad();renderWrite()});if(v==="gram")renderGram();if(v==="alarm"){renderAlarm();keepAwake()}if(v==="prog")renderProg();if(v==="game"){requestAnimationFrame(()=>{if(!RUN.on)runPreview()});musStart()}else musStop();
+ if(v==="home")renderHome();if(v==="write")requestAnimationFrame(()=>{sizePad();renderWrite()});if(v==="gram")renderGram();if(v==="alarm"){renderAlarm();renderRoutine();keepAwake()}if(v==="prog")renderProg();if(v==="game"){requestAnimationFrame(()=>{if(!RUN.on)runPreview()});musStart()}else musStop();
  if(v!=="game"&&$("#v-game").classList.contains("fs"))setFs(false);
  if(v!=="game"&&RUN.on){RUN.on=false;const st=$("#rStart");st.style.display="flex";st.innerHTML=`<div style="font-size:50px">⏸</div><div style="font-size:24px;font-weight:900">Paused</div><button class="btn shu" id="rGo">Run again</button>`;$("#rGo").onclick=runStart}}
 $$("nav button").forEach(b=>b.onclick=()=>{sfx.pop();go(b.dataset.v)});
-$("#navAI").onclick=()=>aiOpen();
+
 $$(".subBack").forEach(b=>b.onclick=()=>{sfx.pop();go("home")});
 addEventListener("resize",()=>{if($("#v-write").classList.contains("on"))sizePad()});
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"){wake=null;if($("#v-alarm").classList.contains("on"))keepAwake()}});
@@ -2223,7 +2252,7 @@ function afterBoot(){try{localStorage.removeItem("kd_boot");const seen=+(localSt
   localStorage.setItem("kd_seen",String(KD_BUILD));
   if(localStorage.getItem("kd_rollback")){localStorage.removeItem("kd_rollback");setTimeout(()=>toast("The last update had a problem, so we kept the previous version."),1500)}}catch(e){}
  $("#verTxt").textContent="v"+KD_VER+" · build "+KD_BUILD+" · app "+nativeBuild();
- if(IS_APK&&!GATE&&!STUDY){const sp=$("#updChk");sp.classList.add("on");
+ if(IS_APK&&!GATE&&!STUDY&&location.hash!=="#ring"){const sp=$("#updChk");sp.classList.add("on");
   Promise.race([checkUpdate(false),new Promise(r=>setTimeout(()=>r("timeout"),6000))]).then(()=>sp.classList.remove("on"));
   setInterval(()=>checkUpdate(false),20*60*1000);
   document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")checkUpdate(false)})}}
@@ -2713,7 +2742,7 @@ function aiOffWire(root){root.querySelectorAll(".aiOffB button").forEach(b=>b.on
 function aiOffline(){return navigator.onLine===false}
 function aiOffBanner(){const on=aiOffline();$("#ai").classList.toggle("offline",on);const bn=$("#aiOffBar");if(bn)bn.style.display=on?"flex":"none"}
 window.addEventListener("online",aiOffBanner);window.addEventListener("offline",aiOffBanner);
-$("#aiHome").onclick=()=>aiOpen();
+
 document.addEventListener("visibilitychange",()=>{if(document.hidden&&LV.on)lvStop()});
 
 
@@ -2766,7 +2795,7 @@ function openLogin(){let mode="in";
   <div class="acTabs"><button class="on" data-m="in">Log in</button><button data-m="up">Create account</button></div>
   <input class="dSearch" id="acEmail" type="email" placeholder="Email" autocomplete="email"><div class="acPw"><input class="dSearch" id="acPass" type="password" placeholder="Password (6+ characters)" autocomplete="current-password"><button id="acEye">👁</button></div>
   <button class="btn shu full" id="acGo">Log in</button><button class="acLink" id="acForgot">Forgot password?</button><p class="tiny muted" id="acMsg" style="text-align:center;min-height:18px"></p>
-  <p class="tiny muted" style="line-height:1.5;text-align:center">Your progress (levels, stars, kanji, settings and Hana-sensei chat) is saved to your account. Your AI key is never uploaded.</p></div>`);
+  <p class="tiny muted" style="line-height:1.5;text-align:center">Your progress (levels, stars, kanji, and settings) is saved to your account. Your AI key is never uploaded.</p></div>`);
  const set=m=>{mode=m;$$(".acTabs button").forEach(b=>b.classList.toggle("on",b.dataset.m===m));$("#acGo").textContent=m==="in"?"Log in":"Create account";$("#acTitle").textContent=m==="in"?"Welcome back!":"Join the dojo! 🥋";$("#acPass").autocomplete=m==="in"?"current-password":"new-password"};
  $$(".acTabs button").forEach(b=>b.onclick=()=>set(b.dataset.m));$("#acEye").onclick=()=>{const p=$("#acPass");p.type=p.type==="password"?"text":"password"};
  $("#acForgot").onclick=async()=>{const e=$("#acEmail").value.trim();if(!e){$("#acMsg").textContent="Type your email first";return}try{await fbAuth("sendOobCode",{requestType:"PASSWORD_RESET",email:e});$("#acMsg").textContent="📧 Reset link sent. Check your email."}catch(err){$("#acMsg").textContent=err.message}};
@@ -2853,7 +2882,7 @@ function ttsSlot(){return new Promise(r=>{if(TTS_ACTIVE<2){TTS_ACTIVE++;r()}else
 function ttsFree(){TTS_ACTIVE--;const n=TTS_WAIT.shift();if(n){TTS_ACTIVE++;n()}}
 let TTS_ERR="";function ttsCool(){try{return Date.now()<+(localStorage.getItem("kd_ttsq")||0)}catch(e){return false}}
 async function ttsGen(fn){if(ttsCool())throw new Error("QUOTA:cooldown");await ttsSlot();try{for(let a=0;;a++){try{const o=await fn();TTS_ERR="";return o}catch(e){TTS_ERR=e.message||String(e);if(/^QUOTA:/.test(TTS_ERR)){const day=/per.?day|PerDay|RPD/i.test(TTS_ERR);try{localStorage.setItem("kd_ttsq",Date.now()+(day?3600000:60000))}catch(x){}throw e}if(a<1&&/Network|fetch/i.test(TTS_ERR)){await new Promise(r=>setTimeout(r,1500));continue}throw e}}}finally{ttsFree()}}
-function ttsWhy(){const e=TTS_ERR||"";if(/QUOTA/.test(e)||ttsCool())return"Google's free natural-voice limit is used up for now";if(/^KEY/.test(e))return"Hana-sensei's key isn't working";if(/Network|fetch|Failed/i.test(e)||navigator.onLine===false)return"No internet";if(!(typeof aiReady==="function"&&aiReady()))return"Hana-sensei isn't connected";return e?"Natural voice unavailable ("+e.slice(0,60)+")":"Natural voice unavailable"}
+function ttsWhy(){const e=TTS_ERR||"";if(/QUOTA/.test(e)||ttsCool())return"Google's free natural-voice limit is used up for now";if(/^KEY/.test(e))return"the voice key isn't working";if(/Network|fetch|Failed/i.test(e)||navigator.onLine===false)return"No internet";if(!(typeof aiReady==="function"&&aiReady()))return"natural voices aren't set up";return e?"Natural voice unavailable ("+e.slice(0,60)+")":"Natural voice unavailable"}
 const LSP={};/* in-flight audio by key */
 function cachedAudio(key,gen){if(LSP[key])return LSP[key];
  LSP[key]=(async()=>{const c=await IDB.get(key);if(c)return c;if(!(typeof aiReady==="function"&&aiReady())||navigator.onLine===false||ttsCool())return null;const out=await ttsGen(gen);if(out)IDB.set(key,out);return out})().catch(e=>{delete LSP[key];return null});return LSP[key]}
@@ -2972,7 +3001,7 @@ function jCert(c){const desc={N5:"can understand some basic Japanese",N4:"can un
   <div class="cLine">has passed the Kanji Dojo <b>JLPT ${c.lv}</b> Mock Test<br>and ${desc}.</div>
   <div class="cLvl"><span>${c.lv}</span></div>
   <div class="cScores">${c.parts.map(p=>`<div><span>${esc(p[0])}</span><b>${p[1]}/${p[2]}</b></div>`).join("")}<div class="cTot"><span>Total score</span><b>${c.total}/180</b></div></div>
-  <div class="cFoot"><div><div class="cSig">Hana-sensei</div><span>Head Sensei, Kanji Dojo</span></div><div class="cSeal">合格</div><div style="text-align:right"><b>${c.date}</b><span>No. ${c.id}</span></div></div>
+  <div class="cFoot"><div><div class="cSig">Kanji Dojo</div><span>Dojo Sensei</span></div><div class="cSeal">合格</div><div style="text-align:right"><b>${c.date}</b><span>No. ${c.id}</span></div></div>
   <div class="cNote">Practice certificate from the Kanji Dojo app. Not an official JLPT certificate.</div></div></div></div>
   <p class="tiny muted" style="text-align:center;margin-top:10px">📸 Take a screenshot to save or share it</p><button class="btn full" id="jHomeB">← Back</button>`;
  $("#jHomeB").onclick=()=>jExit(c.lv);$("#jt").scrollTop=0;stamp("合格")}
@@ -3047,6 +3076,69 @@ function podNote(st){if(!(IS_APK&&nativeBuild()>=12))return;if(st==="off"){if(PO
 window.podToggle=()=>{const b=$("#podPP");if(b)b.click()};
 window.podX=()=>{PODP.note=false;podStop();const b=$("#podPP");if(b)b.textContent="▶";const d=$("#podDisc");if(d)d.classList.remove("podSpin");const st=$("#podSt");if(st)st.textContent="⏹ Stopped"};
 $("#podHome").onclick=()=>{sfx.pop();podOpen()};
+
+
+/* ================= ROUTINE CHECKER: daily planner + checklist to organize time ================= */
+const RT_CATS={study:["📚","Study","#7b5cff"],school:["🏫","School/Work","#3a8bff"],health:["💪","Health","#21b889"],meal:["🍙","Meal","#ffa45c"],rest:["😌","Rest/Fun","#ff6fa8"],sleep:["😴","Sleep","#4b3c8f"],chore:["🧹","Chores","#8a8aa3"]};
+const RT_DAYS=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const RT_TPL={
+ student:{n:"🎒 Student",d:"School days with focused study blocks",it:[["06:30",15,"Wake up + kanji alarm","health"],["06:45",30,"Breakfast","meal"],["07:30",480,"School","school",[1,2,3,4,5]],["16:30",30,"Snack + rest","rest"],["17:00",60,"Homework","study",[1,2,3,4,5]],["18:30",45,"Dinner","meal"],["19:30",30,"Kanji Dojo: kanji + vocab","study"],["20:00",25,"Grammar lesson","study"],["20:30",30,"Exercise / walk","health"],["21:30",30,"Free time","rest"],["22:30",480,"Sleep","sleep"]]},
+ worker:{n:"💼 Working",d:"Study before and after work",it:[["06:00",15,"Wake up + kanji alarm","health"],["06:15",20,"Morning review (Kanji Dojo)","study"],["06:45",30,"Breakfast + get ready","meal"],["08:00",540,"Work","school",[1,2,3,4,5]],["12:15",15,"Lunch break: 10 vocab","study",[1,2,3,4,5]],["18:30",45,"Dinner","meal"],["19:30",45,"Study session (JLPT)","study"],["20:30",30,"Podcast listening","study"],["21:00",60,"Rest / family","rest"],["23:00",420,"Sleep","sleep"]]},
+ jlpt:{n:"🎯 JLPT sprint",d:"Heavy study plan before the exam",it:[["06:00",15,"Wake up + kanji alarm","health"],["06:15",45,"Kanji + vocab review","study"],["07:00",30,"Breakfast","meal"],["08:00",60,"Grammar lessons","study"],["09:15",15,"Break","rest"],["09:30",60,"Reading practice","study"],["12:00",60,"Lunch + rest","meal"],["13:30",45,"Listening / podcast","study"],["14:30",60,"JLPT mock test","study",[6]],["18:30",45,"Dinner","meal"],["20:00",30,"Review mistakes","study"],["20:30",30,"Exercise","health"],["22:30",450,"Sleep","sleep"]]},
+ light:{n:"🌱 Light",d:"Small daily habit, easy to keep",it:[["07:00",15,"Wake up + kanji alarm","health"],["12:30",10,"10 vocab at lunch","study"],["20:00",20,"Kanji Dojo session","study"],["22:30",480,"Sleep","sleep"]]}};
+function rtCfg(){if(!S.rt)S.rt={items:[],done:{},notify:false};return S.rt}
+function rtMin(t){const[h,m]=t.split(":").map(Number);return h*60+m}
+function rtFmt(m){m=((m%1440)+1440)%1440;return String(Math.floor(m/60)).padStart(2,"0")+":"+String(m%60).padStart(2,"0")}
+function rtToday(){const r=rtCfg(),dw=new Date().getDay();return r.items.filter(x=>!x.days||x.days.length===7||x.days.includes(dw)).sort((a,b)=>rtMin(a.t)-rtMin(b.t))}
+function rtDayPct(key,dw){const r=rtCfg();const its=r.items.filter(x=>!x.days||x.days.length===7||x.days.includes(dw));if(!its.length)return null;const d=r.done[key]||[];return Math.round(its.filter(x=>d.includes(x.id)).length/its.length*100)}
+function rtKey(off){const d=new Date();d.setDate(d.getDate()-off);return[d,d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")]}
+function rtStreak(){let n=0;for(let i=0;i<365;i++){const[d,k]=rtKey(i);const p=rtDayPct(k,d.getDay());if(p===null)continue;if(p>=80)n++;else if(i>0)break}return n}
+function renderRoutine(){const box=$("#rtBox");if(!box)return;const r=rtCfg(),its=rtToday(),key=today(),done=r.done[key]||[];const now=new Date(),nm=now.getHours()*60+now.getMinutes();
+ if(!r.items.length){box.innerHTML=`<div class="rtEmpty"><div style="font-size:42px">🗓️</div><b>Plan your day, study more</b><span>Pick a ready-made routine or build your own. Check things off as you go and keep your streak.</span></div><div class="rtTpls">${Object.entries(RT_TPL).map(([k,v])=>`<button class="rtTpl" data-k="${k}"><b>${v.n}</b><span>${v.d}</span></button>`).join("")}</div><button class="btn full" id="rtAdd0" style="margin-top:10px">＋ Build my own</button>`;
+  $$("#rtBox .rtTpl").forEach(b=>b.onclick=()=>rtUseTpl(b.dataset.k));$("#rtAdd0").onclick=()=>rtEdit(null);return}
+ const pct=its.length?Math.round(its.filter(x=>done.includes(x.id)).length/its.length*100):0;
+ const cur=its.find(x=>{const s=rtMin(x.t),e=s+(x.d||30);return nm>=s&&nm<e||(e>1440&&nm<e-1440)});const nxt=its.find(x=>rtMin(x.t)>nm&&!done.includes(x.id));
+ const studyMin=its.filter(x=>x.c==="study").reduce((a,x)=>a+(x.d||0),0),studyDone=its.filter(x=>x.c==="study"&&done.includes(x.id)).reduce((a,x)=>a+(x.d||0),0);
+ const sl=its.find(x=>x.c==="sleep");
+ const week=[6,5,4,3,2,1,0].map(i=>{const[d,k]=rtKey(i);const p=rtDayPct(k,d.getDay());return`<div class="rtWd ${i===0?"td":""}"><div class="rtWb"><i style="height:${p||0}%;background:${p>=80?"#21b889":p>=40?"#ffa45c":"#ff6fa8"}"></i></div><span>${RT_DAYS[d.getDay()][0]}</span></div>`}).join("");
+ box.innerHTML=`<div class="rtHead"><div class="rtRing" style="--p:${pct}"><b>${pct}%</b><span>today</span></div><div class="grow"><div class="rtStat">🔥 <b>${rtStreak()}</b> day routine streak</div><div class="rtStat">📚 Study: <b>${durTxt(studyDone)}</b> / ${durTxt(studyMin)}</div>${sl?`<div class="rtStat">😴 Sleep: <b>${durTxt(sl.d)}</b>${sl.d<420?' <span style="color:#ff6fa8">(aim for 7h+)</span>':""}</div>`:""}</div></div>
+ <div class="rtNow">${cur?`<span class="rtLive">NOW</span> ${RT_CATS[cur.c][0]} <b>${esc(cur.n)}</b> <span class="muted">until ${rtFmt(rtMin(cur.t)+cur.d)}</span>`:nxt?`⏭ Next: ${RT_CATS[nxt.c][0]} <b>${esc(nxt.n)}</b> <span class="muted">at ${nxt.t} (in ${durTxt(rtMin(nxt.t)-nm)})</span>`:"🌙 All done for today. お疲れさま！"}</div>
+ <div class="rtList">${its.map(x=>{const c=RT_CATS[x.c]||RT_CATS.rest,ok=done.includes(x.id),s=rtMin(x.t),isNow=cur&&cur.id===x.id,past=!ok&&s+(x.d||30)<nm;return`<div class="rtIt ${ok?"ok":""} ${isNow?"now":""} ${past?"late":""}" style="--c:${c[2]}"><div class="rtT"><b>${x.t}</b><span>${durTxt(x.d)}</span></div><div class="rtBody" data-e="${x.id}"><b>${c[0]} ${esc(x.n)}</b><span>${c[1]}${x.days&&x.days.length<7?" · "+x.days.map(d=>RT_DAYS[d]).join(" "):""}${past?" · missed?":""}</span></div>${x.c==="study"&&!ok?`<button class="rtGo" data-g="${x.id}">▶</button>`:""}<button class="rtChk" data-id="${x.id}">${ok?"✓":""}</button></div>`}).join("")||'<p class="muted tiny" style="text-align:center">Nothing planned for today.</p>'}</div>
+ <div class="rtWeek">${week}</div>
+ <div class="rtBtns"><button class="btn sm" id="rtAdd">＋ Add</button><button class="btn sm" id="rtTplB">📋 Templates</button><button class="btn sm" id="rtNotif">${r.notify?"🔔 Reminders on":"🔕 Reminders off"}</button></div>`;
+ $$("#rtBox .rtChk").forEach(b=>b.onclick=()=>rtToggle(b.dataset.id));
+ $$("#rtBox .rtBody").forEach(b=>b.onclick=()=>rtEdit(b.dataset.e));
+ $$("#rtBox .rtGo").forEach(b=>b.onclick=()=>{const it=r.items.find(x=>x.id===b.dataset.g);if(typeof startSession==="function")startSession(Math.min(it.d||30,120));else go("home")});
+ $("#rtAdd").onclick=()=>rtEdit(null);$("#rtTplB").onclick=rtTplSheet;
+ $("#rtNotif").onclick=()=>{r.notify=!r.notify;save();rtSync();renderRoutine();toast(r.notify?(IS_APK&&nativeBuild()>=7?"🔔 You'll get a phone notification when each block starts":"🔔 Reminders show while the app is open"):"🔕 Routine reminders off")}}
+function rtToggle(id){const r=rtCfg(),k=today();const d=r.done[k]=r.done[k]||[];const i=d.indexOf(id);if(i>=0)d.splice(i,1);else{d.push(id);sfx.ok&&sfx.ok();addXP(3)}
+ const its=rtToday();if(i<0&&its.every(x=>d.includes(x.id))){setTimeout(()=>{confetti(80);stamp("完璧");toast("🏆 Whole routine done today! +20 XP")},250);addXP(20)}
+ const keys=Object.keys(r.done).sort();while(keys.length>60)delete r.done[keys.shift()];save();renderRoutine()}
+function rtUseTpl(k){const r=rtCfg(),t=RT_TPL[k];r.items=t.it.map((x,i)=>({id:"r"+Date.now().toString(36)+i,t:x[0],d:x[1],n:x[2],c:x[3],days:x[4]||[0,1,2,3,4,5,6]}));save();closeSheet();rtSync();renderRoutine();toast("✅ "+t.n+" routine added. Tap any item to edit it.");sfx.win()}
+function rtTplSheet(){openSheet(`<h2 style="text-align:center"><small>TEMPLATES</small>Pick a routine</h2><p class="tiny muted" style="text-align:center">This replaces your current routine. You can edit everything after.</p><div class="rtTpls">${Object.entries(RT_TPL).map(([k,v])=>`<button class="rtTpl" data-k="${k}"><b>${v.n}</b><span>${v.d}</span></button>`).join("")}</div><button class="btn full" id="rtClr" style="margin-top:12px;opacity:.7">🗑 Clear my routine</button>`);
+ $$("#sheetBody .rtTpl").forEach(b=>b.onclick=()=>rtUseTpl(b.dataset.k));$("#rtClr").onclick=()=>{const r=rtCfg();r.items=[];save();closeSheet();rtSync();renderRoutine()}}
+function rtEdit(id){const r=rtCfg(),it=id?r.items.find(x=>x.id===id):{t:"20:00",d:30,n:"",c:"study",days:[0,1,2,3,4,5,6]};
+ openSheet(`<h2 style="text-align:center"><small>ROUTINE</small>${id?"Edit item":"Add to your day"}</h2>
+ <div class="rtF"><label>What</label><input id="rtN" maxlength="40" placeholder="e.g. Kanji Dojo session" value="${esc(it.n)}"></div>
+ <div class="rtF"><label>Start</label><input type="time" id="rtTm" value="${it.t}"></div><div class="rtF"><label>How long</label><select id="rtD">${[10,15,20,25,30,45,60,90,120,180,240,360,420,480,540].map(m=>`<option value="${m}" ${m===it.d?"selected":""}>${durTxt(m)}</option>`).join("")}</select></div>
+ <div class="rtF"><label>Type</label><div class="rtCats">${Object.entries(RT_CATS).map(([k,c])=>`<button class="rtCat ${k===it.c?"on":""}" data-c="${k}">${c[0]} ${c[1]}</button>`).join("")}</div></div>
+ <div class="rtF"><label>Days</label><div class="rtDays">${RT_DAYS.map((d,i)=>`<button class="rtDay ${it.days.includes(i)?"on":""}" data-d="${i}">${d}</button>`).join("")}</div></div>
+ <button class="btn shu full" id="rtSave">${id?"💾 Save":"＋ Add"}</button>${id?'<button class="btn full" id="rtDel" style="margin-top:8px;opacity:.75">🗑 Delete</button>':""}`);
+ $$("#sheetBody .rtCat").forEach(b=>b.onclick=()=>{$$("#sheetBody .rtCat").forEach(x=>x.classList.remove("on"));b.classList.add("on")});
+ $$("#sheetBody .rtDay").forEach(b=>b.onclick=()=>b.classList.toggle("on"));
+ $("#rtSave").onclick=()=>{const n=$("#rtN").value.trim();if(!n){toast("Name it first ✍️");return}const days=$$("#sheetBody .rtDay.on").map(b=>+b.dataset.d);if(!days.length){toast("Pick at least one day");return}
+  const v={t:$("#rtTm").value||"20:00",d:+$("#rtD").value,n,c:$("#sheetBody .rtCat.on").dataset.c,days};
+  const clash=r.items.find(x=>x.id!==id&&x.c!=="sleep"&&v.c!=="sleep"&&x.days.some(d=>days.includes(d))&&rtMin(x.t)<rtMin(v.t)+v.d&&rtMin(v.t)<rtMin(x.t)+x.d);
+  if(id)Object.assign(it,v);else r.items.push(Object.assign({id:"r"+Date.now().toString(36)},v));save();closeSheet();rtSync();renderRoutine();toast(clash?"⚠️ Saved, but it overlaps with “"+clash.n+"”":"✅ Saved")};
+ if(id)$("#rtDel").onclick=()=>{r.items=r.items.filter(x=>x.id!==id);save();closeSheet();rtSync();renderRoutine()}}
+/* phone notifications at the start of each daily block (ids 300-329) */
+function rtSync(){if(!IS_APK||nativeBuild()<7||GATE||STUDY||location.hash==="#ring")return;const r=rtCfg();const want=r.notify?r.items.filter(x=>x.days.length===7).sort((a,b)=>rtMin(a.t)-rtMin(b.t)).slice(0,30):[];
+ for(let i=0;i<30;i++){const x=want[i],id=300+i;const q=x?`remind?id=${id}&s=${secsUntil(x.t)}&t=${encodeURIComponent((RT_CATS[x.c]||RT_CATS.rest)[0]+" "+x.n)}&b=${encodeURIComponent("Routine · "+x.t+" for "+durTxt(x.d)+(x.c==="study"?" · がんばって！":""))}`:`remind?id=${id}&s=-1&t=x&b=x`;if(!x&&i>=(rtSync.last||0))break;setTimeout(()=>native(q),i*300)}
+ rtSync.last=want.length;try{localStorage.setItem("kd_rtn",want.length)}catch(e){}}
+rtSync.last=+(localStorage.getItem("kd_rtn")||30);
+/* in-app nudge when a block starts */
+let rtLastPing="";setInterval(()=>{if(GATE||STUDY||location.hash==="#ring"||window.__KD_ASLEEP)return;const r=S.rt;if(!r||!r.notify)return;const n=new Date(),t=String(n.getHours()).padStart(2,"0")+":"+String(n.getMinutes()).padStart(2,"0");const it=rtToday().find(x=>x.t===t);if(it&&rtLastPing!==today()+t){rtLastPing=today()+t;toast("⏰ "+(RT_CATS[it.c]||RT_CATS.rest)[0]+" "+it.n+" · now!");buzz&&buzz([80,60,80])}if($("#v-alarm").classList.contains("on")&&n.getSeconds()===0)renderRoutine()},1000);
+setTimeout(()=>{try{rtSync()}catch(e){}},2500);
 
 /* ================= STUDY REMINDERS + SESSIONS ================= */
 function remCfg(){S.rem=S.rem||{on:false,t:"20:00",dur:60,pre:[60,15],fired:{}};S.rem.fired=S.rem.fired||{};return S.rem}
