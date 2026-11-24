@@ -1,13 +1,13 @@
 {
-  "build": 40,
-  "version": "4.0",
+  "build": 41,
+  "version": "4.1",
   "file": "app.html",
-  "size": 586046,
+  "size": 586163,
   "minNative": 6,
   "notes": [
-    "⚡ Listening plays almost instantly: audio is prepared in the background when you open JLPT, and starts streaming as soon as the first part is ready",
-    "🎙️ NEW Japanese Podcast (Kanji Dojo Radio): Yumi & Takeshi chat naturally at your level, N5 to N1, with tap-to-translate words, English toggle and a live transcript",
-    "🎧 Free podcast picks for every level (Teppei, Tomo, Haru no Nihongo, Miku, NHK)"
+    "🎙️ Podcast now has its own tab in the bottom navigation (聴 Podcast)",
+    "⏹ Podcast stops automatically when you switch tabs",
+    "💿 Fixed the spinning disc in the podcast player"
   ],
   "native": {
     "build": 11,

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <script>
-var KD_BUILD=40,KD_VER="4.0",KD_NATIVE=11;
+var KD_BUILD=41,KD_VER="4.1",KD_NATIVE=11;
 (function(){try{if(window.__KD_SWAP)return;var ls=localStorage;
  if(location.href.indexOf("file:///android_asset")===0)ls.setItem("kd_native",String(KD_NATIVE));
  var b=+(ls.getItem("kd_build")||0),h=ls.getItem("kd_html");
@@ -83,7 +83,7 @@ h2 small{display:block;font-size:12px;color:var(--muted);font-weight:500;letter-
 .t4{background:linear-gradient(135deg,#f0c14b,#d68a1e);color:#2b1a00}
 /* nav */
 nav{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;width:calc(100% - 24px);max-width:456px;z-index:5;display:flex;background:rgba(26,21,53,.82);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--line);border-radius:26px;padding:7px;box-shadow:0 14px 40px rgba(0,0,0,.5)}
-nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 0;border-radius:18px;font-size:10px;font-weight:700;color:var(--muted);transition:.25s}
+nav button{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 0;border-radius:18px;font-size:9.5px;font-weight:700;color:var(--muted);transition:.25s}
 nav button i{font-style:normal;font-family:"Shippori Mincho B1";font-size:21px;line-height:1.1}
 nav button.on{background:var(--paper);color:var(--ink)}
 nav button.on i{color:var(--shu)}
@@ -604,8 +604,8 @@ nav .navAI:active .navAIc{transform:scale(.92)}
 .podPlayI{width:40px;height:40px;flex:none;border-radius:50%;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,#ff6fa8,#7b5cff)}
 .podExtH{font-weight:900;margin:20px 0 8px}
 .podExt{position:relative;display:block;width:100%;text-align:left;border:none;border-radius:18px;padding:12px 40px 12px 14px;margin:8px 0;background:#fff;box-shadow:0 3px 0 #eee6ff;font-family:inherit;color:#2d2147}.podExt b{display:block}.podExt span{font-size:12.5px;color:#6b5f94}.podExt i{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-style:normal;font-weight:900;color:#7b5cff}
-.podNow{position:sticky;top:-12px;z-index:2;text-align:center;background:#fff;border-radius:28px;padding:20px 16px;box-shadow:0 10px 30px rgba(123,92,255,.15)}.podNow>b{display:block;font-size:19px;margin-top:12px}.podNow>span{display:block;font-size:13px;color:#6b5f94}
-.podDisc{display:inline-block;border-radius:50%;padding:6px;background:#2d2147;box-shadow:0 10px 30px rgba(45,33,71,.35)}.podDisc.spin .podArt{animation:spin 6s linear infinite}
+.podNow{position:sticky;top:0;z-index:2;text-align:center;background:#fff;border-radius:28px;padding:20px 16px;box-shadow:0 10px 30px rgba(123,92,255,.15)}.podNow>b{display:block;font-size:19px;margin-top:12px}.podNow>span{display:block;font-size:13px;color:#6b5f94}
+.podDisc{display:inline-block;border-radius:50%;padding:6px;background:#2d2147;box-shadow:0 10px 30px rgba(45,33,71,.35)}.podDisc{transform-origin:50% 50%}.podDisc.podSpin{animation:spin 6s linear infinite}
 .podBar{height:8px;border-radius:99px;background:#eee6ff;margin:14px 6px 10px;overflow:hidden}.podBar div{height:100%;width:0;background:linear-gradient(90deg,#ff6fa8,#7b5cff);transition:width .5s}
 .podCtl{display:flex;justify-content:center;align-items:center;gap:22px}.podBig{width:70px;height:70px;border:none;border-radius:50%;font-size:28px;color:#fff;background:linear-gradient(135deg,#ff6fa8,#7b5cff);box-shadow:0 8px 22px rgba(255,111,168,.45)}
 .podSm{width:48px;height:48px;border:none;border-radius:50%;font:inherit;font-weight:900;background:#f1ebff;color:#6b4fd8}.podSm.on{background:#7b5cff;color:#fff}
@@ -858,6 +858,7 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
 
     <!-- ALARM -->
     <section class="view" id="v-jlpt"><div id="jHub"></div></section>
+    <section class="view" id="v-pod"><div id="podB"></div></section>
     <section class="view" id="v-alarm">
       <h2><small>KANJI ALARM</small>目覚まし</h2>
       <div class="card" style="text-align:center">
@@ -921,6 +922,7 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
   <nav id="nav">
     <button data-v="home" class="on"><i>学</i>Learn</button>
     <button data-v="jlpt"><i>験</i>JLPT</button>
+    <button data-v="pod"><i>聴</i>Podcast</button>
     <button id="navAI" class="navAI"><span class="navAIc"><svg viewBox="0 0 64 64"><path d="M14 22 L18 4 L28 16 Z M50 22 L46 4 L36 16 Z" fill="#2b59c3"/><path d="M17 18 L19 9 L25 16 Z M47 18 L45 9 L39 16 Z" fill="#ff9eb5"/><circle cx="32" cy="32" r="22" fill="#2b59c3"/><ellipse cx="32" cy="37" rx="16" ry="13" fill="#ffe3c7"/><rect x="10" y="20" width="44" height="7" rx="3" fill="#ff4d6d"/><ellipse class="catEye" cx="25" cy="35" rx="3" ry="3.6" fill="#2d2147"/><ellipse class="catEye" cx="39" cy="35" rx="3" ry="3.6" fill="#2d2147"/><circle cx="26" cy="33.8" r="1" fill="#fff"/><circle cx="40" cy="33.8" r="1" fill="#fff"/><ellipse cx="20" cy="41" rx="3" ry="1.8" fill="#ffb3c6"/><ellipse cx="44" cy="41" rx="3" ry="1.8" fill="#ffb3c6"/><path d="M29 41 q3 3 6 0" stroke="#2d2147" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg><em></em></span>Sensei</button>
     <button data-v="game"><i>遊</i>Game</button>
     <button data-v="alarm"><i>鳴</i>Alarm</button>
@@ -982,7 +984,6 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
     </div>
   </div>
 </div>
-<div id="pod"><button class="jtX" id="podX">✕</button><div id="podB"></div></div>
 <div id="jt"><button class="jtX" id="jtX">✕</button><div id="jtB"></div></div>
 <div id="srs"><div class="srIn" id="srIn"></div></div>
 <div id="peek"><div class="pk"></div></div>
@@ -2115,7 +2116,7 @@ $("#sSound").onclick=()=>{S.sound=!S.sound;save();renderProg()};
 $("#sReset").onclick=e=>{const b=e.target;if(b.dataset.c){const keep={lockOpen:S.lockOpen,sound:S.sound,music:S.music,phoneLock:S.phoneLock,study:S.study,lv:S.lv,alarm:Object.assign({},DEF.alarm,{t:S.alarm.t,on:S.alarm.on,fired:S.alarm.fired})};S=Object.assign(JSON.parse(JSON.stringify(DEF)),keep);save();renderAll();toast("Progress reset");b.dataset.c="";b.textContent="Reset"}else{b.dataset.c=1;b.textContent="Tap again to confirm";setTimeout(()=>{b.dataset.c="";b.textContent="Reset"},3000)}};
 
 /* ================= NAV ================= */
-function go(v){const nv=(v==="write"||v==="gram")?"home":v;$$("nav button").forEach(b=>b.classList.toggle("on",b.dataset.v===nv));if(v==="jlpt")setTimeout(()=>{try{jHome()}catch(e){}},0);$$(".view").forEach(s=>s.classList.toggle("on",s.id==="v-"+v));$("#main").scrollTop=0;
+function go(v){const nv=(v==="write"||v==="gram")?"home":v;$$("nav button").forEach(b=>b.classList.toggle("on",b.dataset.v===nv));if(v==="jlpt")setTimeout(()=>{try{jHome()}catch(e){}},0);if(v==="pod")setTimeout(()=>{try{podHome()}catch(e){}},0);else if(typeof podStop==="function")podStop();$$(".view").forEach(s=>s.classList.toggle("on",s.id==="v-"+v));$("#main").scrollTop=0;
  if(v==="home")renderHome();if(v==="write")requestAnimationFrame(()=>{sizePad();renderWrite()});if(v==="gram")renderGram();if(v==="alarm"){renderAlarm();keepAwake()}if(v==="prog")renderProg();if(v==="game"){requestAnimationFrame(()=>{if(!RUN.on)runPreview()});musStart()}else musStop();
  if(v!=="game"&&$("#v-game").classList.contains("fs"))setFs(false);
  if(v!=="game"&&RUN.on){RUN.on=false;const st=$("#rStart");st.style.display="flex";st.innerHTML=`<div style="font-size:50px">⏸</div><div style="font-size:24px;font-weight:900">Paused</div><button class="btn shu" id="rGo">Run again</button>`;$("#rGo").onclick=runStart}}
@@ -2934,8 +2935,8 @@ async function podGen(lines,lv){const slow=lv==="N5"||lv==="N4"?" Speak a little
 function podChunks(ep){const out=[];for(let i=0;i<ep.l.length;i+=3)out.push({from:i,lines:ep.l.slice(i,i+3)});return out}
 function podParts(ep){return podChunks(ep).map((c,k)=>cachedAudio("pod1_"+ep.id+"_"+k,()=>podGen(c.lines,ep.lv)))}
 let podLv=null,PODP={ep:null,playing:false,paused:false};
-function podOpen(){$("#pod").classList.add("on");podHome()}
-function podClose(){podStop();$("#pod").classList.remove("on")}
+function podOpen(){go("pod")}
+function podClose(){podStop();go("home")}
 function podStop(){if(PODP.playing||PODP.paused)streamStop();PODP.playing=PODP.paused=false;try{if(AIP.ctx&&AIP.ctx.state==="suspended")AIP.ctx.resume()}catch(e){}}
 function podHome(){podStop();podLv=podLv||S.lv;const eps=PODS.filter(e=>e.lv===podLv);
  $("#podB").innerHTML=`<div class="podHero"><div class="podWave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><small>KANJI DOJO RADIO · ポッドキャスト</small><b>Japanese Podcast</b><span>Yumi &amp; Takeshi chat in natural Japanese at your level. Tap any word, see English anytime.</span></div>
@@ -2957,15 +2958,15 @@ function podPlayer(ep){podStop();PODP={ep,playing:false,paused:false,en:false,cu
  const hi=k=>{PODP.cur=k;const c=ch[k];$$("#podTr .podL").forEach(el=>{const i=+el.dataset.i;el.classList.toggle("now",i>=c.from&&i<c.from+c.lines.length)});const f=$(`#podTr .podL[data-i="${c.from}"]`);if(f)f.scrollIntoView({block:"center",behavior:"smooth"});const pg=$("#podProg");if(pg)pg.style.width=((k+1)/ch.length*100)+"%"};
  const start=()=>{if(!(typeof aiReady==="function"&&aiReady())){setSt("🌸 Connect Hana-sensei once to hear the natural voices.");toast("Connect Hana-sensei first 🌸");aiOpen("setup");return}
   if(navigator.onLine===false&&!PODP.cached){setSt("📴 Offline: episodes you've played before work offline.")}
-  PODP.playing=true;PODP.paused=false;$("#podPP").textContent="⏸";$("#podDisc").classList.add("spin");setSt("⏳ Starting…");
-  streamPlay(podParts(ep),{seg:k=>{hi(k);setSt("🔊 Playing")},end:()=>{PODP.playing=false;$("#podPP").textContent="▶";$("#podDisc").classList.remove("spin");setSt("✓ Finished! お疲れさま 🎉");addXP(10)},fail:()=>{PODP.playing=false;$("#podPP").textContent="▶";$("#podDisc").classList.remove("spin");setSt("😿 Couldn't load the audio. Check your internet and try again.")}})};
- $("#podPP").onclick=()=>{const c=AIP.ctx;if(PODP.playing&&!PODP.paused){c.suspend();PODP.paused=true;$("#podPP").textContent="▶";$("#podDisc").classList.remove("spin");setSt("⏸ Paused");return}
-  if(PODP.paused){c.resume();PODP.paused=false;$("#podPP").textContent="⏸";$("#podDisc").classList.add("spin");setSt("🔊 Playing");return}start()};
+  PODP.playing=true;PODP.paused=false;$("#podPP").textContent="⏸";$("#podDisc").classList.add("podSpin");setSt("⏳ Starting…");
+  streamPlay(podParts(ep),{seg:k=>{hi(k);setSt("🔊 Playing")},end:()=>{PODP.playing=false;$("#podPP").textContent="▶";$("#podDisc").classList.remove("podSpin");setSt("✓ Finished! お疲れさま 🎉");addXP(10)},fail:()=>{PODP.playing=false;$("#podPP").textContent="▶";$("#podDisc").classList.remove("podSpin");setSt("😿 Couldn't load the audio. Check your internet and try again.")}})};
+ $("#podPP").onclick=()=>{const c=AIP.ctx;if(PODP.playing&&!PODP.paused){c.suspend();PODP.paused=true;$("#podPP").textContent="▶";$("#podDisc").classList.remove("podSpin");setSt("⏸ Paused");return}
+  if(PODP.paused){c.resume();PODP.paused=false;$("#podPP").textContent="⏸";$("#podDisc").classList.add("podSpin");setSt("🔊 Playing");return}start()};
  $("#podRe").onclick=()=>{podStop();start()};
  $("#podEn").onclick=()=>{PODP.en=!PODP.en;$("#podTr").classList.toggle("en",PODP.en);$("#podEn").classList.toggle("on",PODP.en)};
  if(typeof aiReady==="function"&&aiReady())podParts(ep)}
-document.addEventListener("visibilitychange",()=>{if(document.hidden&&PODP.playing&&!PODP.paused){try{AIP.ctx.suspend();PODP.paused=true;const b=$("#podPP");if(b)b.textContent="▶";const d=$("#podDisc");if(d)d.classList.remove("spin");const st=$("#podSt");if(st)st.textContent="⏸ Paused"}catch(e){}}});
-$("#podX").onclick=podClose;$("#podHome").onclick=()=>{sfx.pop();podOpen()};
+document.addEventListener("visibilitychange",()=>{if(document.hidden&&PODP.playing&&!PODP.paused){try{AIP.ctx.suspend();PODP.paused=true;const b=$("#podPP");if(b)b.textContent="▶";const d=$("#podDisc");if(d)d.classList.remove("podSpin");const st=$("#podSt");if(st)st.textContent="⏸ Paused"}catch(e){}}});
+$("#podHome").onclick=()=>{sfx.pop();podOpen()};
 
 /* ================= STUDY REMINDERS + SESSIONS ================= */
 function remCfg(){S.rem=S.rem||{on:false,t:"20:00",dur:60,pre:[60,15],fired:{}};S.rem.fired=S.rem.fired||{};return S.rem}
