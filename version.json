@@ -1,13 +1,13 @@
 {
-  "build": 39,
-  "version": "3.9",
+  "build": 40,
+  "version": "4.0",
   "file": "app.html",
-  "size": 553547,
+  "size": 586046,
   "minNative": 6,
   "notes": [
-    "🎧 JLPT listening now uses natural human-like Japanese voices: a narrator plus a man and a woman talking, like the real test (needs Hana-sensei connected + internet the first time, then saved for offline)",
-    "▶ Clear 'Playing…' indicator with a progress bar, and tap to stop",
-    "⏹ Audio stops when you leave the app, go to the next question, or close the test"
+    "⚡ Listening plays almost instantly: audio is prepared in the background when you open JLPT, and starts streaming as soon as the first part is ready",
+    "🎙️ NEW Japanese Podcast (Kanji Dojo Radio): Yumi & Takeshi chat naturally at your level, N5 to N1, with tap-to-translate words, English toggle and a live transcript",
+    "🎧 Free podcast picks for every level (Teppei, Tomo, Haru no Nihongo, Miku, NHK)"
   ],
   "native": {
     "build": 11,
