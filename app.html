@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <script>
-var KD_BUILD=26,KD_VER="2.6",KD_NATIVE=9;
+var KD_BUILD=27,KD_VER="2.7",KD_NATIVE=10;
 (function(){try{if(window.__KD_SWAP)return;var ls=localStorage;
  if(location.href.indexOf("file:///android_asset")===0)ls.setItem("kd_native",String(KD_NATIVE));
  var b=+(ls.getItem("kd_build")||0),h=ls.getItem("kd_html");
@@ -487,6 +487,12 @@ select{font-family:inherit;font-size:15px;font-weight:700;background:var(--ink3)
 @keyframes shine{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
 .aiCard .aiCi{width:56px;height:56px;flex:none;border-radius:50%;background:rgba(255,255,255,.25);display:grid;place-items:center;animation:catBob 2.2s ease-in-out infinite}.aiCard .aiCi svg{width:50px;height:50px}
 .aiCard b{font-size:17px}.aiCard .tiny{color:#fff;opacity:.95}
+.aiRound{width:44px;height:44px;flex:none;border:none;border-radius:50%;font-size:19px;background:#fff;box-shadow:0 3px 10px rgba(123,92,255,.18)}
+#aiMicB.rec{background:linear-gradient(135deg,#ff5a6e,#e3203f);animation:srPulse 1.2s infinite}
+.aiRec{display:none;align-items:center;gap:8px;margin:0 12px 10px;padding:10px 14px;border-radius:18px;background:#fff0f3;border:2px solid #ffb3c6;font-size:13px;font-weight:700;color:#c2185b}.aiRec.on{display:flex}
+.aiRec button{margin-left:auto;border:none;background:#fff;border-radius:50%;width:28px;height:28px}
+.aiRecDot{width:12px;height:12px;border-radius:50%;background:#e3203f;animation:barPulse .8s infinite}
+.aiStartBig{margin-top:12px;padding:14px 26px!important;font-size:16px!important}.aiVoice.live .aiStartBig{display:none}
 /* ===== GORGEOUS LOCK SCREEN ===== */
 #lock{background:#120b2e!important}
 #lock .aur{position:absolute;inset:-20%;pointer-events:none;filter:blur(55px) saturate(1.3);opacity:.85}
@@ -809,14 +815,14 @@ input[type=time],select{background:#f7f3ff;color:#3a2a63;border:2px solid #e9e1f
   <div class="aiPane on" id="aiP-chat">
     <div class="aiMsgs" id="aiMsgs"></div>
     <div class="aiSugs"><button class="aiSug" data-q="Quiz me on the kanji I keep getting wrong">🎯 Quiz my weak kanji</button><button class="aiSug" data-q="Explain the て-form super simply with a memory trick">🧩 Explain て-form</button><button class="aiSug" data-q="Let's have a short, easy conversation in Japanese at my level. You start!">🗣️ Japanese conversation</button><button class="aiSug" data-q="Check my Japanese sentence and correct it: ">✏️ Correct my sentence</button><button class="aiSug" data-q="Give me a fun 5-minute lesson for today based on my level">📅 Today's mini lesson</button></div>
-    <div class="aiBar"><textarea id="aiIn" rows="1" placeholder="Ask Hana-sensei anything…"></textarea><button id="aiSendB">➤</button></div>
+    <div class="aiBar"><button id="aiMicB" class="aiRound" title="Speak">🎙️</button><textarea id="aiIn" rows="1" placeholder="Ask Hana-sensei…"></textarea><button id="aiCallB" class="aiRound" title="Voice call">📞</button><button id="aiSendB">➤</button></div><div class="aiRec" id="aiRec"><span class="aiRecDot"></span><b id="aiRecT">0:00</b> Listening… tap 🎙️ again to send<button id="aiRecX">✕</button></div>
   </div>
   <div class="aiPane" id="aiP-voice">
     <div class="aiVoice" id="aiV">
       <div class="aiOrbW" id="aiOrbW"><canvas id="aiOrb" width="560" height="560"></canvas><div class="aiOrbHint">Tap to talk</div></div>
       <div class="aiVStat" id="aiVStat">Tap the orb to start talking</div>
       <div class="aiCaps"><div id="aiCapU"></div><div id="aiCapA"></div></div>
-      <div class="aiVCtl"><button id="aiMute">🎙️</button><button id="aiEnd">✕</button></div>
+      <button class="btn shu aiStartBig" id="aiStartB">🎙️ Start talking</button><div class="aiVCtl"><button id="aiMute">🎙️</button><button id="aiEnd">✕</button></div>
       <div class="tiny" style="opacity:.6;margin-top:8px">Voice: <b id="aiVName">Aoede</b> · change in ⚙️ · talk in English, Tagalog or Japanese</div>
     </div>
   </div>
@@ -2042,7 +2048,12 @@ function showUpd(kind,v,base){if(GATE||STUDY||ringing)return;const u=$("#upd");u
  $("#updLater").style.display=kind==="app"?"block":"none";
  const go=$("#updGo"),msg=$("#updMsg");go.disabled=false;
  if(kind==="app"){go.textContent="⬇ Download new app version";msg.textContent="This update changes the app itself, so it installs over your current app. Your progress stays.";
-  go.onclick=()=>{native("open/"+v.native.url);msg.textContent="The download opened in your browser. Tap the file when it finishes, then Install."}}
+  if(nativeBuild()>=10){go.textContent="⬇ Update now (in the app)";msg.textContent="Downloads inside the app and installs over your current app. Your progress stays.";
+   go.onclick=()=>{const url=(v.native.direct||"https://raw.githubusercontent.com/"+UPD_REPO+"/main/KanjiDojo.apk")+"?v="+v.native.build+"&f=KanjiDojo-"+v.native.build+"-"+Date.now()+".apk";native("install/"+url);
+    go.disabled=true;go.textContent="Downloading… ⏳";$("#updBarW").style.display="block";let p=0;const t=setInterval(()=>{p=Math.min(95,p+2);$("#updBar").style.width=p+"%"},400);setTimeout(()=>clearInterval(t),20000);
+    msg.innerHTML="Keep Kanji Dojo open. When the download finishes, Android's installer opens by itself: tap <b>Update / Install</b>.<br>First time only: if Android asks, turn on <b>Allow from this source</b> for Kanji Dojo, then go back.<br>If nothing opens, tap the <b>Kanji Dojo update</b> notification.";
+    setTimeout(()=>{go.disabled=false;go.textContent="⬇ Download again"},25000)}}
+  else go.onclick=()=>{native("open/"+v.native.url);msg.textContent="The download opened in your browser. Tap the file when it finishes, then Install. (After this version, updates install right inside the app!)"}}
  else{go.textContent="Update now · "+Math.max(1,Math.round((v.size||100000)/1024))+" KB";msg.textContent="Only the changed part downloads. Your progress stays.";
   go.onclick=async()=>{go.disabled=true;go.textContent="Downloading…";$("#updBarW").style.display="block";let p=0;const t=setInterval(()=>{p=Math.min(90,p+7);$("#updBar").style.width=p+"%"},120);
    try{const {text}=await fetchText(v.file||"app.html");if(text.indexOf("KD_BUILD="+v.build+",")<0)throw new Error("bad file");
@@ -2383,7 +2394,7 @@ function orbLoop(){const cv=$("#aiOrb");if(!cv||!$("#ai").classList.contains("on
  const sh=g.createRadialGradient(cx-R*.35,cy-R*.4,0,cx-R*.35,cy-R*.4,R*.9);sh.addColorStop(0,"rgba(255,255,255,.75)");sh.addColorStop(1,"rgba(255,255,255,0)");g.fillStyle=sh;g.fillRect(0,0,W,H);g.restore()}
 /* ---- UI ---- */
 function aiOpen(tab){$("#ai").classList.add("on");sfx.pop();const c=aiCfg();aiShow(c.key?(tab||"chat"):"setup");if(!LV.raf)orbLoop()}
-function aiClose(){if(LV.on)lvStop();$("#ai").classList.remove("on");aiStopAudio()}
+function aiClose(){if(REC.on)recStop(false);if(LV.on)lvStop();$("#ai").classList.remove("on");aiStopAudio()}
 function aiShow(v){$$("#ai .aiPane").forEach(p=>p.classList.toggle("on",p.id==="aiP-"+v));$$("#ai .aiTab").forEach(b=>b.classList.toggle("on",b.dataset.t===v));
  if(v==="chat")aiRenderChat();if(v==="setup")aiRenderSetup();if(v==="voice"){$("#aiVName").textContent=aiCfg().voice;if(!LV.on)lvStatus("Tap the orb to start talking");if(!LV.raf)orbLoop()}if(v!=="voice"&&LV.on)lvStop()}
 function mdLite(t){let h=jlink(t);h=h.replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/(^|\n)\s*[-•*] (.+)/g,"$1<span class='aiLi'>• $2</span>").replace(/\n/g,"<br>");return h}
@@ -2420,6 +2431,27 @@ $("#aiTest").onclick=aiTestKey;$("#aiGetKey").onclick=()=>{const u="https://aist
 $("#aiAuto").onclick=()=>{const c=aiCfg();c.autoSpeak=!c.autoSpeak;aiSave(c);$("#aiAuto").classList.toggle("on",c.autoSpeak)};
 $("#aiClear").onclick=()=>{aiHistSave([]);aiRenderChat();toast("Chat cleared 🧹")};
 $("#aiForget").onclick=()=>{const c=aiCfg();delete c.key;aiSave(c);$("#aiKey").value="";toast("Key removed from this phone")};
+
+/* chat: speak instead of typing (record → Gemini transcribes → send) */
+const REC={on:false,st:null,ctx:null,pr:null,chunks:[],rate:16000,t0:0,tm:0};
+function wavB64(f32,rate){const n=f32.length,buf=new ArrayBuffer(44+n*2),dv=new DataView(buf);const w=(o,s)=>{for(let i=0;i<s.length;i++)dv.setUint8(o+i,s.charCodeAt(i))};
+ w(0,"RIFF");dv.setUint32(4,36+n*2,true);w(8,"WAVE");w(12,"fmt ");dv.setUint32(16,16,true);dv.setUint16(20,1,true);dv.setUint16(22,1,true);dv.setUint32(24,rate,true);dv.setUint32(28,rate*2,true);dv.setUint16(32,2,true);dv.setUint16(34,16,true);w(36,"data");dv.setUint32(40,n*2,true);
+ for(let i=0;i<n;i++){const v=Math.max(-1,Math.min(1,f32[i]));dv.setInt16(44+i*2,v<0?v*0x8000:v*0x7fff,true)}return b64FromBytes(new Uint8Array(buf))}
+async function recStart(){const c=aiCfg();if(!c.key){aiShow("setup");return}if(IS_APK&&nativeBuild()<9){toast("🎙️ The microphone needs the new app version. Install it from the update pop-up.");return}
+ let st=null;for(let a=0;a<6&&!st;a++){try{st=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true}})}catch(e){if(IS_APK&&a===0)native("mic");if(a===5){toast("🎙️ Please allow the microphone for Kanji Dojo");return}toast("Tap Allow for the microphone 🎙️");await new Promise(r=>setTimeout(r,2500))}}
+ const C=window.AudioContext||window.webkitAudioContext;REC.ctx=new C();REC.st=st;REC.chunks=[];const src=REC.ctx.createMediaStreamSource(st),pr=REC.ctx.createScriptProcessor(4096,1,1);
+ pr.onaudioprocess=e=>{if(REC.on)REC.chunks.push(downsample(e.inputBuffer.getChannelData(0).slice(0),REC.ctx.sampleRate,16000))};src.connect(pr);const g=REC.ctx.createGain();g.gain.value=0;pr.connect(g);g.connect(REC.ctx.destination);REC.pr=pr;
+ REC.on=true;REC.t0=Date.now();$("#aiRec").classList.add("on");$("#aiMicB").classList.add("rec");sfx.pop();
+ REC.tm=setInterval(()=>{const s=Math.floor((Date.now()-REC.t0)/1000);$("#aiRecT").textContent=Math.floor(s/60)+":"+String(s%60).padStart(2,"0");if(s>=60)recStop(true)},250)}
+function recClean(){REC.on=false;clearInterval(REC.tm);try{REC.pr&&REC.pr.disconnect()}catch(e){}try{REC.st&&REC.st.getTracks().forEach(t=>t.stop())}catch(e){}try{REC.ctx&&REC.ctx.close()}catch(e){}REC.st=REC.ctx=REC.pr=null;$("#aiRec").classList.remove("on");$("#aiMicB").classList.remove("rec")}
+async function recStop(send){if(!REC.on)return;const parts=REC.chunks;recClean();if(!send)return;let n=0;parts.forEach(p=>n+=p.length);if(n<16000*0.4){toast("Too short. Hold on a bit longer 🎙️");return}
+ const all=new Float32Array(n);let o=0;parts.forEach(p=>{all.set(p,o);o+=p.length});$("#aiIn").value="";$("#aiIn").placeholder="✍️ Writing down what you said…";
+ try{const {r}=await aiPost(AI_CHAT_MODELS,"generateContent",{contents:[{parts:[{inlineData:{mimeType:"audio/wav",data:wavB64(all,16000)}},{text:"Transcribe this recording exactly as spoken. The speaker may use English, Tagalog/Taglish or Japanese (write Japanese in Japanese script). Output only the transcript, nothing else. If there is no speech, output nothing."}]}],generationConfig:{temperature:0}});
+  const j=await r.json();const t=((((j.candidates||[])[0]||{}).content||{}).parts||[]).filter(p=>p.text&&!p.thought).map(p=>p.text).join("").trim();
+  $("#aiIn").placeholder="Ask Hana-sensei…";if(!t){toast("I didn't catch that. Try again 🎙️");return}aiSend(t)}
+ catch(e){$("#aiIn").placeholder="Ask Hana-sensei…";toast(/^KEY:/.test(e.message)?"❌ API key not working":"😿 Couldn't understand the audio. Try again")}}
+$("#aiMicB").onclick=()=>REC.on?recStop(true):recStart();$("#aiRecX").onclick=()=>recStop(false);
+$("#aiCallB").onclick=()=>{aiShow("voice");lvStart()};$("#aiStartB").onclick=()=>{if(!LV.on)lvStart()};
 $("#aiHome").onclick=()=>aiOpen();
 document.addEventListener("visibilitychange",()=>{if(document.hidden&&LV.on)lvStop()});
 

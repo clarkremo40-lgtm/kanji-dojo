@@ -1,19 +1,18 @@
 {
-  "build": 26,
-  "version": "2.6",
+  "build": 27,
+  "version": "2.7",
   "file": "app.html",
-  "size": 460531,
+  "size": 466535,
   "minNative": 6,
   "notes": [
-    "🌸 NEW: Hana-sensei, your AI Japanese tutor! Chat with her or talk in a real-time voice call",
-    "🗣️ 30 natural human-like voices to choose from (tap ▶ to hear each one)",
-    "🧠 She knows your level, your weak kanji and your grammar progress, corrects you gently and quizzes you",
-    "🔑 Uses your own free Gemini API key (setup guide inside)",
-    "🎙️ Voice calls need the new app version 2.6 (microphone permission)"
+    "📲 App updates now download and install right inside the app. No more going to the website (starting from this version)",
+    "🎙️ Mic button in Hana-sensei's chat: tap, speak, tap again, and she answers",
+    "📞 Call button in the chat and a big Start talking button for voice calls"
   ],
   "native": {
-    "build": 9,
-    "version": "2.6",
-    "url": "https://github.com/clarkremo40-lgtm/kanji-dojo/raw/main/KanjiDojo.apk"
+    "build": 10,
+    "version": "2.7",
+    "url": "https://github.com/clarkremo40-lgtm/kanji-dojo/raw/main/KanjiDojo.apk",
+    "direct": "https://raw.githubusercontent.com/clarkremo40-lgtm/kanji-dojo/main/KanjiDojo.apk"
   }
 }
