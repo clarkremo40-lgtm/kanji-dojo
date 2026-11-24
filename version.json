@@ -1,12 +1,11 @@
 {
-  "build": 34,
-  "version": "3.4",
+  "build": 35,
+  "version": "3.5",
   "file": "app.html",
-  "size": 491744,
+  "size": 492199,
   "minNative": 6,
   "notes": [
-    "😈 Savage mode is now permanent: Hana-sensei always swears and trash talks (in natural Pinoy Taglish)",
-    "Fixed: she no longer says swearing isn't allowed"
+    "😈 Hana-sensei's mura is now 'sakto lang': casual, mostly when roasting your mistakes or hyping a win, in chat and voice calls"
   ],
   "native": {
     "build": 10,
